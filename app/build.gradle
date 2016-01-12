@@ -6,7 +6,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "app.fxa.com.appframework"
+        applicationId "com.zl.app"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
