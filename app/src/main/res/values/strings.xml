@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppFramework</string>
+    <string name="app_name">zlapp</string>
 
     <string name="main_menu_item1">tab1</string>
     <string name="main_menu_item2">tab2</string>
