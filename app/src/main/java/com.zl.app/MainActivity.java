@@ -1,5 +1,6 @@
 package com.zl.app;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zl.app.R;
+import com.zl.app.activity.LoginActivity;
 import com.zl.app.fragment.FragmentA_;
 import com.zl.app.fragment.FragmentB_;
 import com.zl.app.fragment.FragmentC_;
@@ -108,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
     @Click(R.id.radio4)
     void radio4Click() {
         titleView.setText("tab4");
-        switchFragment(frgmentManager.beginTransaction(), fragment_d);
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        //switchFragment(frgmentManager.beginTransaction(), fragment_d);
     }
 
     public void switchFragment(FragmentTransaction fragmentTransaction,
