@@ -32,7 +32,7 @@ public class StartActivity extends BaseActivity {
     @ViewById(R.id.img_bg)
     ImageView imageView;
 
-    String imgUrl = "http://c.hiphotos.baidu.com/image/pic/item/5bafa40f4bfbfbed91fbb0837ef0f736aec31faf.jpg";
+    String imgUrl = "http://b.hiphotos.baidu.com/zhidao/pic/item/d058ccbf6c81800a586adb34b23533fa828b4778.jpg";
 
 
     @AfterViews
@@ -68,7 +68,7 @@ public class StartActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(tag, error.getMessage());
+                Log.i(tag, error.getMessage()==null?"":error.getMessage());
             }
 
             @Override
