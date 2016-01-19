@@ -15,10 +15,10 @@ import com.zl.app.util.StringUtil;
 import com.zl.app.util.ViewUtil;
 
 /**
- * Created by admin on 2016/1/19.
+ * Created by fengxiang on 2016/1/19.
  */
 
-public abstract  class BaseActivityWithToolBar extends BaseActivity{
+public abstract class BaseActivityWithToolBar extends BaseActivity {
 
     protected Toolbar toolbar;
     protected ImageView btnLeft1;
@@ -70,73 +70,92 @@ public abstract  class BaseActivityWithToolBar extends BaseActivity{
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         onBtnLeft1Click();
+        onBtnLeft2Click();
+        onBtnRight1Click();
+        onBtnRight2Click();
         onTextRight1Click();
         onTextRight2Click();
     }
 
-    protected void setTitle(@NonNull String title){
-        if(titleView!=null && !StringUtil.isEmpty(title)){
+    protected void setTitle(@NonNull String title) {
+        if (titleView != null && !StringUtil.isEmpty(title)) {
             titleView.setText(title);
         }
     }
 
-    protected void setBtnLeft1Enable(boolean isEnable){
-         if(isEnable){
-             ViewUtil.show(btnLeft1);
-         }else{
-             ViewUtil.hide(btnLeft1);
-         }
+    protected void setBtnLeft1ImageResource(int resId) {
+        btnLeft1.setImageResource(resId);
     }
 
-    protected void setBtnLeft2Enable(boolean isEnable){
-        if(isEnable){
+    protected void setBtnLeft2ImageResource(int resId) {
+        btnLeft2.setImageResource(resId);
+    }
+
+    protected void setBtnRight1ImageResource(int resId) {
+        btnRight1.setImageResource(resId);
+    }
+
+    protected void setBtnRight2ImageResource(int resId) {
+        btnRight2.setImageResource(resId);
+    }
+
+    protected void setBtnLeft1Enable(boolean isEnable) {
+        if (isEnable) {
+            ViewUtil.show(btnLeft1);
+        } else {
+            ViewUtil.hide(btnLeft1);
+        }
+    }
+
+    protected void setBtnLeft2Enable(boolean isEnable) {
+        if (isEnable) {
             ViewUtil.show(btnLeft2);
-        }else{
+        } else {
             ViewUtil.hide(btnLeft2);
         }
     }
 
-    protected void setBtnRight1Enable(boolean isEnable){
-        if(isEnable){
+    protected void setBtnRight1Enable(boolean isEnable) {
+        if (isEnable) {
             ViewUtil.show(btnRight1);
-        }else{
+        } else {
             ViewUtil.hide(btnRight2);
         }
     }
 
-    protected void setBtnRight2Enable(boolean isEnable){
-        if(isEnable){
+    protected void setBtnRight2Enable(boolean isEnable) {
+        if (isEnable) {
             ViewUtil.show(btnRight2);
-        }else{
+        } else {
             ViewUtil.hide(btnRight2);
         }
     }
 
-    protected void setTextRight1Enable(boolean isEnable){
-        if(isEnable){
+    protected void setTextRight1Enable(boolean isEnable) {
+        if (isEnable) {
             ViewUtil.show(textRight1);
-        }else{
+        } else {
             ViewUtil.hide(textRight1);
         }
     }
 
-    protected void setTextRight2Enable(boolean isEnable){
-        if(isEnable){
+    protected void setTextRight2Enable(boolean isEnable) {
+        if (isEnable) {
             ViewUtil.show(textRight2);
-        }else{
+        } else {
             ViewUtil.hide(textRight2);
         }
     }
 
-    protected  void setTextRight1Val(String value){
-        if(StringUtil.isEmpty(value)){
+    protected void setTextRight1Val(String value) {
+        if (StringUtil.isEmpty(value)) {
             value = "";
         }
         textRight1.setText(value);
     }
 
-    protected  void setTextRight2Val(String value){
-        if(StringUtil.isEmpty(value)){
+    protected void setTextRight2Val(String value) {
+        if (StringUtil.isEmpty(value)) {
             value = "";
         }
         textRight2.setText(value);
@@ -144,32 +163,32 @@ public abstract  class BaseActivityWithToolBar extends BaseActivity{
 
 
     //默认关闭当前activity
-    protected void onBtnLeft1Click(){
-         btnLeft1.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 BaseActivityWithToolBar.this.finish();
-             }
-         });
+    protected void onBtnLeft1Click() {
+        btnLeft1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseActivityWithToolBar.this.finish();
+            }
+        });
     }
 
-    protected void onBtnLeft2Click(){
-
-    }
-
-    protected void onBtnRight1Click(){
+    protected void onBtnLeft2Click() {
 
     }
 
-    protected void onBtnRight2Click(){
+    protected void onBtnRight1Click() {
 
     }
 
-    protected void onTextRight1Click(){
+    protected void onBtnRight2Click() {
 
     }
 
-    protected void onTextRight2Click(){
+    protected void onTextRight1Click() {
+
+    }
+
+    protected void onTextRight2Click() {
 
     }
 

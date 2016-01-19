@@ -1,5 +1,6 @@
 package com.zl.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -27,7 +28,7 @@ import java.util.List;
 public class MainActivity extends BaseActivityWithToolBar {
 
     String TAG = MainActivity.class.getName();
-
+    Context context = null;
     @ViewById
     RadioButton radio1;
 
@@ -40,7 +41,6 @@ public class MainActivity extends BaseActivityWithToolBar {
     @ViewById
     RadioButton radio4;
 
-
     BaseFragment fragment_a, fragment_b, fragment_c, fragment_d;
 
     FragmentManager frgmentManager;
@@ -49,9 +49,12 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @AfterViews
     void afterViews() {
+        context = MainActivity.this;
         setTitle("主界面");
-        setTextRight1Enable(true);
-        setTextRight1Val("按钮1");
+        setBtnRight1Enable(true);
+        setBtnRight2Enable(true);
+        setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
+        setBtnRight2ImageResource(R.mipmap.menu_search);
         frgmentManager = getSupportFragmentManager();
         fragment_a = new FragmentA_();
         fragment_b = new FragmentB_();
@@ -67,19 +70,30 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragments.add(fragment_c);
         fragments.add(fragment_d);
 
-
         radio1.setChecked(true);
     }
 
     @Override
-    protected void onTextRight1Click() {
-        textRight1.setOnClickListener(new View.OnClickListener() {
+    protected void onBtnRight2Click() {
+        btnRight2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(MainActivity.this, "textRight1 click");
+                ToastUtil.show(context, "search btn click");
+            }
+        });
+
+    }
+
+    @Override
+    protected void onBtnRight1Click() {
+        btnRight1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.show(context, "setting btn click");
             }
         });
     }
+
 
     @Click(R.id.radio1)
     void radio1Click() {

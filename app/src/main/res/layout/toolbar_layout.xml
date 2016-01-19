@@ -43,11 +43,11 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="16dp"
         android:text="按钮1"
-        android:visibility="gone"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone" />
 
 
     <ImageView
@@ -55,10 +55,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="16dp"
         android:clickable="true"
-        android:visibility="gone"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/right2"
@@ -66,13 +66,12 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="16dp"
         android:clickable="true"
         android:text="按钮2"
-        android:visibility="gone"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
-
+        android:textSize="20sp"
+        android:visibility="gone" />
 
 
     <ImageView
@@ -80,10 +79,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="16dp"
         android:clickable="true"
-        android:visibility="gone"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
 
 
 </android.support.v7.widget.Toolbar>
