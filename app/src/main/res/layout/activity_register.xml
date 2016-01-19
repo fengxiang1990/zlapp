@@ -1,53 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/base_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/topTitleView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/top_height"
-                android:gravity="center"
-                android:text="@string/register_title"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/top_height"
-            android:gravity="center_vertical" >
-
-            <TextView
-                android:id="@+id/closeView"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/top_height"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:text="关闭"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </RelativeLayout>
-    </FrameLayout>
+    <include layout="@layout/toolbar_layout" />
 
     <ScrollView
         android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/top" >
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -296,4 +263,5 @@
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>
+    </merge>

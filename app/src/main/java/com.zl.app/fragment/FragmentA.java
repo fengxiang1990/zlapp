@@ -50,7 +50,7 @@ public class FragmentA extends BaseFragment {
         }.getType());
         ArrayList<ViewProp> list = map.get("views");
         Log.i(TAG, list.size() + "");
-        initView(list);
+        //initView(list);
     }
 
     public void initView(@NonNull ArrayList<ViewProp> list) {

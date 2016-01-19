@@ -1,79 +1,60 @@
 package com.zl.app.activity;
 
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zl.app.BaseActivity;
 import com.zl.app.R;
+import com.zl.app.util.ViewUtil;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
+@EActivity(R.layout.get_password_activity)
 public class GetPasswordActivity extends BaseActivity {
 
-    String TAG = RegistActivity.class.getName();
+    String TAG = GetPasswordActivity.class.getName();
 
-    TextView closeView, msgTextView;
+    @ViewById(R.id.msgText)
+    TextView msgTextView;
+
+    @ViewById(R.id.btn_get_pass)
     Button zhbtn;
+
+    @ViewById(R.id.phoneText)
     EditText telView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        this.setContentView(R.layout.get_password_activity);
-        super.onCreate(savedInstanceState);
-        initView();
-        initEvent();
+    @ViewById(R.id.toolbar)
+    Toolbar toolbar;
+
+    @ViewById
+    TextView titleView;
+
+    @ViewById(R.id.leftBtn1)
+    ImageView leftBtn1;
+
+
+    @AfterViews
+    void afterViews() {
+        toolbar.setTitle("");
+        titleView.setText(getResources().getString(R.string.register_quick));
+        setSupportActionBar(toolbar);
+        ViewUtil.show(leftBtn1);
     }
 
-    public void initView() {
-        // TODO Auto-generated method stub
-        zhbtn = (Button) this.findViewById(R.id.btn_get_pass);
-        closeView = (TextView) this.findViewById(R.id.closeView);
-        msgTextView = (TextView) this.findViewById(R.id.msgText);
-        telView = (EditText) this.findViewById(R.id.phoneText);
+    @Click(R.id.leftBtn1)
+    void leftBtn1Click() {
+        GetPasswordActivity.this.finish();
     }
 
+    @Click(R.id.btn_get_pass)
+    void btnGetPassClick() {
 
-    public void initEvent() {
-        // TODO Auto-generated method stub
-        zhbtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0){
-
-            }
-        });
-
-
-        closeView.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                GetPasswordActivity.this.finish();
-            }
-        });
     }
-
-
-    Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    msgTextView.setVisibility(View.VISIBLE);
-                    break;
-                default:
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-
-    };
 }

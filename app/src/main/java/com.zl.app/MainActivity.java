@@ -3,11 +3,16 @@ package com.zl.app;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.zl.app.activity.LoginActivity_;
+import com.zl.app.base.BaseActivityWithToolBar;
+import com.zl.app.fragment.FragmentA_;
+import com.zl.app.fragment.FragmentB_;
+import com.zl.app.fragment.FragmentC_;
+import com.zl.app.fragment.FragmentD_;
+import com.zl.app.util.ToastUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -17,16 +22,9 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zl.app.R;
-import com.zl.app.activity.LoginActivity;
-import com.zl.app.fragment.FragmentA_;
-import com.zl.app.fragment.FragmentB_;
-import com.zl.app.fragment.FragmentC_;
-import com.zl.app.fragment.FragmentD_;
-
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivityWithToolBar {
 
     String TAG = MainActivity.class.getName();
 
@@ -42,12 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @ViewById
     RadioButton radio4;
 
-    @ViewById(R.id.toolbar)
-    Toolbar toolbar;
-
-    @ViewById
-    TextView titleView;
-
 
     BaseFragment fragment_a, fragment_b, fragment_c, fragment_d;
 
@@ -57,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
     @AfterViews
     void afterViews() {
-        toolbar.setTitle("");
-        titleView.setText("tab1");
-        setSupportActionBar(toolbar);
+        setTitle("主界面");
+        setTextRight1Enable(true);
+        setTextRight1Val("按钮1");
         frgmentManager = getSupportFragmentManager();
         fragment_a = new FragmentA_();
         fragment_b = new FragmentB_();
@@ -79,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
         radio1.setChecked(true);
     }
 
-    @Click(R.id.right1)
-    void right1Click(){
-        Toast.makeText(MainActivity.this, "right1 btn click", Toast.LENGTH_SHORT).show();
-    }
-
-    @Click(R.id.right2)
-    void right2Click(){
-        Toast.makeText(MainActivity.this, "right2 btn click", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onTextRight1Click() {
+        textRight1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.show(MainActivity.this, "textRight1 click");
+            }
+        });
     }
 
     @Click(R.id.radio1)
@@ -110,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     @Click(R.id.radio4)
     void radio4Click() {
         titleView.setText("tab4");
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
         startActivity(intent);
         //switchFragment(frgmentManager.beginTransaction(), fragment_d);
     }

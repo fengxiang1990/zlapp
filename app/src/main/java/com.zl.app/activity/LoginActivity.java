@@ -2,139 +2,89 @@ package com.zl.app.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zl.app.BaseActivity;
 import com.zl.app.R;
+import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.ToastUtil;
+import com.zl.app.util.ViewUtil;
 
-public class LoginActivity extends BaseActivity {
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.CheckedChange;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
+@EActivity(R.layout.login_layout)
+public class LoginActivity extends BaseActivityWithToolBar {
+
+    @ViewById(R.id.forgetPassword)
     TextView wjmm;
+
+    @ViewById(R.id.myzhdjzc)
     TextView myzhdjzc;
+
+    @ViewById(R.id.savePassWord)
     CheckBox jzmm;
+
+    @ViewById(R.id.passwordView)
     EditText passwordView;
+
+    @ViewById(R.id.button1)
     Button loginBtn;
 
+    @ViewById(R.id.usernameView)
     EditText userView;
-    ImageButton backBtn;
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.login_layout);
-        super.onCreate(savedInstanceState);
-        initView();
-        initEvent();
-        initData();
-    }
 
-    public void initView() {
-        userView = (EditText) this.findViewById(R.id.usernameView);
-        passwordView = (EditText) this.findViewById(R.id.passwordView);
-        loginBtn = (Button) this.findViewById(R.id.button1);
-        myzhdjzc = (TextView) this.findViewById(R.id.myzhdjzc);
-        jzmm = (CheckBox) this.findViewById(R.id.savePassWord);
-        wjmm = (TextView) this.findViewById(R.id.forgetPassword);
-        backBtn = (ImageButton) this.findViewById(R.id.backBtn);
-    }
-
-    Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    ToastUtil.show(getApplicationContext(), "登陆成功");
-                    LoginActivity.this.finish();
-                    break;
-                case 1:
-                    ToastUtil.show(getApplicationContext(), "用户不存在");
-                    break;
-                case 2:
-                    ToastUtil.show(getApplicationContext(), "密码错误");
-                    break;
-                case 3:
-                    ToastUtil.show(getApplicationContext(), "账号停用");
-                    break;
-                default:
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-
-    };
-
-
-    public void initEvent() {
-        backBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                LoginActivity.this.finish();
-            }
-        });
-        wjmm.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(LoginActivity.this, GetPasswordActivity.class);
-                startActivity(intent);
-            }
-        });
-        jzmm.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton arg0, boolean ischecked) {
-                if (ischecked) {
-                    Editor editor = preference.edit();
-                    editor.putBoolean(AppConfig.IS_REMEMBER_PASSWORD, true);
-                    editor.commit();
-                } else {
-                    Editor editor = preference.edit();
-                    editor.putBoolean(AppConfig.IS_REMEMBER_PASSWORD, false);
-                    editor.commit();
-                }
-            }
-        });
-        myzhdjzc.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                Intent intent = new Intent(LoginActivity.this, RegistActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-        loginBtn.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View view) {
-
-            }
-        });
-    }
-
-
-    public void initData() {
-        // TODO Auto-generated method stub
+    @AfterViews
+    void afterViews() {
+        setBtnLeft1Enable(true);
+        setTitle(getResources().getString(R.string.login_title));
         myzhdjzc.setText(Html.fromHtml(getResources().getString(R.string.register_text)));
     }
+
+
+    @Click(R.id.forgetPassword)
+    void wjmmClick() {
+        Intent intent = new Intent(LoginActivity.this, GetPasswordActivity_.class);
+        startActivity(intent);
+    }
+
+    @CheckedChange(R.id.savePassWord)
+    void savePassWordChecked(CompoundButton arg0, boolean ischecked) {
+        if (ischecked) {
+            Editor editor = preference.edit();
+            editor.putBoolean(AppConfig.IS_REMEMBER_PASSWORD, true);
+            editor.commit();
+        } else {
+            Editor editor = preference.edit();
+            editor.putBoolean(AppConfig.IS_REMEMBER_PASSWORD, false);
+            editor.commit();
+        }
+    }
+
+    @Click(R.id.myzhdjzc)
+    void registNewUser() {
+        Intent intent = new Intent(LoginActivity.this, RegistActivity_.class);
+        startActivity(intent);
+    }
+
+    @Click(R.id.button1)
+    void loginClick() {
+        ToastUtil.show(this, "login click");
+    }
+
 
     @Override
     protected void onResume() {
