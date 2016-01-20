@@ -5,24 +5,24 @@ import java.util.concurrent.Executors;
 
 public class ThreadPool {
 
-	private ThreadPool() {
-	}
+    private ThreadPool() {
+    }
 
-	private static ExecutorService executorService = Executors
-			.newSingleThreadExecutor();
+    private static ExecutorService executorService = Executors
+            .newSingleThreadExecutor();
 
-	private static ExecutorService cacheService = Executors
-			.newCachedThreadPool();
+    private static ExecutorService cacheService = Executors
+            .newCachedThreadPool();
 
-	public static ExecutorService getSingleThread() {
+    public static ExecutorService getSingleThread() {
 
-		return executorService;
+        return executorService;
 
-	}
+    }
 
-	public static ExecutorService getCacheService() {
+    public static ExecutorService getCacheService() {
 
-		return cacheService;
+        return cacheService;
 
-	}
+    }
 }

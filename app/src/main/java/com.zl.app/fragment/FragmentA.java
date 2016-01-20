@@ -116,10 +116,10 @@ public class FragmentA extends BaseFragment {
                 } else if (viewProp.getHeight() == -1) {
                     params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 }
-                if(viewProp.getMaginLeft()==0 && viewProp.getMarginBottom()==0
-                        && viewProp.getMarginRight() == 0 && viewProp.getMarinTop() == 0){
-                    params.setMargins(viewProp.getMargin(),viewProp.getMargin(),viewProp.getMargin(),viewProp.getMargin());
-                }else{
+                if (viewProp.getMaginLeft() == 0 && viewProp.getMarginBottom() == 0
+                        && viewProp.getMarginRight() == 0 && viewProp.getMarinTop() == 0) {
+                    params.setMargins(viewProp.getMargin(), viewProp.getMargin(), viewProp.getMargin(), viewProp.getMargin());
+                } else {
                     params.setMargins(viewProp.getMaginLeft(), viewProp.getMarinTop(), viewProp.getMarginRight(), viewProp.getMarginBottom());
                 }
 
@@ -131,18 +131,17 @@ public class FragmentA extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         StringBuilder sb = new StringBuilder();
-                         for(View view: views){
-                             if(view instanceof EditText){
-                                 EditText editText = (EditText) view;
-                                 String tag = String.valueOf(editText.getTag());
-                                 sb.append(tag).append("=").append(editText.getText().toString()).append("&");
-                             }
-                         }
-                        Toast.makeText(getActivity(),sb.toString(),Toast.LENGTH_SHORT).show();
+                        for (View view : views) {
+                            if (view instanceof EditText) {
+                                EditText editText = (EditText) view;
+                                String tag = String.valueOf(editText.getTag());
+                                sb.append(tag).append("=").append(editText.getText().toString()).append("&");
+                            }
+                        }
+                        Toast.makeText(getActivity(), sb.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-            else {
+            } else {
                 //other views,for example,textview,radio,checkbox,imageview ...
             }
         }

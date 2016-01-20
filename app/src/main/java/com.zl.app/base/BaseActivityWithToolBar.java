@@ -18,7 +18,7 @@ import com.zl.app.util.ViewUtil;
  * Created by fengxiang on 2016/1/19.
  */
 
-public abstract class BaseActivityWithToolBar extends BaseActivity implements View.OnClickListener{
+public abstract class BaseActivityWithToolBar extends BaseActivity implements View.OnClickListener {
 
     protected Toolbar toolbar;
     protected ImageView btnLeft1;
@@ -29,6 +29,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     protected TextView textRight1;
     protected TextView textRight2;
     protected LinearLayout rootView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.leftBtn1:
                 onBtnLeft1Click();
                 break;
@@ -102,6 +103,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置标题
+     *
      * @param title
      */
     protected void setTitle(@NonNull String title) {
@@ -112,6 +114,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置左1按钮资源图
+     *
      * @param resId
      */
     protected void setBtnLeft1ImageResource(int resId) {
@@ -120,6 +123,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置左2按钮资源图
+     *
      * @param resId
      */
     protected void setBtnLeft2ImageResource(int resId) {
@@ -128,6 +132,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置右1按钮资源图
+     *
      * @param resId
      */
     protected void setBtnRight1ImageResource(int resId) {
@@ -136,6 +141,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置右2按钮资源图
+     *
      * @param resId
      */
     protected void setBtnRight2ImageResource(int resId) {
@@ -144,6 +150,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置左1按钮是否可用
+     *
      * @param isEnable
      */
     protected void setBtnLeft1Enable(boolean isEnable) {
@@ -156,6 +163,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置左2按钮是否可用
+     *
      * @param isEnable
      */
     protected void setBtnLeft2Enable(boolean isEnable) {
@@ -167,7 +175,8 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     }
 
     /**
-     *设置右1按钮是否可用
+     * 设置右1按钮是否可用
+     *
      * @param isEnable
      */
     protected void setBtnRight1Enable(boolean isEnable) {
@@ -180,6 +189,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置右2按钮是否可用
+     *
      * @param isEnable
      */
     protected void setBtnRight2Enable(boolean isEnable) {
@@ -192,6 +202,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置右1文本按钮是否可用
+     *
      * @param isEnable
      */
     protected void setTextRight1Enable(boolean isEnable) {
@@ -204,6 +215,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置右2文本按钮是否可用
+     *
      * @param isEnable
      */
     protected void setTextRight2Enable(boolean isEnable) {
@@ -216,6 +228,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置右1文本按钮标题
+     *
      * @param value
      */
     protected void setTextRight1Val(String value) {
@@ -227,6 +240,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
 
     /**
      * 设置右2文本按钮标题
+     *
      * @param value
      */
     protected void setTextRight2Val(String value) {

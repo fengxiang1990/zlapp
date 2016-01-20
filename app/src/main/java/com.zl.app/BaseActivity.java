@@ -13,6 +13,7 @@ import com.zl.app.util.AppManager;
 public class BaseActivity extends AppCompatActivity {
 
     protected SharedPreferences preference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppManager.activities.add(this);

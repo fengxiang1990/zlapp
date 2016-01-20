@@ -46,10 +46,14 @@ import java.util.Map;
 
 public class GsonRequest<T> extends Request<T> {
     private static final String TAG = "GsonRequest";
-    /** Charset for request. */
+    /**
+     * Charset for request.
+     */
     private static final String PROTOCOL_CHARSET = "UTF-8";
 
-    /** Content type for request. */
+    /**
+     * Content type for request.
+     */
     private static final String PROTOCOL_CONTENT_TYPE = String.format("application/x-www-form-urlencoded; charset=%s", PROTOCOL_CHARSET);
 
     private final Listener<T> mListener;

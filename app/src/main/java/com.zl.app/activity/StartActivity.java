@@ -68,7 +68,7 @@ public class StartActivity extends BaseActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(tag, error.getMessage()==null?"":error.getMessage());
+                Log.i(tag, error.getMessage() == null ? "" : error.getMessage());
             }
 
             @Override

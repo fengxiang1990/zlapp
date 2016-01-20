@@ -6,9 +6,9 @@ import android.support.v4.util.LruCache;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
 
 public class BitmapLruCache implements ImageCache {
-	
+
     private LruCache<String, Bitmap> cache;
-    
+
     public BitmapLruCache() {
         cache = new LruCache<String, Bitmap>(8 * 1024 * 1024) {
             @Override
@@ -17,10 +17,12 @@ public class BitmapLruCache implements ImageCache {
             }
         };
     }
+
     @Override
     public Bitmap getBitmap(String url) {
         return cache.get(url);
     }
+
     @Override
     public void putBitmap(String url, Bitmap bitmap) {
         cache.put(url, bitmap);

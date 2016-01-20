@@ -62,7 +62,6 @@ public class RegistActivity extends BaseActivityWithToolBar {
     TextView sendResponseView;
 
 
-
     @AfterViews
     void afterViews() {
         setTitle(getResources().getString(R.string.register_quick));

@@ -14,7 +14,7 @@
         <item name="contentInsetStart">0dp</item>
     </style>
 
-    
+
     <!-- main activity bottom menus-->
     <style name="MainActivityBottomMenuItem">
         <item name="android:layout_width">match_parent</item>

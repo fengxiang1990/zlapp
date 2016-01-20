@@ -46,7 +46,6 @@ public class LoginActivity extends BaseActivityWithToolBar {
     EditText userView;
 
 
-
     @AfterViews
     void afterViews() {
         setBtnLeft1Enable(true);
