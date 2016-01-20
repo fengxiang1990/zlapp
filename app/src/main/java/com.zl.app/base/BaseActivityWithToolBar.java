@@ -100,28 +100,52 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         }
     }
 
+    /**
+     * 设置标题
+     * @param title
+     */
     protected void setTitle(@NonNull String title) {
         if (titleView != null && !StringUtil.isEmpty(title)) {
             titleView.setText(title);
         }
     }
 
+    /**
+     * 设置左1按钮资源图
+     * @param resId
+     */
     protected void setBtnLeft1ImageResource(int resId) {
         btnLeft1.setImageResource(resId);
     }
 
+    /**
+     * 设置左2按钮资源图
+     * @param resId
+     */
     protected void setBtnLeft2ImageResource(int resId) {
         btnLeft2.setImageResource(resId);
     }
 
+    /**
+     * 设置右1按钮资源图
+     * @param resId
+     */
     protected void setBtnRight1ImageResource(int resId) {
         btnRight1.setImageResource(resId);
     }
 
+    /**
+     * 设置右2按钮资源图
+     * @param resId
+     */
     protected void setBtnRight2ImageResource(int resId) {
         btnRight2.setImageResource(resId);
     }
 
+    /**
+     * 设置左1按钮是否可用
+     * @param isEnable
+     */
     protected void setBtnLeft1Enable(boolean isEnable) {
         if (isEnable) {
             ViewUtil.show(btnLeft1);
@@ -130,6 +154,10 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         }
     }
 
+    /**
+     * 设置左2按钮是否可用
+     * @param isEnable
+     */
     protected void setBtnLeft2Enable(boolean isEnable) {
         if (isEnable) {
             ViewUtil.show(btnLeft2);
@@ -138,6 +166,10 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         }
     }
 
+    /**
+     *设置右1按钮是否可用
+     * @param isEnable
+     */
     protected void setBtnRight1Enable(boolean isEnable) {
         if (isEnable) {
             ViewUtil.show(btnRight1);
@@ -146,6 +178,10 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         }
     }
 
+    /**
+     * 设置右2按钮是否可用
+     * @param isEnable
+     */
     protected void setBtnRight2Enable(boolean isEnable) {
         if (isEnable) {
             ViewUtil.show(btnRight2);
@@ -154,6 +190,10 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         }
     }
 
+    /**
+     * 设置右1文本按钮是否可用
+     * @param isEnable
+     */
     protected void setTextRight1Enable(boolean isEnable) {
         if (isEnable) {
             ViewUtil.show(textRight1);
@@ -162,6 +202,10 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         }
     }
 
+    /**
+     * 设置右2文本按钮是否可用
+     * @param isEnable
+     */
     protected void setTextRight2Enable(boolean isEnable) {
         if (isEnable) {
             ViewUtil.show(textRight2);
@@ -170,6 +214,10 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         }
     }
 
+    /**
+     * 设置右1文本按钮标题
+     * @param value
+     */
     protected void setTextRight1Val(String value) {
         if (StringUtil.isEmpty(value)) {
             value = "";
@@ -177,6 +225,10 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         textRight1.setText(value);
     }
 
+    /**
+     * 设置右2文本按钮标题
+     * @param value
+     */
     protected void setTextRight2Val(String value) {
         if (StringUtil.isEmpty(value)) {
             value = "";
