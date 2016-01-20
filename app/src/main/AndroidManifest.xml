@@ -58,8 +58,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".MyApplication"
+        android:name=".MyApplication_"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="XgfwG6ILdE5Ffk8PsyYzYgiT" />
+
         <activity android:name=".activity.StartActivity_" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,6 +76,11 @@
         <activity android:name=".activity.LoginActivity_" />
         <activity android:name=".activity.RegistActivity_" />
         <activity android:name=".activity.GetPasswordActivity_" />
+
+        <!-- Baidu Map -->
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
+
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -16,8 +17,10 @@ import com.zl.app.fragment.FragmentD_;
 import com.zl.app.util.ToastUtil;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EApplication;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -40,6 +43,9 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @ViewById
     RadioButton radio4;
+
+    @App
+    MyApplication application;
 
     BaseFragment fragment_a, fragment_b, fragment_c, fragment_d;
 
@@ -76,6 +82,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Override
     protected void onBtnRight2Click() {
         ToastUtil.show(context, "search btn click");
+        application.mLocationClient.start();
 
     }
 
