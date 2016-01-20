@@ -18,7 +18,7 @@ import com.zl.app.util.ViewUtil;
  * Created by fengxiang on 2016/1/19.
  */
 
-public abstract class BaseActivityWithToolBar extends BaseActivity {
+public abstract class BaseActivityWithToolBar extends BaseActivity implements View.OnClickListener{
 
     protected Toolbar toolbar;
     protected ImageView btnLeft1;
@@ -29,7 +29,6 @@ public abstract class BaseActivityWithToolBar extends BaseActivity {
     protected TextView textRight1;
     protected TextView textRight2;
     protected LinearLayout rootView;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +68,36 @@ public abstract class BaseActivityWithToolBar extends BaseActivity {
         textRight2 = (TextView) view.findViewById(R.id.right2);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        onBtnLeft1Click();
-        onBtnLeft2Click();
-        onBtnRight1Click();
-        onBtnRight2Click();
-        onTextRight1Click();
-        onTextRight2Click();
+        btnLeft1.setOnClickListener(this);
+        btnLeft2.setOnClickListener(this);
+        btnRight1.setOnClickListener(this);
+        btnRight2.setOnClickListener(this);
+        textRight1.setOnClickListener(this);
+        textRight2.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.leftBtn1:
+                onBtnLeft1Click();
+                break;
+            case R.id.leftBtn2:
+                onBtnLeft2Click();
+                break;
+            case R.id.rightBtn1:
+                onBtnRight1Click();
+                break;
+            case R.id.rightBtn2:
+                onBtnRight2Click();
+                break;
+            case R.id.right1:
+                onTextRight1Click();
+                break;
+            case R.id.right2:
+                onTextRight2Click();
+                break;
+        }
     }
 
     protected void setTitle(@NonNull String title) {
@@ -164,12 +187,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity {
 
     //默认关闭当前activity
     protected void onBtnLeft1Click() {
-        btnLeft1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BaseActivityWithToolBar.this.finish();
-            }
-        });
+        BaseActivityWithToolBar.this.finish();
     }
 
     protected void onBtnLeft2Click() {

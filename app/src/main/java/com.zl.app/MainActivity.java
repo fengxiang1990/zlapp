@@ -75,23 +75,13 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnRight2Click() {
-        btnRight2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.show(context, "search btn click");
-            }
-        });
+        ToastUtil.show(context, "search btn click");
 
     }
 
     @Override
     protected void onBtnRight1Click() {
-        btnRight1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.show(context, "setting btn click");
-            }
-        });
+        ToastUtil.show(context, "setting btn click");
     }
 
 

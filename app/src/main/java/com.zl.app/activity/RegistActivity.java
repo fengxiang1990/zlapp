@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.zl.app.BaseActivity;
 import com.zl.app.R;
+import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.util.ViewUtil;
 
 import org.androidannotations.annotations.AfterViews;
@@ -23,7 +24,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_register)
-public class RegistActivity extends BaseActivity {
+public class RegistActivity extends BaseActivityWithToolBar {
 
     private String TAG = RegistActivity.class.getName();
 
@@ -60,22 +61,13 @@ public class RegistActivity extends BaseActivity {
     @ViewById(R.id.sendResponseView)
     TextView sendResponseView;
 
-    @ViewById(R.id.toolbar)
-    Toolbar toolbar;
-
-    @ViewById
-    TextView titleView;
-
-    @ViewById(R.id.leftBtn1)
-    ImageView leftBtn1;
 
 
     @AfterViews
     void afterViews() {
-        toolbar.setTitle("");
-        titleView.setText(getResources().getString(R.string.btn_get_pass));
+        setTitle(getResources().getString(R.string.register_quick));
+        setBtnLeft1Enable(true);
         setSupportActionBar(toolbar);
-        ViewUtil.show(leftBtn1);
         initEvent();
     }
 
@@ -93,11 +85,6 @@ public class RegistActivity extends BaseActivity {
     @Click(R.id.complete_btn)
     void completeBtnClick() {
 
-    }
-
-    @Click(R.id.leftBtn1)
-    void leftBtn1Click() {
-        RegistActivity.this.finish();
     }
 
     @Background
