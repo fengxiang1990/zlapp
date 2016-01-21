@@ -1,9 +1,8 @@
 package com.zl.app.data.user;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.net.BaseResponse;
+import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.util.net.SimpleHttpResponse;
 
 import java.util.concurrent.ExecutionException;
@@ -40,5 +39,5 @@ public interface UserService{
     public SimpleHttpResponse regist(String mobile,String password,String passWordTwo,String nickName,String remark) throws ExecutionException, InterruptedException;
 
 
-    public void login(String account,String password,Response.Listener<BaseResponse<YyMobileUser>> listener,Response.ErrorListener errorListener);
+    public void login(String account,String password, DefaultResponseListener<BaseResponse<YyMobileUser>> listener);
 }

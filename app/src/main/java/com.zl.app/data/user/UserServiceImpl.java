@@ -13,6 +13,7 @@ import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;
+import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.util.net.GsonRequest;
 import com.zl.app.util.net.SimpleHttpResponse;
 
@@ -70,13 +71,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void login(String account,String password, Response.Listener<BaseResponse<YyMobileUser>> listener,Response.ErrorListener errorListener) {
+    public void login(String account,String password,DefaultResponseListener<BaseResponse<YyMobileUser>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("account", account);
         params.put("password", password);
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_LOGIN,params,null,
                 new TypeToken<BaseResponse>(){},
-                 listener,errorListener);
+                 listener,listener);
         AppManager.getRequestQueue().add(request);
     }
 }
