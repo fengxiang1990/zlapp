@@ -38,6 +38,11 @@ public interface UserService{
      */
     public SimpleHttpResponse regist(String mobile,String password,String passWordTwo,String nickName,String remark) throws ExecutionException, InterruptedException;
 
-
+    /**
+     * 登陆
+     * @param account
+     * @param password
+     * @param listener
+     */
     public void login(String account,String password, DefaultResponseListener<BaseResponse<YyMobileUser>> listener);
 }
