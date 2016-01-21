@@ -94,8 +94,13 @@ public class LoginActivity extends BaseActivityWithToolBar {
         {
             @Override
             public void onSuccess(BaseResponse<YyMobileUser> response) {
-                Log.i(TAG, "success:" + response.toString());
-                ToastUtil.show(getApplicationContext(), "登陆成功");
+                if(response.getStatus().equals(AppConfig.HTTP_OK)){
+                    Log.i(TAG, "success:" + response.toString());
+                    ToastUtil.show(getApplicationContext(), "登陆成功");
+                }else {
+                    Log.i(TAG, "error:" + response.toString());
+                    ToastUtil.show(getApplicationContext(), response.getMessage());
+                }
             }
 
             @Override

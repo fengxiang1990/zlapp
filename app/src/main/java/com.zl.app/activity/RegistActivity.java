@@ -18,7 +18,7 @@ import com.zl.app.util.AppConfig;
 import com.zl.app.util.StringUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.ViewUtil;
-import com.zl.app.util.net.SimpleHttpResponse;
+import com.zl.app.util.net.BaseResponse;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -85,6 +85,7 @@ public class RegistActivity extends BaseActivityWithToolBar {
     }
 
     String mobile = null;
+
     @Click(R.id.next_btn)
     void nextBtnClick() {
         mobile = String.valueOf(telView.getText());
@@ -93,7 +94,7 @@ public class RegistActivity extends BaseActivityWithToolBar {
 
     @Background
     public void checkMobile(String mobile) {
-        SimpleHttpResponse response = null;
+        BaseResponse response = null;
         try {
             response = userService.registCheck(mobile);
             Log.i(TAG, response.toString());
@@ -104,7 +105,7 @@ public class RegistActivity extends BaseActivityWithToolBar {
     }
 
     @UiThread
-    public void checkMobileUIThread(SimpleHttpResponse response) {
+    public void checkMobileUIThread(BaseResponse response) {
         if (response != null) {
             if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                 ViewUtil.hide(step1);
@@ -112,7 +113,7 @@ public class RegistActivity extends BaseActivityWithToolBar {
                 //发送验证码
                 sendCode();
             } else {
-                ToastUtil.show(getApplicationContext(), response.getResult());
+                ToastUtil.show(getApplicationContext(), response.getMessage());
             }
         } else {
             ToastUtil.show(getApplicationContext(), "请求失败");
@@ -120,8 +121,8 @@ public class RegistActivity extends BaseActivityWithToolBar {
     }
 
     @Background
-    public void sendCode(){
-        SimpleHttpResponse response = null;
+    public void sendCode() {
+        BaseResponse response = null;
         try {
             response = userService.registSendCode(mobile);
             Log.i(TAG, response.toString());
@@ -132,19 +133,19 @@ public class RegistActivity extends BaseActivityWithToolBar {
     }
 
     @UiThread
-    public void sendCodeUIThread(SimpleHttpResponse response){
+    public void sendCodeUIThread(BaseResponse response) {
         if (response != null) {
-                ToastUtil.show(getApplicationContext(), response.getResult());
+            ToastUtil.show(getApplicationContext(), response.getMessage());
         } else {
             ToastUtil.show(getApplicationContext(), "请求失败");
         }
     }
 
     @Background
-    public void regist(String mobile,String password,String passWordTwo,String nickName,String remark){
-        SimpleHttpResponse response = null;
+    public void regist(String mobile, String password, String passWordTwo, String nickName, String remark) {
+        BaseResponse response = null;
         try {
-            response = userService.regist(mobile,password,passWordTwo,nickName,remark);
+            response = userService.regist(mobile, password, passWordTwo, nickName, remark);
             Log.i(TAG, response.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,17 +154,17 @@ public class RegistActivity extends BaseActivityWithToolBar {
     }
 
     @UiThread
-    public void registUIThread(SimpleHttpResponse response){
+    public void registUIThread(BaseResponse response) {
         if (response != null) {
             if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                   handler.postDelayed(new Runnable() {
-                       @Override
-                       public void run() {
-                           RegistActivity.this.finish();
-                       }
-                   },1000);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        RegistActivity.this.finish();
+                    }
+                }, 1000);
             }
-            ToastUtil.show(getApplicationContext(), response.getResult());
+            ToastUtil.show(getApplicationContext(), response.getMessage());
         } else {
             ToastUtil.show(getApplicationContext(), "请求失败");
         }
@@ -176,20 +177,20 @@ public class RegistActivity extends BaseActivityWithToolBar {
         String password2 = String.valueOf(repasswordText.getText());
         String nickName = String.valueOf(nickNameView.getText());
         String code = String.valueOf(validateCodeText.getText());
-        if(StringUtil.isEmpty(code)){
-            ToastUtil.show(getApplicationContext(),"验证码不能为空");
+        if (StringUtil.isEmpty(code)) {
+            ToastUtil.show(getApplicationContext(), "验证码不能为空");
             return;
         }
-        if(StringUtil.isEmpty(password) ||
-                StringUtil.isEmpty(password2)){
-            ToastUtil.show(getApplicationContext(),"密码不能为空");
+        if (StringUtil.isEmpty(password) ||
+                StringUtil.isEmpty(password2)) {
+            ToastUtil.show(getApplicationContext(), "密码不能为空");
             return;
         }
-        if(StringUtil.isEmpty(nickName)){
-            ToastUtil.show(getApplicationContext(),"用户昵称不能为空");
+        if (StringUtil.isEmpty(nickName)) {
+            ToastUtil.show(getApplicationContext(), "用户昵称不能为空");
             return;
         }
-        regist(mobile,password,password2,nickName,code);
+        regist(mobile, password, password2, nickName, code);
     }
 
     @Background

@@ -3,7 +3,6 @@ package com.zl.app.data.user;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
-import com.zl.app.util.net.SimpleHttpResponse;
 
 import java.util.concurrent.ExecutionException;
 
@@ -18,14 +17,14 @@ public interface UserService{
      * @param mobile
      * @return
      */
-    public SimpleHttpResponse registCheck(String mobile) throws ExecutionException, InterruptedException;
+    public BaseResponse registCheck(String mobile) throws ExecutionException, InterruptedException;
 
     /**
      * 发送注册验证码
      * @param mobile
      * @return
      */
-    public SimpleHttpResponse registSendCode(String mobile) throws ExecutionException, InterruptedException;
+    public BaseResponse registSendCode(String mobile) throws ExecutionException, InterruptedException;
 
     /**
      * 注册用户
@@ -36,7 +35,7 @@ public interface UserService{
      * @param remark  注册短信验证码
      * @return
      */
-    public SimpleHttpResponse regist(String mobile,String password,String passWordTwo,String nickName,String remark) throws ExecutionException, InterruptedException;
+    public BaseResponse regist(String mobile,String password,String passWordTwo,String nickName,String remark) throws ExecutionException, InterruptedException;
 
     /**
      * 登陆
