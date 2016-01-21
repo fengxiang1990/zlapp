@@ -2,21 +2,24 @@ package com.zl.app.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zl.app.BaseActivity;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
+import com.zl.app.data.user.UserService;
+import com.zl.app.data.user.UserServiceImpl;
+import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.ToastUtil;
-import com.zl.app.util.ViewUtil;
+import com.zl.app.util.net.BaseResponse;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.CheckedChange;
@@ -26,6 +29,8 @@ import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.login_layout)
 public class LoginActivity extends BaseActivityWithToolBar {
+
+    String TAG = "LoginActivity";
 
     @ViewById(R.id.forgetPassword)
     TextView wjmm;
@@ -81,7 +86,21 @@ public class LoginActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.button1)
     void loginClick() {
-        ToastUtil.show(this, "login click");
+        UserService userService = new UserServiceImpl();
+        String account = String.valueOf(userView.getText());
+        String password = String.valueOf(passwordView.getText());
+        userService.login(account, password, new Response.Listener<BaseResponse<YyMobileUser>>() {
+            @Override
+            public void onResponse(BaseResponse<YyMobileUser> response) {
+                Log.i(TAG, "success:" + response.toString());
+                ToastUtil.show(getApplicationContext(), "登陆成功");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i(TAG, "error:" + error.getMessage());
+            }
+        });
     }
 
 

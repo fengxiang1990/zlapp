@@ -8,6 +8,10 @@ import com.zl.app.entity.User;
 
 public class AppConfig {
 
+    public static final String HTTP_OK = "success";
+    public static final String HTTP_ERROR = "error";
+    public static final String HTTP_WARN = "warn";
+
     public static final int TAKE_PHOTO = 1;
     public static final int CROP_PHOTO = 2;
     public static Uri imageUri; // 图片路径

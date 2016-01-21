@@ -235,6 +235,44 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/row5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/login_input_shape"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:text="@string/register_nickname"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/register_info_size" />
+
+                            <EditText
+                                android:id="@+id/nickNameView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="12"
+                                android:hint="@string/register_nickname"
+                                android:padding="10dp"
+                                android:layout_margin="2dp"
+                                android:background="@drawable/edit_shape"
+                                android:password="false"
+                                android:singleLine="true"
+                                android:textColorHint="@color/lightgray"
+                                android:textSize="@dimen/register_info_size"></EditText>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
