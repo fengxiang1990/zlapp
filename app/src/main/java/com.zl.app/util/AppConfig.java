@@ -19,6 +19,7 @@ public class AppConfig {
     public static String filename; // 图片名称
     public static String USER_NAME = "username";
     public static String PASS_WORD = "password";
+    public static String USER_HEAD_IMG = "user_head_img";
     public static String USER_ID = "user_id";
     public static String USER_UID = "uid";
     public static String MAIL = "mail";
@@ -48,6 +49,7 @@ public class AppConfig {
         Editor editor = preference.edit();
         editor.putBoolean(IS_LOGIN, true);
         editor.putInt(USER_ID, user.getUserId());
+        editor.putString(USER_HEAD_IMG, user.getPicPath());
         editor.putString(USER_UID, user.getUid());
         editor.putString(USER_NAME, user.getNickName());
         editor.putString(TEL_PHONE, user.getMobile());
@@ -61,6 +63,10 @@ public class AppConfig {
 
     public static String getUid(SharedPreferences preference) {
         return preference.getString(AppConfig.USER_UID, null);
+    }
+
+    public static String getUserHeadImg(SharedPreferences preference) {
+        return preference.getString(AppConfig.USER_HEAD_IMG, null);
     }
 
 }

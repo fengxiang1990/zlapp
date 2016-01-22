@@ -112,4 +112,41 @@ public class UserServiceImpl implements UserService {
                 listener, listener);
         AppManager.getRequestQueue().add(request);
     }
+
+    @Override
+    public void uploadUserHeadImg(String uid, String fileName, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("fileName", fileName);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_USER_UPLOAD, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void updateUserInfo(String uid, String picPath, String nickName, String age, String qq, String introduce,
+                               String mobileshow, String emailshow, String qqshow,
+                               String plshow, String dzshow, String scshow,
+                               DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("picPath", picPath);
+        params.put("nickName", nickName);
+        params.put("age", age);
+        params.put("qq", qq);
+        params.put("introduce", introduce);
+        params.put("mobileshow", mobileshow);
+        params.put("emailshow", emailshow);
+        params.put("qqshow", qqshow);
+        params.put("plshow", plshow);
+        params.put("dzshow", dzshow);
+        params.put("scshow", scshow);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_USER_INFO_UPDATE, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 }

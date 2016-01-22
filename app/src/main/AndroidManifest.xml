@@ -69,6 +69,8 @@
         <activity android:name=".activity.user.RegistActivity_" />
         <activity android:name=".activity.user.GetPasswordActivity_" />
         <activity android:name=".activity.user.ModifyPasswordActivity_" />
+        <activity android:name=".activity.user.UserInfoActivity_" />
+
 
         <!-- Baidu Map -->
         <service

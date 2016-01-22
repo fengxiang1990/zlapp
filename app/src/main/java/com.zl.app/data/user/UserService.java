@@ -77,4 +77,34 @@ public interface UserService {
      * @param listener
      */
     public void modifyPassword(String uid, String remark, String password, String passWordTwo, DefaultResponseListener<BaseResponse> listener);
+
+
+    /**
+     * 上传用户头像
+     *
+     * @param uid
+     * @param fileName
+     * @param listener
+     */
+    public void uploadUserHeadImg(String uid, String fileName, DefaultResponseListener<BaseResponse> listener);
+
+    /**
+     * 设置用户信息
+     * @param uid
+     * @param picPath
+     * @param nickName
+     * @param age
+     * @param qq
+     * @param introduce
+     * @param mobileshow
+     * @param emailshow
+     * @param qqshow
+     * @param plshow
+     * @param dzshow
+     * @param scshow
+     * @param listener
+     */
+    public void updateUserInfo(String uid, String picPath, String nickName, String age, String qq, String introduce,
+                               String mobileshow, String emailshow, String qqshow, String plshow, String dzshow, String scshow
+            , DefaultResponseListener<BaseResponse> listener);
 }
