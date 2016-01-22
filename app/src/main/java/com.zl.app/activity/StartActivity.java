@@ -9,15 +9,13 @@ import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.zl.app.BaseActivity;
+import com.zl.app.R;
+import com.zl.app.util.AppManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-
-import com.zl.app.BaseActivity;
-import com.zl.app.util.AppManager;
-import com.zl.app.MainActivity_;
-import com.zl.app.R;
 
 /**
  * 启动页面

@@ -12,16 +12,6 @@ public class GestureHelper implements OnGestureListener {
     private int screen_height;
     private OnFlingListener listener_onfling;
 
-    public static abstract class OnFlingListener {
-        public abstract void OnFlingLeft();
-
-        public abstract void OnFlingRight();
-
-        public abstract void OnFlingUp();
-
-        public abstract void OnFlinDown();
-    }
-
     public GestureHelper(Context context) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         screen_width = dm.widthPixels;
@@ -36,7 +26,6 @@ public class GestureHelper implements OnGestureListener {
     public boolean onTouchEvent(MotionEvent event) {
         return gesture_detector.onTouchEvent(event);
     }
-
 
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         float x = e2.getX() - e1.getX();
@@ -76,22 +65,28 @@ public class GestureHelper implements OnGestureListener {
         return false;
     }
 
-
     public void onLongPress(MotionEvent e) {
     }
-
 
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
                             float distanceY) {
         return false;
     }
 
-
     public void onShowPress(MotionEvent e) {
     }
 
-
     public boolean onSingleTapUp(MotionEvent e) {
         return false;
+    }
+
+    public static abstract class OnFlingListener {
+        public abstract void OnFlingLeft();
+
+        public abstract void OnFlingRight();
+
+        public abstract void OnFlingUp();
+
+        public abstract void OnFlinDown();
     }
 }

@@ -1,4 +1,4 @@
-package com.zl.app.activity;
+package com.zl.app.activity.user;
 
 import android.os.Handler;
 import android.text.Editable;
@@ -30,45 +30,35 @@ import org.androidannotations.annotations.ViewById;
 @EActivity(R.layout.activity_register)
 public class RegistActivity extends BaseActivityWithToolBar {
 
-    private String TAG = RegistActivity.class.getName();
-
     @ViewById(R.id.telView)
     EditText telView;
-
     @ViewById(R.id.nickNameView)
     EditText nickNameView;
-
     @ViewById(R.id.passwordView)
     EditText passwordText;
-
     @ViewById(R.id.repasswordView)
     EditText repasswordText;
-
     @ViewById(R.id.validateCodeView)
     EditText validateCodeText;
-
     @ViewById(R.id.complete_btn)
     Button completeBtn;
-
     @ViewById(R.id.next_btn)
     Button nextBtn;
-
     @ViewById(R.id.step1)
     LinearLayout step1;
-
     @ViewById(R.id.step2)
     LinearLayout step2;
-
     @ViewById(R.id.reget)
     LinearLayout reget;
-
     @ViewById(R.id.reget_text)
     TextView regetTextView;
-
     @ViewById(R.id.sendResponseView)
     TextView sendResponseView;
-
     UserService userService;
+    String mobile = null;
+    Handler handler = new Handler();
+    int seconds = 59;
+    private String TAG = RegistActivity.class.getName();
 
     @AfterViews
     void afterViews() {
@@ -83,8 +73,6 @@ public class RegistActivity extends BaseActivityWithToolBar {
     void regetCode() {
         regetCodeInUI();
     }
-
-    String mobile = null;
 
     @Click(R.id.next_btn)
     void nextBtnClick() {
@@ -214,29 +202,6 @@ public class RegistActivity extends BaseActivityWithToolBar {
         seconds = 59;
     }
 
-
-    Handler handler = new Handler();
-
-    int seconds = 59;
-
-    class RegetCodeRunnable implements Runnable {
-
-        @Override
-        public void run() {
-            seconds = seconds - 1;
-            if (seconds == 0) {
-                seconds = 59;
-                String regetMsg = getResources().getString(R.string.reget_text);
-                reget.setClickable(true);
-                regetTextView.setText(regetMsg);
-            } else {
-                handler.postDelayed(this, 1000);
-                regetTextView.setText(seconds + "秒后重新获取");
-            }
-        }
-
-    }
-
     public void initEvent() {
         telView.addTextChangedListener(new TextWatcher() {
 
@@ -260,6 +225,24 @@ public class RegistActivity extends BaseActivityWithToolBar {
                 }
             }
         });
+    }
+
+    class RegetCodeRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            seconds = seconds - 1;
+            if (seconds == 0) {
+                seconds = 59;
+                String regetMsg = getResources().getString(R.string.reget_text);
+                reget.setClickable(true);
+                regetTextView.setText(regetMsg);
+            } else {
+                handler.postDelayed(this, 1000);
+                regetTextView.setText(seconds + "秒后重新获取");
+            }
+        }
+
     }
 
 

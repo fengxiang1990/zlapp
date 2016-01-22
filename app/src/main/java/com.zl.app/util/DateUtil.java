@@ -736,6 +736,14 @@ public class DateUtil {
         return num;
     }
 
+    public static boolean isDateInvalid(String source, DateStyle style) {
+        Date date = DateUtil.StringToDate(source, style);
+        if (date.getTime() < new Date().getTime()) {
+            return true;
+        }
+        return false;
+
+    }
 
     public enum DateStyle {
 
@@ -825,15 +833,6 @@ public class DateUtil {
         public int getNumber() {
             return number;
         }
-    }
-
-    public static boolean isDateInvalid(String source, DateStyle style) {
-        Date date = DateUtil.StringToDate(source, style);
-        if (date.getTime() < new Date().getTime()) {
-            return true;
-        }
-        return false;
-
     }
 }
 

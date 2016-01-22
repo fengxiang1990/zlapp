@@ -70,6 +70,43 @@ public class UserServiceImpl implements UserService {
         params.put("account", account);
         params.put("password", password);
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_LOGIN, params, null,
+                new TypeToken<BaseResponse<YyMobileUser>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void getPasswordCode(String account, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("account", account);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_GET_PASSWORD_CODE, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void getNewPassword(String account, String smsCode, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("account", account);
+        params.put("password", smsCode);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_GET_PASSWORD, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void modifyPassword(String uid, String remark, String password, String passWordTwo, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("remark", remark);
+        params.put("password", password);
+        params.put("passWordTwo", passWordTwo);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_MODIFY_PASSWORD, params, null,
                 new TypeToken<BaseResponse>() {
                 },
                 listener, listener);

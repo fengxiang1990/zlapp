@@ -5,14 +5,13 @@ import java.util.concurrent.Executors;
 
 public class ThreadPool {
 
-    private ThreadPool() {
-    }
-
     private static ExecutorService executorService = Executors
             .newSingleThreadExecutor();
-
     private static ExecutorService cacheService = Executors
             .newCachedThreadPool();
+
+    private ThreadPool() {
+    }
 
     public static ExecutorService getSingleThread() {
 

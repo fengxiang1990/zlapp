@@ -6,7 +6,7 @@ import com.android.volley.VolleyError;
 /**
  * Created by fengxiang on 2016/1/21.
  */
-public abstract class DefaultResponseListener<T> implements Response.Listener<T>,Response.ErrorListener{
+public abstract class DefaultResponseListener<T> implements Response.Listener<T>, Response.ErrorListener {
 
     @Override
     public void onResponse(T response) {
@@ -18,8 +18,8 @@ public abstract class DefaultResponseListener<T> implements Response.Listener<T>
         onError(error);
     }
 
-    public abstract  void onSuccess(T response);
+    public abstract void onSuccess(T response);
 
-    public abstract  void onError(VolleyError error);
+    public abstract void onError(VolleyError error);
 
 }

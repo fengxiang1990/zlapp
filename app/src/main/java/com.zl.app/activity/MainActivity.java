@@ -1,26 +1,27 @@
-package com.zl.app;
+package com.zl.app.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.View;
 import android.widget.RadioButton;
 
-import com.zl.app.activity.LoginActivity_;
+import com.zl.app.BaseFragment;
+import com.zl.app.MyApplication;
+import com.zl.app.R;
+import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.fragment.FragmentA_;
 import com.zl.app.fragment.FragmentB_;
 import com.zl.app.fragment.FragmentC_;
 import com.zl.app.fragment.FragmentD_;
+import com.zl.app.util.AppConfig;
 import com.zl.app.util.ToastUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.EApplication;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragment_c = new FragmentC_();
         fragment_d = new FragmentD_();
         FragmentTransaction fragmentTransaction = frgmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container, fragment_a);
+        fragmentTransaction.add(R.id.fragments, fragment_a);
         fragmentTransaction.commit();
 
         fragments = new ArrayList<BaseFragment>();
@@ -94,28 +95,31 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.radio1)
     void radio1Click() {
-        titleView.setText("tab1");
+        setTitle("tab1");
         switchFragment(frgmentManager.beginTransaction(), fragment_a);
     }
 
     @Click(R.id.radio2)
     void radio2Click() {
-        titleView.setText("tab2");
+        setTitle("tab2");
         switchFragment(frgmentManager.beginTransaction(), fragment_b);
     }
 
     @Click(R.id.radio3)
     void radio3Click() {
-        titleView.setText("tab3");
+        setTitle("tab3");
         switchFragment(frgmentManager.beginTransaction(), fragment_c);
     }
 
     @Click(R.id.radio4)
     void radio4Click() {
-        titleView.setText("tab4");
-        Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
-        startActivity(intent);
-        //switchFragment(frgmentManager.beginTransaction(), fragment_d);
+        setTitle("tab4");
+        if (AppConfig.isLogin(preference)) {
+            switchFragment(frgmentManager.beginTransaction(), fragment_d);
+        } else {
+            Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+            startActivity(intent);
+        }
     }
 
     public void switchFragment(FragmentTransaction fragmentTransaction,
@@ -126,7 +130,7 @@ public class MainActivity extends BaseActivityWithToolBar {
             }
         }
         if (!fragment.isAdded()) {
-            fragmentTransaction.add(R.id.container, fragment);
+            fragmentTransaction.add(R.id.fragments, fragment);
         } else {
             fragmentTransaction.show(fragment);
         }

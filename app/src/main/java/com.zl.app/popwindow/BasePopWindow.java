@@ -16,6 +16,7 @@ public abstract class BasePopWindow extends PopupWindow {
     LayoutInflater inflater;
     Context context;
     View view;
+    Handler handler = new Handler();
 
     public BasePopWindow(Context context) {
         super(context);
@@ -76,6 +77,4 @@ public abstract class BasePopWindow extends PopupWindow {
     public void dismiss2() {
         super.dismiss();
     }
-
-    Handler handler = new Handler();
 }

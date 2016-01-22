@@ -20,13 +20,11 @@ import org.androidannotations.annotations.EApplication;
 @EApplication
 public class MyApplication extends Application {
 
-    String TAG = MyApplication.class.getName();
-
     public ImageLoader imageLoader;
     public RequestQueue requestQueue;
-
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
+    String TAG = MyApplication.class.getName();
 
     @Override
     public void onCreate() {

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.zl.app.BaseFragment;
+import com.zl.app.R;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -22,9 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.zl.app.BaseFragment;
-import com.zl.app.R;
 
 
 /**
@@ -216,6 +215,8 @@ public class FragmentA extends BaseFragment {
         private String layoutGravity; //top bottom left right ....
         private String hint;
         private String tag;
+        private String text;
+        private int textSize = 12;
 
         public String getTag() {
             return tag;
@@ -232,9 +233,6 @@ public class FragmentA extends BaseFragment {
         public void setText(String text) {
             this.text = text;
         }
-
-        private String text;
-        private int textSize = 12;
 
         public int getId() {
             return id;

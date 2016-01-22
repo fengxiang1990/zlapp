@@ -5,12 +5,11 @@ import android.content.SharedPreferences;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.google.gson.Gson;
+import com.zl.app.BaseActivity;
+import com.zl.app.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.zl.app.BaseActivity;
-import com.zl.app.BaseFragment;
 
 public class AppManager {
 

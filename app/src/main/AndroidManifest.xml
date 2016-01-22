@@ -64,10 +64,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity_" />
-        <activity android:name=".activity.LoginActivity_" />
-        <activity android:name=".activity.RegistActivity_" />
-        <activity android:name=".activity.GetPasswordActivity_" />
+        <activity android:name=".activity.MainActivity_" />
+        <activity android:name=".activity.user.LoginActivity_" />
+        <activity android:name=".activity.user.RegistActivity_" />
+        <activity android:name=".activity.user.GetPasswordActivity_" />
+        <activity android:name=".activity.user.ModifyPasswordActivity_" />
 
         <!-- Baidu Map -->
         <service

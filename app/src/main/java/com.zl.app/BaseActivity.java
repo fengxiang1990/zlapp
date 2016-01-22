@@ -3,7 +3,6 @@ package com.zl.app;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.zl.app.util.AppConfig;

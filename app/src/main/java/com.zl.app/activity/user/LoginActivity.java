@@ -1,4 +1,4 @@
-package com.zl.app.activity;
+package com.zl.app.activity.user;
 
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -10,7 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
@@ -18,6 +17,7 @@ import com.zl.app.data.user.UserService;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
+import com.zl.app.util.StringUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
@@ -57,6 +57,11 @@ public class LoginActivity extends BaseActivityWithToolBar {
         setBtnLeft1Enable(true);
         setTitle(getResources().getString(R.string.login_title));
         myzhdjzc.setText(Html.fromHtml(getResources().getString(R.string.register_text)));
+        String tel = preference.getString(AppConfig.TEL_PHONE, "");
+        if (!StringUtil.isEmpty(tel)) {
+            userView.setText(tel);
+        }
+
     }
 
 
@@ -90,14 +95,15 @@ public class LoginActivity extends BaseActivityWithToolBar {
         UserService userService = new UserServiceImpl();
         String account = String.valueOf(userView.getText());
         String password = String.valueOf(passwordView.getText());
-        userService.login(account, password, new DefaultResponseListener<BaseResponse<YyMobileUser>>()
-        {
+        userService.login(account, password, new DefaultResponseListener<BaseResponse<YyMobileUser>>() {
             @Override
             public void onSuccess(BaseResponse<YyMobileUser> response) {
-                if(response.getStatus().equals(AppConfig.HTTP_OK)){
+                if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                     Log.i(TAG, "success:" + response.toString());
                     ToastUtil.show(getApplicationContext(), "登陆成功");
-                }else {
+                    AppConfig.setLoginSuccess(preference, response.getResult());
+                    finish();
+                } else {
                     Log.i(TAG, "error:" + response.toString());
                     ToastUtil.show(getApplicationContext(), response.getMessage());
                 }

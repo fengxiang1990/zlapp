@@ -9,4 +9,10 @@
         android:layout_height="wrap_content"
         android:text="tab4"
         android:id="@+id/textView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="修改密码"
+        android:id="@+id/btn_modify_password" />
 </LinearLayout>

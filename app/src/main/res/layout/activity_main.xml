@@ -11,11 +11,11 @@
 
 
         <LinearLayout
-            android:id="@+id/container"
+            android:id="@+id/fragments"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/menus"
-            android:layout_below="@+id/toolbar"
             android:orientation="vertical" />
 
         <LinearLayout
