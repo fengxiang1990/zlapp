@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.zl.app.BaseFragment;
 import com.zl.app.MyApplication;
@@ -44,6 +45,9 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @ViewById
     RadioButton radio4;
+
+    @ViewById(R.id.rg)
+    RadioGroup radioGroup;
 
     @App
     MyApplication application;
@@ -137,4 +141,25 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragmentTransaction.commit();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (AppConfig.isLogin(preference)) {
+            switch (radioGroup.getCheckedRadioButtonId()) {
+                case R.id.radio1:
+                    switchFragment(frgmentManager.beginTransaction(), fragment_a);
+                    break;
+                case R.id.radio2:
+                    switchFragment(frgmentManager.beginTransaction(), fragment_b);
+                    break;
+                case R.id.radio3:
+                    switchFragment(frgmentManager.beginTransaction(), fragment_c);
+                    break;
+                case R.id.radio4:
+                    switchFragment(frgmentManager.beginTransaction(), fragment_d);
+                    break;
+            }
+        }
+    }
 }
