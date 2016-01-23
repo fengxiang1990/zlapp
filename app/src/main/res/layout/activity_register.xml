@@ -64,7 +64,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="请输入手机号码登陆或注册，一米金融不会在任何地方泄露您的号码"
+                            android:text="请输入手机号码登陆或注册，子路教育不会在任何地方泄露您的号码"
                             android:textColor="@color/gray"
                             android:textSize="16sp" />
 

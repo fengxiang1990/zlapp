@@ -288,7 +288,11 @@
     <color name="gray_8f">#8f8f8f</color>
     <!--灰色8f -->
 
-    <color name="base_bg">#3ea3ff</color>
+    <color name="base_bg">#e51c23</color>
+
+    <color name="btn_pressed">#b0120a</color>
+
+
     <!-- 背景颜色 -->
     <color name="darkblue2">#093779</color>
     <!-- 深蓝色背景色 -->
