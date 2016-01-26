@@ -45,4 +45,18 @@
     <string name="register_text"><u>没有账号?点击注册</u></string>
     <string name="get_sms_code">获取验证码</string>
     <string name="reget_text">重新获取</string>
+
+    <!-- 个人信息activity -->
+    <string name="user_info">用户信息</string>
+    <string name="input_nickname">请输入昵称</string>
+    <string name="input_age">请输入年龄</string>
+    <string name="input_qq">请输入qq</string>
+    <string name="input_introduce">请输入简介</string>
+    <string name="check_is_show_mobile">是否显示手机</string>
+    <string name="check_is_show_email">是否显示邮箱</string>
+    <string name="check_is_show_qq">是否显示QQ</string>
+    <string name="check_is_show_pl">是否显示评论</string>
+    <string name="check_is_show_dz">是否显示点赞</string>
+    <string name="check_is_show_sc">是否显示收藏</string>
+
 </resources>

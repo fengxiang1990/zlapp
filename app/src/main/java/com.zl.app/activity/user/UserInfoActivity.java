@@ -8,6 +8,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,6 +19,7 @@ import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.UserService;
 import com.zl.app.data.user.UserServiceImpl;
+import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
@@ -48,16 +51,64 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
     private static final int PHOTO_RESOULT = 3;// 结果
     private static final String IMAGE_UNSPECIFIED = "image/*";
 
+    private static final String EDIT = "修改";
+    private static final String SAVE = "保存";
+
     @ViewById(R.id.camera_layout)
     LinearLayout camera_layout;
 
     @ViewById(R.id.imageView)
     ImageView imageView;
 
+    @ViewById(R.id.text_nickname)
+    EditText textNickName;
+
+    @ViewById(R.id.text_age)
+    EditText textAge;
+
+    @ViewById(R.id.text_qq)
+    EditText textQq;
+
+    @ViewById(R.id.text_introduce)
+    EditText textIntroduce;
+
+    @ViewById(R.id.check_mobile_show)
+    CheckBox check_mobile_show;
+
+    @ViewById(R.id.check_email_show)
+    CheckBox check_email_show;
+
+    @ViewById(R.id.check_qq_show)
+    CheckBox check_qq_show;
+
+    @ViewById(R.id.check_pl_show)
+    CheckBox check_pl_show;
+
+    @ViewById(R.id.check_dz_show)
+    CheckBox check_dz_show;
+
+    @ViewById(R.id.check_sc_show)
+    CheckBox check_sc_show;
+
     UserService userService;
 
+    boolean isEditMode = false;
+    String nickName ="";
+    String qq ="";
+    String age ="";
+    String introduce ="";
+    int is_mobile_show = 0;
+    int is_email_show = 0;
+    int is_qq_show = 0;
+    int is_pl_show=0;
+    int is_dz_show =0;
+    int is_sc_show =0;
     @AfterViews
     void afterViews() {
+        setBtnLeft1Enable(true);
+        setTextRight1Enable(true);
+        setTextRight1Val(EDIT);
+        setTitle(getResources().getString(R.string.user_info));
         userService = new UserServiceImpl();
         String picPath = AppConfig.getUserHeadImg(preference);
         picPath = RequestURL.SERVER + picPath;
@@ -75,6 +126,72 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
                 }
             });
         }
+        nickName = preference.getString(AppConfig.USER_NAME,"");
+        age = preference.getString(AppConfig.USER_AGE,"");
+        qq = preference.getString(AppConfig.USER_QQ,"");
+        introduce = preference.getString(AppConfig.USER_INTRODUCE,"");
+        is_mobile_show = preference.getInt(AppConfig.IS_MOBILE_SHOW, 0);
+        is_email_show = preference.getInt(AppConfig.IS_EMAIL_SHOW,0);
+        is_qq_show = preference.getInt(AppConfig.IS_QQ_SHOW,0);
+        is_pl_show = preference.getInt(AppConfig.IS_PL_SHOW,0);
+        is_dz_show = preference.getInt(AppConfig.IS_DZ_SHOW,0);
+        is_sc_show = preference.getInt(AppConfig.IS_SC_SHOW,0);
+        textNickName.setText(nickName);
+        textAge.setText(age);
+        textQq.setText(qq);
+        textIntroduce.setText(introduce);
+        check_mobile_show.setChecked(is_mobile_show == 1 ? true : false);
+        check_email_show.setChecked(is_email_show==1?true:false);
+        check_qq_show.setChecked(is_qq_show==1?true:false);
+        check_pl_show.setChecked(is_pl_show==1?true:false);
+        check_dz_show.setChecked(is_dz_show==1?true:false);
+        check_sc_show.setChecked(is_sc_show==1?true:false);
+    }
+
+    @Override
+    protected void onTextRight1Click() {
+        super.onTextRight1Click();
+        if(!isEditMode){
+            isEditMode = true;
+            setTextRight1Val(SAVE);
+            textNickName.setEnabled(true);
+            textAge.setEnabled(true);
+            textQq.setEnabled(true);
+            textIntroduce.setEnabled(true);
+            check_mobile_show.setEnabled(true);
+            check_email_show.setEnabled(true);
+            check_qq_show.setEnabled(true);
+            check_pl_show.setEnabled(true);
+            check_dz_show.setEnabled(true);
+            check_sc_show.setEnabled(true);
+        }else{
+            isEditMode = false;
+            setTextRight1Val(EDIT);
+            textNickName.setEnabled(false);
+            textAge.setEnabled(false);
+            textQq.setEnabled(false);
+            textIntroduce.setEnabled(false);
+            check_mobile_show.setEnabled(false);
+            check_email_show.setEnabled(false);
+            check_qq_show.setEnabled(false);
+            check_pl_show.setEnabled(false);
+            check_dz_show.setEnabled(false);
+            check_sc_show.setEnabled(false);
+            String picPath  =AppConfig.getUserHeadImg(preference);
+            String nikeName  = String.valueOf(textNickName.getText());
+            String age = String.valueOf(textAge.getText());
+            String qq = String.valueOf(textQq.getText());
+            String introduce = String.valueOf(textIntroduce.getText());
+            int is_mobile_show = check_mobile_show.isChecked()?1:0;
+            int is_email_show = check_email_show.isChecked()?1:0;
+            int is_qq_show = check_qq_show.isChecked()?1:0;
+            int is_pl_show=check_pl_show.isChecked()?1:0;
+            int is_dz_show =check_dz_show.isChecked()?1:0;
+            int is_sc_show =check_sc_show.isChecked()?1:0;
+            saveUserInfo(picPath,nikeName,age,qq,introduce,is_mobile_show,is_email_show,is_qq_show,is_pl_show,is_dz_show,is_sc_show);
+        }
+
+
     }
 
     @Click(R.id.imageView)
@@ -135,19 +252,17 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
                     userService.uploadUserHeadImg(AppConfig.getUid(preference), base64Str, new DefaultResponseListener<BaseResponse>() {
                         @Override
                         public void onSuccess(BaseResponse response) {
-                            ToastUtil.show(getApplicationContext(), response.getMessage());
-                            userService.updateUserInfo(AppConfig.getUid(preference), response.getMessage(),
-                                    "", "", "", "", "", "", "", "", "", "", new DefaultResponseListener<BaseResponse>() {
-                                        @Override
-                                        public void onSuccess(BaseResponse response) {
-                                           // ToastUtil.show(getApplicationContext(), response.getMessage());
-                                        }
-
-                                        @Override
-                                        public void onError(VolleyError error) {
-
-                                        }
-                                    });
+                            nickName = preference.getString(AppConfig.USER_NAME,"");
+                            age = preference.getString(AppConfig.USER_AGE,"");
+                            qq = preference.getString(AppConfig.USER_QQ,"");
+                            introduce = preference.getString(AppConfig.USER_INTRODUCE,"");
+                            is_mobile_show = preference.getInt(AppConfig.IS_MOBILE_SHOW, 0);
+                            is_email_show = preference.getInt(AppConfig.IS_EMAIL_SHOW,0);
+                            is_qq_show = preference.getInt(AppConfig.IS_QQ_SHOW, 0);
+                            is_pl_show = preference.getInt(AppConfig.IS_PL_SHOW, 0);
+                            is_dz_show = preference.getInt(AppConfig.IS_DZ_SHOW, 0);
+                            is_sc_show = preference.getInt(AppConfig.IS_SC_SHOW, 0);
+                            saveUserInfo(response.getMessage(),nickName, age, qq, introduce,is_mobile_show,is_email_show,is_qq_show,is_pl_show,is_dz_show,is_sc_show);
                         }
 
                         @Override
@@ -185,4 +300,46 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
     }
 
 
+    /**
+     *
+     * @param picPath
+     * @param nickName
+     * @param age
+     * @param qq
+     * @param introduce
+     * @param isMobileShow
+     * @param isEmailShow
+     * @param isQQShow
+     * @param isPlShow
+     * @param isDzShow
+     * @param isScShow
+     */
+    public void saveUserInfo(final String picPath,final String nickName,final String age,final String qq,final  String introduce
+    ,final int isMobileShow,final  int isEmailShow,final int isQQShow,final int isPlShow,final int isDzShow,final int isScShow){
+        userService.updateUserInfo(AppConfig.getUid(preference),picPath,
+                nickName, age, qq, introduce,String.valueOf(isMobileShow), String.valueOf(isEmailShow), String.valueOf(isQQShow),String.valueOf(isPlShow),String.valueOf(isDzShow),String.valueOf(isScShow), new DefaultResponseListener<BaseResponse>() {
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        YyMobileUser user = new YyMobileUser();
+                        user.setPicPath(picPath);
+                        user.setNickName(nickName);
+                        user.setAge(StringUtil.isEmpty(age) ? 0 : Integer.parseInt(age));
+                        user.setQq(qq);
+                        user.setIntroduce(introduce);
+                        user.setMobileshow(isMobileShow);
+                        user.setEmailshow(isEmailShow);
+                        user.setQqshow(isQQShow);
+                        user.setPlshow(isPlShow);
+                        user.setDzshow(isDzShow);
+                        user.setScshow(isScShow);
+                        AppConfig.saveUpdateInfo(preference,user);
+                        ToastUtil.show(getApplicationContext(), response.getMessage());
+                    }
+
+                    @Override
+                    public void onError(VolleyError error) {
+                        ToastUtil.show(getApplicationContext(),"修改失败");
+                    }
+                });
+    }
 }

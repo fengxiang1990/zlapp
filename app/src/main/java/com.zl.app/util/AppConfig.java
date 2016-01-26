@@ -26,8 +26,15 @@ public class AppConfig {
     public static String TEL_PHONE = "tel_phone";
     public static String IS_LOGIN = "isLogin";
     public static String IS_REMEMBER_PASSWORD = "is_remember_password";
-
-
+    public static String USER_QQ = "user_qq";
+    public static String USER_AGE = "user_age";
+    public static String USER_INTRODUCE = "user_introduce";
+    public static String IS_MOBILE_SHOW ="is_mobile_show";
+    public static String IS_EMAIL_SHOW ="is_email_show";
+    public static String IS_QQ_SHOW ="is_qq_show";
+    public static String IS_PL_SHOW ="is_pl_show";//评论
+    public static String IS_DZ_SHOW ="is_dz_show";//点赞
+    public static String IS_SC_SHOW ="is_sc_show";//收藏
     public static String DATE = "date";
 
     public static String IS_SHOW_IMG = "isNoImg";
@@ -54,8 +61,35 @@ public class AppConfig {
         editor.putString(USER_NAME, user.getNickName());
         editor.putString(TEL_PHONE, user.getMobile());
         editor.putString(MAIL, user.getEmail());
+        editor.putString(USER_AGE, String.valueOf(user.getAge()));
+        editor.putString(USER_QQ, user.getQq());
+        editor.putString(USER_INTRODUCE, user.getIntroduce());
+        editor.putInt(IS_MOBILE_SHOW, user.getMobileshow());
+        editor.putInt(IS_EMAIL_SHOW, user.getEmailshow());
+        editor.putInt(IS_QQ_SHOW, user.getQqshow());
+        editor.putInt(IS_PL_SHOW,user.getPlshow());
+        editor.putInt(IS_DZ_SHOW,user.getDzshow());
+        editor.putInt(IS_SC_SHOW,user.getScshow());
         editor.commit();
     }
+
+    //保存更新的用户信息
+    public static void saveUpdateInfo(SharedPreferences preference,YyMobileUser user){
+        Editor editor = preference.edit();
+        editor.putString(USER_HEAD_IMG, user.getPicPath());
+        editor.putString(USER_NAME, user.getNickName());
+        editor.putString(USER_AGE, String.valueOf(user.getAge()));
+        editor.putString(USER_QQ, user.getQq());
+        editor.putString(USER_INTRODUCE, user.getIntroduce());
+        editor.putInt(IS_MOBILE_SHOW, user.getMobileshow());
+        editor.putInt(IS_EMAIL_SHOW, user.getEmailshow());
+        editor.putInt(IS_QQ_SHOW, user.getQqshow());
+        editor.putInt(IS_PL_SHOW,user.getPlshow());
+        editor.putInt(IS_DZ_SHOW,user.getDzshow());
+        editor.putInt(IS_SC_SHOW,user.getScshow());
+        editor.commit();
+    }
+
 
     public static int getUserId(SharedPreferences preference) {
         return preference.getInt(AppConfig.USER_ID, 0);

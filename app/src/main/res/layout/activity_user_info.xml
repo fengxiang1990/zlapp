@@ -15,15 +15,86 @@
             android:layout_height="100dp"
             android:clickable="true"
             android:src="@mipmap/person_avart" />
+
+        <EditText
+            android:id="@+id/text_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="@string/input_nickname" />
+
+        <EditText
+            android:id="@+id/text_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="@string/input_age" />
+
+        <EditText
+            android:id="@+id/text_qq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="@string/input_qq" />
+
+        <EditText
+            android:id="@+id/text_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="@string/input_introduce" />
+
+        <CheckBox
+            android:id="@+id/check_mobile_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/check_is_show_mobile" />
+
+        <CheckBox
+            android:id="@+id/check_email_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/check_is_show_email" />
+
+        <CheckBox
+            android:id="@+id/check_qq_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/check_is_show_qq" />
+
+        <CheckBox
+            android:id="@+id/check_pl_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/check_is_show_pl" />
+
+        <CheckBox
+            android:id="@+id/check_dz_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/check_is_show_dz" />
+
+        <CheckBox
+            android:id="@+id/check_sc_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/check_is_show_sc" />
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/camera_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:id="@+id/camera_layout"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/btn_take_camera"
