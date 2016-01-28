@@ -200,6 +200,13 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
 
     }
 
+
+    @Click(R.id.btn_modify_password)
+    void modifyPassword() {
+        Intent intent = new Intent(UserInfoActivity.this, ModifyPasswordActivity_.class);
+        startActivity(intent);
+    }
+
     @Click(R.id.btn_take_camera)
     void takeCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
