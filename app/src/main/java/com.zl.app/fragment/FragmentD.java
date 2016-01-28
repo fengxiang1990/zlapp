@@ -19,16 +19,5 @@ public class FragmentD extends BaseFragment {
 
 
 
-    @Click(R.id.btn_modify_password)
-    void modifyPassword() {
-        Intent intent = new Intent(getActivity(), ModifyPasswordActivity_.class);
-        startActivity(intent);
-    }
-
-    @Click(R.id.imageView)
-    void toUserInfo(){
-        Intent intent = new Intent(getActivity(),UserInfoActivity_.class);
-        startActivity(intent);
-    }
 
 }
