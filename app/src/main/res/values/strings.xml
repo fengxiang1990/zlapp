@@ -42,7 +42,7 @@
     <string name="hot_product">热销产品</string>
     <string name="register_name_warn">为您的账户安全填写一个手机号完成验证</string>
     <string name="register_msg_response">已向您的手机 TEL 发送了短信验证码,请及时查收验证。</string>
-    <string name="register_text"><u>没有账号?点击注册</u></string>
+    <string name="register_text"><u>没有账号?</u></string>
     <string name="get_sms_code">获取验证码</string>
     <string name="reget_text">重新获取</string>
 

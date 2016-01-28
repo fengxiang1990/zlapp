@@ -18,10 +18,11 @@
                 android:id="@+id/usernameView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/login_input_shape"
+                android:background="@drawable/login_input_selector"
                 android:hint="请输入手机号"
                 android:padding="10dp"
                 android:singleLine="true"
+                android:drawableLeft="@mipmap/mobile"
                 android:textSize="18sp"></EditText>
 
             <EditText
@@ -29,9 +30,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/login_input_shape"
+                android:background="@drawable/login_input_selector"
                 android:hint="请输入6-20位密码"
                 android:inputType="textPassword"
+                android:drawableLeft="@mipmap/pwd"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textSize="18sp" />

@@ -45,7 +45,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:background="@drawable/login_input_shape"
+                                android:background="@drawable/login_input_selector"
+                                android:drawableLeft="@mipmap/mobile"
                                 android:hint="@string/register_username_hint"
                                 android:padding="10dp"
                                 android:singleLine="true"
@@ -82,10 +83,10 @@
 
                 <LinearLayout
                     android:id="@+id/step2"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:id="@+id/row2"
@@ -98,17 +99,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/login_input_shape"
+                            android:background="@drawable/login_input_selector"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="5dp"
-                                android:text="验证码"
-                                android:textColor="@color/gray"
-                                android:textSize="@dimen/register_info_size" />
 
                             <EditText
                                 android:id="@+id/validateCodeView"
@@ -116,6 +108,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="2dp"
                                 android:background="@drawable/edit_shape"
+                                android:drawableLeft="@mipmap/email"
                                 android:hint="@string/register_validate_code"
                                 android:padding="10dp"
                                 android:singleLine="true"
@@ -149,13 +142,13 @@
                         </LinearLayout>
 
                         <TextView
-                            android:visibility="gone"
-                            android:layout_marginTop="5dp"
                             android:id="@+id/sendResponseView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/register_msg_response"
                             android:textSize="@dimen/product_item_name_size"
-                            android:text="@string/register_msg_response" />
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -168,17 +161,9 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/login_input_shape"
+                            android:background="@drawable/login_input_selector"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="5dp"
-                                android:text="登陆密码"
-                                android:textColor="@color/gray"
-                                android:textSize="@dimen/register_info_size" />
 
                             <EditText
                                 android:id="@+id/passwordView"
@@ -186,6 +171,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="2dp"
                                 android:background="@drawable/edit_shape"
+                                android:drawableLeft="@mipmap/pwd"
                                 android:ems="12"
                                 android:hint="@string/register_password_hint"
                                 android:padding="10dp"
@@ -206,27 +192,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/login_input_shape"
+                            android:background="@drawable/login_input_selector"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="5dp"
-                                android:text="确认密码"
-                                android:textColor="@color/gray"
-                                android:textSize="@dimen/register_info_size" />
 
                             <EditText
                                 android:id="@+id/repasswordView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:background="@drawable/edit_shape"
+                                android:drawableLeft="@mipmap/pwd"
                                 android:ems="12"
                                 android:hint="@string/register_confirm_password_hint"
                                 android:padding="10dp"
-                                android:layout_margin="2dp"
-                                android:background="@drawable/edit_shape"
                                 android:password="true"
                                 android:singleLine="true"
                                 android:textColorHint="@color/lightgray"
@@ -244,27 +223,19 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/login_input_shape"
+                            android:background="@drawable/login_input_selector"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="5dp"
-                                android:text="@string/register_nickname"
-                                android:textColor="@color/gray"
-                                android:textSize="@dimen/register_info_size" />
 
                             <EditText
                                 android:id="@+id/nickNameView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:background="@drawable/edit_shape"
+                                android:drawableLeft="@mipmap/user"
                                 android:ems="12"
                                 android:hint="@string/register_nickname"
                                 android:padding="10dp"
-                                android:layout_margin="2dp"
-                                android:background="@drawable/edit_shape"
                                 android:password="false"
                                 android:singleLine="true"
                                 android:textColorHint="@color/lightgray"
