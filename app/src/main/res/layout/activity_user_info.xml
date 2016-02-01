@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -22,19 +23,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/register_info_margin"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:background="@drawable/login_input_selector"
                 android:drawableLeft="@mipmap/user"
                 android:enabled="false"
                 android:hint="@string/input_nickname" />
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/imageView"
-                android:layout_width="match_parent"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_weight="8"
-                android:clickable="true"
-                android:src="@mipmap/person_avart" />
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                fresco:roundedCornerRadius="50dp"
+                fresco:roundingBorderColor="@color/white"
+                fresco:roundingBorderWidth="4dp" />
+
         </LinearLayout>
 
 
@@ -53,8 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableLeft="@mipmap/ic_qq"
                 android:background="@null"
+                android:drawableLeft="@mipmap/ic_qq"
                 android:enabled="false"
                 android:hint="@string/input_qq" />
 

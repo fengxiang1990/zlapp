@@ -47,7 +47,7 @@
     <string name="reget_text">重新获取</string>
 
     <!-- 个人信息activity -->
-    <string name="user_info">用户信息</string>
+    <string name="user_info">个人设置</string>
     <string name="input_nickname">请输入昵称</string>
     <string name="input_age">请输入年龄</string>
     <string name="input_qq">请输入qq</string>

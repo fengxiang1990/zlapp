@@ -21,13 +21,9 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            fresco:roundBottomLeft="false"
-            fresco:roundBottomRight="false"
-            fresco:roundWithOverlayColor="@color/white"
             fresco:roundedCornerRadius="50dp"
             fresco:roundingBorderColor="@color/white"
-            fresco:roundingBorderWidth="3dp" />
-
+            fresco:roundingBorderWidth="4dp" />
     </LinearLayout>
 
 

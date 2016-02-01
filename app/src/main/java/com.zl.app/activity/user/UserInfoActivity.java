@@ -10,18 +10,16 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.UserService;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
-import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
 import com.zl.app.util.ToastUtil;
@@ -58,7 +56,7 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
     LinearLayout camera_layout;
 
     @ViewById(R.id.imageView)
-    ImageView imageView;
+    SimpleDraweeView imageView;
 
     @ViewById(R.id.text_nickname)
     EditText textNickName;
@@ -93,16 +91,17 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
     UserService userService;
 
     boolean isEditMode = false;
-    String nickName ="";
-    String qq ="";
-    String age ="";
-    String introduce ="";
+    String nickName = "";
+    String qq = "";
+    String age = "";
+    String introduce = "";
     int is_mobile_show = 0;
     int is_email_show = 0;
     int is_qq_show = 0;
-    int is_pl_show=0;
-    int is_dz_show =0;
-    int is_sc_show =0;
+    int is_pl_show = 0;
+    int is_dz_show = 0;
+    int is_sc_show = 0;
+
     @AfterViews
     void afterViews() {
         setBtnLeft1Enable(true);
@@ -112,46 +111,35 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
         userService = new UserServiceImpl();
         String picPath = AppConfig.getUserHeadImg(preference);
         picPath = RequestURL.SERVER + picPath;
-        Log.i(tag,picPath);
-        if(!StringUtil.isEmpty(picPath)){
-            AppManager.getImageLoader().get(picPath, new ImageLoader.ImageListener() {
-                @Override
-                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                    imageView.setImageBitmap(response.getBitmap());
-                }
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });
-        }
-        nickName = preference.getString(AppConfig.USER_NAME,"");
-        age = preference.getString(AppConfig.USER_AGE,"");
-        qq = preference.getString(AppConfig.USER_QQ,"");
-        introduce = preference.getString(AppConfig.USER_INTRODUCE,"");
+        Log.e(tag, picPath);
+        Uri uri = Uri.parse(RequestURL.SERVER + picPath);
+        imageView.setImageURI(uri);
+        nickName = preference.getString(AppConfig.USER_NAME, "");
+        age = preference.getString(AppConfig.USER_AGE, "");
+        qq = preference.getString(AppConfig.USER_QQ, "");
+        introduce = preference.getString(AppConfig.USER_INTRODUCE, "");
         is_mobile_show = preference.getInt(AppConfig.IS_MOBILE_SHOW, 0);
-        is_email_show = preference.getInt(AppConfig.IS_EMAIL_SHOW,0);
-        is_qq_show = preference.getInt(AppConfig.IS_QQ_SHOW,0);
-        is_pl_show = preference.getInt(AppConfig.IS_PL_SHOW,0);
-        is_dz_show = preference.getInt(AppConfig.IS_DZ_SHOW,0);
-        is_sc_show = preference.getInt(AppConfig.IS_SC_SHOW,0);
+        is_email_show = preference.getInt(AppConfig.IS_EMAIL_SHOW, 0);
+        is_qq_show = preference.getInt(AppConfig.IS_QQ_SHOW, 0);
+        is_pl_show = preference.getInt(AppConfig.IS_PL_SHOW, 0);
+        is_dz_show = preference.getInt(AppConfig.IS_DZ_SHOW, 0);
+        is_sc_show = preference.getInt(AppConfig.IS_SC_SHOW, 0);
         textNickName.setText(nickName);
         textAge.setText(age);
         textQq.setText(qq);
         textIntroduce.setText(introduce);
         check_mobile_show.setChecked(is_mobile_show == 1 ? true : false);
-        check_email_show.setChecked(is_email_show==1?true:false);
-        check_qq_show.setChecked(is_qq_show==1?true:false);
-        check_pl_show.setChecked(is_pl_show==1?true:false);
-        check_dz_show.setChecked(is_dz_show==1?true:false);
-        check_sc_show.setChecked(is_sc_show==1?true:false);
+        check_email_show.setChecked(is_email_show == 1 ? true : false);
+        check_qq_show.setChecked(is_qq_show == 1 ? true : false);
+        check_pl_show.setChecked(is_pl_show == 1 ? true : false);
+        check_dz_show.setChecked(is_dz_show == 1 ? true : false);
+        check_sc_show.setChecked(is_sc_show == 1 ? true : false);
     }
 
     @Override
     protected void onTextRight1Click() {
         super.onTextRight1Click();
-        if(!isEditMode){
+        if (!isEditMode) {
             isEditMode = true;
             setTextRight1Val(SAVE);
             textNickName.setEnabled(true);
@@ -164,7 +152,7 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
             check_pl_show.setEnabled(true);
             check_dz_show.setEnabled(true);
             check_sc_show.setEnabled(true);
-        }else{
+        } else {
             isEditMode = false;
             setTextRight1Val(EDIT);
             textNickName.setEnabled(false);
@@ -177,18 +165,18 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
             check_pl_show.setEnabled(false);
             check_dz_show.setEnabled(false);
             check_sc_show.setEnabled(false);
-            String picPath  =AppConfig.getUserHeadImg(preference);
-            String nikeName  = String.valueOf(textNickName.getText());
+            String picPath = AppConfig.getUserHeadImg(preference);
+            String nikeName = String.valueOf(textNickName.getText());
             String age = String.valueOf(textAge.getText());
             String qq = String.valueOf(textQq.getText());
             String introduce = String.valueOf(textIntroduce.getText());
-            int is_mobile_show = check_mobile_show.isChecked()?1:0;
-            int is_email_show = check_email_show.isChecked()?1:0;
-            int is_qq_show = check_qq_show.isChecked()?1:0;
-            int is_pl_show=check_pl_show.isChecked()?1:0;
-            int is_dz_show =check_dz_show.isChecked()?1:0;
-            int is_sc_show =check_sc_show.isChecked()?1:0;
-            saveUserInfo(picPath,nikeName,age,qq,introduce,is_mobile_show,is_email_show,is_qq_show,is_pl_show,is_dz_show,is_sc_show);
+            int is_mobile_show = check_mobile_show.isChecked() ? 1 : 0;
+            int is_email_show = check_email_show.isChecked() ? 1 : 0;
+            int is_qq_show = check_qq_show.isChecked() ? 1 : 0;
+            int is_pl_show = check_pl_show.isChecked() ? 1 : 0;
+            int is_dz_show = check_dz_show.isChecked() ? 1 : 0;
+            int is_sc_show = check_sc_show.isChecked() ? 1 : 0;
+            saveUserInfo(picPath, nikeName, age, qq, introduce, is_mobile_show, is_email_show, is_qq_show, is_pl_show, is_dz_show, is_sc_show);
         }
 
 
@@ -259,17 +247,17 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
                     userService.uploadUserHeadImg(AppConfig.getUid(preference), base64Str, new DefaultResponseListener<BaseResponse>() {
                         @Override
                         public void onSuccess(BaseResponse response) {
-                            nickName = preference.getString(AppConfig.USER_NAME,"");
-                            age = preference.getString(AppConfig.USER_AGE,"");
-                            qq = preference.getString(AppConfig.USER_QQ,"");
-                            introduce = preference.getString(AppConfig.USER_INTRODUCE,"");
+                            nickName = preference.getString(AppConfig.USER_NAME, "");
+                            age = preference.getString(AppConfig.USER_AGE, "");
+                            qq = preference.getString(AppConfig.USER_QQ, "");
+                            introduce = preference.getString(AppConfig.USER_INTRODUCE, "");
                             is_mobile_show = preference.getInt(AppConfig.IS_MOBILE_SHOW, 0);
-                            is_email_show = preference.getInt(AppConfig.IS_EMAIL_SHOW,0);
+                            is_email_show = preference.getInt(AppConfig.IS_EMAIL_SHOW, 0);
                             is_qq_show = preference.getInt(AppConfig.IS_QQ_SHOW, 0);
                             is_pl_show = preference.getInt(AppConfig.IS_PL_SHOW, 0);
                             is_dz_show = preference.getInt(AppConfig.IS_DZ_SHOW, 0);
                             is_sc_show = preference.getInt(AppConfig.IS_SC_SHOW, 0);
-                            saveUserInfo(response.getMessage(),nickName, age, qq, introduce,is_mobile_show,is_email_show,is_qq_show,is_pl_show,is_dz_show,is_sc_show);
+                            saveUserInfo(response.getMessage(), nickName, age, qq, introduce, is_mobile_show, is_email_show, is_qq_show, is_pl_show, is_dz_show, is_sc_show);
                         }
 
                         @Override
@@ -308,7 +296,6 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
 
 
     /**
-     *
      * @param picPath
      * @param nickName
      * @param age
@@ -321,10 +308,10 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
      * @param isDzShow
      * @param isScShow
      */
-    public void saveUserInfo(final String picPath,final String nickName,final String age,final String qq,final  String introduce
-    ,final int isMobileShow,final  int isEmailShow,final int isQQShow,final int isPlShow,final int isDzShow,final int isScShow){
-        userService.updateUserInfo(AppConfig.getUid(preference),picPath,
-                nickName, age, qq, introduce,String.valueOf(isMobileShow), String.valueOf(isEmailShow), String.valueOf(isQQShow),String.valueOf(isPlShow),String.valueOf(isDzShow),String.valueOf(isScShow), new DefaultResponseListener<BaseResponse>() {
+    public void saveUserInfo(final String picPath, final String nickName, final String age, final String qq, final String introduce
+            , final int isMobileShow, final int isEmailShow, final int isQQShow, final int isPlShow, final int isDzShow, final int isScShow) {
+        userService.updateUserInfo(AppConfig.getUid(preference), picPath,
+                nickName, age, qq, introduce, String.valueOf(isMobileShow), String.valueOf(isEmailShow), String.valueOf(isQQShow), String.valueOf(isPlShow), String.valueOf(isDzShow), String.valueOf(isScShow), new DefaultResponseListener<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse response) {
                         YyMobileUser user = new YyMobileUser();
@@ -339,13 +326,13 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
                         user.setPlshow(isPlShow);
                         user.setDzshow(isDzShow);
                         user.setScshow(isScShow);
-                        AppConfig.saveUpdateInfo(preference,user);
+                        AppConfig.saveUpdateInfo(preference, user);
                         ToastUtil.show(getApplicationContext(), response.getMessage());
                     }
 
                     @Override
                     public void onError(VolleyError error) {
-                        ToastUtil.show(getApplicationContext(),"修改失败");
+                        ToastUtil.show(getApplicationContext(), "修改失败");
                     }
                 });
     }
