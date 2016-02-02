@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -13,202 +12,261 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/register_info_margin"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/text_nickname"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/register_info_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/text_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/register_info_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/login_input_selector"
+                    android:drawableLeft="@mipmap/user"
+                    android:enabled="false"
+                    android:hint="@string/input_nickname" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/simpleDraweeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:layout_weight="2"
+                    fresco:actualImageScaleType="fitCenter"
+                    fresco:roundAsCircle="true"
+                    fresco:roundingBorderColor="@color/white"
+                    fresco:roundingBorderWidth="2dp"
+                    fresco:viewAspectRatio="1" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/register_info_margin"
-                android:layout_weight="1"
+                android:layout_marginRight="@dimen/register_info_margin"
+                android:layout_marginTop="@dimen/register_info_margin"
                 android:background="@drawable/login_input_selector"
-                android:drawableLeft="@mipmap/user"
-                android:enabled="false"
-                android:hint="@string/input_nickname" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/imageView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_margin="4dp"
-                fresco:roundedCornerRadius="50dp"
-                fresco:roundingBorderColor="@color/white"
-                fresco:roundingBorderWidth="4dp" />
+                <EditText
+                    android:id="@+id/text_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableLeft="@mipmap/mobile"
+                    android:enabled="false"
+                    android:hint="mobile" />
 
-        </LinearLayout>
+                <CheckBox
+                    android:id="@+id/check_mobile_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:enabled="false"
+                    android:text="@string/check_is_show_mobile" />
+            </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/register_info_margin"
-            android:layout_marginRight="@dimen/register_info_margin"
-            android:layout_marginTop="@dimen/register_info_margin"
-            android:background="@drawable/login_input_selector"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/register_info_margin"
+                android:layout_marginRight="@dimen/register_info_margin"
+                android:layout_marginTop="@dimen/register_info_margin"
+                android:background="@drawable/login_input_selector"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/text_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableLeft="@mipmap/email"
+                    android:enabled="false"
+                    android:hint="@string/input_email" />
+
+                <CheckBox
+                    android:id="@+id/check_email_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:enabled="false"
+                    android:text="@string/check_is_show_email" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/register_info_margin"
+                android:layout_marginRight="@dimen/register_info_margin"
+                android:layout_marginTop="@dimen/register_info_margin"
+                android:background="@drawable/login_input_selector"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/text_qq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableLeft="@mipmap/ic_qq"
+                    android:enabled="false"
+                    android:hint="@string/input_qq" />
+
+                <CheckBox
+                    android:id="@+id/check_qq_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:enabled="false"
+                    android:text="@string/check_is_show_qq" />
+            </LinearLayout>
 
             <EditText
-                android:id="@+id/text_qq"
+                android:id="@+id/text_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                android:drawableLeft="@mipmap/ic_qq"
+                android:layout_marginLeft="@dimen/register_info_margin"
+                android:layout_marginRight="@dimen/register_info_margin"
+                android:layout_marginTop="@dimen/register_info_margin"
+                android:background="@drawable/login_input_selector"
                 android:enabled="false"
-                android:hint="@string/input_qq" />
+                android:hint="@string/input_age"
+                android:visibility="gone" />
 
-            <CheckBox
-                android:id="@+id/check_qq_show"
+
+            <EditText
+                android:id="@+id/text_introduce"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_marginLeft="@dimen/register_info_margin"
+                android:layout_marginRight="@dimen/register_info_margin"
+                android:layout_marginTop="@dimen/register_info_margin"
+                android:background="@drawable/login_input_selector"
                 android:enabled="false"
-                android:text="@string/check_is_show_qq" />
-        </LinearLayout>
+                android:hint="@string/input_introduce"
+                android:visibility="gone" />
 
-        <EditText
-            android:id="@+id/text_age"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/register_info_margin"
-            android:layout_marginRight="@dimen/register_info_margin"
-            android:layout_marginTop="@dimen/register_info_margin"
-            android:background="@drawable/login_input_selector"
-            android:enabled="false"
-            android:hint="@string/input_age" />
-
-
-        <EditText
-            android:id="@+id/text_introduce"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/register_info_margin"
-            android:layout_marginRight="@dimen/register_info_margin"
-            android:layout_marginTop="@dimen/register_info_margin"
-            android:background="@drawable/login_input_selector"
-            android:enabled="false"
-            android:hint="@string/input_introduce" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/register_info_margin"
-            android:paddingLeft="@dimen/register_info_margin"
-            android:paddingTop="@dimen/register_info_margin">
-
-            <CheckBox
-                android:id="@+id/check_mobile_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/check_is_show_mobile" />
-
-            <CheckBox
-                android:id="@+id/check_email_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/check_is_show_email" />
-
-
-            <CheckBox
-                android:id="@+id/check_pl_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/check_is_show_pl" />
-
-            <CheckBox
-                android:id="@+id/check_dz_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/check_is_show_dz" />
-
-            <CheckBox
-                android:id="@+id/check_sc_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/check_is_show_sc" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_modify_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/register_info_margin"
-            android:background="@color/white"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/register_info_margin"
-            android:paddingLeft="@dimen/register_info_margin"
-            android:paddingRight="@dimen/register_info_margin"
-            android:paddingTop="@dimen/register_info_margin">
-
-            <TextView
-                android:id="@+id/text_modify_password"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:clickable="false"
-                android:drawableLeft="@mipmap/pwd"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/register_info_margin"
+                android:paddingLeft="@dimen/register_info_margin"
+                android:paddingTop="@dimen/register_info_margin">
+
+
+                <CheckBox
+                    android:id="@+id/check_pl_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/check_is_show_pl" />
+
+                <CheckBox
+                    android:id="@+id/check_dz_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/check_is_show_dz" />
+
+                <CheckBox
+                    android:id="@+id/check_sc_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/check_is_show_sc" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_modify_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/register_info_margin"
+                android:background="@color/white"
+                android:clickable="true"
                 android:gravity="center_vertical"
-                android:text="修改密码" />
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/register_info_margin"
+                android:paddingLeft="@dimen/register_info_margin"
+                android:paddingRight="@dimen/register_info_margin"
+                android:paddingTop="@dimen/register_info_margin">
 
-            <ImageView
-                android:id="@+id/imageView2"
+                <TextView
+                    android:id="@+id/text_modify_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:clickable="false"
+                    android:drawableLeft="@mipmap/pwd"
+                    android:gravity="center_vertical"
+                    android:text="修改密码" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:src="@mipmap/more" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:src="@mipmap/more" />
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/register_info_margin"
+                android:background="@drawable/login_btn_selector"
+                android:text="登出"
+                android:textColor="@color/white" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_logout"
+        <LinearLayout
+            android:id="@+id/camera_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/register_info_margin"
-            android:background="@drawable/login_btn_selector"
-            android:text="登出"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-    <LinearLayout
-        android:id="@+id/camera_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:visibility="gone">
+            <Button
+                android:id="@+id/btn_take_camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="拍照" />
 
-        <Button
-            android:id="@+id/btn_take_camera"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="拍照" />
+            <Button
+                android:id="@+id/btn_pick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="相册" />
 
-        <Button
-            android:id="@+id/btn_pick"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="相册" />
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="取消" />
-    </LinearLayout>
-
-</RelativeLayout>
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="取消" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -52,9 +52,10 @@
     <string name="input_age">请输入年龄</string>
     <string name="input_qq">请输入qq</string>
     <string name="input_introduce">请输入简介</string>
-    <string name="check_is_show_mobile">是否显示手机</string>
-    <string name="check_is_show_email">是否显示邮箱</string>
-    <string name="check_is_show_qq">是否显示QQ</string>
+    <string name="input_email">请输入邮箱</string>
+    <string name="check_is_show_mobile">显示手机</string>
+    <string name="check_is_show_email">显示邮箱</string>
+    <string name="check_is_show_qq">显示QQ</string>
     <string name="check_is_show_pl">是否显示评论</string>
     <string name="check_is_show_dz">是否显示点赞</string>
     <string name="check_is_show_sc">是否显示收藏</string>

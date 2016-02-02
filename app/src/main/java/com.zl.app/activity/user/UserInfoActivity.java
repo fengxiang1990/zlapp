@@ -55,8 +55,8 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
     @ViewById(R.id.camera_layout)
     LinearLayout camera_layout;
 
-    @ViewById(R.id.imageView)
-    SimpleDraweeView imageView;
+    @ViewById(R.id.simpleDraweeView)
+    SimpleDraweeView simpleDraweeView;
 
     @ViewById(R.id.text_nickname)
     EditText textNickName;
@@ -66,6 +66,12 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
 
     @ViewById(R.id.text_qq)
     EditText textQq;
+
+    @ViewById(R.id.text_mobile)
+    EditText textMobile;
+
+    @ViewById(R.id.text_email)
+    EditText textEmail;
 
     @ViewById(R.id.text_introduce)
     EditText textIntroduce;
@@ -94,6 +100,8 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
     String nickName = "";
     String qq = "";
     String age = "";
+    String mobile = "";
+    String email = "";
     String introduce = "";
     int is_mobile_show = 0;
     int is_email_show = 0;
@@ -112,8 +120,11 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
         String picPath = AppConfig.getUserHeadImg(preference);
         picPath = RequestURL.SERVER + picPath;
         Log.e(tag, picPath);
-        Uri uri = Uri.parse(RequestURL.SERVER + picPath);
-        imageView.setImageURI(uri);
+        Uri uri = Uri.parse(picPath);
+        simpleDraweeView.setImageURI(uri);
+
+        mobile = preference.getString(AppConfig.TEL_PHONE, "");
+        email = preference.getString(AppConfig.MAIL, "");
         nickName = preference.getString(AppConfig.USER_NAME, "");
         age = preference.getString(AppConfig.USER_AGE, "");
         qq = preference.getString(AppConfig.USER_QQ, "");
@@ -127,6 +138,8 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
         textNickName.setText(nickName);
         textAge.setText(age);
         textQq.setText(qq);
+        textMobile.setText(mobile);
+        textEmail.setText(email);
         textIntroduce.setText(introduce);
         check_mobile_show.setChecked(is_mobile_show == 1 ? true : false);
         check_email_show.setChecked(is_email_show == 1 ? true : false);
@@ -182,10 +195,9 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
 
     }
 
-    @Click(R.id.imageView)
+    @Click(R.id.simpleDraweeView)
     void showImageSelection() {
         ViewUtil.show(camera_layout);
-
     }
 
 
@@ -241,7 +253,7 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
                 Bitmap photo = extras.getParcelable("data");
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 photo.compress(Bitmap.CompressFormat.JPEG, 60, stream);// (0-100)压缩文件
-                imageView.setImageBitmap(photo);
+                simpleDraweeView.setImageBitmap(photo);
                 try {
                     String base64Str = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                     userService.uploadUserHeadImg(AppConfig.getUid(preference), base64Str, new DefaultResponseListener<BaseResponse>() {

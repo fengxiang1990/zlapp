@@ -81,6 +81,7 @@ public class AppConfig {
         editor.putString(USER_AGE, String.valueOf(user.getAge()));
         editor.putString(USER_QQ, user.getQq());
         editor.putString(USER_INTRODUCE, user.getIntroduce());
+        editor.putString(MAIL, user.getEmail());
         editor.putInt(IS_MOBILE_SHOW, user.getMobileshow());
         editor.putInt(IS_EMAIL_SHOW, user.getEmailshow());
         editor.putInt(IS_QQ_SHOW, user.getQqshow());
