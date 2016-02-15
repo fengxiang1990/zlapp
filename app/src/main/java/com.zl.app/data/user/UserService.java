@@ -4,6 +4,7 @@ import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
+import java.io.File;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -81,12 +82,12 @@ public interface UserService {
 
     /**
      * 上传用户头像
-     *
+     * 文件上传使用 MultiPartStringRequest  返回结果为字符串类型
      * @param uid
-     * @param fileName
+     * @param imgFile
      * @param listener
      */
-    public void uploadUserHeadImg(String uid, String fileName, DefaultResponseListener<BaseResponse> listener);
+    public void uploadUserHeadImg(String uid, File imgFile, DefaultResponseListener<String> listener);
 
     /**
      * 设置用户信息

@@ -20,6 +20,7 @@ import com.zl.app.data.user.UserService;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
+import com.zl.app.util.GsonUtil;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
 import com.zl.app.util.ToastUtil;
@@ -34,6 +35,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 
 /**
  * Created by admin on 2016/1/22.
@@ -251,14 +253,22 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
             Bundle extras = data.getExtras();
             if (extras != null) {
                 Bitmap photo = extras.getParcelable("data");
+                // 设置文件保存路径
+                File file = new File(Environment.getExternalStorageDirectory() + "/temp.jpg");
+                //if(!file.exists()){
+                 //   file.cre
+               // }
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 photo.compress(Bitmap.CompressFormat.JPEG, 60, stream);// (0-100)压缩文件
                 simpleDraweeView.setImageBitmap(photo);
+                FileOutputStream fos = null;
                 try {
-                    String base64Str = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-                    userService.uploadUserHeadImg(AppConfig.getUid(preference), base64Str, new DefaultResponseListener<BaseResponse>() {
+                    fos = new FileOutputStream(file);
+                    stream.writeTo(fos);
+                   // String base64Str = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+                    userService.uploadUserHeadImg(AppConfig.getUid(preference),file, new DefaultResponseListener<String>() {
                         @Override
-                        public void onSuccess(BaseResponse response) {
+                        public void onSuccess(String result) {
                             nickName = preference.getString(AppConfig.USER_NAME, "");
                             age = preference.getString(AppConfig.USER_AGE, "");
                             qq = preference.getString(AppConfig.USER_QQ, "");
@@ -269,7 +279,11 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
                             is_pl_show = preference.getInt(AppConfig.IS_PL_SHOW, 0);
                             is_dz_show = preference.getInt(AppConfig.IS_DZ_SHOW, 0);
                             is_sc_show = preference.getInt(AppConfig.IS_SC_SHOW, 0);
-                            saveUserInfo(response.getMessage(), nickName, age, qq, introduce, is_mobile_show, is_email_show, is_qq_show, is_pl_show, is_dz_show, is_sc_show);
+                            Log.e(tag,result);
+                            if(!StringUtil.isEmpty(result)){
+                                BaseResponse response = GsonUtil.getJsonObject(result,BaseResponse.class);
+                                saveUserInfo(response.getMessage(), nickName, age, qq, introduce, is_mobile_show, is_email_show, is_qq_show, is_pl_show, is_dz_show, is_sc_show);
+                            }
                         }
 
                         @Override
@@ -279,6 +293,13 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
+                }finally {
+                    try{
+                        stream.close();
+                        fos.close();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
 
