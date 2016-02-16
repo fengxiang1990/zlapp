@@ -7,10 +7,10 @@ public class RequestURL {
     public static String DEBUG_DOMAIN = "http://120.25.69.142/";
 
     //正式接口
-    public static String STANDARD_DOMAIN = "http://www.ziduedu.cn/";
+    public static String STANDARD_DOMAIN = "http://www.ziluedu.cn/";
 
 
-    public static String SERVER = DEBUG_DOMAIN;
+    public static String SERVER = STANDARD_DOMAIN;
 
     //注册接口
     public static String API_REGIST = SERVER + "mobileUser/register.html";
@@ -38,6 +38,33 @@ public class RequestURL {
 
     //设置用户信息接口
     public static String API_USER_INFO_UPDATE = SERVER + "mobileUser/update.html";
+
+    //首页广告
+    public static String API_HOME_AD = SERVER +"mobileAdvt/home.html";
+
+    //首页新闻
+    public static String API_HOME_NEWS = SERVER + "mobileNews/home.html";
+
+    //新闻分类
+    public static String API_NEWS_TYPE = SERVER + "mobileNews/type.html";
+
+    //新闻列表
+    public static String API_NEWS_LIST = SERVER + "mobileNews/list.html";
+
+    //新闻详情
+    public static String API_NEWS_DETAIL = SERVER + "mobileNews/view.html";
+
+    //评论列表
+    public static String API_NEWS_COMMENTS = SERVER + "mobileNews/commentlist.html";
+
+    //提交评论
+    public static String API_NEWS_COMMENT_SUBMIT = SERVER + "mobileNews/comment.html";
+
+    //点赞
+    public static String API_NEWS_GOOD = SERVER + "mobileNews/good.html";
+
+    //收藏
+    public static String API_NEWS_FAVORITE= SERVER + "mobileNews/favorite.html";
 
 
 }
