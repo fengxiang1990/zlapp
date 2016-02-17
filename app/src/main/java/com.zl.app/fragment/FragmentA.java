@@ -17,8 +17,8 @@ import com.zl.app.R;
 import com.zl.app.adapter.NewsAdapter;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
-import com.zl.app.data.home.model.Ad;
-import com.zl.app.data.home.model.News;
+import com.zl.app.data.home.model.YyMobileAdvt;
+import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
@@ -46,7 +46,7 @@ public class FragmentA extends BaseFragment {
     RecyclerView recyclerView;
 
     LinearLayoutManager mlinearLayoutManager;
-    List<News> newsList;
+    List<YyMobileNews> newsList;
     NewsAdapter newsAdapter;
     ConvenientBanner convenientBanner;
     List<View> views;
@@ -62,17 +62,17 @@ public class FragmentA extends BaseFragment {
         recyclerView.setLayoutManager(mlinearLayoutManager);
         //设置每个item 高度固定
         recyclerView.setHasFixedSize(true);
-        newsList = new ArrayList<News>();
+        newsList = new ArrayList<YyMobileNews>();
         newsAdapter = new NewsAdapter(newsList);
         recyclerView.setAdapter(newsAdapter);
 
         homeService = new HomeServiceImpl();
-        homeService.getHomeAds(AppConfig.getUid(AppManager.getPreferences()), new DefaultResponseListener<BaseResponse<List<Ad>>>() {
+        homeService.getHomeAds(AppConfig.getUid(AppManager.getPreferences()), new DefaultResponseListener<BaseResponse<List<YyMobileAdvt>>>() {
             @Override
-            public void onSuccess(BaseResponse<List<Ad>> response) {
+            public void onSuccess(BaseResponse<List<YyMobileAdvt>> response) {
                 Log.e(TAG, response.toString());
-                List<Ad> ads = response.getResult();
-                Ad ad = ads.get(0);
+                List<YyMobileAdvt> ads = response.getResult();
+                YyMobileAdvt ad = ads.get(0);
                 ads.add(ad);
                 convenientBanner.setPages(
                         new CBViewHolderCreator<LocalImageHolderView>() {
@@ -92,12 +92,12 @@ public class FragmentA extends BaseFragment {
             }
         });
 
-        homeService.getHomeNews(AppConfig.getUid(AppManager.getPreferences()), pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<News>>>() {
+        homeService.getHomeNews(AppConfig.getUid(AppManager.getPreferences()), pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileNews>>>() {
 
             @Override
-            public void onSuccess(BaseResponse<List<News>> response) {
+            public void onSuccess(BaseResponse<List<YyMobileNews>> response) {
                 Log.e(TAG, response.toString());
-                List<News> news = response.getResult();
+                List<YyMobileNews> news = response.getResult();
                 newsList.addAll(news);
                 newsAdapter.notifyDataSetChanged();
             }
@@ -110,7 +110,7 @@ public class FragmentA extends BaseFragment {
     }
 
 
-    public class LocalImageHolderView implements Holder<Ad> {
+    public class LocalImageHolderView implements Holder<YyMobileAdvt> {
         private NetworkImageView imageView;
 
         @Override
@@ -121,7 +121,7 @@ public class FragmentA extends BaseFragment {
         }
 
         @Override
-        public void UpdateUI(Context context, final int position, Ad ad) {
+        public void UpdateUI(Context context, final int position, YyMobileAdvt ad) {
             Log.e(TAG, "position:" + position);
             String imgUrl = RequestURL.SERVER + ad.getPicPath();
             imageView.setImageUrl(imgUrl, AppManager.getImageLoader());
