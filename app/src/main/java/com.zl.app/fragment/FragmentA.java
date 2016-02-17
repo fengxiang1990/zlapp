@@ -1,10 +1,11 @@
 package com.zl.app.fragment;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
@@ -13,6 +14,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
+import com.zl.app.adapter.NewsAdapter;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
 import com.zl.app.data.home.model.Ad;
@@ -27,6 +29,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,19 +41,31 @@ import java.util.List;
 public class FragmentA extends BaseFragment {
 
     private final String TAG = "FragmentA";
-    @ViewById(R.id.container)
-    LinearLayout linearLayout;
 
+    @ViewById(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    LinearLayoutManager mlinearLayoutManager;
+    List<News> newsList;
+    NewsAdapter newsAdapter;
     ConvenientBanner convenientBanner;
     List<View> views;
     int pageNo = 1;
-    int pageSize = 10;
+    int pageSize = 100;
 
     HomeService homeService;
 
     @AfterViews
     void afterViews() {
         convenientBanner = (ConvenientBanner) getView().findViewById(R.id.convenientBanner);
+        mlinearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mlinearLayoutManager);
+        //设置每个item 高度固定
+        recyclerView.setHasFixedSize(true);
+        newsList = new ArrayList<News>();
+        newsAdapter = new NewsAdapter(newsList);
+        recyclerView.setAdapter(newsAdapter);
+
         homeService = new HomeServiceImpl();
         homeService.getHomeAds(AppConfig.getUid(AppManager.getPreferences()), new DefaultResponseListener<BaseResponse<List<Ad>>>() {
             @Override
@@ -83,9 +98,8 @@ public class FragmentA extends BaseFragment {
             public void onSuccess(BaseResponse<List<News>> response) {
                 Log.e(TAG, response.toString());
                 List<News> news = response.getResult();
-                for (News item : news) {
-                    Log.e(TAG, item.toString());
-                }
+                newsList.addAll(news);
+                newsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -108,10 +122,11 @@ public class FragmentA extends BaseFragment {
 
         @Override
         public void UpdateUI(Context context, final int position, Ad ad) {
-            Log.e(TAG,"position:"+position);
+            Log.e(TAG, "position:" + position);
             String imgUrl = RequestURL.SERVER + ad.getPicPath();
             imageView.setImageUrl(imgUrl, AppManager.getImageLoader());
         }
     }
+
 
 }

@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     @AfterViews
     void afterViews() {
         context = MainActivity.this;
-        setTitle("主界面");
+        setTitle("首页");
         setBtnRight1Enable(true);
         setBtnRight2Enable(true);
         setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
@@ -99,13 +99,13 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.radio1)
     void radio1Click() {
-        setTitle("tab1");
+        setTitle("首页");
         switchFragment(frgmentManager.beginTransaction(), fragment_a);
     }
 
     @Click(R.id.radio2)
     void radio2Click() {
-        setTitle("tab2");
+        setTitle("新闻");
         switchFragment(frgmentManager.beginTransaction(), fragment_b);
     }
 
@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.radio4)
     void radio4Click() {
-        setTitle("tab4");
+        setTitle("我的");
         if (AppConfig.isLogin(preference)) {
             switchFragment(frgmentManager.beginTransaction(), fragment_d);
         } else {
