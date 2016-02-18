@@ -71,6 +71,8 @@
         <activity android:name=".activity.user.ModifyPasswordActivity_" />
         <activity android:name=".activity.user.UserInfoActivity_" />
 
+        <!--news -->
+        <activity android:name=".activity.news.NewsDetailActivity_" />
 
         <!-- Baidu Map -->
         <service

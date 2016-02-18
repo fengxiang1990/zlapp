@@ -49,6 +49,13 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void getNewsDetail(String uid, String url, DefaultResponseListener<BaseResponse<YyMobileNews>> listener) {
-
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("url",url);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_NEWS_DETAIL, params, null,
+                new TypeToken<BaseResponse<YyMobileNews>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
     }
 }

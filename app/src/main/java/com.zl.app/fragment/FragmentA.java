@@ -63,7 +63,7 @@ public class FragmentA extends BaseFragment {
         //设置每个item 高度固定
         recyclerView.setHasFixedSize(true);
         newsList = new ArrayList<YyMobileNews>();
-        newsAdapter = new NewsAdapter(newsList);
+        newsAdapter = new NewsAdapter(this,newsList);
         recyclerView.setAdapter(newsAdapter);
 
         homeService = new HomeServiceImpl();

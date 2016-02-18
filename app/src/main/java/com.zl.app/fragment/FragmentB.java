@@ -85,7 +85,7 @@ public class FragmentB extends BaseFragment {
         layoutManagerNews.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewNews.setLayoutManager(layoutManagerNews);
         data = new ArrayList<YyMobileNews>();
-        newsAdapter = new NewsAdapter(data);
+        newsAdapter = new NewsAdapter(this,data);
         recyclerViewNews.setAdapter(newsAdapter);
 
         newsService = new NewsServiceImpl();
