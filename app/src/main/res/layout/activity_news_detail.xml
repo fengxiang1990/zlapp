@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/text_title" />
+        android:id="@+id/text_title"
+        style="@style/TextView_NewsDetailTitle"
+        android:visibility="gone" />
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="New Text"
-        android:id="@+id/text_content" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autoLink="web|phone|email"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            android:textSize="15sp" />
+    </ScrollView>
 </LinearLayout>

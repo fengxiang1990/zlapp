@@ -1,6 +1,8 @@
 package com.zl.app.activity.news;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -40,6 +42,7 @@ public class NewsDetailActivity extends BaseActivityWithToolBar {
 
     @AfterViews
     void afterViews() {
+        setBtnLeft1Enable(true);
         context = NewsDetailActivity.this;
         uid = AppConfig.getUid(preference);
         newsService = new NewsServiceImpl();
@@ -49,7 +52,8 @@ public class NewsDetailActivity extends BaseActivityWithToolBar {
             public void onSuccess(BaseResponse<YyMobileNews> response) {
                 YyMobileNews yyMobileNews = response.getResult();
                 text_title.setText(yyMobileNews.getHeadline());
-                text_content.setText(yyMobileNews.getContent());
+                setTitle(yyMobileNews.getHeadline());
+                text_content.setText(Html.fromHtml(yyMobileNews.getContent()));
             }
 
             @Override
