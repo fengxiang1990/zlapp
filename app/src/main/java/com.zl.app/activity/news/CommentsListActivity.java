@@ -4,6 +4,7 @@ package com.zl.app.activity.news;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.android.volley.VolleyError;
 import com.zl.app.R;
@@ -65,6 +66,7 @@ public class CommentsListActivity extends BaseActivityWithToolBar {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileNewsComment>> response) {
                 List<YyMobileNewsComment> list = response.getResult();
+                Log.e(tag,"uid:"+uid+"  newsId:"+newsId);
                 data.clear();
                 data.addAll(list);
                 commentAdapter.notifyDataSetChanged();
