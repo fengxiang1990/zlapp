@@ -73,4 +73,23 @@ public class NewsServiceImpl implements NewsService {
                 listener, listener);
         AppManager.getRequestQueue().add(request);
     }
+
+    @Override
+    public void submitComment(String uid, String url, String yyuserId, String yycontent, String yydate, String content, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("url", url);
+        if(yyuserId != null)
+            params.put("yyuserId",yyuserId);
+        if(yycontent != null)
+            params.put("yycontent",yycontent);
+        if(yydate != null)
+            params.put("yydate",yydate);
+        params.put("content",content);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_NEWS_COMMENT_SUBMIT, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 }

@@ -53,4 +53,15 @@ public interface NewsService {
      */
     public void getNewsComments(String uid,String url,int pageNo,int pageSize,DefaultResponseListener<BaseResponse<List<YyMobileNewsComment>>> listener);
 
+    /**
+     * 发布评论
+     * @param uid
+     * @param url         新闻标识
+     * @param yyuserId   引用者用户ID
+     * @param yycontent  引用内容
+     * @param yydate     引用内容发布日期
+     * @param content    评论内容
+     * @param listener
+     */
+    public void submitComment(String uid,String url,String yyuserId,String yycontent,String yydate,String content,DefaultResponseListener<BaseResponse> listener);
 }
