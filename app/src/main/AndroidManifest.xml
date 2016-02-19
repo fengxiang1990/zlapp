@@ -73,7 +73,7 @@
 
         <!--news -->
         <activity android:name=".activity.news.NewsDetailActivity_" />
-
+        <activity android:name=".activity.news.CommentsListActivity_" />
         <!-- Baidu Map -->
         <service
             android:name="com.baidu.location.f"

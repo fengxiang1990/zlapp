@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/text_title"
         style="@style/TextView_NewsDetailTitle"
-        android:visibility="gone" />
+       />
 
     <ScrollView
         android:layout_width="match_parent"

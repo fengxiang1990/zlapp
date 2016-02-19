@@ -1,6 +1,7 @@
 package com.zl.app.activity.news;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
@@ -43,6 +44,8 @@ public class NewsDetailActivity extends BaseActivityWithToolBar {
     @AfterViews
     void afterViews() {
         setBtnLeft1Enable(true);
+        setTextRight1Enable(true);
+        setTextRight1Val("查看评论");
         context = NewsDetailActivity.this;
         uid = AppConfig.getUid(preference);
         newsService = new NewsServiceImpl();
@@ -52,7 +55,7 @@ public class NewsDetailActivity extends BaseActivityWithToolBar {
             public void onSuccess(BaseResponse<YyMobileNews> response) {
                 YyMobileNews yyMobileNews = response.getResult();
                 text_title.setText(yyMobileNews.getHeadline());
-                setTitle(yyMobileNews.getHeadline());
+               // setTitle(yyMobileNews.getHeadline());
                 text_content.setText(Html.fromHtml(yyMobileNews.getContent()));
             }
 
@@ -63,4 +66,11 @@ public class NewsDetailActivity extends BaseActivityWithToolBar {
         });
     }
 
+    @Override
+    protected void onTextRight1Click() {
+        super.onTextRight1Click();
+        Intent intent = new Intent(this,CommentsListActivity_.class);
+        intent.putExtra("NEWS_ID",newsId);
+        startActivity(intent);
+    }
 }
