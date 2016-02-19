@@ -64,4 +64,21 @@ public interface NewsService {
      * @param listener
      */
     public void submitComment(String uid,String url,String yyuserId,String yycontent,String yydate,String content,DefaultResponseListener<BaseResponse> listener);
+
+
+    /**
+     * 点赞
+     * @param uid
+     * @param url 新闻标识
+     * @param listener
+     */
+    public void submitGood(String uid,String url,DefaultResponseListener<BaseResponse> listener);
+
+    /**
+     * 收藏
+     * @param uid
+     * @param url 新闻标识
+     * @param listener
+     */
+    public void favorite(String uid,String url,DefaultResponseListener<BaseResponse> listener);
 }

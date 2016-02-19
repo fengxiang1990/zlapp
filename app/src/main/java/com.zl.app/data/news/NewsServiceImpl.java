@@ -92,4 +92,28 @@ public class NewsServiceImpl implements NewsService {
                 listener, listener);
         AppManager.getRequestQueue().add(request);
     }
+
+    @Override
+    public void submitGood(String uid, String url, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("url", url);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_NEWS_GOOD, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void favorite(String uid, String url, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("url", url);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_NEWS_FAVORITE, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 }
