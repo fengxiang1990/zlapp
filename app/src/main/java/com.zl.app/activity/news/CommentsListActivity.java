@@ -60,6 +60,7 @@ public class CommentsListActivity extends BaseActivityWithToolBar {
         recyclerViewComments.setAdapter(commentAdapter);
         loadData(pageNo, pageSize);
         //test submit comment
+        /**
         newsService.submitComment(uid, newsId, null, null, null, "说的很对", new DefaultResponseListener<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse response) {
@@ -71,31 +72,8 @@ public class CommentsListActivity extends BaseActivityWithToolBar {
 
             }
         });
-        //点赞
-        newsService.submitGood(uid, newsId, new DefaultResponseListener<BaseResponse>() {
-            @Override
-            public void onSuccess(BaseResponse response) {
-                Log.e(tag, response.toString());
-            }
+         **/
 
-            @Override
-            public void onError(VolleyError error) {
-
-            }
-        });
-        //收藏
-        //点赞
-        newsService.favorite(uid, newsId, new DefaultResponseListener<BaseResponse>() {
-            @Override
-            public void onSuccess(BaseResponse response) {
-                Log.e(tag, response.toString());
-            }
-
-            @Override
-            public void onError(VolleyError error) {
-
-            }
-        });
     }
 
     public void loadData(int pageNo, int pageSize) {
