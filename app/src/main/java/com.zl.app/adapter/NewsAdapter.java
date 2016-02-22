@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
+import com.zl.app.activity.news.NewsDetailActivityWeb_;
 import com.zl.app.activity.news.NewsDetailActivity_;
 import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.fragment.FragmentA;
@@ -49,7 +50,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(fragment.getActivity(), NewsDetailActivity_.class);
+                Intent intent = new Intent(fragment.getActivity(), NewsDetailActivityWeb_.class);
                 intent.putExtra("NEWS_ID", news.getUrl());
                 fragment.getActivity().startActivity(intent);
             }
