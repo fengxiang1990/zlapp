@@ -8,9 +8,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>News detail</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +19,18 @@
 <body>
 <style type="text/css">
     img{
-     width:100%;
+    width:100%;
+    }
+    body {
+    padding-bottom: 70px;
+    }
+    .img-bottom-button{
+    width:30%;
+    height:30%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:10px;
+    margin-top:10px;
     }
 </style>
 
@@ -39,6 +48,18 @@
 
 </div>
 
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-4"><img id="btn_zan" src="item_nosupport.png"
+                                                class="img-responsive img-bottom-button"></div>
+            <div class="col-xs-4 col-md-4"><img id="btn_sc" src="item_norecomm.png"
+                                                class="img-responsive img-bottom-button"></div>
+            <div class="col-xs-4 col-md-4"><img id="btn_comment" src="li13.png"
+                                                class="img-responsive img-bottom-button"></div>
+        </div>
+    </div>
+</nav>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -54,8 +75,39 @@
     $(function(){
         $("#title").text(title);
         $("#content").append(content);
-        }
+		if(obj.isSc == "2"){
+		   $("#btn_sc").attr("src","item_recomm.png");
+		}
+		if(obj.isZan == "2"){
+		   $("#btn_zan").attr("src","item_support.png");
+		}
+
+		$("#btn_zan").click(function(){
+		    jsInterface.zan();
+		});
+
+        $("#btn_sc").click(function(){
+		    jsInterface.sc();
+		});
+       $("#btn_comment").click(function(){
+		    jsInterface.submitComment();
+		});
+       }
     )
+      function updateZanImg(data){
+        if(data == 2){
+		   $("#btn_zan").attr("src","item_support.png");
+		}else{
+		   $("#btn_zan").attr("src","item_nosupport.png");
+		}
+      }
+       function updateScImg(data){
+        if(data == 2){
+		   $("#btn_sc").attr("src","item_recomm.png");
+		}else{
+		   $("#btn_sc").attr("src","item_norecomm.png");
+		}
+      }
 </script>
 </body>
 </html>

@@ -16,10 +16,12 @@ import com.zl.app.data.news.NewsServiceImpl;
 import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.GsonUtil;
+import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -43,7 +45,8 @@ public class NewsDetailActivityWeb extends BaseActivityWithToolBar {
     NewsService newsService;
     String uid;
 
-    String result="";
+    String result = "";
+
     @AfterViews
     void afterViews() {
         webView.addJavascriptInterface(this, "jsInterface");
@@ -101,9 +104,10 @@ public class NewsDetailActivityWeb extends BaseActivityWithToolBar {
     }
 
     @JavascriptInterface
-    public String getResult(){
+    public String getResult() {
         return result;
     }
+
     @Override
     protected void onBtnRight1Click() {
         super.onBtnRight1Click();
@@ -120,4 +124,52 @@ public class NewsDetailActivityWeb extends BaseActivityWithToolBar {
         startActivity(intent);
     }
 
+    @JavascriptInterface
+    public void zan() {
+        newsService.submitGood(uid, newsId, new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                Log.e(tag, response.toString());
+                ToastUtil.show(context, response.getResult().toString());
+                if (response.getResult().toString().equals("点赞成功")) {
+                     webView.loadUrl(String.format("javascript:updateZanImg(2)"));
+                } else {
+                     webView.loadUrl(String.format("javascript:updateZanImg(1)"));
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void sc() {
+        newsService.favorite(uid, newsId, new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                Log.e(tag, response.toString());
+                ToastUtil.show(context, response.getResult().toString());
+                if (response.getResult().toString().equals("收藏成功")) {
+                    webView.loadUrl(String.format("javascript:updateScImg(2)"));
+                } else {
+                    webView.loadUrl(String.format("javascript:updateScImg(1)"));
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void submitComment() {
+        Intent intent = new Intent(this, CommentsListActivity_.class);
+        intent.putExtra("NEWS_ID", newsId);
+        startActivity(intent);
+    }
 }
