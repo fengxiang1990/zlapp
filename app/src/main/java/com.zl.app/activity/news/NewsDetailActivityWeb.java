@@ -106,7 +106,7 @@ public class NewsDetailActivityWeb extends BaseActivityWithToolBar {
     @JavascriptInterface
     public String getResult() {
         return result;
-    }
+}
 
     @Override
     protected void onBtnRight1Click() {

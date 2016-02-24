@@ -66,5 +66,34 @@ public class RequestURL {
     //收藏
     public static String API_NEWS_FAVORITE= SERVER + "mobileNews/favorite.html";
 
+    //根据是否显示（手机、email、qq、评论、收藏、点赞），来显示相应信息。
+    public static String API_SITE_USER = SERVER+"mobileSite/user.html";
+
+    //个人微站留言列表接口
+    public static String API_SITE_USER_COMMENTS = SERVER +"mobileSite/usercommentlist.html";
+
+    //个人微站提交留言接口
+    public static String API_SITE_SUBMIT_USER_COMMENT = SERVER + "mobileSite/usercomment.html";
+
+    //个人发表的文章列表接口
+    public static String API_SITE_MY_NEWS = SERVER +"mobileSite/userCreateNews.html";
+
+    //个人浏览的文章列表接口
+    public static String API_SITE_READ_NEWS = SERVER + "mobileSite/userReadNews.html";
+
+    //个人收藏的文章列表接口
+    public static String API_SITE_FAVORITE_NEWS = SERVER +"mobileSite/userFavoriteNews.html";
+
+    //个人点赞的文章列表接口
+    public static String API_SITE_ZAN_NEWS = SERVER  + "mobileSite/userGoodNews.html";
+
+    //个人关注的个人用户列表接口
+    public static String API_SITE_USER_FANS = SERVER + "mobileSite/userfans.html";
+
+    //关注接口
+    public static String API_SITE_FAN= SERVER + "mobileUser/fans.html";
+
+
+
 
 }
