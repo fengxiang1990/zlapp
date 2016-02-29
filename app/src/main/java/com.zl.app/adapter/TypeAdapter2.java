@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
 import com.zl.app.data.news.model.YyMobileBase;
-import com.zl.app.fragment.FragmentB;
+import com.zl.app.fragment.FragmentHome;
 
 import java.util.List;
 
@@ -20,7 +20,8 @@ public class TypeAdapter2 extends RecyclerView.Adapter<TypeAdapter2.ViewHolder> 
 
     List<YyMobileBase> data;
     BaseFragment fragment;
-    public TypeAdapter2(BaseFragment fragment,List<YyMobileBase> data) {
+
+    public TypeAdapter2(BaseFragment fragment, List<YyMobileBase> data) {
         this.fragment = fragment;
         this.data = data;
     }
@@ -40,9 +41,9 @@ public class TypeAdapter2 extends RecyclerView.Adapter<TypeAdapter2.ViewHolder> 
         holder.mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fragment instanceof FragmentB) {
-                    FragmentB fragmentB = (FragmentB) fragment;
-                    fragmentB.loadData(fragmentB.pageNo,fragmentB.pageSize,yyMobileBase.getCode(),yyMobileBase.getValue());
+                if (fragment instanceof FragmentHome) {
+                    FragmentHome fragmentA = (FragmentHome) fragment;
+                    fragmentA.searchNews(fragmentA.pageNo, fragmentA.pageSize, yyMobileBase.getCode(), yyMobileBase.getValue());
                 }
             }
         });
@@ -65,4 +66,6 @@ public class TypeAdapter2 extends RecyclerView.Adapter<TypeAdapter2.ViewHolder> 
             mTextView = (TextView) view.findViewById(R.id.text_news_type_name);
         }
     }
+
+
 }

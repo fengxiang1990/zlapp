@@ -10,8 +10,7 @@ import com.zl.app.BaseFragment;
 import com.zl.app.R;
 import com.zl.app.data.news.model.YyMobileBase;
 import com.zl.app.data.news.model.YyMobileNews;
-import com.zl.app.fragment.FragmentB;
-import com.zl.app.fragment.FragmentB_;
+import com.zl.app.fragment.FragmentHome;
 
 import java.util.List;
 
@@ -43,8 +42,8 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.ViewHolder> {
         holder.mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(fragment instanceof FragmentB){
-                   ((FragmentB)fragment).loadType(yyMobileBase.getValue());
+               if(fragment instanceof FragmentHome){
+                   ((FragmentHome)fragment).loadType(yyMobileBase.getValue());
                }
             }
         });

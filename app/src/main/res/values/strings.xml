@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">zlapp</string>
 
-    <string name="main_menu_item1">tab1</string>
-    <string name="main_menu_item2">tab2</string>
+    <string name="main_menu_iteml1">微站</string>
+    <string name="main_menu_iteml2">私信</string>
+    <string name="main_menu_item1">首页</string>
+    <string name="main_menu_item2">活动</string>
     <string name="main_menu_item3">tab3</string>
-    <string name="main_menu_item4">tab4</string>
+    <string name="main_menu_item4">设置</string>
 
     <string name="home_page">首页</string>
     <string name="login_title">登陆</string>

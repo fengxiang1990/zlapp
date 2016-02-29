@@ -22,7 +22,7 @@ import org.androidannotations.annotations.ViewById;
  */
 
 @EFragment(R.layout.fragment_d)
-public class FragmentD extends BaseFragment {
+public class FragmentSetting extends BaseFragment {
 
 
     @ViewById(R.id.img_user_header)

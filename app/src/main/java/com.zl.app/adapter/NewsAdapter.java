@@ -14,8 +14,7 @@ import com.zl.app.R;
 import com.zl.app.activity.news.NewsDetailActivityWeb_;
 import com.zl.app.activity.news.NewsDetailActivity_;
 import com.zl.app.data.news.model.YyMobileNews;
-import com.zl.app.fragment.FragmentA;
-import com.zl.app.fragment.FragmentB;
+import com.zl.app.fragment.FragmentHome;
 import com.zl.app.util.RequestURL;
 
 import java.util.List;
@@ -57,8 +56,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         });
         //滚动到底部自动加载
         if(position == data.size()-1){
-           if(fragment instanceof FragmentA) {
-               FragmentA fragmentA = (FragmentA) fragment;
+           if(fragment instanceof FragmentHome) {
+               FragmentHome fragmentA = (FragmentHome) fragment;
                fragmentA.isLoadMore = true;
                fragmentA.pageNo+=1;
                fragmentA.loadNews();

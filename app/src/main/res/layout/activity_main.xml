@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,10 +13,10 @@
 
         <LinearLayout
             android:id="@+id/fragments"
-            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/menus"
+            android:layout_alignParentTop="true"
             android:orientation="vertical" />
 
         <LinearLayout
@@ -33,26 +34,33 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radio1"
+                    android:id="@+id/radiol1"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/base_radio_selector"
+                    android:text="@string/main_menu_iteml1" />
+
+                <RadioButton
+                    android:id="@+id/radiol2"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/base_radio_selector"
+                    android:text="@string/main_menu_iteml2" />
+
+
+                <RadioButton
+                    android:id="@+id/radioHome"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_item1" />
 
                 <RadioButton
-                    android:id="@+id/radio2"
+                    android:id="@+id/radioActivities"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_item2" />
 
 
                 <RadioButton
-                    android:id="@+id/radio3"
-                    style="@style/MainActivityBottomMenuItem"
-                    android:drawableTop="@drawable/base_radio_selector"
-                    android:text="@string/main_menu_item3" />
-
-                <RadioButton
-                    android:id="@+id/radio4"
+                    android:id="@+id/radioSetting"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_item4" />
