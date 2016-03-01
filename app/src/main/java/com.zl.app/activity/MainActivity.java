@@ -116,6 +116,14 @@ public class MainActivity extends BaseActivityWithToolBar {
         // drawerLayout.openDrawer(Gravity.LEFT);
     }
 
+    @Click(R.id.radiol1)
+    void radiol1Click() {
+        setTitle("微站");
+        setBtnLeft1Enable(true);
+        switchFragment(frgmentManager.beginTransaction(), fragment_site);
+    }
+
+
     @Click(R.id.radioHome)
     void radio1Click() {
         setTitle("首页");
