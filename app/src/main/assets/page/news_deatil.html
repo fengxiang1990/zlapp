@@ -44,23 +44,47 @@
     </div>
 </nav>
 
+
 <div id="content" class="container-fluid">
 
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <div class="row">
-            <div class="col-xs-4 col-md-4"><img id="btn_zan" src="item_nosupport.png"
-                                                class="img-responsive img-bottom-button"></div>
-            <div class="col-xs-4 col-md-4"><img id="btn_sc" src="item_norecomm.png"
-                                                class="img-responsive img-bottom-button"></div>
-            <div class="col-xs-4 col-md-4"><img id="btn_comment" src="li13.png"
-                                                class="img-responsive img-bottom-button"></div>
+		     <div class="col-xs-2 col-md-2">
+			   阅读&nbsp <span id="read_count">200</span>
+			  </div>
+			<div class="col-xs-2 col-md-2">
+			   评论&nbsp <span id="comment_count">100</span>
+			 </div>
+												
+            <div class="col-xs-1 col-md-1"><img id="btn_zan" src="item_nosupport.png"
+                                                class="img-responsive "></div>
+            <div class="col-xs-1 col-md-1"><img id="btn_sc" src="item_norecomm.png"
+                                                class="img-responsive "></div>
+            <div class="col-xs-1 col-md-1" style="display:none"><img id="btn_comment" src="li13.png"
+                                                class="img-responsive "></div>
+			<div class="col-xs-1 col-md-1"><img id="btn_share" src="li13.png"
+                                                class="img-responsive "></div>									
         </div>
     </div>
-</nav>
 
+
+	<!-- list of comments  pageSize :10 -->
+	<ul class="list-group" style="margin-left:6px;margin-right:6px;margin-bottom:3px;">
+       <li class="list-group-item">免费域名注册</li>
+       <li class="list-group-item">免费 Window 空间托管</li>
+       <li class="list-group-item">图像的数量</li>
+       <li class="list-group-item">24*7 支持</li>
+       <li class="list-group-item">每年更新成本</li>
+     </ul>
+	 	<!--  load more -->
+	 <div class="container-fluid" style="background-color:gray">
+        <p class="text-center" style="margin-top:15px;margin-bottom:15px;">加载更多</p>
+     </div>
+
+	
+	
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
