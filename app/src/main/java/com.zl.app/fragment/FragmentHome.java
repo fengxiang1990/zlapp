@@ -221,6 +221,7 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         pageNo = 1;
         isLoadMore = false;
+        isSearchNews = false;
         loadData();
     }
 
@@ -258,10 +259,6 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
                 type_list2.clear();
                 type_list2.addAll(list);
                 typeAdapter2.notifyDataSetChanged();
-
-                //默认加载第一个小分类下的新闻
-                YyMobileBase yyMobileBase = list.get(0);
-                //loadData(pageNo, pageSize, yyMobileBase.getCode(), yyMobileBase.getValue());
             }
 
             @Override
@@ -272,12 +269,25 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
 
+    public boolean isSearchNews = false;
+    public String code;
+    public String value;
+
     public void searchNews(int pageNo, int pageSize, String code, String value) {
+        LoadingDialog.getInstance(getActivity()).show();
+        this.code = code;
+        this.value = value;
+        if (isSearchNews && !isLoadMore) {
+            pageNo = 1;
+        }
         newsService.getNewsByType(uid, pageNo, pageSize, code, value, new DefaultResponseListener<BaseResponse<List<YyMobileNews>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileNews>> response) {
+                LoadingDialog.getInstance(getActivity()).dismiss();
                 List<YyMobileNews> list = response.getResult();
-                newsList.clear();
+                if (isSearchNews && !isLoadMore) {
+                    newsList.clear();
+                }
                 newsList.addAll(list);
                 newsAdapter.notifyDataSetChanged();
             }

@@ -97,6 +97,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     }
 
     @Override
+
     protected void onBtnRight2Click() {
         ToastUtil.show(context, "search btn click");
         application.mLocationClient.start();

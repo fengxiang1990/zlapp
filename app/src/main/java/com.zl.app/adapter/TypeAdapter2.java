@@ -42,8 +42,10 @@ public class TypeAdapter2 extends RecyclerView.Adapter<TypeAdapter2.ViewHolder> 
             @Override
             public void onClick(View v) {
                 if (fragment instanceof FragmentHome) {
-                    FragmentHome fragmentA = (FragmentHome) fragment;
-                    fragmentA.searchNews(fragmentA.pageNo, fragmentA.pageSize, yyMobileBase.getCode(), yyMobileBase.getValue());
+                    FragmentHome fragmentHome = (FragmentHome) fragment;
+                    fragmentHome.isSearchNews = true;
+                    fragmentHome.isLoadMore = false;
+                    fragmentHome.searchNews(fragmentHome.pageNo, fragmentHome.pageSize, yyMobileBase.getCode(), yyMobileBase.getValue());
                 }
             }
         });
