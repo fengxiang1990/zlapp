@@ -58,7 +58,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(fragment.getActivity(), NewsDetailActivityWeb_.class);
+                Intent intent = new Intent(fragment.getActivity(), NewsDetailActivity_.class);
                 intent.putExtra("NEWS_ID", news.getUrl());
                 fragment.getActivity().startActivity(intent);
             }

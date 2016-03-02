@@ -22,7 +22,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.sufficientlysecure.htmltextview.HtmlTextView;
+
+import zhou.widget.RichText;
 
 /**
  * Created by fengxiang on 2016/2/18.
@@ -38,7 +39,7 @@ public class NewsDetailActivity extends BaseActivityWithToolBar {
     TextView text_title;
 
     @ViewById(R.id.text_content)
-    HtmlTextView text_content;
+    RichText text_content;
 
     @ViewById(R.id.btn_zan)
     ImageView btn_zan;
@@ -74,7 +75,8 @@ public class NewsDetailActivity extends BaseActivityWithToolBar {
                 Log.e(tag, message);
                 final YyMobileNews yyMobileNews = response.getResult();
                 text_title.setText(yyMobileNews.getHeadline());
-                text_content.setHtmlFromString(yyMobileNews.getContent().replaceAll("/upload/attached/", "http://www.ziluedu.cn/upload/attached/"), new HtmlTextView.RemoteImageGetter());
+                text_content.setRichText(yyMobileNews.getContent().replaceAll("/upload/attached/", "http://www.ziluedu.cn/upload/attached/"));
+                //text_content.setHtmlFromString(yyMobileNews.getContent().replaceAll("/upload/attached/", "http://www.ziluedu.cn/upload/attached/"), new HtmlTextView.RemoteImageGetter());
                 setTextRight1Val(yyMobileNews.getCommentNo() + "人跟帖");
                 String[] strs = message.split(",");
                 //已经收藏

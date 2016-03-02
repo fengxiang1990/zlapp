@@ -15,7 +15,7 @@
         android:layout_above="@+id/line1"
         android:layout_below="@+id/text_title">
 
-        <org.sufficientlysecure.htmltextview.HtmlTextView
+        <zhou.widget.RichText
             android:id="@+id/text_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
