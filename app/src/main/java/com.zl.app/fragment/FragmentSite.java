@@ -68,6 +68,7 @@ public class FragmentSite extends BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
         comments = new ArrayList<YyMobileUserComment>();
         adapter = new SiteMessageAdapter(this,comments);
+        recyclerView.setAdapter(adapter);
         uid = AppConfig.getUid(AppManager.getPreferences());
         userId = AppConfig.getUserId(AppManager.getPreferences());
         String url = AppConfig.getUserHeadImg(AppManager.getPreferences());

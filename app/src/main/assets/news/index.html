@@ -36,18 +36,12 @@
 		$("#zan_count2").append(zanCount);
 		$("#sc_count2").append(scCount);
 		
-		if(obj.isSc == "2"){
-		   $("#btn_sc").attr("src","item_recomm.png");
-		}
-		if(obj.isZan == "2"){
-		   $("#btn_zan").attr("src","item_support.png");
-		}
 
-		$("#btn_zan").click(function(){
+		$("#btn_zan1").click(function(){
 		    jsInterface.zan();
 		});
 
-        $("#btn_sc").click(function(){
+        $("#btn_sc1").click(function(){
 		    jsInterface.sc();
 		});
        $("#btn_comment").click(function(){
@@ -78,7 +72,7 @@
 		<!-- 来源 -->
 		<div class="biaoqian">
 			发布时间：<span id="post_time"></span>
-			<p class="rs"> <b class="yd">阅读 <span id="read_count1"></span></b> <b class="pl">评论 <span id="comment_count1"></span></b><b class="dz"> <span id="zan_count1"></span></b> <b class="sc"> <span id="sc_count1"></span></b> </p>
+			<p class="rs"> <b class="yd">阅读 <span id="read_count1"></span></b> <b class="pl">评论 <span id="comment_count1"></span></b><b class="dz" id="btn_zan1"> <span id="zan_count1"></span></b> <b class="sc" id="btn_sc1"> <span id="sc_count1"></span></b> </p>
 		</div>
 		<!-- 摘录 -->
 		<div class="zy" id="zy">

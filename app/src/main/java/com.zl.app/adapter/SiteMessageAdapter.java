@@ -43,7 +43,6 @@ public class SiteMessageAdapter extends RecyclerView.Adapter<SiteMessageAdapter.
     @Override
     public void onBindViewHolder(SiteMessageAdapter.ViewHolder holder, int position) {
         final YyMobileUserComment comment = data.get(position);
-        holder.draweeView.setVisibility(View.VISIBLE);
         Uri uri = Uri.parse(RequestURL.SERVER + comment.getPicPath());
         holder.draweeView.setImageURI(uri);
         holder.text_user_name.setText(comment.getFormusername());
@@ -76,7 +75,7 @@ public class SiteMessageAdapter extends RecyclerView.Adapter<SiteMessageAdapter.
 
         public ViewHolder(View view) {
             super(view);
-            draweeView = (SimpleDraweeView) view.findViewById(R.id.pic_news);
+            draweeView = (SimpleDraweeView) view.findViewById(R.id.img_user_header);
             text_user_name = (TextView) view.findViewById(R.id.text_user_name);
             text_create_time = (TextView) view.findViewById(R.id.text_create_time);
             btn_yinyong = (TextView) view.findViewById(R.id.btn_yinyong);

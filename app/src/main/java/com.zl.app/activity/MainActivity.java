@@ -12,6 +12,7 @@ import com.zl.app.BaseFragment;
 import com.zl.app.MyApplication;
 import com.zl.app.R;
 import com.zl.app.activity.user.LoginActivity_;
+import com.zl.app.activity.user.UserInfoActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.fragment.FragmentActivities_;
 import com.zl.app.fragment.FragmentHome_;
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setTitle("首页");
         //首页新闻显示侧滑
         setBtnLeft1Enable(true);
-        setBtnRight1Enable(false);
+        setBtnRight1Enable(true);
         setBtnRight2Enable(true);
         setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
         setBtnRight2ImageResource(R.mipmap.menu_search);
@@ -107,7 +108,8 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnRight1Click() {
-        ToastUtil.show(context, "setting btn click");
+        Intent intent = new Intent(this,UserInfoActivity_.class);
+        startActivity(intent);
     }
 
 
@@ -118,8 +120,8 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.radiol1)
     void radiol1Click() {
+        setBtnLeft1Enable(false);
         setTitle("微站");
-        setBtnLeft1Enable(true);
         switchFragment(frgmentManager.beginTransaction(), fragment_site);
     }
 
@@ -133,8 +135,8 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.radioActivities)
     void radio2Click() {
-        setTitle("活动");
         setBtnLeft1Enable(false);
+        setTitle("活动");
         switchFragment(frgmentManager.beginTransaction(), fragment_activities);
     }
 

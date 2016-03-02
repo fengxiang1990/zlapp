@@ -60,6 +60,7 @@
 
 
                 <RadioButton
+                    android:visibility="gone"
                     android:id="@+id/radioSetting"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"

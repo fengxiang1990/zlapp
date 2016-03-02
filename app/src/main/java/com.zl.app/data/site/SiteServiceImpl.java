@@ -25,7 +25,7 @@ public class SiteServiceImpl implements SiteService {
         params.put("pageNo", String.valueOf(pageNo));
         params.put("pageSize", String.valueOf(pageSize));
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_SITE_USER_COMMENTS, params, null,
-                new TypeToken<BaseResponse<List<List<YyMobileUserComment>>>>() {
+                new TypeToken<BaseResponse<List<YyMobileUserComment>>>() {
                 },
                 listener, listener);
         AppManager.getRequestQueue().add(request);
