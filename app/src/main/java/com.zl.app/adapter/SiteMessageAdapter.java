@@ -1,20 +1,17 @@
 package com.zl.app.adapter;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
-import com.zl.app.activity.news.NewsDetailActivityWeb_;
-import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.data.news.model.YyMobileUserComment;
-import com.zl.app.fragment.FragmentHome;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
 
@@ -48,6 +45,14 @@ public class SiteMessageAdapter extends RecyclerView.Adapter<SiteMessageAdapter.
         holder.text_user_name.setText(comment.getFormusername());
         holder.text_create_time.setText(comment.getCreateDate());
         holder.text_message.setText(comment.getContent());
+        if (!StringUtil.isEmpty(comment.getYycontent())) {
+            holder.yyll.setVisibility(View.VISIBLE);
+            holder.text_yy_user_name.setText(comment.getYyusername());
+            holder.text_yy_create_time.setText(comment.getYydate());
+            holder.text_yy_message.setText(comment.getYycontent());
+        } else {
+            holder.yyll.setVisibility(View.GONE);
+        }
         holder.btn_yinyong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +78,12 @@ public class SiteMessageAdapter extends RecyclerView.Adapter<SiteMessageAdapter.
         public TextView btn_yinyong;
         public TextView text_message;
 
+        //引用内容
+        public LinearLayout yyll;
+        public TextView text_yy_user_name;
+        public TextView text_yy_create_time;
+        public TextView text_yy_message;
+
         public ViewHolder(View view) {
             super(view);
             draweeView = (SimpleDraweeView) view.findViewById(R.id.img_user_header);
@@ -80,6 +91,12 @@ public class SiteMessageAdapter extends RecyclerView.Adapter<SiteMessageAdapter.
             text_create_time = (TextView) view.findViewById(R.id.text_create_time);
             btn_yinyong = (TextView) view.findViewById(R.id.btn_yinyong);
             text_message = (TextView) view.findViewById(R.id.text_message);
+
+            text_yy_user_name = (TextView) view.findViewById(R.id.text_yy_user_name);
+            text_yy_create_time = (TextView) view.findViewById(R.id.text_yy_create_time);
+            text_yy_message = (TextView) view.findViewById(R.id.text_yy_message);
+            yyll = (LinearLayout) view.findViewById(R.id.yyll);
+
         }
     }
 }
