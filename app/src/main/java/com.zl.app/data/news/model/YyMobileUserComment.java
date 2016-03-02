@@ -11,6 +11,16 @@ public class YyMobileUserComment {
 	private String yyusername;//引用人的网名
 	private String createDate;//留言时间
 	private String yydate;//引用内容的留言时间
+
+	public String getPicPath() {
+		return picPath;
+	}
+
+	public void setPicPath(String picPath) {
+		this.picPath = picPath;
+	}
+
+	private String picPath;
 	public Integer getCommentId() {
 		return commentId;
 	}

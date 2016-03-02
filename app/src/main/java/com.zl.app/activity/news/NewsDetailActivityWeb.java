@@ -93,7 +93,7 @@ public class NewsDetailActivityWeb extends BaseActivityWithToolBar {
                 map.put("isZan", strs[1]);
                 String json = GsonUtil.gson.toJson(map);
                 result = json;
-                webView.loadUrl("file:///android_asset/page/news_deatil.html");
+                webView.loadUrl("file:///android_asset/news/index.html");
             }
 
             @Override
