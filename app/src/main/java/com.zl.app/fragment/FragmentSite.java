@@ -5,6 +5,10 @@ import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -19,6 +23,7 @@ import com.zl.app.data.site.SiteServiceImpl;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
+import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.view.LoadingDialog;
@@ -45,6 +50,15 @@ public class FragmentSite extends BaseFragment {
 
     @ViewById(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    @ViewById(R.id.ll5)
+    LinearLayout linearLayoutEdit;//回复内容面板
+
+    @ViewById(R.id.edit_comment)
+    EditText edit_comment;//回复内容面板
+
+    @ViewById(R.id.ll4)
+    LinearLayout ll4;
 
     LinearLayoutManager layoutManager;
 
@@ -80,15 +94,15 @@ public class FragmentSite extends BaseFragment {
     public void loadUserComments(){
         LoadingDialog.getInstance(getActivity()).show();
         Log.e("uid:", uid);
-        Log.e("userId:",String.valueOf(userId));
+        Log.e("userId:", String.valueOf(userId));
         siteService.getCommentList(uid, String.valueOf(userId), pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileUserComment>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileUserComment>> response) {
                 LoadingDialog.getInstance(getActivity()).dismiss();
-                if(!isLoadMore){
+                if (!isLoadMore) {
                     comments.clear();
                 }
-                if(response.getResult()!=null){
+                if (response.getResult() != null) {
                     comments.addAll(response.getResult());
                     adapter.notifyDataSetChanged();
                 }
@@ -107,5 +121,22 @@ public class FragmentSite extends BaseFragment {
         startActivity(intent);
     }
 
+    @Click(R.id.btn_send)
+    void send(){
+        String content = String.valueOf(edit_comment.getText());
+        ToastUtil.show(getActivity(), content);
+    }
+
+    @Click(R.id.btn_reply)
+    void openReply(){
+        ll4.setVisibility(View.GONE);
+        linearLayoutEdit.setVisibility(View.VISIBLE);
+    }
+
+    @Click(R.id.btn_close)
+    void close(){
+        ll4.setVisibility(View.VISIBLE);
+        linearLayoutEdit.setVisibility(View.GONE);
+    }
 
 }
