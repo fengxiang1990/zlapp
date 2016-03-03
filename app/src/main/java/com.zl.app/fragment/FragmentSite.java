@@ -20,9 +20,11 @@ import com.zl.app.data.news.model.YyMobileBase;
 import com.zl.app.data.news.model.YyMobileUserComment;
 import com.zl.app.data.site.SiteService;
 import com.zl.app.data.site.SiteServiceImpl;
+import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
+import com.zl.app.util.StringUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
@@ -44,6 +46,7 @@ import java.util.List;
 @EFragment(R.layout.fragment_site)
 public class FragmentSite extends BaseFragment {
 
+    String tag = "YyMobileUser";
 
     @ViewById(R.id.img_user_header)
     SimpleDraweeView img_user_header;
@@ -71,6 +74,38 @@ public class FragmentSite extends BaseFragment {
 
     @ViewById(R.id.btn_cancel_yiyiong)
     TextView  btn_cancel_yiyiong; //取消引用
+
+    @ViewById(R.id.text_qianming)
+    TextView  text_qianming;
+
+    @ViewById(R.id.text_gz_count)
+    TextView  text_gz_count; //关注数
+
+    @ViewById(R.id.text_user_name)
+    TextView  text_user_name; //用户名
+
+    @ViewById(R.id.text_funs_count)
+    TextView  text_funs_count; //粉丝数
+
+    @ViewById(R.id.text_topic_count)
+    TextView  text_topic_count; //文章数
+
+    @ViewById(R.id.text_read_count)
+    TextView  text_read_count; //阅读数
+
+    @ViewById(R.id.text_comment_count)
+    TextView  text_comment_count; //评论数
+
+    @ViewById(R.id.text_sc_count)
+    TextView  text_sc_count; //收藏数
+
+    @ViewById(R.id.text_dz_count)
+    TextView  text_dz_count; //点赞数
+
+    @ViewById(R.id.text_activities_count)
+    TextView  text_activities_count; //活动数
+
+
 
     LinearLayoutManager layoutManager;
 
@@ -100,13 +135,42 @@ public class FragmentSite extends BaseFragment {
         String url = AppConfig.getUserHeadImg(AppManager.getPreferences());
         Uri uri = Uri.parse(RequestURL.SERVER + url);
         img_user_header.setImageURI(uri);
+        loadData();
+    }
+
+    public void loadData(){
+        LoadingDialog.getInstance(getActivity()).show();
+        loadUserInfo();
         loadUserComments();
+    }
+    public void loadUserInfo(){
+        siteService.getUserInfo(uid, String.valueOf(userId), new DefaultResponseListener<BaseResponse<YyMobileUser>>() {
+            @Override
+            public void onSuccess(BaseResponse<YyMobileUser> response) {
+                YyMobileUser user = response.getResult();
+                if(user!= null){
+                    text_user_name.setText(user.getNickName());
+                    if(!StringUtil.isEmpty(user.getIntroduce())){
+                        text_qianming.setText(user.getIntroduce());
+                    }
+                    text_gz_count.setText(String.valueOf(user.getGzgr()+user.getGzjg()));
+                    text_topic_count.setText(String.valueOf(user.getFbno()));
+                    text_read_count.setText(String.valueOf(user.getLrno()));
+                    text_comment_count.setText(String.valueOf(user.getPlno()));
+                    text_sc_count.setText(String.valueOf(user.getScno()));
+                    text_dz_count.setText(String.valueOf(user.getDzno()));
+                    //活动数量 粉丝数量缺少
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
     }
 
     public void loadUserComments(){
-        LoadingDialog.getInstance(getActivity()).show();
-        Log.e("uid:", uid);
-        Log.e("userId:", String.valueOf(userId));
         siteService.getCommentList(uid, String.valueOf(userId), pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileUserComment>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileUserComment>> response) {

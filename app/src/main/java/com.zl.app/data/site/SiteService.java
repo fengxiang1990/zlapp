@@ -1,6 +1,7 @@
 package com.zl.app.data.site;
 
 import com.zl.app.data.news.model.YyMobileUserComment;
+import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
@@ -10,6 +11,15 @@ import java.util.List;
  * Created by admin on 2016/3/2.
  */
 public interface SiteService {
+
+
+    /**
+     * 获取用户信息
+     * @param uid
+     * @param ids
+     * @param listener
+     */
+    public void getUserInfo(String uid,String ids,DefaultResponseListener<BaseResponse<YyMobileUser>> listener);
 
     /**
      * 获取微站留言列表

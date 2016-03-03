@@ -98,7 +98,7 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
 
     UserService userService;
 
-    boolean isEditMode = false;
+    boolean isEditMode = true;
     String nickName = "";
     String qq = "";
     String age = "";

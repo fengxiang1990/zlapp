@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setTitle("首页");
         //首页新闻显示侧滑
         setBtnLeft1Enable(true);
-        setBtnRight1Enable(true);
+        //setBtnRight1Enable(true);
         setBtnRight2Enable(true);
         setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
         setBtnRight2ImageResource(R.mipmap.menu_search);

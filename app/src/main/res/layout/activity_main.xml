@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_activity_bottom_menus_height"
             android:layout_alignParentBottom="true"
-            android:background="@color/lightgray"
+            android:background="@color/whitesmoke"
             android:orientation="horizontal">
 
             <RadioGroup
@@ -60,7 +60,6 @@
 
 
                 <RadioButton
-                    android:visibility="gone"
                     android:id="@+id/radioSetting"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
