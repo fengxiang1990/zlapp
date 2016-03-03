@@ -12,6 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
 import com.zl.app.data.news.model.YyMobileUserComment;
+import com.zl.app.fragment.FragmentSite;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
 
@@ -56,7 +57,7 @@ public class SiteMessageAdapter extends RecyclerView.Adapter<SiteMessageAdapter.
         holder.btn_yinyong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((FragmentSite)fragment).openYyPanel(comment);
             }
         });
 

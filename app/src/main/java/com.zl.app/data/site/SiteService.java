@@ -21,4 +21,16 @@ public interface SiteService {
      */
     public void getCommentList(String uid,String ids,int pageNo,int pageSize,DefaultResponseListener<BaseResponse<List<YyMobileUserComment>>> listener);
 
+
+    /**
+     * 回复
+     * @param uid
+     * @param ids         用户ID
+     * @param yyuserId   引用人用户id
+     * @param yycontent  引用内容
+     * @param yydate     引用的内容发布日期
+     * @param content    评论内容
+     * @param listener
+     */
+    public void reply(String uid,String ids,String yyuserId,String yycontent,String yydate,String content,DefaultResponseListener<BaseResponse> listener);
 }

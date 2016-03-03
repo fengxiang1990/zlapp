@@ -57,8 +57,20 @@ public class FragmentSite extends BaseFragment {
     @ViewById(R.id.edit_comment)
     EditText edit_comment;//回复内容面板
 
+    @ViewById(R.id.llyinyong)
+    LinearLayout  llyinyong; //引用内容面板
+
     @ViewById(R.id.ll4)
     LinearLayout ll4;
+
+    @ViewById(R.id.text_yy_username)
+    TextView  text_yy_username; //引用用户名
+
+    @ViewById(R.id.text_yy_content)
+    TextView  text_yy_conteng; //引用内容
+
+    @ViewById(R.id.btn_cancel_yiyiong)
+    TextView  btn_cancel_yiyiong; //取消引用
 
     LinearLayoutManager layoutManager;
 
@@ -69,7 +81,7 @@ public class FragmentSite extends BaseFragment {
     SiteService siteService;
 
     public int pageNo = 1;
-    public int pageSize = 100;
+    public int pageSize = 100000;
     String uid;
     int userId;
     public boolean isLoadMore = false;
@@ -123,8 +135,32 @@ public class FragmentSite extends BaseFragment {
 
     @Click(R.id.btn_send)
     void send(){
+        String yyuserId=null;
+        String yycontent=null;
+        String yydate=null;
+        if(llyinyong.getVisibility() == View.VISIBLE && yyMobileUserComment!=null){
+            yyuserId = String.valueOf(yyMobileUserComment.getUserId());
+            yycontent = yyMobileUserComment.getContent();
+            yydate = yyMobileUserComment.getCreateDate();
+        }
         String content = String.valueOf(edit_comment.getText());
-        ToastUtil.show(getActivity(), content);
+        LoadingDialog.getInstance(getActivity()).show();
+        siteService.reply(uid, String.valueOf(userId), yyuserId, yycontent, yydate, content, new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                LoadingDialog.getInstance(getActivity()).dismiss();
+                ToastUtil.show(getActivity(), response.getMessage());
+                ll4.setVisibility(View.VISIBLE);
+                linearLayoutEdit.setVisibility(View.GONE);
+                edit_comment.setText("");
+                loadUserComments();
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+                LoadingDialog.getInstance(getActivity()).dismiss();
+            }
+        });
     }
 
     @Click(R.id.btn_reply)
@@ -135,8 +171,27 @@ public class FragmentSite extends BaseFragment {
 
     @Click(R.id.btn_close)
     void close(){
+        edit_comment.setText("");
         ll4.setVisibility(View.VISIBLE);
         linearLayoutEdit.setVisibility(View.GONE);
+        llyinyong.setVisibility(View.GONE);
+        yyMobileUserComment = null;
     }
 
+    @Click(R.id.btn_cancel_yiyiong)
+    void cancelYinyong(){
+        llyinyong.setVisibility(View.GONE);
+        yyMobileUserComment = null;
+    }
+
+    YyMobileUserComment yyMobileUserComment = null;
+    //打开引用面板
+    public void openYyPanel(YyMobileUserComment yyMobileUserComment){
+        ll4.setVisibility(View.GONE);
+        linearLayoutEdit.setVisibility(View.VISIBLE);
+        llyinyong.setVisibility(View.VISIBLE);
+        this.yyMobileUserComment = yyMobileUserComment;
+        text_yy_username.setText(yyMobileUserComment.getFormusername());
+        text_yy_conteng.setText(yyMobileUserComment.getContent());
+    }
 }

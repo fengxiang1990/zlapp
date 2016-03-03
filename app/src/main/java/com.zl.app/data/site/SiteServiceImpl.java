@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.news.model.YyMobileUserComment;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
+import com.zl.app.util.StringUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.util.net.GsonRequest;
@@ -26,6 +27,28 @@ public class SiteServiceImpl implements SiteService {
         params.put("pageSize", String.valueOf(pageSize));
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_SITE_USER_COMMENTS, params, null,
                 new TypeToken<BaseResponse<List<YyMobileUserComment>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void reply(String uid, String ids, String yyuserId, String yycontent, String yydate, String content, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("ids", ids);
+        if(!StringUtil.isEmpty(yyuserId)){
+            params.put("yyuserId",yyuserId);
+        }
+        if(!StringUtil.isEmpty(yycontent)){
+            params.put("yycontent",yycontent);
+        }
+        if(!StringUtil.isEmpty(yydate)){
+            params.put("yydate",yydate);
+        }
+        params.put("content", content);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_SITE_SUBMIT_USER_COMMENT, params, null,
+                new TypeToken<BaseResponse>() {
                 },
                 listener, listener);
         AppManager.getRequestQueue().add(request);

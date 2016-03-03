@@ -8,22 +8,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/img_user_header"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            fresco:roundAsCircle="true"
-            fresco:roundingBorderColor="@color/white"
-            fresco:roundingBorderWidth="4dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/img_user_header"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                fresco:roundAsCircle="true"
+                fresco:roundingBorderColor="@color/white"
+                fresco:roundingBorderWidth="4dp" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -61,19 +69,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
-                android:text="留言的内容" />
+                android:text="" />
 
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/yyll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"
-        android:padding="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/whitesmoke"
         android:orientation="vertical"
+        android:padding="10dp"
         android:visibility="visible">
 
         <LinearLayout
