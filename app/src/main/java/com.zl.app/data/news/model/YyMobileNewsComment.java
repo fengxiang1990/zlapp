@@ -12,6 +12,16 @@ public class YyMobileNewsComment {
 	private String yyusername;//引用评论人网名
 	private String createDate;//评论时间
 	private String yydate;//引用评论的评论时间
+
+	public String getPicPath() {
+		return picPath;
+	}
+
+	public void setPicPath(String picPath) {
+		this.picPath = picPath;
+	}
+
+	private String picPath;
 	public Integer getCommentId() {
 		return commentId;
 	}
