@@ -35,6 +35,13 @@
 
 
                 <RadioButton
+                    android:id="@+id/radiol1"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/base_radio_selector"
+                    android:text="@string/main_menu_iteml1" />
+
+
+                <RadioButton
                     android:id="@+id/radioHome"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
@@ -54,14 +61,8 @@
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_item2" />
 
-                <RadioButton
-                    android:id="@+id/radiol1"
-                    style="@style/MainActivityBottomMenuItem"
-                    android:drawableTop="@drawable/base_radio_selector"
-                    android:text="@string/main_menu_iteml1" />
 
                 <RadioButton
-                    android:visibility="gone"
                     android:id="@+id/radioSetting"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
