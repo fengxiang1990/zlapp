@@ -1,11 +1,14 @@
 package com.zl.app.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,7 +64,7 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
     LinearLayout leftMenu;
 
     @ViewById(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
 
     @ViewById(R.id.recyclerView1)
     RecyclerView recyclerView1;
@@ -92,6 +95,7 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
     String uid;
 
     public boolean isLoadMore = false;
+    List<YyMobileAdvt> adList;
 
     @AfterViews
     void afterViews() {
@@ -121,6 +125,7 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
         homeService = new HomeServiceImpl();
         loadData();
         initNewsMenus();
+        adList = new ArrayList<YyMobileAdvt>();
     }
 
     public void initNewsMenus() {
@@ -168,8 +173,8 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
             public void onSuccess(BaseResponse<List<YyMobileAdvt>> response) {
                 Log.e(TAG, response.toString());
                 List<YyMobileAdvt> ads = response.getResult();
-                YyMobileAdvt ad = ads.get(0);
-                ads.add(ad);
+                adList.clear();
+                adList.addAll(ads);
                 convenientBanner.setPages(
                         new CBViewHolderCreator<LocalImageHolderView>() {
                             @Override
@@ -241,6 +246,19 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
             Log.e(TAG, "position:" + position);
             String imgUrl = RequestURL.SERVER + ad.getPicPath();
             imageView.setImageUrl(imgUrl, AppManager.getImageLoader());
+            imageView.setClickable(true);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    YyMobileAdvt ad = adList.get(position);
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(ad.getLinkUrl());
+                    intent.setData(content_url);
+                    startActivity(intent);
+                }
+            });
+
         }
     }
 
@@ -274,6 +292,7 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
     public String value;
 
     public void searchNews(int pageNo, int pageSize, String code, String value) {
+        drawerLayout.closeDrawer(Gravity.LEFT);
         LoadingDialog.getInstance(getActivity()).show();
         this.code = code;
         this.value = value;

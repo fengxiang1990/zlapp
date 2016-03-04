@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -15,6 +18,7 @@ import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.activity.user.UserInfoActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.fragment.FragmentActivities_;
+import com.zl.app.fragment.FragmentHome;
 import com.zl.app.fragment.FragmentHome_;
 import com.zl.app.fragment.FragmentMessage_;
 import com.zl.app.fragment.FragmentSetting;
@@ -73,6 +77,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setTitle("首页");
         //首页新闻显示侧滑
         setBtnLeft1Enable(true);
+        setBtnLeft1ImageResource(R.mipmap.ic_more);
         //setBtnRight1Enable(true);
         setBtnRight2Enable(true);
         setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
@@ -115,7 +120,13 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnLeft1Click() {
-        // drawerLayout.openDrawer(Gravity.LEFT);
+        DrawerLayout drawerLayout = ((FragmentHome)fragment_home).drawerLayout;
+        if(drawerLayout.isDrawerOpen(Gravity.LEFT)){
+            drawerLayout.closeDrawer(Gravity.LEFT);
+        }else{
+            drawerLayout.openDrawer(Gravity.LEFT);
+        }
+
     }
 
     @Click(R.id.radiol1)
