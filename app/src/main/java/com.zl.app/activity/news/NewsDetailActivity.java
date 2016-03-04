@@ -112,6 +112,18 @@ public class NewsDetailActivity extends BaseActivityWithToolBar {
                 text_dz_count.setText(String.valueOf(yyMobileNews.getGoodNo()));
                 text_sc_count.setText(String.valueOf(yyMobileNews.getFavoriteNo()));
                 text_title.setText(yyMobileNews.getHeadline());
+                text_content.setImageFixListener(new RichText.ImageFixListener() {
+                    @Override
+                    public void onFix(RichText.ImageHolder holder) {
+                        if (holder.getWidth() > 100 || holder.getHeight() > 100) {
+                            int width = getWindowManager().getDefaultDisplay().getWidth();
+                            int height = (int) (holder.getHeight() * 1f * width / holder.getWidth()) - 100;
+                            holder.setWidth(width);
+                            holder.setHeight(height);
+                            holder.setScaleType(RichText.ImageHolder.CENTER_INSIDE);
+                        }
+                    }
+                });
                 text_content.setRichText(yyMobileNews.getContent().replaceAll("/upload/attached/", "http://www.ziluedu.cn/upload/attached/"));
                 setTextRight1Val(yyMobileNews.getCommentNo() + "人评论");
                 String[] strs = message.split(",");
