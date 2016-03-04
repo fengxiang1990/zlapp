@@ -48,6 +48,8 @@ public class CommentsListActivity extends BaseActivityWithToolBar {
     @AfterViews
     void afterViews() {
         setBtnLeft1Enable(true);
+        setTextRight1Enable(true);
+        setTextRight1Val("我要评论");
         newsId = getIntent().getStringExtra("NEWS_ID");
         uid = AppConfig.getUid(preference);
         context = CommentsListActivity.this;
