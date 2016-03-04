@@ -42,17 +42,17 @@
 
 
                 <RadioButton
-                    android:id="@+id/radioHome"
-                    style="@style/MainActivityBottomMenuItem"
-                    android:drawableTop="@drawable/base_radio_selector"
-                    android:text="@string/main_menu_item1" />
-
-
-                <RadioButton
                     android:id="@+id/radiol2"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_iteml2" />
+
+
+                <RadioButton
+                    android:id="@+id/radioHome"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/base_radio_selector"
+                    android:text="@string/main_menu_item1" />
 
 
                 <RadioButton
