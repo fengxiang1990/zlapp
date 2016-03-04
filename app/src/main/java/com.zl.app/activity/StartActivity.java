@@ -1,17 +1,12 @@
 package com.zl.app.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.zl.app.BaseActivity;
 import com.zl.app.R;
-import com.zl.app.util.AppManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -62,22 +57,22 @@ public class StartActivity extends BaseActivity {
             }
         });
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        AppManager.getImageLoader().get(imgUrl, new ImageLoader.ImageListener() {
+        imageView.startAnimation(alphaAnimation);
+        /**
+         AppManager.getImageLoader().get(imgUrl, new ImageLoader.ImageListener() {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i(tag, error.getMessage() == null ? "" : error.getMessage());
-            }
+        @Override public void onErrorResponse(VolleyError error) {
+        Log.i(tag, error.getMessage() == null ? "" : error.getMessage());
+        }
 
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                Bitmap bitmap = response.getBitmap();
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap);
-                    imageView.startAnimation(alphaAnimation);
-                }
-            }
+        @Override public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+        Bitmap bitmap = response.getBitmap();
+        if (bitmap != null) {
+        imageView.setImageBitmap(bitmap);
+        imageView.startAnimation(alphaAnimation);
+        }
+        }
         });
-
+         **/
     }
 }
