@@ -20,7 +20,6 @@
         android:id="@+id/llsv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/line1"
         android:layout_below="@+id/linetop"
         android:fillViewport="true">
 
@@ -43,6 +42,100 @@
                 android:textSize="15sp" />
 
             <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_above="@+id/ll_bottom"
+                android:background="@color/lightgray" />
+
+            <LinearLayout
+                android:id="@+id/ll_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="阅读" />
+
+                <TextView
+                    android:id="@+id/text_read_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="评论" />
+
+                <TextView
+                    android:id="@+id/text_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="0" />
+
+
+                <ImageView
+                    android:id="@+id/btn_zan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:src="@mipmap/item_nosupport" />
+
+                <TextView
+                    android:id="@+id/text_dz_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="0" />
+
+
+                <ImageView
+                    android:id="@+id/btn_sc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:src="@mipmap/item_norecomm" />
+
+                <TextView
+                    android:id="@+id/text_sc_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="0" />
+
+                <EditText
+                    android:id="@+id/edit_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/btn_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="发送"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/lightgray" />
@@ -55,100 +148,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-
-    <View
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_above="@+id/ll_bottom"
-        android:background="@color/lightgray" />
-
-    <LinearLayout
-        android:id="@+id/ll_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="阅读" />
-
-        <TextView
-            android:id="@+id/text_read_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="0" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="评论" />
-
-        <TextView
-            android:id="@+id/text_comment_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="0" />
-
-
-        <ImageView
-            android:id="@+id/btn_zan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:src="@mipmap/item_nosupport" />
-
-        <TextView
-            android:id="@+id/text_dz_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="0" />
-
-
-        <ImageView
-            android:id="@+id/btn_sc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:src="@mipmap/item_norecomm" />
-
-        <TextView
-            android:id="@+id/text_sc_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="0" />
-
-        <EditText
-            android:id="@+id/edit_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/btn_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="发送"
-            android:visibility="gone" />
-    </LinearLayout>
 </RelativeLayout>
