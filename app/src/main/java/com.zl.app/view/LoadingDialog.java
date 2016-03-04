@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
@@ -18,7 +19,7 @@ import com.zl.app.R;
 public class LoadingDialog {
 
     String TAG = LoadingDialog.class.getName();
-    Context context;
+    static Context context;
     Dialog dialog;
     Window window;
     LinearLayout outter;
@@ -34,6 +35,11 @@ public class LoadingDialog {
 
     public static LoadingDialog getInstance(Context context) {
         if(loadingDialog == null){
+            loadingDialog = new LoadingDialog(context);
+        }
+        //上下文发生改变 重新创建dialog
+        if(LoadingDialog.context!=null && LoadingDialog.context!=context){
+            Log.e("LoadingDialog","context had been changed");
             loadingDialog = new LoadingDialog(context);
         }
         return loadingDialog;

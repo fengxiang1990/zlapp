@@ -131,7 +131,6 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
     public void initNewsMenus() {
         uid = AppConfig.getUid(AppManager.getPreferences());
         newsService = new NewsServiceImpl();
-        ;
         //一级分类
         layoutManager1 = new LinearLayoutManager(getActivity());
         layoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
@@ -166,6 +165,7 @@ public class FragmentHome extends BaseFragment implements SwipeRefreshLayout.OnR
             }
         });
     }
+
 
     public void loadData() {
         homeService.getHomeAds(AppConfig.getUid(AppManager.getPreferences()), new DefaultResponseListener<BaseResponse<List<YyMobileAdvt>>>() {
