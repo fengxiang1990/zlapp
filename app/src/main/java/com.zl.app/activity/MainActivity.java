@@ -18,12 +18,12 @@ import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.activity.user.UserInfoActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.fragment.FragmentActivities_;
+import com.zl.app.fragment.FragmentClass_;
+import com.zl.app.fragment.FragmentFind;
+import com.zl.app.fragment.FragmentFind_;
 import com.zl.app.fragment.FragmentHome;
-import com.zl.app.fragment.FragmentHome_;
-import com.zl.app.fragment.FragmentMessage_;
+import com.zl.app.fragment.FragmentMine_;
 import com.zl.app.fragment.FragmentSetting;
-import com.zl.app.fragment.FragmentSetting_;
-import com.zl.app.fragment.FragmentSite_;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.ToastUtil;
 
@@ -44,19 +44,16 @@ public class MainActivity extends BaseActivityWithToolBar {
     Context context = null;
 
     @ViewById
-    RadioButton radiol1;
+    RadioButton tab_find;
 
     @ViewById
-    RadioButton radiol2;
+    RadioButton tab_class;
 
     @ViewById
-    RadioButton radioHome;
+    RadioButton tab_activities;
 
     @ViewById
-    RadioButton radioActivities;
-
-    @ViewById
-    RadioButton radioSetting;
+    RadioButton tab_mine;
 
     @ViewById(R.id.rg)
     RadioGroup radioGroup;
@@ -64,7 +61,10 @@ public class MainActivity extends BaseActivityWithToolBar {
     @App
     MyApplication application;
 
-    public BaseFragment fragment_site,fragment_message,fragment_home, fragment_activities, fragment_setting;
+    public BaseFragment  fragment_find;
+    public BaseFragment  fragment_class;
+    public BaseFragment  fragment_activities;
+    public BaseFragment  fragment_mine;
 
     FragmentManager frgmentManager;
 
@@ -83,23 +83,20 @@ public class MainActivity extends BaseActivityWithToolBar {
         setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
         setBtnRight2ImageResource(R.mipmap.menu_search);
         frgmentManager = getSupportFragmentManager();
-        fragment_site = new FragmentSite_();
-        fragment_message = new FragmentMessage_();
-        fragment_home = new FragmentHome_();
+        fragment_find = new FragmentFind_();
+        fragment_class = new FragmentClass_();
         fragment_activities = new FragmentActivities_();
-        fragment_setting = new FragmentSetting_();
+        fragment_mine = new FragmentMine_();
         FragmentTransaction fragmentTransaction = frgmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragments, fragment_home);
+        fragmentTransaction.add(R.id.fragments, fragment_find);
         fragmentTransaction.commit();
 
         fragments = new ArrayList<BaseFragment>();
-        fragments.add(fragment_home);
+        fragments.add(fragment_find);
+        fragments.add(fragment_class);
         fragments.add(fragment_activities);
-        fragments.add(fragment_setting);
-        fragments.add(fragment_site);
-        fragments.add(fragment_message);
-
-        radioHome.setChecked(true);
+        fragments.add(fragment_mine);
+        tab_find.setChecked(true);
     }
 
     @Override
@@ -120,43 +117,37 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnLeft1Click() {
-        DrawerLayout drawerLayout = ((FragmentHome)fragment_home).drawerLayout;
-        if(drawerLayout.isDrawerOpen(Gravity.LEFT)){
-            drawerLayout.closeDrawer(Gravity.LEFT);
-        }else{
-            drawerLayout.openDrawer(Gravity.LEFT);
-        }
 
     }
 
-    @Click(R.id.radiol1)
+    @Click(R.id.tab_find)
     void radiol1Click() {
         setBtnLeft1Enable(false);
-        setTitle("微站");
-        switchFragment(frgmentManager.beginTransaction(), fragment_site);
+        setTitle("发现");
+        switchFragment(frgmentManager.beginTransaction(), fragment_find);
     }
 
 
-    @Click(R.id.radioHome)
+    @Click(R.id.tab_class)
     void radio1Click() {
-        setTitle("首页");
-        setBtnLeft1Enable(true);
-        switchFragment(frgmentManager.beginTransaction(), fragment_home);
+        setTitle("课程");
+        setBtnLeft1Enable(false);
+        switchFragment(frgmentManager.beginTransaction(), fragment_class);
     }
 
-    @Click(R.id.radioActivities)
+    @Click(R.id.tab_activities)
     void radio2Click() {
         setBtnLeft1Enable(false);
         setTitle("活动");
         switchFragment(frgmentManager.beginTransaction(), fragment_activities);
     }
 
-    @Click(R.id.radioSetting)
+    @Click(R.id.tab_mine)
     void radio4Click() {
-        setTitle("设置");
+        setTitle("我的");
         setBtnLeft1Enable(false);
         if (AppConfig.isLogin(preference)) {
-            switchFragment(frgmentManager.beginTransaction(), fragment_setting);
+            switchFragment(frgmentManager.beginTransaction(), fragment_mine);
         } else {
             Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
             startActivity(intent);
@@ -184,20 +175,17 @@ public class MainActivity extends BaseActivityWithToolBar {
         super.onResume();
         if (AppConfig.isLogin(preference)) {
             switch (radioGroup.getCheckedRadioButtonId()) {
-                case R.id.radiol1:
-                    switchFragment(frgmentManager.beginTransaction(), fragment_site);
+                case R.id.tab_find:
+                    switchFragment(frgmentManager.beginTransaction(), fragment_find);
                     break;
-                case R.id.radiol2:
-                    switchFragment(frgmentManager.beginTransaction(), fragment_message);
+                case R.id.tab_class:
+                    switchFragment(frgmentManager.beginTransaction(), fragment_class);
                     break;
-                case R.id.radioHome:
-                    switchFragment(frgmentManager.beginTransaction(), fragment_home);
-                    break;
-                case R.id.radioActivities:
+                case R.id.tab_activities:
                     switchFragment(frgmentManager.beginTransaction(), fragment_activities);
                     break;
-                case R.id.radioSetting:
-                    switchFragment(frgmentManager.beginTransaction(), fragment_setting);
+                case R.id.tab_mine:
+                    switchFragment(frgmentManager.beginTransaction(), fragment_mine);
                     break;
             }
         }

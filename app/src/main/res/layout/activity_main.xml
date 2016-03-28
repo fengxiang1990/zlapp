@@ -35,35 +35,29 @@
 
 
                 <RadioButton
-                    android:id="@+id/radiol1"
+                    android:id="@+id/tab_find"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_iteml1" />
 
 
                 <RadioButton
-                    android:id="@+id/radiol2"
+                    android:id="@+id/tab_class"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_iteml2" />
 
 
-                <RadioButton
-                    android:id="@+id/radioHome"
-                    style="@style/MainActivityBottomMenuItem"
-                    android:drawableTop="@drawable/base_radio_selector"
-                    android:text="@string/main_menu_item1" />
-
 
                 <RadioButton
-                    android:id="@+id/radioActivities"
+                    android:id="@+id/tab_activities"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_item2" />
 
 
                 <RadioButton
-                    android:id="@+id/radioSetting"
+                    android:id="@+id/tab_mine"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/base_radio_selector"
                     android:text="@string/main_menu_item4" />
