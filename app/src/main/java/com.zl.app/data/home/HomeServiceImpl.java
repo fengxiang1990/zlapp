@@ -4,6 +4,7 @@ import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.home.model.YyMobileAdvt;
 import com.zl.app.data.news.model.YyMobileNews;
+import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;
@@ -18,6 +19,17 @@ import java.util.Map;
  * Created by fengxiang on 2016/2/16.
  */
 public class HomeServiceImpl implements HomeService {
+    @Override
+    public void getHomeCompany(String uid, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_HOME_TUIJIAN, params, null,
+                new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
     @Override
     public void getHomeAds(String uid, DefaultResponseListener<BaseResponse<List<YyMobileAdvt>>> listener) {
         Map<String, String> params = new HashMap<String, String>();

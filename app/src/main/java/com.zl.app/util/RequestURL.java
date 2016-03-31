@@ -93,7 +93,5 @@ public class RequestURL {
     //关注接口
     public static String API_SITE_FAN= SERVER + "mobileUser/fans.html";
 
-
-
-
+    public static String API_HOME_TUIJIAN =SERVER +"mobileCompany/home.html";
 }
