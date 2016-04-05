@@ -13,31 +13,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:layout_marginTop="5dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/textView1"
                 style="@style/TextView_Type"
                 android:layout_column="1"
-                android:text="英语" />
+                android:drawableTop="@mipmap/en_icon" />
 
             <TextView
                 android:id="@+id/textView2"
                 style="@style/TextView_Type"
                 android:layout_column="1"
-                android:text="语文" />
+                android:drawableTop="@mipmap/chinese_icon" />
 
             <TextView
                 android:id="@+id/textView3"
                 style="@style/TextView_Type"
                 android:layout_column="1"
-                android:text="数学" />
+                android:drawableTop="@mipmap/math_icon" />
 
             <TextView
                 android:id="@+id/textView4"
                 style="@style/TextView_Type"
                 android:layout_column="1"
-                android:text="美术" />
+                android:drawableTop="@mipmap/art_icon" />
 
         </TableRow>
 
@@ -51,32 +52,33 @@
                 android:id="@+id/textView5"
                 style="@style/TextView_Type"
                 android:layout_column="1"
-                android:text="音乐" />
+                android:drawableTop="@mipmap/music_icon"
+                />
 
             <TextView
                 android:id="@+id/textView6"
                 style="@style/TextView_Type"
                 android:layout_column="1"
-                android:text="乐高" />
+                android:drawableTop="@mipmap/lego_icon" />
 
             <TextView
                 android:id="@+id/textView7"
                 style="@style/TextView_Type"
                 android:layout_column="1"
-                android:text="舞蹈" />
+                android:drawableTop="@mipmap/dance_icon"/>
 
             <TextView
                 android:id="@+id/textView8"
                 style="@style/TextView_Type"
                 android:layout_column="1"
-                android:text="+更多" />
+                android:drawableTop="@mipmap/more_icon" />
 
         </TableRow>
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white">
