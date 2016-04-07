@@ -1,13 +1,9 @@
 package com.zl.app.fragment;
 
-import android.annotation.TargetApi;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
