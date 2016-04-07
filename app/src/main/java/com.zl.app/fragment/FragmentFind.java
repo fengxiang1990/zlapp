@@ -1,9 +1,13 @@
 package com.zl.app.fragment;
 
+import android.annotation.TargetApi;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
@@ -31,10 +35,13 @@ import java.util.List;
  * Created by fengxiang on 2016/3/28.
  */
 @EFragment(R.layout.fragment_find)
-public class FragmentFind extends BaseFragment{
+public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
     String tag = FragmentFind.class.getName();
+
+    @ViewById
+    SwipeRefreshLayout id_swipe_ly;
 
     @ViewById(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -50,6 +57,7 @@ public class FragmentFind extends BaseFragment{
     public boolean isLoadMore = true;
     @AfterViews
     void afterViews(){
+        id_swipe_ly.setOnRefreshListener(this);
         data = new ArrayList<YyMobileCompany>();
         adapter = new OrgAdapter(this,data);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -58,6 +66,23 @@ public class FragmentFind extends BaseFragment{
         recyclerView.setAdapter(adapter);
         homeService=new HomeServiceImpl();
         uid = AppConfig.getUid(AppManager.getPreferences());
+
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                id_swipe_ly.setEnabled(topRowVerticalPosition >= 0);
+            }
+        });
+
         homeService.getHomeCompany(uid, new DefaultResponseListener<BaseResponse<List<YyMobileCompany>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileCompany>> response) {
@@ -84,5 +109,8 @@ public class FragmentFind extends BaseFragment{
     }
 
 
+    @Override
+    public void onRefresh() {
 
+    }
 }
