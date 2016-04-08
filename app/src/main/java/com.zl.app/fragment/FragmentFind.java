@@ -64,10 +64,26 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
         uid = AppConfig.getUid(AppManager.getPreferences());
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            //用来标记是否正在向最后一个滑动，既是否向右滑动或向下滑动
+            boolean isSlidingToLast = false;
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                // 当不滚动时
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    //获取最后一个完全显示的ItemPosition
+                    int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
+                    int totalItemCount = manager.getItemCount();
 
+                    // 判断是否滚动到底部，并且是向右滚动
+                    if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
+                        //加载更多功能的代码
+                        isLoadMore = true;
+                        pageNumber += 1;
+                        loadData();
+                    }
+                }
             }
 
             @Override
@@ -76,37 +92,48 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
                 int topRowVerticalPosition =
                         (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
                 id_swipe_ly.setEnabled(topRowVerticalPosition >= 0);
+                //dx用来判断横向滑动方向，dy用来判断纵向滑动方向
+                //大于0表示，正在向右滚动
+//小于等于0 表示停止或向左滚动
+                isSlidingToLast = dy > 0;
             }
         });
+        loadData();
+    }
 
-        homeService.getHomeCompany(uid, new DefaultResponseListener<BaseResponse<List<YyMobileCompany>>>() {
+
+    public void loadData() {
+        id_swipe_ly.setRefreshing(true);
+        homeService.getHomeCompany(uid, pageNumber, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileCompany>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileCompany>> response) {
-                if(response.getStatus().equals(AppConfig.HTTP_OK)){
-                    List<YyMobileCompany> list  = response.getResult();
-                    if(!isLoadMore){
+                id_swipe_ly.setRefreshing(false);
+                if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                    List<YyMobileCompany> list = response.getResult();
+                    if (!isLoadMore) {
                         data.clear();
                     }
                     data.addAll(list);
                     adapter.notifyDataSetChanged();
-                    for(YyMobileCompany yyMobileCompany:list){
-                        Log.e(tag,yyMobileCompany.toString());
+                    for (YyMobileCompany yyMobileCompany : list) {
+                        Log.e(tag, yyMobileCompany.toString());
                     }
-                }else{
-                    ToastUtil.show(getActivity(),response.getMessage());
+                } else {
+                    ToastUtil.show(getActivity(), response.getMessage());
                 }
             }
 
             @Override
             public void onError(VolleyError error) {
-
+                id_swipe_ly.setRefreshing(false);
             }
         });
     }
 
-
     @Override
     public void onRefresh() {
-
+        isLoadMore = false;
+        pageNumber = 1;
+        loadData();
     }
 }

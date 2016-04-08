@@ -17,16 +17,18 @@ public interface HomeService {
     /**
      * 获取首页推荐机构
      * @param uid
+     *  @param pageNo
+     *  @param pageSize
      * @param listener
      */
-    public void getHomeCompany(String uid,DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener);
+    void getHomeCompany(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener);
 
     /**
      *
      * @param uid
      * @param listener
      */
-    public void getHomeAds(String uid,DefaultResponseListener<BaseResponse<List<YyMobileAdvt>>> listener);
+    void getHomeAds(String uid, DefaultResponseListener<BaseResponse<List<YyMobileAdvt>>> listener);
 
     /**
      *
@@ -35,6 +37,6 @@ public interface HomeService {
      * @param pageSize
      * @param listener
      */
-    public void getHomeNews(String uid,int pageNo,int pageSize,DefaultResponseListener<BaseResponse<List<YyMobileNews>>> listener);
+    void getHomeNews(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileNews>>> listener);
 
 }

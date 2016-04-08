@@ -20,9 +20,11 @@ import java.util.Map;
  */
 public class HomeServiceImpl implements HomeService {
     @Override
-    public void getHomeCompany(String uid, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener) {
+    public void getHomeCompany(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
+        params.put("pageNo", pageNo + "");
+        params.put("pageSize", pageSize + "");
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_HOME_TUIJIAN, params, null,
                 new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
                 },
