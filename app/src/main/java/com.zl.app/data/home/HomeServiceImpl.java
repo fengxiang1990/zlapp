@@ -7,6 +7,7 @@ import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
+import com.zl.app.util.StringUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.util.net.GsonRequest;
@@ -19,6 +20,23 @@ import java.util.Map;
  * Created by fengxiang on 2016/2/16.
  */
 public class HomeServiceImpl implements HomeService {
+    @Override
+    public void getOrgs(String uid, int pageNo, int pageSize, int typeId, String companyname, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("pageNo", pageNo + "");
+        params.put("pageSize", pageSize + "");
+        params.put("type.typeId", typeId + "");
+        if (!StringUtil.isEmpty(companyname)) {
+            params.put("companyname", companyname);
+        }
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORG_LIST, params, null,
+                new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
     @Override
     public void getHomeCompany(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener) {
         Map<String, String> params = new HashMap<String, String>();

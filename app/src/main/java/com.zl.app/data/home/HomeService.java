@@ -14,6 +14,9 @@ import java.util.List;
 public interface HomeService {
 
 
+    void getOrgs(String uid, int pageNo, int pageSize, int typeId, String companyname, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener);
+
+
     /**
      * 获取首页推荐机构
      * @param uid

@@ -94,4 +94,6 @@ public class RequestURL {
     public static String API_SITE_FAN= SERVER + "mobileUser/fans.html";
 
     public static String API_HOME_TUIJIAN =SERVER +"mobileCompany/home.html";
+
+    public static String API_ORG_LIST = SERVER + "mobileCompany/list.html";
 }

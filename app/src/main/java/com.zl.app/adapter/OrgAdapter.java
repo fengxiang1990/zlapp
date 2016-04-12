@@ -1,6 +1,6 @@
 package com.zl.app.adapter;
 
-import android.content.Intent;
+import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,12 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.zl.app.BaseFragment;
 import com.zl.app.R;
-import com.zl.app.activity.news.NewsDetailActivity_;
-import com.zl.app.data.news.model.YyMobileNews;
-import com.zl.app.fragment.FragmentFind;
-import com.zl.app.fragment.FragmentHome;
 import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
@@ -27,10 +22,10 @@ import java.util.List;
 public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
 
     List<YyMobileCompany> data;
-    BaseFragment fragment;
+    Context context;
 
-    public OrgAdapter(BaseFragment fragment, List<YyMobileCompany> data) {
-        this.fragment = fragment;
+    public OrgAdapter(Context context, List<YyMobileCompany> data) {
+        this.context = context;
         this.data = data;
     }
 
@@ -61,23 +56,6 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
 
             }
         });
-
-        //滚动到底部自动加载
-
-        if(fragment instanceof FragmentFind){
-            /**
-            FragmentFind fragmentHome = (FragmentFind) fragment;
-           if(position == data.size()-1 && data.size() >= fragmentHome.pageSize) {
-                   fragmentHome.isLoadMore = true;
-               fragmentHome.pageNo+=1;
-               if(fragmentHome.isSearchNews){
-                   fragmentHome.searchNews(fragmentHome.pageNo, fragmentHome.pageSize, fragmentHome.code, fragmentHome.value);
-               }else {
-                   fragmentHome.loadNews();
-               }
-           }
-             **/
-        }
     }
 
     @Override

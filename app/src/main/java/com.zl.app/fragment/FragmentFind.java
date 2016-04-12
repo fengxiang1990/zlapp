@@ -1,5 +1,6 @@
 package com.zl.app.fragment;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import com.android.volley.VolleyError;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
+import com.zl.app.activity.org.OrgListActivity_;
 import com.zl.app.adapter.OrgAdapter;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
@@ -20,6 +22,7 @@ import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -55,7 +58,7 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
     void afterViews(){
         id_swipe_ly.setOnRefreshListener(this);
         data = new ArrayList<YyMobileCompany>();
-        adapter = new OrgAdapter(this,data);
+        adapter = new OrgAdapter(getActivity(), data);
         layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayout.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -135,5 +138,70 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
         isLoadMore = false;
         pageNumber = 1;
         loadData();
+    }
+
+
+    @Click(R.id.textView1)
+    void textView1() {
+        //英语
+        Intent intent = new Intent(getActivity(), OrgListActivity_.class);
+        intent.putExtra("TYPE_ID", 3);
+        startActivity(intent);
+    }
+
+    @Click(R.id.textView2)
+    void textView2() {
+//语文
+        Intent intent = new Intent(getActivity(), OrgListActivity_.class);
+        intent.putExtra("TYPE_ID", 4);
+        startActivity(intent);
+    }
+
+    @Click(R.id.textView3)
+    void textView3() {
+//数学
+        Intent intent = new Intent(getActivity(), OrgListActivity_.class);
+        intent.putExtra("TYPE_ID", 9);
+        startActivity(intent);
+    }
+
+    @Click(R.id.textView4)
+    void textView4() {
+//美术
+        Intent intent = new Intent(getActivity(), OrgListActivity_.class);
+        intent.putExtra("TYPE_ID", 5);
+        startActivity(intent);
+    }
+
+    @Click(R.id.textView5)
+    void textView5() {
+//音乐
+        Intent intent = new Intent(getActivity(), OrgListActivity_.class);
+        intent.putExtra("TYPE_ID", 6);
+        startActivity(intent);
+    }
+
+    @Click(R.id.textView6)
+    void textView6() {
+//乐高
+        Intent intent = new Intent(getActivity(), OrgListActivity_.class);
+        intent.putExtra("TYPE_ID", 8);
+        startActivity(intent);
+    }
+
+    @Click(R.id.textView7)
+    void textView7() {
+//舞蹈
+        Intent intent = new Intent(getActivity(), OrgListActivity_.class);
+        intent.putExtra("TYPE_ID", 7);
+        startActivity(intent);
+    }
+
+    @Click(R.id.textView8)
+    void textView8() {
+//更多
+        Intent intent = new Intent(getActivity(), OrgListActivity_.class);
+        intent.putExtra("TYPE_ID", -1);
+        startActivity(intent);
     }
 }
