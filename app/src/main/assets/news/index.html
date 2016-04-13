@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="telephone=no" name="format-detection" />
+	<meta name="renderer" content="webkit">
+	<base target="_blank"/>
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript">
+ var result = jsInterface.getResult();
+    var obj = eval("("+result+")");//解析json字符串
+    var news = obj.data;
+    var title = news.headline;
+    var zy = news.zhaiyao;
+    var content = news.content;
+    var postTime = news.createDateFormat;
+	var readCount = news.clickNo;
+	var commentCount = news.commentNo;
+	var zanCount = news.goodNo;
+	var scCount = news.favoriteNo;
+    $(function(){
+        $("#title").text(title);
+        $("#post_time").text(postTime);
+        $("#zy").text(zy);
+        $("#content").append(content);
+		$("#read_count1").append(readCount);
+		$("#comment_count1").append(commentCount);
+		$("#zan_count1").append(zanCount);
+		$("#sc_count1").append(scCount);
+	    $("#read_count2").append(readCount);
+		$("#comment_count2").append(commentCount);
+		$("#zan_count2").append(zanCount);
+		$("#sc_count2").append(scCount);
+		
+
+		$("#btn_zan1").click(function(){
+		    jsInterface.zan();
+		});
+
+        $("#btn_sc1").click(function(){
+		    jsInterface.sc();
+		});
+       $("#btn_comment").click(function(){
+		    jsInterface.submitComment();
+		});
+       }
+    )
+      function updateZanImg(data){
+        if(data == 2){
+		   $("#btn_zan").attr("src","item_support.png");
+		}else{
+		   $("#btn_zan").attr("src","item_nosupport.png");
+		}
+      }
+       function updateScImg(data){
+        if(data == 2){
+		   $("#btn_sc").attr("src","item_recomm.png");
+		}else{
+		   $("#btn_sc").attr("src","item_norecomm.png");
+		}
+      }
+</script>
+</head>
+<body>
+	<div class="news">
+		<!-- 标题 -->
+		<h4 id="title">标题</h4>
+		<!-- 来源 -->
+		<div class="biaoqian">
+			发布时间：<span id="post_time"></span>
+			<p class="rs"> <b class="yd">阅读 <span id="read_count1"></span></b> <b class="pl">评论 <span id="comment_count1"></span></b><b class="dz" id="btn_zan1"> <span id="zan_count1"></span></b> <b class="sc" id="btn_sc1"> <span id="sc_count1"></span></b> </p>
+		</div>
+		<!-- 摘录 -->
+		<div class="zy" id="zy">
+			 	
+		</div>
+		<!-- 文章 -->
+		<article class="article">
+			<div id="content">
+            </div>
+		</article>
+		<br>
+		<!-- 阅读量 -->
+		<div class="rs"><b class="yd">阅读 <span id="read_count2"></span></b> <b class="pl">评论 <span id="comment_count2"></span></b><b class="dz"> <span id="zan_count2"></span></b> <b class="sc"> <span id="sc_count2"></span></b> </div>
+		<div class="pllist" style="display:none">
+			<ul>
+				<li class="fix">
+					<img src="img/img4.jpg" alt="">
+					<div class="plnr">
+						<div class="pltop fix"><span><b>小冯</b> 2016-01-05</span><em>引用</em></div>
+						<p>还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧</p>
+					</div>
+				</li>
+				<li class="fix">
+					<img src="img/img4.jpg" alt="">
+					<div class="plnr">
+						<div class="pltop fix"><span><b>小冯</b> 2016-01-05</span><em>引用</em></div>
+						<p>还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧</p>
+					</div>
+				</li>
+				<li class="fix">
+					<img src="img/img4.jpg" alt="">
+					<div class="plnr">
+						<div class="pltop fix"><span><b>小冯</b> 2016-01-05</span><em>引用</em></div>
+						<p>还可以</p>
+					</div>
+					<!-- 回复部分 -->
+					<div class="clear"></div>
+					<div class="hf">
+						<div class="pltop fix"><span><b>小冯</b> 2016-01-05</span></div>
+						<p>还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧</p>
+					</div>
+					<!-- 回复部分结束 -->
+				</li>
+				<li class="fix">
+					<img src="img/img4.jpg" alt="">
+					<div class="plnr">
+						<div class="pltop fix"><span><b>小冯</b> 2016-01-05</span><em>引用</em></div>
+						<p>还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧还可以吧</p>
+						
+					</div>
+
+					
+				</li>
+			</ul>
+		</div>
+		<!-- 按钮 -->
+		<a class="btn">加载更多的评论</a>
+		<!-- 评论 -->
+		<form action="">
+			<textarea name="" id=""   placeholder="加入您的评论。。。"></textarea>
+			<button>发表评论</button>
+		</form>
+
+	</div>
+	
+
+</body>
+</html>

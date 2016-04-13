@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>News detail</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+</head>
+<body>
+<style type="text/css">
+    img{
+    width:100%;
+    }
+    body {
+    padding-bottom: 70px;
+    }
+    .img-bottom-button{
+    width:30%;
+    height:30%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:10px;
+    margin-top:10px;
+    }
+</style>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <p id="title"></p>
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+<div id="content" class="container-fluid">
+
+</div>
+
+    <div class="container">
+        <div class="row">
+		     <div class="col-xs-2 col-md-2">
+			   阅读&nbsp <span id="read_count">200</span>
+			  </div>
+			<div class="col-xs-2 col-md-2">
+			   评论&nbsp <span id="comment_count">100</span>
+			 </div>
+												
+            <div class="col-xs-1 col-md-1"><img id="btn_zan" src="item_nosupport.png"
+                                                class="img-responsive "></div>
+            <div class="col-xs-1 col-md-1"><img id="btn_sc" src="item_norecomm.png"
+                                                class="img-responsive "></div>
+            <div class="col-xs-1 col-md-1" style="display:none"><img id="btn_comment" src="li13.png"
+                                                class="img-responsive "></div>
+			<div class="col-xs-1 col-md-1"><img id="btn_share" src="li13.png"
+                                                class="img-responsive "></div>									
+        </div>
+    </div>
+
+
+	<!-- list of comments  pageSize :10 -->
+	<ul class="list-group" style="margin-left:6px;margin-right:6px;margin-bottom:3px;">
+       <li class="list-group-item">免费域名注册</li>
+       <li class="list-group-item">免费 Window 空间托管</li>
+       <li class="list-group-item">图像的数量</li>
+       <li class="list-group-item">24*7 支持</li>
+       <li class="list-group-item">每年更新成本</li>
+     </ul>
+	 	<!--  load more -->
+	 <div class="container-fluid" style="background-color:gray">
+        <p class="text-center" style="margin-top:15px;margin-bottom:15px;">加载更多</p>
+     </div>
+
+	
+	
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+ var result = jsInterface.getResult();
+    var obj = eval("("+result+")");//解析json字符串
+    var news = obj.data;
+    var title = news.headline;
+    var content = news.content;
+    $(function(){
+        $("#title").text(title);
+        $("#content").append(content);
+		if(obj.isSc == "2"){
+		   $("#btn_sc").attr("src","item_recomm.png");
+		}
+		if(obj.isZan == "2"){
+		   $("#btn_zan").attr("src","item_support.png");
+		}
+
+		$("#btn_zan").click(function(){
+		    jsInterface.zan();
+		});
+
+        $("#btn_sc").click(function(){
+		    jsInterface.sc();
+		});
+       $("#btn_comment").click(function(){
+		    jsInterface.submitComment();
+		});
+       }
+    )
+      function updateZanImg(data){
+        if(data == 2){
+		   $("#btn_zan").attr("src","item_support.png");
+		}else{
+		   $("#btn_zan").attr("src","item_nosupport.png");
+		}
+      }
+       function updateScImg(data){
+        if(data == 2){
+		   $("#btn_sc").attr("src","item_recomm.png");
+		}else{
+		   $("#btn_sc").attr("src","item_norecomm.png");
+		}
+      }
+</script>
+</body>
+</html>

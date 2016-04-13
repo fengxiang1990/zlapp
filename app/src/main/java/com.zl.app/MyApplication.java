@@ -13,6 +13,7 @@ import com.baidu.location.LocationClientOption;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.BitmapLruCache;
+import com.zl.app.util.net.MultiPartStack;
 
 import org.androidannotations.annotations.EApplication;
 
@@ -30,7 +31,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Log.i("applicayion", "onCreate");
-        requestQueue = Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this,new MultiPartStack());
         imageLoader = new ImageLoader(requestQueue, new BitmapLruCache());
         AppManager.setRequestQueue(requestQueue);
         AppManager.setImageLoader(imageLoader);

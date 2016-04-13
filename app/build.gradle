@@ -7,11 +7,16 @@ android {
 
     defaultConfig {
         applicationId "com.zl.app"
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,6 +30,17 @@ android {
         }
     }
 
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
 }
 
 
@@ -39,6 +55,11 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.facebook.fresco:fresco:0.8.1+'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.android.support:recyclerview-v7:23.+'
+    compile 'zhou.widget:richtext:1.0.4'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+
 }
 
 

@@ -6,11 +6,10 @@ import com.zl.app.R;
 import org.androidannotations.annotations.EFragment;
 
 /**
- * Created by admin on 2015/12/28.
+ * 课程
+ * Created by fengxiang on 2016/3/28.
  */
-
-@EFragment(R.layout.fragment_b)
-public class FragmentB extends BaseFragment {
-
-
+@EFragment(R.layout.fragment_class)
+public class FragmentClass extends BaseFragment{
+    
 }

@@ -1,7 +1,9 @@
 package com.zl.app.data.user;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.RequestFuture;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppManager;
@@ -9,7 +11,10 @@ import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.util.net.GsonRequest;
+import com.zl.app.util.net.MultiPartStack;
+import com.zl.app.util.net.MultiPartStringRequest;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -114,15 +119,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void uploadUserHeadImg(String uid, String fileName, DefaultResponseListener<BaseResponse> listener) {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", uid);
-        params.put("fileName", fileName);
-        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_USER_UPLOAD, params, null,
-                new TypeToken<BaseResponse>() {
-                },
-                listener, listener);
-        AppManager.getRequestQueue().add(request);
+    public void uploadUserHeadImg(String uid, File imgFile, DefaultResponseListener<String> listener) {
+        MultiPartStringRequest multiPartRequest = new MultiPartStringRequest(
+                Request.Method.POST, RequestURL.API_USER_UPLOAD,listener, listener) ;
+        multiPartRequest.addStringUpload("uid", uid);
+        multiPartRequest.addFileUpload("imgFile", imgFile);
+        AppManager.getRequestQueue().add(multiPartRequest);
     }
 
     @Override

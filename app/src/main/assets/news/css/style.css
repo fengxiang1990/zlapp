@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+/*Reset*/
+html, body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, button, textarea, p, blockquote, th, td { padding: 0; margin: 0; }
+table { border-collapse: collapse; border-spacing: 0; font-size: inherit; }
+img { border: none; vertical-align: bottom; }
+a { color: #555; outline: 0; text-decoration: none; }
+a:hover { color: #ff6600; text-decoration: none;}
+ul, li { list-style-type: none; padding: 0; margin: 0; }
+input, select, textarea, button { font-size: 100%; font-family: inherit; }
+body { font-size: 12px; line-height: 24px; color: #5c5c5c; font-family:"SimSun"; background:#fff; }
+.fix:after, .clearfix:after { display: block; content: "$"; height: 0; clear: both; overflow: hidden; visibility: hidden; }
+.fix, .clearfix { *zoom: 1;}
+.clear { clear: both; height: 0; overflow: hidden; font-size: 0px; line-height: 0; }
+.cell{display:table-cell;*display:inline-block;width:2000px;*width:auto}.mt20{ margin-top:20px;}
+.fl { float: left; display: inline; }
+.fr { float: right; display: inline; }
+
+.news{padding: 0 10px}
+.news h4{font-size: 15px;text-align: center;}
+.biaoqian{font-size: 14px;margin-top: 10px}
+
+.zy{border:dashed 1px #ccc;padding: 5px;margin: 10px 0;color: #999;}
+
+.article p{font-size: 14px; }
+.article p:first-letter{margin-left: 2em}
+.article img{max-width: 100%}
+
+.rs{font-size: 14px; line-height: 20px;}
+.rs b{margin-right: 10px;}
+.sc:before,.dz:before{content: "";width: 14px; height: 14px;display: inline-block; vertical-align: middle;margin-top: -2px}
+.sc:before{background: url(../img/img2.png) no-repeat; background-size: 100% auto}
+.dz:before{background: url(../img/img3.png) no-repeat; background-size: 100% auto}
+.btn{border: 1px solid #ccc;display:block;margin: 0 auto;width: 100px; height: 30px; line-height: 30px;text-align: center;margin-top: 20px}
+
+.news textarea{width: 100%; height: 70px; overflow: scroll; border: none; border-bottom: 1px solid #ccc;margin-top: 20px;}
+
+.news button{border: 1px solid #ccc; border-radius: 5px; background: none;display: inline-block; padding: 5px 20px} 
+
+.pllist li{position: relative;margin: 15px 0}
+.pllist img{width: 50px; height: 50px; border-radius: 50%}
+.plnr{position: absolute; left: 0; top:0;width: 100%; padding-left: 65px;-webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;}
+.pltop span{float: left;}
+.pltop b{color: #000;margin-right: 5px}
+.pltop em{float: right;display: inline-block;font-weight: bolder;font-style: normal;color: #000}
+.plnr p,.hf p{height: 25px; overflow: auto;position: relative;}
+
+
+.hf{border: 1px solid #ccc; width: 80%;float: right; height:73px; overflow: hidden;padding: 10px ;border-radius: 10px;    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);}
+.hf p{height: 50px; overflow: auto;position: relative;}

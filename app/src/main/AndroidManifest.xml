@@ -71,6 +71,13 @@
         <activity android:name=".activity.user.ModifyPasswordActivity_" />
         <activity android:name=".activity.user.UserInfoActivity_" />
 
+        <!--news -->
+        <activity android:name=".activity.news.NewsDetailActivity_" />
+        <activity android:name=".activity.news.NewsDetailActivityWeb_" />
+        <activity android:name=".activity.news.CommentsListActivity_" />
+
+        <!--orgs -->
+        <activity android:name=".activity.org.OrgListActivity_" />
 
         <!-- Baidu Map -->
         <service
