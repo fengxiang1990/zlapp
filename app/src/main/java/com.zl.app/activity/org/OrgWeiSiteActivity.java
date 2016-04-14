@@ -1,5 +1,6 @@
 package com.zl.app.activity.org;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -51,11 +52,12 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     String companyId = "";
     List<YyMobileCompanyGrade> data;
     GradeCommentsAdapter adapter;
-
+    Context context;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_site);
+        context = this;
         setBtnLeft1Enable(true);
         setTextRight1Enable(true);
         setTextRight1Val("评价");
@@ -118,11 +120,11 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     boolean isLaodMore = false;
 
     void loadGradeComments() {
-        LoadingDialog.getInstance(OrgWeiSiteActivity.this).show();
+        LoadingDialog.getInstance(context).show();
         homeService.getOrgsGradeComments(uid, companyId, type, pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileCompanyGrade>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileCompanyGrade>> response) {
-                LoadingDialog.getInstance(getApplicationContext()).dismiss();
+                LoadingDialog.getInstance(context).dismiss();
                 listView.stopLoadMore();
                 listView.stopRefresh();
                 if (response != null) {
@@ -139,7 +141,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
 
             @Override
             public void onError(VolleyError error) {
-                LoadingDialog.getInstance(OrgWeiSiteActivity.this).dismiss();
+                LoadingDialog.getInstance(context).dismiss();
             }
         });
     }
