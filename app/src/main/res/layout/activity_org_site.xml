@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_org"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            fresco:roundingBorderColor="@color/white"
+            fresco:roundingBorderWidth="4dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/text_desc"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="3" />
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <RatingBar
+                    android:numStars="5"
+                    android:rating="5"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ratingBar" />
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/text_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_below="@+id/ll1"
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+
+    <LinearLayout
+        android:layout_below="@+id/line1"
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="机构评价" />
+
+        <TextView
+            android:id="@+id/text_pl_count"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="200条评论" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rb1"
+                android:text="全部"
+                android:checked="true"
+                android:gravity="center"
+                android:textColor="@drawable/org_grade_comment_selector"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/rb2"
+                android:text="好评"
+                android:gravity="center"
+                android:textColor="@drawable/org_grade_comment_selector"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/rb3"
+                android:text="差评"
+                android:gravity="center"
+                android:textColor="@drawable/org_grade_comment_selector"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line2"
+        android:layout_below="@+id/ll2"
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+
+    <me.maxwin.view.XListView
+        android:layout_below="@+id/line2"
+        android:layout_above="@+id/line_bottom"
+        android:id="@+id/listview"
+        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/line_bottom"
+        android:layout_above="@+id/ll3"
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/ll3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:padding="15dp"
+            android:id="@+id/text_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:text="查看详情"
+            android:gravity="center" />
+
+        <View
+            android:background="@color/lightgray"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:padding="15dp"
+            android:id="@+id/text_zixun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:text="咨询预约"
+            android:gravity="center" />
+    </LinearLayout>
+</RelativeLayout>

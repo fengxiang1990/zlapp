@@ -93,7 +93,27 @@ public class RequestURL {
     //关注接口
     public static String API_SITE_FAN= SERVER + "mobileUser/fans.html";
 
+    //机构
     public static String API_HOME_TUIJIAN =SERVER +"mobileCompany/home.html";
 
     public static String API_ORG_LIST = SERVER + "mobileCompany/list.html";
+
+    //机构微站接口
+    public static String API_ORG_SITE = SERVER + "mobileCompany/view.html";
+
+    //机构微站评价列表接口
+    public static String API_ORG_GRADE_COMMENTS = SERVER + "mobileCompanyGrade/list.html";
+
+    //提交机构评价接口
+    public static String API_ORG_GRADE_POST_COMMENT = SERVER + "mobileCompanyGrade/insert.html";
+
+    //机构留言列表接口
+    public static String API_ORG_SITE_COMMENTS = SERVER + "mobileCompanyComment/list.html";
+
+    //发布机构留言接口
+    public static String API_ORG_SITE_SEND_COMMENTS = SERVER + "mobileCompanyComment/insert.html";
+
+    //提交预约接口
+    public static String API_ORG_SITE_YUYUE = SERVER + "mobileReservation/insert.html";
+
 }

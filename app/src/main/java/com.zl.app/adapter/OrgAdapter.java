@@ -1,6 +1,7 @@
 package com.zl.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
+import com.zl.app.activity.org.OrgWeiSiteActivity;
 import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
@@ -53,7 +55,9 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, OrgWeiSiteActivity.class);
+                intent.putExtra("companyId", org.getCompanyId() + "");
+                context.startActivity(intent);
             }
         });
     }

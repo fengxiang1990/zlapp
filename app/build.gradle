@@ -46,6 +46,7 @@ android {
 
 
 dependencies {
+    compile project(':xListView')
     compile fileTree(dir: 'src/main/libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
@@ -59,7 +60,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.+'
     compile 'zhou.widget:richtext:1.0.4'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
-
 }
 
 
