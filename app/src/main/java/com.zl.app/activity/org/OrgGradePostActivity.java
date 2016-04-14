@@ -46,7 +46,7 @@ public class OrgGradePostActivity extends BaseActivityWithToolBar {
             @Override
             public void onClick(View v) {
                 final String content = String.valueOf(editText.getText());
-                int score = (int) ratingBar.getRating() * 2;
+                int score = (int) (ratingBar.getRating() * 2);
                 if (TextUtils.isEmpty(content)) {
                     ToastUtil.show(OrgGradePostActivity.this, "评价内容不能为空");
                     return;
