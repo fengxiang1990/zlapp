@@ -3,6 +3,7 @@ package com.zl.app.data.home;
 import com.zl.app.data.home.model.YyMobileAdvt;
 import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.model.customer.YyMobileCompany;
+import com.zl.app.model.customer.YyMobileCompanyGrade;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
@@ -12,6 +13,17 @@ import java.util.List;
  * Created by fengxiang on 2016/2/16.
  */
 public interface HomeService {
+
+    //获取机构评价
+
+    /**
+     * @param uid
+     * @param companyId
+     * @param type      0全部 1 差评 2 中评 3好评
+     */
+    void getOrgsGradeComments(String uid, String companyId, int type, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileCompanyGrade>>> listener);
+
+    void getOrgSite(String uid, String companyId, DefaultResponseListener<BaseResponse<YyMobileCompany>> listener);
 
 
     void getOrgs(String uid, int pageNo, int pageSize, int typeId, String companyname, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener);
