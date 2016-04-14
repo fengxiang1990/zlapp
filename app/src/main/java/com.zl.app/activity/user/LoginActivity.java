@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.zl.app.R;
+import com.zl.app.activity.MainActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.UserService;
 import com.zl.app.data.user.UserServiceImpl;
@@ -102,6 +103,9 @@ public class LoginActivity extends BaseActivityWithToolBar {
                     Log.i(TAG, "success:" + response.toString());
                     ToastUtil.show(getApplicationContext(), "登陆成功");
                     AppConfig.setLoginSuccess(preference, response.getResult());
+                    Intent intent = new Intent();
+                    intent.setClass(LoginActivity.this, MainActivity_.class);
+                    startActivity(intent);
                     finish();
                 } else {
                     Log.i(TAG, "error:" + response.toString());

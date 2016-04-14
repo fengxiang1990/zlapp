@@ -24,6 +24,21 @@ public class HomeServiceImpl implements HomeService {
 
 
     @Override
+    public void postOrgYuyue(String uid, String companyId, String username, String tel, String content, DefaultResponseListener<BaseResponse<String>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("company.companyId", companyId);
+        params.put("username",username);
+        params.put("mobile", tel);
+        params.put("content", content);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORG_SITE_YUYUE, params, null,
+                new TypeToken<BaseResponse<String>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public void postOrgGrade(String uid, String companyId, String grade, String content, DefaultResponseListener<BaseResponse> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);

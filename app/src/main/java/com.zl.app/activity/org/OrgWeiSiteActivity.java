@@ -44,7 +44,6 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     TextView text_desc;
     TextView text_zixun;
     TextView text_score;
-    TextView text_pl_count;
     RadioButton rb1;
     RadioButton rb2;
     RadioButton rb3;
@@ -56,14 +55,16 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     GradeCommentsAdapter adapter;
     Context context;
     RatingBar ratingBar;
+    YyMobileCompany yyMobileCompany;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_site);
         context = this;
         setBtnLeft1Enable(true);
-        setTextRight1Enable(true);
-        setTextRight1Val("评价");
+        setBtnRight1Enable(true);
+        setBtnRight1ImageResource(R.mipmap.write_icon);
         setTitle("机构");
         data = new ArrayList<YyMobileCompanyGrade>();
         adapter = new GradeCommentsAdapter(data);
@@ -72,7 +73,6 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         text_name = (TextView) findViewById(R.id.text_name);
         text_zixun = (TextView) findViewById(R.id.text_zixun);
         text_score = (TextView) findViewById(R.id.text_score);
-        text_pl_count = (TextView) findViewById(R.id.text_pl_count);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         rb1 = (RadioButton) findViewById(R.id.rb1);
         rb2 = (RadioButton) findViewById(R.id.rb2);
@@ -80,6 +80,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         rb1.setOnClickListener(this);
         rb2.setOnClickListener(this);
         rb3.setOnClickListener(this);
+        text_zixun.setOnClickListener(this);
         listView = (XListView) findViewById(R.id.listview);
         listView.setXListViewListener(this);
         listView.setAdapter(adapter);
@@ -92,6 +93,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                 if (response != null) {
                     YyMobileCompany yyMobileCompany = response.getResult();
                     if (yyMobileCompany != null) {
+                        OrgWeiSiteActivity.this.yyMobileCompany = yyMobileCompany;
                         if (StringUtil.isEmpty(yyMobileCompany.getPicPath())) {
                             img_org.setVisibility(View.GONE);
                         } else {
@@ -103,7 +105,10 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                         text_score.setText(yyMobileCompany.getGrade() + "");
                         int hpno = yyMobileCompany.getHpno();
                         int cpno = yyMobileCompany.getCpno();
-                        text_pl_count.setText((hpno + cpno) + "条评论");
+                        int zpno = yyMobileCompany.getZpno();
+                        rb1.setText("全部(" + (hpno + cpno + zpno) + ")");
+                        rb2.setText("好评(" + hpno + ")");
+                        rb3.setText("差评(" + cpno + ")");
                         text_name.setText(yyMobileCompany.getCompanyname());
 
                         double rating = ratingBar.getNumStars() * yyMobileCompany.getGrade() / 10;
@@ -121,8 +126,8 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     }
 
     @Override
-    protected void onTextRight1Click() {
-        super.onTextRight1Click();
+    protected void onBtnRight1Click() {
+        super.onBtnRight1Click();
         Intent intent = new Intent(context, OrgGradePostActivity.class);
         intent.putExtra("companyId", companyId);
         startActivity(intent);
@@ -258,6 +263,13 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                 type = 1;//差评
                 loadGradeComments();
                 break;
+            case R.id.text_zixun:
+                Intent intent = new Intent(OrgWeiSiteActivity.this, OrgYuYueActivity.class);
+                intent.putExtra("companyId", companyId);
+                intent.putExtra("phone", yyMobileCompany.getPhone());
+                startActivity(intent);
+                break;
+
         }
     }
 }

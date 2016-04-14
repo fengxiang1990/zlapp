@@ -14,6 +14,16 @@ import java.util.List;
  */
 public interface HomeService {
 
+    /**
+     * 机构预约
+     * @param uid
+     * @param companyId
+     * @param username
+     * @param tel
+     * @param content
+     * @param listener
+     */
+    void postOrgYuyue(String uid,String companyId,String username,String tel,String content,DefaultResponseListener<BaseResponse<String>> listener);
 
     /**
      * 评价机构

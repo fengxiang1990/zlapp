@@ -76,12 +76,12 @@ public class MainActivity extends BaseActivityWithToolBar {
         context = MainActivity.this;
         setTitle("首页");
         //首页新闻显示侧滑
-        setBtnLeft1Enable(false);
-        setBtnLeft1ImageResource(R.mipmap.ic_more);
+        //setBtnLeft1Enable(false);
+        //setBtnLeft1ImageResource(R.mipmap.ic_more);
         //setBtnRight1Enable(true);
-        setBtnRight2Enable(true);
-        setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
-        setBtnRight2ImageResource(R.mipmap.menu_search);
+        //setBtnRight2Enable(true);
+       // setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
+        //setBtnRight2ImageResource(R.mipmap.menu_search);
         frgmentManager = getSupportFragmentManager();
         fragment_find = new FragmentFind_();
         fragment_class = new FragmentClass_();

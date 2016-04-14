@@ -7,7 +7,8 @@ import android.widget.ImageView;
 
 import com.zl.app.BaseActivity;
 import com.zl.app.R;
-
+import com.zl.app.util.AppConfig;
+import com.zl.app.activity.user.LoginActivity_;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -16,7 +17,6 @@ import org.androidannotations.annotations.ViewById;
  * 启动页面
  * Created by admin on 2016/1/12.
  */
-
 @EActivity(R.layout.activity_start)
 public class StartActivity extends BaseActivity {
 
@@ -51,7 +51,11 @@ public class StartActivity extends BaseActivity {
             public void onAnimationEnd(Animation animation) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent();
-                intent.setClass(StartActivity.this, MainActivity_.class);
+                if (AppConfig.isLogin(preference)) {
+                    intent.setClass(StartActivity.this, MainActivity_.class);
+                } else {
+                    intent.setClass(StartActivity.this, LoginActivity_.class);
+                }
                 startActivity(intent);
                 StartActivity.this.finish();
             }
