@@ -26,12 +26,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="sffas"
+                android:textColor="@color/black"
+                android:maxLines="1" />
+
+            <TextView
+                android:textColor="@color/black"
                 android:id="@+id/text_content"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:maxLines="3" />
+                android:text="很不错" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,13 +48,22 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
+                <RatingBar
+                    android:numStars="5"
+                    android:rating="5"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ratingBar" />
+
                 <TextView
                     android:id="@+id/text_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="" />
+                    android:visibility="gone"
+                    android:text="2015-10-11 11:12" />
 
                 <TextView
                     android:id="@+id/text_score"
@@ -53,7 +71,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="" />
+                    android:layout_marginLeft="10dp"
+                    android:text="10" />
 
             </LinearLayout>
         </LinearLayout>
@@ -64,4 +83,6 @@
         android:background="@color/lightgray"
         android:layout_width="match_parent"
         android:layout_height="0.5dp" />
+
+
 </LinearLayout>

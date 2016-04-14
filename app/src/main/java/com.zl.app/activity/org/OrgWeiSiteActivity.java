@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -53,6 +54,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     List<YyMobileCompanyGrade> data;
     GradeCommentsAdapter adapter;
     Context context;
+    RatingBar ratingBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         text_zixun = (TextView) findViewById(R.id.text_zixun);
         text_score = (TextView) findViewById(R.id.text_score);
         text_pl_count = (TextView) findViewById(R.id.text_pl_count);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         rb1 = (RadioButton) findViewById(R.id.rb1);
         rb2 = (RadioButton) findViewById(R.id.rb2);
         rb3 = (RadioButton) findViewById(R.id.rb3);
@@ -101,6 +104,9 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                         int cpno = yyMobileCompany.getCpno();
                         text_pl_count.setText((hpno + cpno) + "条评论");
                         text_name.setText(yyMobileCompany.getCompanyname());
+
+                        double rating = ratingBar.getNumStars() * yyMobileCompany.getGrade() / 10;
+                        ratingBar.setRating(Float.parseFloat(String.valueOf(rating)));
                     }
                 }
             }
@@ -192,6 +198,8 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                 holder.text_content = (TextView) convertView.findViewById(R.id.text_content);
                 holder.text_time = (TextView) convertView.findViewById(R.id.text_time);
                 holder.text_score = (TextView) convertView.findViewById(R.id.text_score);
+                holder.text_user_name = (TextView) convertView.findViewById(R.id.text_user_name);
+                holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -208,6 +216,9 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                 holder.text_content.setText(grade.getContent());
                 holder.text_score.setText(grade.getGrade() + "");
                 holder.text_time.setText(grade.getCreateDate());
+                holder.text_user_name.setText(grade.getUsername());
+                int rating = holder.ratingBar.getNumStars() * grade.getGrade() / 10;
+                holder.ratingBar.setRating(rating);
             }
             return convertView;
         }
@@ -215,9 +226,11 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     }
 
     class ViewHolder {
+        RatingBar ratingBar;
         SimpleDraweeView draweeView;
         TextView text_content;
         TextView text_time;
+        TextView text_user_name;
         TextView text_score;
     }
 
