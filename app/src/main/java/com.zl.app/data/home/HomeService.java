@@ -14,9 +14,20 @@ import java.util.List;
  */
 public interface HomeService {
 
-    //获取机构评价
 
     /**
+     * 评价机构
+     *
+     * @param uid
+     * @param companyId
+     * @param grade
+     * @param content
+     * @param listener
+     */
+    void postOrgGrade(String uid, String companyId, String grade, String content, DefaultResponseListener<BaseResponse> listener);
+
+    /**
+     * 获取机构评价
      * @param uid
      * @param companyId
      * @param type      0全部 1 差评 2 中评 3好评

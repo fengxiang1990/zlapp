@@ -1,6 +1,7 @@
 package com.zl.app.activity.org;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -119,6 +120,13 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         loadGradeComments();
     }
 
+    @Override
+    protected void onTextRight1Click() {
+        super.onTextRight1Click();
+        Intent intent = new Intent(context, OrgGradePostActivity.class);
+        intent.putExtra("companyId", companyId);
+        startActivity(intent);
+    }
 
     int pageNo = 1;
     int pageSize = 1000;

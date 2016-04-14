@@ -81,6 +81,7 @@
         <!--orgs -->
         <activity android:name=".activity.org.OrgListActivity_" />
         <activity android:name=".activity.org.OrgWeiSiteActivity" />
+        <activity android:name=".activity.org.OrgGradePostActivity" />
 
         <!-- Baidu Map -->
         <service

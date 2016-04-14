@@ -24,6 +24,20 @@ public class HomeServiceImpl implements HomeService {
 
 
     @Override
+    public void postOrgGrade(String uid, String companyId, String grade, String content, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("company.companyId", companyId);
+        params.put("grade", grade);
+        params.put("content", content);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORG_GRADE_POST_COMMENT, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public void getOrgsGradeComments(String uid, String companyId, int type, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileCompanyGrade>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
