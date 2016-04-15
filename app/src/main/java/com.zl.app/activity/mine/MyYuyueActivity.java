@@ -16,9 +16,9 @@ public class MyYuyueActivity extends BaseActivityWithToolBar {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setBtnLeft1Enable(true);
-        setTitle("我的预约");
         setContentView(R.layout.activity_my_yuyue);
         listView = (ListView) findViewById(R.id.listView);
+        setBtnLeft1Enable(true);
+        setTitle("我的预约");
     }
 }
