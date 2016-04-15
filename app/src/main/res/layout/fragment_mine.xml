@@ -1,8 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/id_swipe_ly"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
-</android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_weight="2.5"
+        android:orientation="vertical"
+        android:background="@color/base_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/simpleDraweeView"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_margin="8dp"
+            fresco:actualImageScaleType="fitCenter"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="@color/white"
+            fresco:roundingBorderWidth="2dp"
+            fresco:viewAspectRatio="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小试牛刀"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:id="@+id/text_name"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+
+    <TableLayout
+        android:background="@color/whitesmoke"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_margin="15dp"
+                android:id="@+id/text_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@mipmap/data" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/lightgray" />
+
+            <ImageView
+                android:layout_margin="15dp"
+                android:id="@+id/text_frends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@mipmap/friends_icon" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/lightgray" />
+
+            <ImageView
+                android:layout_margin="15dp"
+                android:id="@+id/text_baby"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@mipmap/child_icon" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_margin="15dp"
+                android:id="@+id/text_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@mipmap/list_icon" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/lightgray" />
+
+            <ImageView
+                android:layout_margin="15dp"
+                android:id="@+id/text_yuyue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@mipmap/booking_icon" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/lightgray" />
+
+            <ImageView
+                android:layout_margin="15dp"
+                android:id="@+id/text_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@mipmap/side_icon" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_margin="15dp"
+                android:id="@+id/text_sys_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@mipmap/notice_icon" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/lightgray" />
+
+            <TextView
+                android:layout_margin="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/lightgray" />
+
+            <TextView
+                android:layout_margin="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>
 
