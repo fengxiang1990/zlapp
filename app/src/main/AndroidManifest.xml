@@ -84,6 +84,9 @@
         <activity android:name=".activity.org.OrgGradePostActivity" />
         <activity android:name=".activity.org.OrgYuYueActivity" />
 
+        <!-- mine  -->
+        <activity android:name=".activity.mine.MyYuyueActivity" />
+
         <!-- Baidu Map -->
         <service
             android:name="com.baidu.location.f"
