@@ -2,7 +2,8 @@
 
 buildscript {
     repositories {
-        maven{ url 'http://maven.oschina.net/content/groups/public/'}
+        jcenter()
+        //maven{ url 'http://maven.oschina.net/content/groups/public/'}
     }
     dependencies {
         // replace with the current version of the Android plugin
@@ -16,7 +17,8 @@ buildscript {
 
 allprojects {
     repositories {
-        maven{ url 'http://maven.oschina.net/content/groups/public/'}
+        jcenter()
+        //maven{ url 'http://maven.oschina.net/content/groups/public/'}
     }
 } // change this to your desired version, for example the latest stable: 3.3.2
 
