@@ -116,4 +116,6 @@ public class RequestURL {
     //提交预约接口
     public static String API_ORG_SITE_YUYUE = SERVER + "mobileReservation/insert.html";
 
+    //我的预约
+    public static String API_MY_YUYUE = SERVER + "mobileReservation/list.html";
 }
