@@ -241,5 +241,44 @@ public class YyMobileUser {
 	public void setUpdateDateFormat(String updateDateFormat) {
 		this.updateDateFormat = updateDateFormat;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YyMobileUser{" +
+				"userId=" + userId +
+				", account='" + account + '\'' +
+				", password='" + password + '\'' +
+				", mobile='" + mobile + '\'' +
+				", email='" + email + '\'' +
+				", type=" + type +
+				", company='" + company + '\'' +
+				", status=" + status +
+				", nickName='" + nickName + '\'' +
+				", province='" + province + '\'' +
+				", city='" + city + '\'' +
+				", district='" + district + '\'' +
+				", zuoyouming='" + zuoyouming + '\'' +
+				", introduce='" + introduce + '\'' +
+				", picPath='" + picPath + '\'' +
+				", mobileshow=" + mobileshow +
+				", emailshow=" + emailshow +
+				", qqshow=" + qqshow +
+				", plshow=" + plshow +
+				", scshow=" + scshow +
+				", dzshow=" + dzshow +
+				", qq='" + qq + '\'' +
+				", age=" + age +
+				", fbno=" + fbno +
+				", lrno=" + lrno +
+				", scno=" + scno +
+				", dzno=" + dzno +
+				", plno=" + plno +
+				", gzgr=" + gzgr +
+				", gzjg=" + gzjg +
+				", newsurl='" + newsurl + '\'' +
+				", headline='" + headline + '\'' +
+				", updateDateFormat='" + updateDateFormat + '\'' +
+				", uid='" + uid + '\'' +
+				'}';
+	}
 }
