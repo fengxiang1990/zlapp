@@ -1,6 +1,5 @@
 package com.zl.app.model.activity;
 
-import java.util.Date;
 
 public class YyMobileActivity {
 	private Integer activityId;//主键
@@ -12,8 +11,8 @@ public class YyMobileActivity {
 	private String zhaiyao;//摘要
 	private String content;//内容
 	private String address;//活动地点
-	private Date hdDate;//活动时间
-	private Date endDate;//报名结束时间
+	private String hdDate;//活动时间
+	private String endDate;//报名结束时间
 	private Integer charge;//费用
 	private Integer rs;//人数
 	private Integer ybrs;//报名人数
@@ -70,16 +69,20 @@ public class YyMobileActivity {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Date getHdDate() {
+
+	public String getHdDate() {
 		return hdDate;
 	}
-	public void setHdDate(Date hdDate) {
+
+	public void setHdDate(String hdDate) {
 		this.hdDate = hdDate;
 	}
-	public Date getEndDate() {
+
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public Integer getCharge() {

@@ -20,6 +20,22 @@ import java.util.Map;
 public class MineServiceImpl implements  MineService{
 
     @Override
+    public void addBaby(String uid, String photo, String name, String birthday, String idCard, int type, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("student.photo", photo);
+        params.put("student.name", name);
+        params.put("birthdayString", birthday);
+        params.put("student.idCard", idCard);
+        params.put("type", String.valueOf(type));
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ADD_BABY, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public void getMyYuyue(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileReservation>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);

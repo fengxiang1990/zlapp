@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
+import com.zl.app.activity.mine.MyChildrenActivity;
 import com.zl.app.activity.mine.MyYuyueActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
@@ -37,6 +38,9 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
     @ViewById(R.id.text_yuyue)
     ImageView text_yuyue;
 
+    @ViewById(R.id.text_baby)
+    ImageView text_baby;
+
 
     String uid;
 
@@ -51,13 +55,19 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
         String username = AppManager.getPreferences().getString(AppConfig.USER_NAME, "");
         text_name.setText(username);
         text_yuyue.setOnClickListener(this);
+        text_baby.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
+            case R.id.text_baby:
+                intent = new Intent(getActivity(), MyChildrenActivity.class);
+                startActivity(intent);
+                break;
             case R.id.text_yuyue:
-                Intent intent = new Intent(getActivity(), MyYuyueActivity.class);
+                intent = new Intent(getActivity(), MyYuyueActivity.class);
                 startActivity(intent);
                 break;
         }

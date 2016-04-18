@@ -118,4 +118,7 @@ public class RequestURL {
 
     //我的预约
     public static String API_MY_YUYUE = SERVER + "mobileReservation/list.html";
+
+    //新增宝贝信息
+    public static String API_ADD_BABY = SERVER + "mobileStudent/insert.html";
 }

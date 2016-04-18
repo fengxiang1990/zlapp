@@ -1,11 +1,10 @@
 package com.zl.app.model.user;
 
-import java.util.Date;
 
 public class YyMobileLetter {
 	private Integer createBy;//发送人id
 	private String createName;//发送人名称
-	private Date createDate;//发送日期
+	private String createDate;//发送日期
 	private String content;//内容
 	private Integer status;//3 未读 2已读
 	private String picPath;//发送人头像
@@ -21,10 +20,12 @@ public class YyMobileLetter {
 	public void setCreateName(String createName) {
 		this.createName = createName;
 	}
-	public Date getCreateDate() {
+
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	public String getContent() {

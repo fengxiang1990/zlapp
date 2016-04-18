@@ -1,12 +1,11 @@
 package com.zl.app.model.customer;
 
-import java.util.Date;
 
 public class YyMobilePeriod {
 	private Integer periodId;//课程表ID
 	private Integer companyId;//机构Id
 	private String picPath;//机构LOGO
-	private Date classtime;//上课时间
+	private String classtime;//上课时间
 	private String classname;//班级名称
 	private String periodname;//课程名称
 	private String studentname;//学生姓名
@@ -26,10 +25,12 @@ public class YyMobilePeriod {
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
-	public Date getClasstime() {
+
+	public String getClasstime() {
 		return classtime;
 	}
-	public void setClasstime(Date classtime) {
+
+	public void setClasstime(String classtime) {
 		this.classtime = classtime;
 	}
 	public String getClassname() {

@@ -1,6 +1,5 @@
 package com.zl.app.model.user;
 
-import java.util.Date;
 
 
 public class YyMobileUserFans {
@@ -10,7 +9,7 @@ public class YyMobileUserFans {
 	private String personPic;//关注人头像
 	private String hdurl; //活动URL
 	private String hdheadline;//活动标题
-	private Date hdupdateDate;//活动发布时间
+	private String hdupdateDate;//活动发布时间
 	private Integer haveletter;//未读私信 2 有  1无
 	public Integer getFansId() {
 		return fansId;
@@ -48,10 +47,12 @@ public class YyMobileUserFans {
 	public void setHdheadline(String hdheadline) {
 		this.hdheadline = hdheadline;
 	}
-	public Date getHdupdateDate() {
+
+	public String getHdupdateDate() {
 		return hdupdateDate;
 	}
-	public void setHdupdateDate(Date hdupdateDate) {
+
+	public void setHdupdateDate(String hdupdateDate) {
 		this.hdupdateDate = hdupdateDate;
 	}
 	public Integer getHaveletter() {

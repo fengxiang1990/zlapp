@@ -86,6 +86,8 @@
 
         <!-- mine  -->
         <activity android:name=".activity.mine.MyYuyueActivity" />
+        <activity android:name=".activity.mine.MyChildrenActivity" />
+        <activity android:name=".activity.mine.AddChildActivity" />
 
         <!-- Baidu Map -->
         <service

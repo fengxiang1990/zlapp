@@ -7,7 +7,7 @@ public class YyMobilePeriodBbs {
 	private Integer userId;//发布人Id
 	private String username;//发布人昵称
 	private String picPath;//发布人头像
-	private Integer content;//内容
+	private String content;//内容
 	private String image1;//图片1
 	private String image2;//图片2
 	private String image3;//图片3
@@ -37,10 +37,12 @@ public class YyMobilePeriodBbs {
 	public void setPicPath(String picPath) {
 		this.picPath = picPath;
 	}
-	public Integer getContent() {
+
+	public String getContent() {
 		return content;
 	}
-	public void setContent(Integer content) {
+
+	public void setContent(String content) {
 		this.content = content;
 	}
 	public String getImage1() {

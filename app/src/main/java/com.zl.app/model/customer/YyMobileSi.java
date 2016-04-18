@@ -1,12 +1,11 @@
 package com.zl.app.model.customer;
 
-import java.util.Date;
 
 public class YyMobileSi {
 	private Integer siId;//主键
 	private String content;//内容
 	private Integer type;//类型 1 邀请老师
-	private Date createDate;//通知时间
+	private String createDate;//通知时间
 	public Integer getSiId() {
 		return siId;
 	}
@@ -25,10 +24,12 @@ public class YyMobileSi {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	public Date getCreateDate() {
+
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	

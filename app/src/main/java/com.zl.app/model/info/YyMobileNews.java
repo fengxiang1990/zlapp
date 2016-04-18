@@ -1,6 +1,5 @@
 package com.zl.app.model.info;
 
-import java.text.ParseException;
 import java.util.Date;
 
 @SuppressWarnings("unused")
@@ -8,6 +7,7 @@ public class YyMobileNews {
 	private String headline;//标题
 	private String zhaiyao;//摘要
 	private Date createDate;//创建时间
+	private String createDateFormat;//string 创建日期
 	private String picPath;//图片路径  以 /upload开头   
 	private String url;//新闻唯一码
 	private String name;//新闻分类名称
@@ -69,6 +69,7 @@ public class YyMobileNews {
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+
 	}
 	public String getPicPath() {
 		return picPath;
@@ -100,7 +101,7 @@ public class YyMobileNews {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	private String createDateFormat;
+
 	public String getCreateDateFormat() {
 		return createDateFormat;
 	}

@@ -11,6 +11,20 @@ import java.util.List;
  */
 public interface MineService {
 
+
+    /**
+     * 增加宝贝
+     * @param uid
+     * @param photo
+     * @param name
+     * @param birthday
+     * @param idCard
+     * @param type
+     * @param listener
+     */
+    void addBaby(String uid, String photo, String name, String birthday, String idCard, int type, DefaultResponseListener<BaseResponse> listener);
+
+
     /**
      * 我的预约
      * @param uid
@@ -18,5 +32,5 @@ public interface MineService {
      * @param pageSize
      * @param listener
      */
-    public void getMyYuyue(String uid,int pageNo,int pageSize,DefaultResponseListener<BaseResponse<List<YyMobileReservation>>> listener);
+    void getMyYuyue(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileReservation>>> listener);
 }

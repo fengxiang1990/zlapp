@@ -96,23 +96,4 @@ public class YyMobileCompany {
 		this.plactive = plactive;
 	}
 
-
-	@Override
-	public String toString() {
-		return "YyMobileCompany{" +
-				"companyId=" + companyId +
-				", address='" + address + '\'' +
-				", phone='" + phone + '\'' +
-				", companyname='" + companyname + '\'' +
-				", distance='" + distance + '\'' +
-				", typeName='" + typeName + '\'' +
-				", picPath='" + picPath + '\'' +
-				", grade=" + grade +
-				", hpno=" + hpno +
-				", zpno=" + zpno +
-				", cpno=" + cpno +
-				", zhaiyao='" + zhaiyao + '\'' +
-				", plactive=" + plactive +
-				'}';
-	}
 }

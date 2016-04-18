@@ -1,6 +1,5 @@
 package com.zl.app.model.customer;
 
-import java.util.Date;
 
 
 public class YyMobilePeriodStudent {
@@ -16,7 +15,7 @@ public class YyMobilePeriodStudent {
 	private Integer type;//1 请假 2 正常 3补假 4已上课
 	private Integer totype;//家长提交的动态修改  1 请假 2 正常 3补假 4已上课，老师页面判断字段是否有值，如果有状态显示用此字段，显示审核按钮，如果为空则用type正常显示
 	private String content;//留言内容
-	private Date classtime;//上课时间
+	private String classtime;//上课时间
 	public Integer getPeriodId() {
 		return periodId;
 	}
@@ -77,10 +76,12 @@ public class YyMobilePeriodStudent {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getClasstime() {
+
+	public String getClasstime() {
 		return classtime;
 	}
-	public void setClasstime(Date classtime) {
+
+	public void setClasstime(String classtime) {
 		this.classtime = classtime;
 	}
 	public Integer getRelationId() {

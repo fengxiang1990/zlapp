@@ -1,6 +1,5 @@
 package com.zl.app.model.user;
 
-import java.util.Date;
 
 public class YyMobileStudent {
 	private Integer studentId;//主键
@@ -8,7 +7,7 @@ public class YyMobileStudent {
 	private Integer age;//年龄
 	private Integer sex;//性别1男 2女
 	private String photo;//头像
-	private Date birthday;//出生日期
+	private String birthday;//出生日期
 	private String school;//在读学校
 	private String idCard;//身份证号码
 	private Integer status;//状态
@@ -44,10 +43,12 @@ public class YyMobileStudent {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	public Date getBirthday() {
+
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	public String getSchool() {

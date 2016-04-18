@@ -1,6 +1,5 @@
 package com.zl.app.model.activity;
 
-import java.util.Date;
 
 public class YyMobileActivityComment {
 	private Integer commentId;//主键
@@ -9,7 +8,7 @@ public class YyMobileActivityComment {
 	private String picPath;//留言人头像
 	private String content;//留言内容
 	private Integer yyuser;//回复人ID
-	private Date createDate;//留言时间
+	private String createDate;//留言时间
 	public Integer getCommentId() {
 		return commentId;
 	}
@@ -46,10 +45,12 @@ public class YyMobileActivityComment {
 	public void setYyuser(Integer yyuser) {
 		this.yyuser = yyuser;
 	}
-	public Date getCreateDate() {
+
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	
