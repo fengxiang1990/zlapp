@@ -30,6 +30,8 @@ public class EditChildActivity extends BaseActivityWithToolBar {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_child);
+        setBtnLeft1Enable(true);
+        setTitle("我的宝贝");
         img_header = (ImageView) findViewById(R.id.img_header);
         text_name = (TextView) findViewById(R.id.text_name);
         text_id_number = (TextView) findViewById(R.id.text_id_number);
