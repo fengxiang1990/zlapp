@@ -83,7 +83,27 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                type = checkedId;
+                switch (checkedId) {
+                    case R.id.r1:
+                        type = 1;
+                        break;
+                    case R.id.r2:
+                        type = 3;
+                        break;
+                    case R.id.r3:
+                        type = 3;
+                        break;
+                    case R.id.r4:
+                        type = 4;
+                        break;
+                    case R.id.r5:
+                        type = 5;
+                        break;
+                    case R.id.r6:
+                        type = 6;
+                        break;
+                }
+
                 ToastUtil.show(getApplicationContext(), type + "");
             }
         });
