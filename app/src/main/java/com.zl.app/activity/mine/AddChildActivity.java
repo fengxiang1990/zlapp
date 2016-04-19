@@ -84,6 +84,7 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 type = checkedId;
+                ToastUtil.show(getApplicationContext(), type + "");
             }
         });
     }

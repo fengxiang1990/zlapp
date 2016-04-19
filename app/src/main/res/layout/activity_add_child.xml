@@ -206,7 +206,8 @@
     <RadioGroup
         android:id="@+id/rg"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="60dp"
         android:layout_height="wrap_content">
 
         <RadioButton
