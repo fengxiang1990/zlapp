@@ -45,7 +45,7 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
             holder.img_org.setVisibility(View.GONE);
         }else {
             holder.img_org.setVisibility(View.VISIBLE);
-            Uri uri = Uri.parse(RequestURL.SERVER + org.getPicPath());
+            Uri uri = Uri.parse(org.getPicPath());
             holder.img_org.setImageURI(uri);
         }
         holder.text_org_name.setText(org.getCompanyname());

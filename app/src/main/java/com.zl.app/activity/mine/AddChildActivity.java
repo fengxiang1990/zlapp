@@ -21,17 +21,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineServiceImpl;
+import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.popwindow.PopSelectPicture;
 import com.zl.app.util.AppConfig;
-import com.zl.app.util.StringUtil;
+import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by fengxiang on 2016/4/18.
@@ -42,7 +48,7 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
     private static final int PHOTO_CAMERA = 1;// 拍照
     private static final int PHOTO_ZOOM = 2; // 缩放
     private static final int PHOTO_RESULT = 3;// 结果
-    Uri uritempFile;
+    Uri uritempFile, resultUri;
 
     TextView text_img;
     ImageView img_header;
@@ -85,9 +91,9 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
     @Override
     protected void onTextRight1Click() {
         super.onTextRight1Click();
-        String name = String.valueOf(edit_name.getText());
-        String idnum = String.valueOf(edit_id_number.getText());
-        String birthday = String.valueOf(edit_birthday.getText());
+        final String name = String.valueOf(edit_name.getText());
+        final String idnum = String.valueOf(edit_id_number.getText());
+        final String birthday = String.valueOf(edit_birthday.getText());
         if (TextUtils.isEmpty(name)) {
             ToastUtil.show(getApplicationContext(), "孩子姓名不能为空");
             return;
@@ -100,16 +106,41 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
             ToastUtil.show(getApplicationContext(), "选择与孩子的关系");
             return;
         }
-        new MineServiceImpl().addBaby(AppConfig.getUid(preference), "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3896237301,3580089051&fm=116&gp=0.jpg", name, birthday, idnum, type, new DefaultResponseListener<BaseResponse>() {
+
+        if (resultUri == null) {
+            ToastUtil.show(getApplicationContext(), "请上传孩子头像");
+            return;
+        }
+        //上传
+
+        Bitmap bitmap = getBitmapFromUri(resultUri);
+        File file = saveBitmapFile(bitmap);
+        Log.e("file", file.getPath());
+        new UserServiceImpl().uploadUserHeadImg(AppConfig.getUid(preference), file, new DefaultResponseListener<String>() {
 
             @Override
-            public void onSuccess(BaseResponse response) {
-                if (response != null) {
-                    if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                        finish();
-                    }
-                    ToastUtil.show(getApplicationContext(), response.getMessage());
+            public void onSuccess(String response) {
+                if (!TextUtils.isEmpty(response)) {
+                    BaseResponse baseResponse = GsonUtil.getJsonObject(response, BaseResponse.class);
+                    new MineServiceImpl().addBaby(AppConfig.getUid(preference), baseResponse.getMessage(), name, birthday, idnum, type, new DefaultResponseListener<BaseResponse>() {
+
+                        @Override
+                        public void onSuccess(BaseResponse response) {
+                            if (response != null) {
+                                if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                                    finish();
+                                }
+                                ToastUtil.show(getApplicationContext(), response.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onError(VolleyError error) {
+
+                        }
+                    });
                 }
+
             }
 
             @Override
@@ -117,6 +148,8 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
 
             }
         });
+
+
     }
 
     @Override
@@ -203,10 +236,12 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
         // 处理结果
         if (requestCode == PHOTO_RESULT) {
             img_header.setImageBitmap(getBitmapFromUri(uri));
+            resultUri = uri;
         }
         if (uri != null) {
             Log.e("uri", uri.toString());
             img_header.setImageBitmap(getBitmapFromUri(uri));
+            resultUri = uri;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -276,9 +311,28 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
     }
 
     public static String getImageName() {
-        return "bussiness_" + System.currentTimeMillis() + ".jpg";
+        return "zlapp_" + System.currentTimeMillis() + ".jpg";
     }
 
+
+    //Bitmap对象保存味图片文件
+    String temp_file_name = "";
+
+    public File saveBitmapFile(Bitmap bitmap) {
+        temp_file_name = new Date().getTime() + ".jpg";
+        File file = new File(Environment
+                .getExternalStorageDirectory() + "/" + temp_file_name);//将要保存图片的路径
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bos.flush();
+            bos.close();
+            return file;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * 通过Uri返回File文件

@@ -121,7 +121,7 @@ public class MyYuyueActivity extends BaseActivityWithToolBar{
                     holder.img_org.setVisibility(View.GONE);
                 } else {
                     holder.img_org.setVisibility(View.VISIBLE);
-                    Uri uri = Uri.parse(RequestURL.SERVER + reservation.getPicPath());
+                    Uri uri = Uri.parse(reservation.getPicPath());
                     holder.img_org.setImageURI(uri);
                 }
                 holder.text_org_name.setText(reservation.getCompanyname());

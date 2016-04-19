@@ -98,7 +98,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                             img_org.setVisibility(View.GONE);
                         } else {
                             img_org.setVisibility(View.VISIBLE);
-                            Uri uri = Uri.parse(RequestURL.SERVER + yyMobileCompany.getPicPath());
+                            Uri uri = Uri.parse(yyMobileCompany.getPicPath());
                             img_org.setImageURI(uri);
                         }
                         text_desc.setText(yyMobileCompany.getZhaiyao());

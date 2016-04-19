@@ -48,7 +48,6 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
     void afterViews() {
         uid = AppConfig.getUid(AppManager.getPreferences());
         String picPath = AppConfig.getUserHeadImg(AppManager.getPreferences());
-        picPath = RequestURL.SERVER + picPath;
         Log.e(tag, picPath);
         Uri uri = Uri.parse(picPath);
         simpleDraweeView.setImageURI(uri);
