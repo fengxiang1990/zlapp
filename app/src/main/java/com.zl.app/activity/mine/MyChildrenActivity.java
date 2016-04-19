@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.model.customer.YyMobileReservation;
 import com.zl.app.model.user.YyMobileStudent;
 import com.zl.app.util.AppConfig;
+import com.zl.app.util.GsonUtil;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
 import com.zl.app.util.ToastUtil;
@@ -48,6 +50,15 @@ public class MyChildrenActivity extends BaseActivityWithToolBar {
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                YyMobileStudent student = data.get(position);
+                Intent intent = new Intent(MyChildrenActivity.this, EditChildActivity.class);
+                intent.putExtra("child", GsonUtil.gson.toJson(student));
+                startActivity(intent);
+            }
+        });
         new MineServiceImpl().getBabies(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse<List<YyMobileStudent>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileStudent>> response) {
