@@ -2,12 +2,33 @@
 
     <!-- Theme.AppCompat.Light.DarkActionBar  -->
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.PageIndicatorDefaults">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/base_bg</item>
         <item name="colorPrimaryDark">@color/base_bg</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="toolbarStyle">@style/MyToolBar</item>
+    </style>
+
+
+    <style name="Theme.PageIndicatorDefaults" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="vpiTabPageIndicatorStyle">@style/TabPageIndicator</item>
+    </style>
+
+    <style name="TabPageIndicator" parent="Widget">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/vpi__tab_indicator</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingRight">12dip</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textAppearance">@style/mTextAppearance.TabPageIndicator</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="mTextAppearance.TabPageIndicator" parent="Widget">
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="MyToolBar" parent="Base.Widget.AppCompat.Toolbar">

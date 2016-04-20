@@ -71,6 +71,9 @@ public class MainActivity extends BaseActivityWithToolBar {
     List<BaseFragment> fragments;
 
 
+    public static int course_left_btn_resId = R.mipmap.change_t;
+
+
     @AfterViews
     void afterViews() {
         context = MainActivity.this;
@@ -97,10 +100,24 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragments.add(fragment_activities);
         fragments.add(fragment_mine);
         tab_find.setChecked(true);
+        initCourseLeftIcon();
+    }
+
+    void initCourseLeftIcon() {
+        int loginType = AppConfig.getLoginType(preference);
+        switch (loginType) {
+            case 3:
+                //当前是家长登录
+                course_left_btn_resId = R.mipmap.change_t;
+                break;
+            case 5:
+                //当前是教师登录
+                course_left_btn_resId = R.mipmap.change_p;
+                break;
+        }
     }
 
     @Override
-
     protected void onBtnRight2Click() {
         ToastUtil.show(context, "search btn click");
         application.mLocationClient.start();
@@ -131,7 +148,8 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Click(R.id.tab_class)
     void radio1Click() {
         setTitle("课程");
-        setBtnLeft1Enable(false);
+        setBtnLeft1Enable(true);
+        setBtnLeft1ImageResource(course_left_btn_resId);
         switchFragment(frgmentManager.beginTransaction(), fragment_class);
     }
 

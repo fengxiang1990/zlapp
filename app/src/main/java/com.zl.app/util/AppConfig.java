@@ -39,6 +39,8 @@ public class AppConfig {
 
     public static String IS_SHOW_IMG = "isNoImg";
 
+    public static String LOGIN_TYPE = "login_type";
+
     //检查是否无图模式
     public static boolean isShowImg(SharedPreferences preference) {
         return preference.getBoolean(AppConfig.IS_SHOW_IMG, true);
@@ -51,6 +53,12 @@ public class AppConfig {
         //return true;
     }
 
+    public static int getLoginType(SharedPreferences preference) {
+        //假设现在都是家长登录
+        //类型 1 超级管理员 2 平台管理员 3 普通用户 4 机构管理员 5 机构用户
+        return preference.getInt(AppConfig.LOGIN_TYPE, 3);
+    }
+
     //设置为登陆成功
     public static void setLoginSuccess(SharedPreferences preference, YyMobileUser user) {
         Editor editor = preference.edit();
@@ -61,6 +69,7 @@ public class AppConfig {
         editor.putString(USER_NAME, user.getNickName());
         editor.putString(TEL_PHONE, user.getMobile());
         editor.putString(MAIL, user.getEmail());
+        editor.putInt(LOGIN_TYPE, user.getType());
         editor.putString(USER_AGE, String.valueOf(user.getAge()));
         editor.putString(USER_QQ, user.getQq());
         editor.putString(USER_INTRODUCE, user.getIntroduce());

@@ -124,4 +124,10 @@ public class RequestURL {
 
     //获取我的孩子信息
     public static String API_BABY_LIST = SERVER + "mobileStudent/list.html";
+
+    //获取我的课程信息（家长）
+    public static String API_COURSE_PLIST = SERVER + "mobilePeriod/plist.html";
+
+    //获取我的课程信息（老师）
+    public static String API_COURSE_TLIST = SERVER + "mobilePeriod/tlist.html";
 }
