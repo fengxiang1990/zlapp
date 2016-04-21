@@ -41,6 +41,7 @@ public class AppConfig {
 
     public static String LOGIN_TYPE = "login_type";
 
+    public static int role = 0;
     //检查是否无图模式
     public static boolean isShowImg(SharedPreferences preference) {
         return preference.getBoolean(AppConfig.IS_SHOW_IMG, true);
@@ -70,6 +71,7 @@ public class AppConfig {
         editor.putString(TEL_PHONE, user.getMobile());
         editor.putString(MAIL, user.getEmail());
         editor.putInt(LOGIN_TYPE, user.getType());
+        role = user.getType();
         editor.putString(USER_AGE, String.valueOf(user.getAge()));
         editor.putString(USER_QQ, user.getQq());
         editor.putString(USER_INTRODUCE, user.getIntroduce());

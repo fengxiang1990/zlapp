@@ -90,6 +90,9 @@
         <activity android:name=".activity.mine.AddChildActivity" />
         <activity android:name=".activity.mine.EditChildActivity" />
 
+        <!-- course -->
+        <activity android:name=".activity.course.CoursePDTActivity" />
+
         <!-- Baidu Map -->
         <service
             android:name="com.baidu.location.f"

@@ -1,9 +1,11 @@
 package com.zl.app.fragment.course;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -13,6 +15,8 @@ import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
+import com.zl.app.activity.course.CoursePDTActivity;
+import com.zl.app.activity.course.CourseTDTActivity;
 import com.zl.app.data.CourseService;
 import com.zl.app.fragment.FragmentClass;
 import com.zl.app.fragment.FragmentFind;
@@ -20,6 +24,7 @@ import com.zl.app.model.customer.YyMobilePeriod;
 import com.zl.app.model.user.YyMobileStudent;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
+import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
@@ -61,6 +66,20 @@ public class FragmentCourse extends BaseFragment {
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
         loadCourse();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (AppConfig.role == 3) {
+                    Intent intent = new Intent(getActivity(), CoursePDTActivity.class);
+                    intent.putExtra("course", GsonUtil.gson.toJson(data.get(position)));
+                    startActivity(intent);
+                } else if (AppConfig.role == 5) {
+                    Intent intent = new Intent(getActivity(), CourseTDTActivity.class);
+                    intent.putExtra("course", GsonUtil.gson.toJson(data.get(position)));
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     void loadCourse() {
