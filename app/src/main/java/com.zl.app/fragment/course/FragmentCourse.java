@@ -69,11 +69,11 @@ public class FragmentCourse extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (AppConfig.role == 3) {
+                if (AppConfig.getLoginType(AppManager.getPreferences()) == 3) {
                     Intent intent = new Intent(getActivity(), CoursePDTActivity.class);
                     intent.putExtra("course", GsonUtil.gson.toJson(data.get(position)));
                     startActivity(intent);
-                } else if (AppConfig.role == 5) {
+                } else if (AppConfig.getLoginType(AppManager.getPreferences()) == 5) {
                     Intent intent = new Intent(getActivity(), CourseTDTActivity.class);
                     intent.putExtra("course", GsonUtil.gson.toJson(data.get(position)));
                     startActivity(intent);

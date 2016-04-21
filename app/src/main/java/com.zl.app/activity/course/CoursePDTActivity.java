@@ -22,6 +22,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_p);
+        setBtnLeft1Enable(true);
         text_time = (TextView) findViewById(R.id.text_time);
         text_teacher = (TextView) findViewById(R.id.text_teacher);
         yyMobilePeriod = GsonUtil.getJsonObject(getIntent().getStringExtra("course"), YyMobilePeriod.class);
