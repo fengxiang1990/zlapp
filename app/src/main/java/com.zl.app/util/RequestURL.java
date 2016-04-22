@@ -133,4 +133,7 @@ public class RequestURL {
 
     //获取课程学生动态
     public static String API_COURSE_STUDENT_DT = SERVER + "mobilePeriod/students.html";
+
+    //提交课程学生动态
+    public static String API_SUBMIT_COURSE_STUDENT_DT = SERVER + "mobilePeriod/pupdate.html";
 }

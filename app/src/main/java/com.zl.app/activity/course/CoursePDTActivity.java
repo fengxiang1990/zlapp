@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,13 +43,15 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
     ListView listView;
     TextView text_student_status;
     TextView text_student;
+    TextView text_send;
+    EditText edit_content;
     List<YyMobilePeriodStudent> data;
     MyAdapter adapter;
     String uid;
     Integer periodId;
     PopStudentStatus popStudentStatus;
     int selectedStatus = 0;
-    int selectedStudentId = 0;
+    int relationId = 0;
     View lastView = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,8 +92,11 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         listView = (ListView) findViewById(R.id.listView);
         text_student_status = (TextView) findViewById(R.id.text_student_status);
         text_student = (TextView) findViewById(R.id.text_student);
+        text_send = (TextView) findViewById(R.id.text_send);
+        edit_content = (EditText) findViewById(R.id.edit_content);
         text_student_status.setOnClickListener(this);
         text_student.setOnClickListener(this);
+        text_send.setOnClickListener(this);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,7 +109,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                 lastView = view;
 
                 YyMobilePeriodStudent student = data.get(position);
-                selectedStudentId = student == null ? 0 : student.getStudentId();
+                relationId = student == null ? 0 : student.getRelationId();
                 text_student.setText(student == null ? "" : student.getStudentName());
             }
         });
@@ -145,6 +151,34 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         switch (v.getId()) {
             case R.id.text_student_status:
                 popStudentStatus.showAtLocation(text_student_status, Gravity.LEFT | Gravity.BOTTOM, 0, 100);
+                break;
+            case R.id.text_send:
+                String content = String.valueOf(edit_content.getText());
+                if (relationId == 0) {
+                    ToastUtil.show(getApplicationContext(), "请选择一个学生");
+                    return;
+                }
+                if (selectedStatus == 0) {
+                    ToastUtil.show(getApplicationContext(), "请设置学生状态");
+                    return;
+                }
+                new CourseService().submitCourseStudentsDT(uid, String.valueOf(relationId), String.valueOf(selectedStatus),
+                        content, new DefaultResponseListener<BaseResponse>() {
+                            @Override
+                            public void onSuccess(BaseResponse response) {
+                                if (response != null) {
+                                    ToastUtil.show(getApplicationContext(), response.getMessage());
+                                    edit_content.setText("");
+                                    edit_content.setText("");
+                                    loadData();
+                                }
+                            }
+
+                            @Override
+                            public void onError(VolleyError error) {
+
+                            }
+                        });
                 break;
         }
     }

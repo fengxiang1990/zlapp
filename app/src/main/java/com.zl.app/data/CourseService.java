@@ -38,6 +38,20 @@ public class CourseService {
     }
 
 
+    //提交课程学生动态
+    public void submitCourseStudentsDT(String uid, String relationId, String totype, String content, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("relationId", relationId);
+        params.put("totype", totype);
+        params.put("content", content);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_SUBMIT_COURSE_STUDENT_DT, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
     //课程学生动态
     public void getCourseStudentsDT(String uid, String courseId, DefaultResponseListener<BaseResponse<List<YyMobilePeriodStudent>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
