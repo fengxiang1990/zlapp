@@ -130,4 +130,7 @@ public class RequestURL {
 
     //获取我的课程信息（老师）
     public static String API_COURSE_TLIST = SERVER + "mobilePeriod/tlist.html";
+
+    //获取课程学生动态
+    public static String API_COURSE_STUDENT_DT = SERVER + "mobilePeriod/students.html";
 }

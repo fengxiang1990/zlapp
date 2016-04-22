@@ -5,6 +5,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.model.customer.YyMobilePeriod;
+import com.zl.app.model.customer.YyMobilePeriodStudent;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;
@@ -35,6 +36,20 @@ public class CourseService {
         int QUXIAO = 3;
         int YISHANGKE = 4;
     }
+
+
+    //课程学生动态
+    public void getCourseStudentsDT(String uid, String courseId, DefaultResponseListener<BaseResponse<List<YyMobilePeriodStudent>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("period.periodId", courseId);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_COURSE_STUDENT_DT, params, null,
+                new TypeToken<BaseResponse<List<YyMobilePeriodStudent>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
 
     public void getCoursePList(String uid, String startDate, String endDate, Integer type, Integer studentId, Integer companyId
             , DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>> listener) {
