@@ -36,7 +36,16 @@ public class YyMobileUser {
 	private String headline;//最新发布文章标题
 	private String updateDateFormat;//最新发布时间
 	private String uid;//64位唯一码
-	
+	private String address;//详细地址
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public Integer getUserId() {
 		return userId;
 	}
