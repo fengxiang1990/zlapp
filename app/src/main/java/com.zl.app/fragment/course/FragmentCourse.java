@@ -66,6 +66,7 @@ public class FragmentCourse extends BaseFragment {
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
         loadCourse();
+        /**
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,6 +81,7 @@ public class FragmentCourse extends BaseFragment {
                 }
             }
         });
+         **/
     }
 
     void loadCourse() {
@@ -204,6 +206,20 @@ public class FragmentCourse extends BaseFragment {
                 holder.img_course.setImageURI(uri);
                 holder.text_course_name.setText(period.getClassname());
                 holder.text_course_time.setText(period.getClasstime());
+                holder.btn_dt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (AppConfig.getLoginType(AppManager.getPreferences()) == 3) {
+                            Intent intent = new Intent(getActivity(), CoursePDTActivity.class);
+                            intent.putExtra("course", GsonUtil.gson.toJson(period));
+                            startActivity(intent);
+                        } else if (AppConfig.getLoginType(AppManager.getPreferences()) == 5) {
+                            Intent intent = new Intent(getActivity(), CourseTDTActivity.class);
+                            intent.putExtra("course", GsonUtil.gson.toJson(period));
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
             return convertView;
         }
