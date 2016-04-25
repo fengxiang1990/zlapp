@@ -3,6 +3,7 @@ package com.zl.app.util;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.zl.app.data.user.model.YyMobileUser;
 
@@ -40,7 +41,7 @@ public class AppConfig {
     public static String IS_SHOW_IMG = "isNoImg";
 
     public static String LOGIN_TYPE = "login_type";
-
+    public static String USER_INFO_JSON = "user_info_json";
     //检查是否无图模式
     public static boolean isShowImg(SharedPreferences preference) {
         return preference.getBoolean(AppConfig.IS_SHOW_IMG, true);
@@ -60,8 +61,18 @@ public class AppConfig {
     }
 
     //设置为登陆成功
+    public static YyMobileUser getUserInfo(SharedPreferences preference) {
+        String json = preference.getString(AppConfig.USER_INFO_JSON, "");
+        if (!TextUtils.isEmpty(json)) {
+            return GsonUtil.getJsonObject(json, YyMobileUser.class);
+        }
+        return null;
+    }
+
+    //设置为登陆成功
     public static void setLoginSuccess(SharedPreferences preference, YyMobileUser user) {
         Editor editor = preference.edit();
+        editor.putString(USER_INFO_JSON, GsonUtil.gson.toJson(user));
         editor.putBoolean(IS_LOGIN, true);
         editor.putInt(USER_ID, user.getUserId());
         editor.putString(USER_HEAD_IMG, user.getPicPath());

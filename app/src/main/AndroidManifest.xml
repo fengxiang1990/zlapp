@@ -90,6 +90,8 @@
         <activity android:name=".activity.mine.AddChildActivity" />
         <activity android:name=".activity.mine.EditChildActivity" />
         <activity android:name=".activity.mine.OrderActivity" />
+        <activity android:name=".activity.mine.UserInfoActivity" />
+        <activity android:name=".activity.mine.UpdateUserNameActivity" />
 
         <!-- course -->
         <activity android:name=".activity.course.CoursePDTActivity" />

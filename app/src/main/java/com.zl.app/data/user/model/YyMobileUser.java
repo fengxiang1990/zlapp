@@ -2,6 +2,15 @@ package com.zl.app.data.user.model;
 
 
 public class YyMobileUser {
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	private String address;
 	private Integer userId; //主键
 	private String account; //后台管理员账号
 	private String password;//密码
