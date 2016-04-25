@@ -94,6 +94,9 @@
         <activity android:name=".activity.mine.UpdateUserNameActivity" />
         <activity android:name=".activity.mine.FrendsActivity" />
 
+        <!-- activities -->
+        <activity android:name=".activity.activities.PublishActivity" />
+
         <!-- course -->
         <activity android:name=".activity.course.CoursePDTActivity" />
 

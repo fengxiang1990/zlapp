@@ -27,58 +27,10 @@ import java.util.List;
  * Created by admin on 2015/12/28.
  */
 
-@EFragment(R.layout.fragment_b)
+@EFragment(R.layout.fragment_activities)
 public class FragmentActivities extends BaseFragment {
 
-    String TAG = "FragmentB";
-
-    @ViewById(R.id.recyclerViewNews)
-    RecyclerView recyclerViewNews;
-
-    NewsService newsService;
-
-    public int pageNo = 1;
-    public int pageSize = 20;
-
-    String uid;
-
-    LinearLayoutManager layoutManagerNews;
-
-    List<YyMobileNews> data;
-    NewsAdapter newsAdapter;
-
-    @AfterViews
-    void afterViews() {
-
-        //数据
-        layoutManagerNews = new LinearLayoutManager(getActivity());
-        layoutManagerNews.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerViewNews.setLayoutManager(layoutManagerNews);
-        data = new ArrayList<YyMobileNews>();
-        newsAdapter = new NewsAdapter(this, data);
-        recyclerViewNews.setAdapter(newsAdapter);
-
-        newsService = new NewsServiceImpl();
-        uid = AppConfig.getUid(AppManager.getPreferences());
-        Log.e(TAG, "uid:" + uid);
-        //loadData(pageNo,pageSize,yyMobileBase.getCode(),yyMobileBase.getValue());
-    }
+    String TAG = "FragmentActivities";
 
 
-    public void loadData(int pageNo, int pageSize, String code, String value) {
-        newsService.getNewsByType(uid, pageNo, pageSize, code, value, new DefaultResponseListener<BaseResponse<List<YyMobileNews>>>() {
-            @Override
-            public void onSuccess(BaseResponse<List<YyMobileNews>> response) {
-                List<YyMobileNews> list = response.getResult();
-                data.clear();
-                data.addAll(list);
-                newsAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onError(VolleyError error) {
-
-            }
-        });
-    }
 }

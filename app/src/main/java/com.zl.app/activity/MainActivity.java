@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import com.zl.app.BaseFragment;
 import com.zl.app.MyApplication;
 import com.zl.app.R;
+import com.zl.app.activity.activities.PublishActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.activity.user.UserInfoActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
@@ -137,10 +138,17 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     }
 
+    @Override
+    protected void onTextRight1Click() {
+        Intent intent = new Intent(MainActivity.this, PublishActivity.class);
+        startActivity(intent);
+    }
+
     @Click(R.id.tab_find)
     void radiol1Click() {
         setBtnLeft1Enable(false);
         setTitle("发现");
+        setTextRight1Enable(false);
         switchFragment(frgmentManager.beginTransaction(), fragment_find);
     }
 
@@ -149,6 +157,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     void radio1Click() {
         setTitle("课程");
         setBtnLeft1Enable(true);
+        setTextRight1Enable(false);
         setBtnLeft1ImageResource(course_left_btn_resId);
         switchFragment(frgmentManager.beginTransaction(), fragment_class);
     }
@@ -156,6 +165,8 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Click(R.id.tab_activities)
     void radio2Click() {
         setBtnLeft1Enable(false);
+        setTextRight1Val("发起活动");
+        setTextRight1Enable(true);
         setTitle("活动");
         switchFragment(frgmentManager.beginTransaction(), fragment_activities);
     }
@@ -164,6 +175,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     void radio4Click() {
         setTitle("我的");
         setBtnLeft1Enable(false);
+        setTextRight1Enable(false);
         if (AppConfig.isLogin(preference)) {
             switchFragment(frgmentManager.beginTransaction(), fragment_mine);
         } else {
