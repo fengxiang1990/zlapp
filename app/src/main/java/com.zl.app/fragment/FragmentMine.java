@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
+import com.zl.app.activity.mine.FrendsActivity;
 import com.zl.app.activity.mine.MyChildrenActivity;
 import com.zl.app.activity.mine.MyYuyueActivity;
 import com.zl.app.activity.mine.OrderActivity;
@@ -49,6 +50,8 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
     @ViewById(R.id.text_order)
     ImageView text_order;
 
+    @ViewById(R.id.text_frends)
+    ImageView text_frends;
     String uid;
 
     @AfterViews
@@ -64,6 +67,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
         text_baby.setOnClickListener(this);
         text_order.setOnClickListener(this);
         text_info.setOnClickListener(this);
+        text_frends.setOnClickListener(this);
     }
 
     @Override
@@ -84,6 +88,10 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.text_order:
                 intent = new Intent(getActivity(), OrderActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.text_frends:
+                intent = new Intent(getActivity(), FrendsActivity.class);
                 startActivity(intent);
                 break;
         }

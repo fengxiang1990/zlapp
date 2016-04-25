@@ -140,4 +140,6 @@ public class RequestURL {
     //获取订单
     public static String API_ORDER_LIST = SERVER + "mobileContract/list.html";
 
+    //获取朋友
+    public static String API_FREND_LIST = SERVER + "mobileUser/friends.html";
 }

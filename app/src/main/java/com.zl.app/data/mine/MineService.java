@@ -3,6 +3,7 @@ package com.zl.app.data.mine;
 import com.zl.app.model.customer.YyMobileContract;
 import com.zl.app.model.customer.YyMobileReservation;
 import com.zl.app.model.user.YyMobileStudent;
+import com.zl.app.model.user.YyMobileUserFans;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
@@ -12,6 +13,16 @@ import java.util.List;
  * Created by fxa on 2016/4/17.
  */
 public interface MineService {
+
+    /**
+     * 获取朋友
+     *
+     * @param uid
+     * @param pageNo
+     * @param pageSize
+     * @param listener
+     */
+    void getFrends(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileUserFans>>> listener);
 
     /**
      * 获取订单
