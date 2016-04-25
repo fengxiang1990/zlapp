@@ -17,6 +17,7 @@
             android:text="活动标题" />
 
         <EditText
+            android:layout_marginTop="10dp"
             android:id="@+id/edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -27,6 +28,7 @@
             android:text="活动地点" />
 
         <EditText
+            android:layout_marginTop="10dp"
             android:id="@+id/edit_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -38,30 +40,41 @@
             android:text="活动时间" />
 
         <EditText
+            android:layout_marginTop="10dp"
             android:id="@+id/edit_date"
             android:hint="请选择活动日期"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         />
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lldate"
-        android:clickable="true"
-        android:visibility="visible"
-        android:background="@color/gray"
-        android:layout_gravity="center"
+    <RadioGroup
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <DatePicker
-            android:background="@color/white"
-            android:id="@+id/datePicker"
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/rb1"
+            android:layout_width="wrap_content"
+            android:text="公开"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/rb2"
+            android:text="限好友"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+    </RadioGroup>
 
+
+    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发布活动"
+        android:layout_gravity="bottom"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_selector"
+        android:id="@+id/btn_send" />
 </FrameLayout>

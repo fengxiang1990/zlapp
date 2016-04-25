@@ -142,4 +142,7 @@ public class RequestURL {
 
     //获取朋友
     public static String API_FREND_LIST = SERVER + "mobileUser/friends.html";
+
+    //发布新活动
+    public static String API_SEND_ACTIVITY = SERVER + "mobileActivity/insert.html";
 }
