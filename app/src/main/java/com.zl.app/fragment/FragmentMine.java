@@ -12,6 +12,7 @@ import com.zl.app.BaseFragment;
 import com.zl.app.R;
 import com.zl.app.activity.mine.MyChildrenActivity;
 import com.zl.app.activity.mine.MyYuyueActivity;
+import com.zl.app.activity.mine.OrderActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
@@ -41,6 +42,8 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
     @ViewById(R.id.text_baby)
     ImageView text_baby;
 
+    @ViewById(R.id.text_order)
+    ImageView text_order;
 
     String uid;
 
@@ -55,6 +58,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
         text_name.setText(username);
         text_yuyue.setOnClickListener(this);
         text_baby.setOnClickListener(this);
+        text_order.setOnClickListener(this);
     }
 
     @Override
@@ -67,6 +71,10 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.text_yuyue:
                 intent = new Intent(getActivity(), MyYuyueActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.text_order:
+                intent = new Intent(getActivity(), OrderActivity.class);
                 startActivity(intent);
                 break;
         }

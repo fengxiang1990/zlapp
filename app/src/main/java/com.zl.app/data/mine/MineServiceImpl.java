@@ -3,6 +3,7 @@ package com.zl.app.data.mine;
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.news.model.YyMobileBase;
+import com.zl.app.model.customer.YyMobileContract;
 import com.zl.app.model.customer.YyMobileReservation;
 import com.zl.app.model.user.YyMobileStudent;
 import com.zl.app.util.AppManager;
@@ -19,6 +20,17 @@ import java.util.Map;
  * Created by fxa on 2016/4/17.
  */
 public class MineServiceImpl implements  MineService{
+
+    @Override
+    public void getOrders(String uid, DefaultResponseListener<BaseResponse<List<YyMobileContract>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORDER_LIST, params, null,
+                new TypeToken<BaseResponse<List<YyMobileContract>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 
     @Override
     public void getBabies(String uid, DefaultResponseListener<BaseResponse<List<YyMobileStudent>>> listener) {

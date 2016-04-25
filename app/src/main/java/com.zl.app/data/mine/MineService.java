@@ -1,5 +1,6 @@
 package com.zl.app.data.mine;
 
+import com.zl.app.model.customer.YyMobileContract;
 import com.zl.app.model.customer.YyMobileReservation;
 import com.zl.app.model.user.YyMobileStudent;
 import com.zl.app.util.net.BaseResponse;
@@ -11,6 +12,16 @@ import java.util.List;
  * Created by fxa on 2016/4/17.
  */
 public interface MineService {
+
+    /**
+     * 获取订单
+     *
+     * @param uid
+     * @param listener
+     */
+    void getOrders(String uid, DefaultResponseListener<BaseResponse<List<YyMobileContract>>> listener);
+
+
 
     /**
      * 获取我的孩子列表

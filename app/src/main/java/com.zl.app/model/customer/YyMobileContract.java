@@ -6,7 +6,7 @@ public class YyMobileContract {
 	private String headline;//标题
 	private String filePath;//文件路径
 	private Integer status;//状态
-	private Date createDate;//生成时间
+	private String createDate;//生成时间
 	public String getHeadline() {
 		return headline;
 	}
@@ -25,10 +25,12 @@ public class YyMobileContract {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public Date getCreateDate() {
+
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	
