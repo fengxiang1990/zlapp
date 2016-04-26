@@ -2,6 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whitesmoke"
     android:orientation="vertical">
+
+    <me.maxwin.view.XListView
+        android:id="@+id/listview"
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        android:dividerHeight="10dp"
+        android:scrollbars="@null"
+        android:divider="@color/whitesmoke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </me.maxwin.view.XListView>
+
 
 </LinearLayout>
