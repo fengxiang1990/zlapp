@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,6 +56,12 @@ public class FragmentActivities extends BaseFragment {
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
         uid= AppConfig.getUid(AppManager.getPreferences());
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
         listView.setXListViewListener(new XListView.IXListViewListener() {
             @Override
             public void onRefresh() {
