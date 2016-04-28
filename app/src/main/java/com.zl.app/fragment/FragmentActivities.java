@@ -1,5 +1,6 @@
 package com.zl.app.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
+import com.zl.app.activity.activities.DetailActivity;
 import com.zl.app.data.ActivityService;
 import com.zl.app.model.activity.YyMobileActivity;
 import com.zl.app.util.AppConfig;
@@ -59,7 +61,11 @@ public class FragmentActivities extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                YyMobileActivity yyMobileActivity = data.get(position - 1);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("activityId", yyMobileActivity.getActivityId());
+                intent.putExtra("title", yyMobileActivity.getHeadline());
+                startActivity(intent);
             }
         });
         listView.setXListViewListener(new XListView.IXListViewListener() {

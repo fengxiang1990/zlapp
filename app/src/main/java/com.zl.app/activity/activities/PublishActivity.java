@@ -15,10 +15,14 @@ import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
+import com.zl.app.util.DateUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.view.LoadingDialog;
+import com.zl.app.view.datetimepicker.DateTimePickDialogUtil;
+
+import java.util.Date;
 
 /**
  * Created by fengxiang on 2016/4/25.
@@ -46,6 +50,7 @@ public class PublishActivity extends BaseActivityWithToolBar  implements View.On
         rb1.setOnClickListener(this);
         rb2.setOnClickListener(this);
         btn_send.setOnClickListener(this);
+        edit_date.setOnClickListener(this);
     }
 
     public void sendActivity(){
@@ -96,6 +101,17 @@ public class PublishActivity extends BaseActivityWithToolBar  implements View.On
             case R.id.rb2:
                 ispublic = 3;
                 break;
+            case R.id.edit_date:
+                showDateTimePickerDialog();
+                break;
         }
     }
+
+    private void showDateTimePickerDialog() {
+        Date date = new Date();
+        DateTimePickDialogUtil dateTimePicker = new DateTimePickDialogUtil(
+                PublishActivity.this, DateUtil.DateToString(date, DateUtil.DateStyle.YYYY_MM_DD_HH_MM));
+        dateTimePicker.dateTimePickDialog(edit_date);
+    }
+
 }

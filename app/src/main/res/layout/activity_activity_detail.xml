@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:background="@color/whitesmoke"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/simpleDraweeView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            fresco:roundAsCircle="false"
+            fresco:roundingBorderColor="@color/white"
+            fresco:roundingBorderWidth="4dp" />
+
+        <LinearLayout
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/text_join"
+                    android:textColor="@color/red"
+                    android:layout_weight="2"
+                    android:text="报名参加"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/text_content"
+                android:layout_weight="1"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/text_location"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="12sp"
+                android:drawableLeft="@mipmap/ic_location_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/text_time"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:layout_weight="1.2"
+                    android:drawableLeft="@mipmap/ic_time_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:gravity="center_vertical|end"
+                    android:id="@+id/text_count"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:clickable="true"
+                    android:layout_weight="2"
+                    android:textColor="@color/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:text="人报名"
+                    android:textSize="12sp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/black"
+            android:text="留言区"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/text_comment_count"
+            android:text="(共0条)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView" />
+
+</LinearLayout>

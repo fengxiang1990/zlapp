@@ -96,6 +96,7 @@
 
         <!-- activities -->
         <activity android:name=".activity.activities.PublishActivity" />
+        <activity android:name=".activity.activities.DetailActivity" />
 
         <!-- course -->
         <activity android:name=".activity.course.CoursePDTActivity" />
