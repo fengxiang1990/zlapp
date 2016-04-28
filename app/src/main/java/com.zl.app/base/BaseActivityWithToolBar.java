@@ -189,7 +189,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         if (isEnable) {
             ViewUtil.show(btnRight1);
         } else {
-            ViewUtil.hide(btnRight2);
+            ViewUtil.hide(btnRight1);
         }
     }
 
