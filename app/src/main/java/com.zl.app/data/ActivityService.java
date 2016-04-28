@@ -37,6 +37,20 @@ public class ActivityService {
     //活动评论接口
     String API_ACTIVITY_COMMENT = RequestURL.SERVER + "mobileActivityComment/insert.html";
 
+    //活动搜索
+    String API_ACTIVITY_SEARCH = RequestURL.SERVER + "mobileActivity/search.html";
+
+    public void searchActivities(String uid, String keyword, DefaultResponseListener<BaseResponse<List<YyMobileActivity>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("headline", keyword);
+        GsonRequest request = new GsonRequest(Request.Method.POST, API_ACTIVITY_SEARCH, params, null,
+                new TypeToken<BaseResponse<List<YyMobileActivity>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
     public void comment(String uid, String activityId,
                         String userId, String content, String picPath,
                         DefaultResponseListener<BaseResponse> listener) {

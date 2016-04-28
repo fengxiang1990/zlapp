@@ -28,6 +28,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     protected TextView titleView;
     protected TextView textRight1;
     protected TextView textRight2;
+    protected TextView textLeft1;
     protected LinearLayout rootView;
 
     @Override
@@ -60,6 +61,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     public void initToolBar(View view) {
         rootView = (LinearLayout) view.findViewById(R.id.container);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        textLeft1 = (TextView) view.findViewById(R.id.text_left1);
         btnLeft1 = (ImageView) view.findViewById(R.id.leftBtn1);
         btnLeft2 = (ImageView) view.findViewById(R.id.leftBtn2);
         btnRight1 = (ImageView) view.findViewById(R.id.rightBtn1);
@@ -75,6 +77,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         btnRight2.setOnClickListener(this);
         textRight1.setOnClickListener(this);
         textRight2.setOnClickListener(this);
+        textLeft1.setOnClickListener(this);
     }
 
     @Override
@@ -97,6 +100,9 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
                 break;
             case R.id.right2:
                 onTextRight2Click();
+                break;
+            case R.id.text_left1:
+                onTextLeft1Click();
                 break;
         }
     }
@@ -251,6 +257,32 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     }
 
 
+    /**
+     * 设置右左1文本按钮是否可用
+     *
+     * @param isEnable
+     */
+    protected void setTextLeft1Enable(boolean isEnable) {
+        if (isEnable) {
+            ViewUtil.show(textLeft1);
+        } else {
+            ViewUtil.hide(textLeft1);
+        }
+    }
+
+    /**
+     * 设置左1文本按钮标题
+     *
+     * @param value
+     */
+    protected void setTextLeft1Val(String value) {
+        if (StringUtil.isEmpty(value)) {
+            value = "";
+        }
+        textLeft1.setText(value);
+    }
+
+
     //默认关闭当前activity
     protected void onBtnLeft1Click() {
         BaseActivityWithToolBar.this.finish();
@@ -273,6 +305,10 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     }
 
     protected void onTextRight2Click() {
+
+    }
+
+    protected void onTextLeft1Click() {
 
     }
 

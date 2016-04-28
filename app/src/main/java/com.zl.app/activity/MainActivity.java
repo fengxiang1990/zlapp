@@ -15,6 +15,7 @@ import com.zl.app.BaseFragment;
 import com.zl.app.MyApplication;
 import com.zl.app.R;
 import com.zl.app.activity.activities.PublishActivity;
+import com.zl.app.activity.activities.SearchActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.activity.user.UserInfoActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
@@ -128,7 +129,7 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnRight1Click() {
-        Intent intent = new Intent(this,UserInfoActivity_.class);
+        Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
 
@@ -139,7 +140,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     }
 
     @Override
-    protected void onTextRight1Click() {
+    protected void onTextLeft1Click() {
         Intent intent = new Intent(MainActivity.this, PublishActivity.class);
         startActivity(intent);
     }
@@ -148,7 +149,8 @@ public class MainActivity extends BaseActivityWithToolBar {
     void radiol1Click() {
         setBtnLeft1Enable(false);
         setTitle("发现");
-        setTextRight1Enable(false);
+        setTextLeft1Enable(false);
+        setBtnRight1Enable(false);
         switchFragment(frgmentManager.beginTransaction(), fragment_find);
     }
 
@@ -157,7 +159,8 @@ public class MainActivity extends BaseActivityWithToolBar {
     void radio1Click() {
         setTitle("课程");
         setBtnLeft1Enable(true);
-        setTextRight1Enable(false);
+        setTextLeft1Enable(false);
+        setBtnRight1Enable(false);
         setBtnLeft1ImageResource(course_left_btn_resId);
         switchFragment(frgmentManager.beginTransaction(), fragment_class);
     }
@@ -165,8 +168,10 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Click(R.id.tab_activities)
     void radio2Click() {
         setBtnLeft1Enable(false);
-        setTextRight1Val("发起活动");
-        setTextRight1Enable(true);
+        setTextLeft1Val("发起活动");
+        setTextLeft1Enable(true);
+        setBtnRight1Enable(true);
+        setBtnRight1ImageResource(R.mipmap.ic_search_icon);
         setTitle("活动");
         switchFragment(frgmentManager.beginTransaction(), fragment_activities);
     }
@@ -175,7 +180,8 @@ public class MainActivity extends BaseActivityWithToolBar {
     void radio4Click() {
         setTitle("我的");
         setBtnLeft1Enable(false);
-        setTextRight1Enable(false);
+        setTextLeft1Enable(false);
+        setBtnRight1Enable(false);
         if (AppConfig.isLogin(preference)) {
             switchFragment(frgmentManager.beginTransaction(), fragment_mine);
         } else {
