@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,11 +54,14 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
     int selectedStatus = 0;
     int relationId = 0;
     View lastView = null;
+    LinearLayout ll2;
+    int role = 3;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_p);
         setBtnLeft1Enable(true);
+        role = AppConfig.getLoginType(preference);
         popStudentStatus = new PopStudentStatus(this);
         popStudentStatus.setListener(new PopStudentStatus.OnSelectedListener() {
             @Override
@@ -98,6 +102,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         text_student.setOnClickListener(this);
         text_send.setOnClickListener(this);
         listView.setAdapter(adapter);
+        ll2 = (LinearLayout) findViewById(R.id.ll2);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -117,8 +122,37 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         if (yyMobilePeriod != null) {
             periodId = yyMobilePeriod.getPeriodId();
             setTitle(yyMobilePeriod.getClassname());
-            loadData();
+            if (role == 5) {
+                ll2.setVisibility(View.GONE);
+                loadDataTeacher();
+            } else if (role == 3) {
+                loadData();
+            }
         }
+    }
+
+    public void loadDataTeacher() {
+        new CourseService().getCourseStudentsDT(uid, String.valueOf(periodId), new DefaultResponseListener<BaseResponse<List<YyMobilePeriodStudent>>>() {
+            @Override
+            public void onSuccess(BaseResponse<List<YyMobilePeriodStudent>> response) {
+                if (response != null) {
+                    List<YyMobilePeriodStudent> list = response.getResult();
+                    if (list != null && list.size() > 0) {
+                        YyMobilePeriodStudent student = list.get(0);
+                        text_time.setText(student.getClasstime());
+                        text_teacher.setText(student.getTeacherName());
+                        data.clear();
+                        data.addAll(list);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
     }
 
     public void loadData() {

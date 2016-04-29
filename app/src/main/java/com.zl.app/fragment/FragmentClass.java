@@ -41,7 +41,7 @@ public class FragmentClass extends BaseFragment{
 
     private static final String[] CONTENT = new String[]{"上周", "本周", "下周", "其他"};
 
-    List<FragmentCourse> fragments;
+    public List<FragmentCourse> fragments;
     FragmentCourse courseLast;
     FragmentCourse courseThis;
     FragmentCourse courseNext;

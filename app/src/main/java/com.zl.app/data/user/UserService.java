@@ -13,13 +13,15 @@ import java.util.concurrent.ExecutionException;
 public interface UserService {
 
 
+    void isTeacher(String uid, DefaultResponseListener<BaseResponse> listener);
+
     /**
      * 检测手机号能否注册
      *
      * @param mobile
      * @return
      */
-    public BaseResponse registCheck(String mobile) throws ExecutionException, InterruptedException;
+    BaseResponse registCheck(String mobile) throws ExecutionException, InterruptedException;
 
     /**
      * 发送注册验证码
@@ -27,7 +29,7 @@ public interface UserService {
      * @param mobile
      * @return
      */
-    public BaseResponse registSendCode(String mobile) throws ExecutionException, InterruptedException;
+    BaseResponse registSendCode(String mobile) throws ExecutionException, InterruptedException;
 
     /**
      * 注册用户
@@ -39,7 +41,7 @@ public interface UserService {
      * @param remark      注册短信验证码
      * @return
      */
-    public BaseResponse regist(String mobile, String password, String passWordTwo, String nickName, String remark) throws ExecutionException, InterruptedException;
+    BaseResponse regist(String mobile, String password, String passWordTwo, String nickName, String remark) throws ExecutionException, InterruptedException;
 
     /**
      * 登陆
@@ -48,7 +50,7 @@ public interface UserService {
      * @param password
      * @param listener
      */
-    public void login(String account, String password, DefaultResponseListener<BaseResponse<YyMobileUser>> listener);
+    void login(String account, String password, DefaultResponseListener<BaseResponse<YyMobileUser>> listener);
 
 
     /**
@@ -57,7 +59,7 @@ public interface UserService {
      * @param account
      * @param listener
      */
-    public void getPasswordCode(String account, DefaultResponseListener<BaseResponse> listener);
+    void getPasswordCode(String account, DefaultResponseListener<BaseResponse> listener);
 
     /**
      * 获取新密码接口
@@ -66,7 +68,7 @@ public interface UserService {
      * @param smsCode
      * @param listener
      */
-    public void getNewPassword(String account, String smsCode, DefaultResponseListener<BaseResponse> listener);
+    void getNewPassword(String account, String smsCode, DefaultResponseListener<BaseResponse> listener);
 
     /**
      * 修改密码接口
@@ -77,7 +79,7 @@ public interface UserService {
      * @param passWordTwo
      * @param listener
      */
-    public void modifyPassword(String uid, String remark, String password, String passWordTwo, DefaultResponseListener<BaseResponse> listener);
+    void modifyPassword(String uid, String remark, String password, String passWordTwo, DefaultResponseListener<BaseResponse> listener);
 
 
     /**
@@ -87,7 +89,7 @@ public interface UserService {
      * @param imgFile
      * @param listener
      */
-    public void uploadUserHeadImg(String uid, File imgFile, DefaultResponseListener<String> listener);
+    void uploadUserHeadImg(String uid, File imgFile, DefaultResponseListener<String> listener);
 
     /**
      * 设置用户信息
@@ -105,7 +107,7 @@ public interface UserService {
      * @param scshow
      * @param listener
      */
-    public void updateUserInfo(String uid, String picPath, String nickName, String age, String qq, String introduce,
-                               String mobileshow, String emailshow, String qqshow, String plshow, String dzshow, String scshow
+    void updateUserInfo(String uid, String picPath, String nickName, String age, String qq, String introduce,
+                        String mobileshow, String emailshow, String qqshow, String plshow, String dzshow, String scshow
             , DefaultResponseListener<BaseResponse> listener);
 }

@@ -27,6 +27,17 @@ public class UserServiceImpl implements UserService {
     String TAG = "UserServiceImpl";
 
     @Override
+    public void isTeacher(String uid, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_CHECK_TEACHER, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public BaseResponse registCheck(String mobile) throws ExecutionException, InterruptedException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("mobile", mobile);

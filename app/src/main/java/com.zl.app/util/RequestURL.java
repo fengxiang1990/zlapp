@@ -69,6 +69,9 @@ public class RequestURL {
     //根据是否显示（手机、email、qq、评论、收藏、点赞），来显示相应信息。
     public static String API_SITE_USER = SERVER+"mobileSite/user.html";
 
+    //检查是否老师
+    public static String API_CHECK_TEACHER = SERVER + "mobileUser/checkTeacher.html";
+
     //个人微站留言列表接口
     public static String API_SITE_USER_COMMENTS = SERVER +"mobileSite/usercommentlist.html";
 

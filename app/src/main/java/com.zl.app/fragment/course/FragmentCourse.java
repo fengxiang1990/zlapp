@@ -2,6 +2,7 @@ package com.zl.app.fragment.course;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,25 +67,9 @@ public class FragmentCourse extends BaseFragment {
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
         loadCourse();
-        /**
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (AppConfig.getLoginType(AppManager.getPreferences()) == 3) {
-                    Intent intent = new Intent(getActivity(), CoursePDTActivity.class);
-                    intent.putExtra("course", GsonUtil.gson.toJson(data.get(position)));
-                    startActivity(intent);
-                } else if (AppConfig.getLoginType(AppManager.getPreferences()) == 5) {
-                    Intent intent = new Intent(getActivity(), CourseTDTActivity.class);
-                    intent.putExtra("course", GsonUtil.gson.toJson(data.get(position)));
-                    startActivity(intent);
-                }
-            }
-        });
-         **/
     }
 
-    void loadCourse() {
+    public void loadCourse() {
         //如果是家长登录
         if (AppConfig.getLoginType(AppManager.getPreferences()) == 3) {
             String startDate = "";
@@ -104,6 +89,7 @@ public class FragmentCourse extends BaseFragment {
             courseService.getCoursePList(uid, startDate, endDate, courseStatusP, studentId, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
                 @Override
                 public void onSuccess(BaseResponse<List<YyMobilePeriod>> response) {
+                    Log.e("response", response.toString());
                     if (response != null) {
                         if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                             data.addAll(response.getResult() == null ? new ArrayList<YyMobilePeriod>() : response.getResult());

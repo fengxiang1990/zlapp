@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.zl.app.model.customer.YyMobilePeriod;
 import com.zl.app.model.customer.YyMobilePeriodStudent;
 import com.zl.app.util.AppManager;
+import com.zl.app.util.GsonUtil;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
@@ -74,6 +75,7 @@ public class CourseService {
         params.put("type", type == null ? "" : type + "");
         params.put("student.studentId", studentId == null ? "" : studentId + "");
         params.put("companyId", companyId == null ? "" : companyId + "");
+        Log.e("getCoursePList", GsonUtil.gson.toJson(params));
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_COURSE_PLIST, params, null,
                 new TypeToken<BaseResponse<List<YyMobilePeriod>>>() {
                 },
@@ -89,6 +91,7 @@ public class CourseService {
         params.put("endDate", endDate);
         params.put("status", status == null ? "" : status + "");
         params.put("companyId", companyId == null ? "" : companyId + "");
+        Log.e("getCourseTList", GsonUtil.gson.toJson(params));
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_COURSE_TLIST, params, null,
                 new TypeToken<BaseResponse<List<YyMobilePeriod>>>() {
                 },

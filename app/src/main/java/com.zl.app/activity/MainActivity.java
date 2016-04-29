@@ -3,6 +3,8 @@ package com.zl.app.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.android.volley.VolleyError;
 import com.zl.app.BaseFragment;
 import com.zl.app.MyApplication;
 import com.zl.app.R;
@@ -19,20 +22,28 @@ import com.zl.app.activity.activities.SearchActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.activity.user.UserInfoActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
+import com.zl.app.data.user.UserService;
+import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.fragment.FragmentActivities_;
+import com.zl.app.fragment.FragmentClass;
 import com.zl.app.fragment.FragmentClass_;
 import com.zl.app.fragment.FragmentFind;
 import com.zl.app.fragment.FragmentFind_;
 import com.zl.app.fragment.FragmentHome;
 import com.zl.app.fragment.FragmentMine_;
 import com.zl.app.fragment.FragmentSetting;
+import com.zl.app.fragment.course.FragmentCourse;
+import com.zl.app.fragment.course.FragmentCourse_;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.ToastUtil;
+import com.zl.app.util.net.BaseResponse;
+import com.zl.app.util.net.DefaultResponseListener;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EditorAction;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -136,7 +147,27 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnLeft1Click() {
+        new UserServiceImpl().isTeacher(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                if (response != null) {
+                    if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                        SharedPreferences.Editor editor = preference.edit();
+                        editor.putInt(AppConfig.LOGIN_TYPE, 5);
+                        editor.commit();
+                        for (FragmentCourse fragment : ((FragmentClass) fragment_class).fragments) {
+                            fragment = new FragmentCourse_();
+                        }
+                    }
+                    ToastUtil.show(MainActivity.this, response.getMessage());
+                }
+            }
 
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
     }
 
     @Override

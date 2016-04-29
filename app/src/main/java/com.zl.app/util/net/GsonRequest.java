@@ -100,7 +100,7 @@ public class GsonRequest<T> extends Request<T> {
             e.printStackTrace();
             return Response.error(new VolleyError(e));
         } finally {
-            Log.d(TAG, "the response is:" + StringUtil.replaceAllInvalid(jsonString));
+            Log.e(TAG, "the response is:" + StringUtil.replaceAllInvalid(jsonString));
         }
     }
 
