@@ -148,4 +148,9 @@ public class RequestURL {
 
     //发布新活动
     public static String API_SEND_ACTIVITY = SERVER + "mobileActivity/insert.html";
+
+    //老师审核学生动态
+    public static String API_TEACHER_CHECKED = SERVER + "mobilePeriod/tupdate.html";
+
+
 }

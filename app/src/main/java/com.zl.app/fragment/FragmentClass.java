@@ -104,6 +104,7 @@ public class FragmentClass extends BaseFragment{
         Log.e("last_week_7", last_week_7);
         datemap.put("last_week_7", last_week_7);
 
+        viewPager.setCurrentItem(1);
     }
 
 

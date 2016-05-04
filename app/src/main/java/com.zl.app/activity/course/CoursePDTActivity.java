@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +25,7 @@ import com.zl.app.popwindow.PopStudentStatus;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
+import com.zl.app.util.ViewUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
@@ -56,12 +56,15 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
     View lastView = null;
     LinearLayout ll2;
     int role = 3;
+    CourseService courseService;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_p);
         setBtnLeft1Enable(true);
+        courseService = new CourseService();
         role = AppConfig.getLoginType(preference);
+        //role = 5;
         popStudentStatus = new PopStudentStatus(this);
         popStudentStatus.setListener(new PopStudentStatus.OnSelectedListener() {
             @Override
@@ -125,6 +128,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
             if (role == 5) {
                 ll2.setVisibility(View.GONE);
                 loadDataTeacher();
+                //loadData();
             } else if (role == 3) {
                 loadData();
             }
@@ -250,6 +254,9 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                 holder.text_student_name = (TextView) convertView.findViewById(R.id.text_student_name);
                 holder.text_content = (TextView) convertView.findViewById(R.id.text_content);
                 holder.text_status = (TextView) convertView.findViewById(R.id.text_status);
+                holder.ll_teacher = (LinearLayout) convertView.findViewById(R.id.ll_teacher);
+                holder.text_confirm = (TextView) convertView.findViewById(R.id.text_confirm);
+                holder.text_shangke = (TextView) convertView.findViewById(R.id.text_shangke);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -280,6 +287,47 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                         break;
                 }
                 holder.text_status.setText(statusStr);
+                if (role == 5) {
+                    ViewUtil.show(holder.ll_teacher);
+                    holder.text_confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            courseService.teacherChecked(uid, period.getRelationId(), period.getTotype(), new DefaultResponseListener<BaseResponse>() {
+                                @Override
+                                public void onSuccess(BaseResponse response) {
+                                    if (response != null) {
+                                        loadDataTeacher();
+                                        ToastUtil.show(CoursePDTActivity.this, response.getMessage());
+                                    }
+                                }
+
+                                @Override
+                                public void onError(VolleyError error) {
+
+                                }
+                            });
+                        }
+                    });
+                    holder.text_shangke.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            courseService.teacherChecked(uid, period.getRelationId(), 2, new DefaultResponseListener<BaseResponse>() {
+                                @Override
+                                public void onSuccess(BaseResponse response) {
+                                    if (response != null) {
+                                        loadDataTeacher();
+                                        ToastUtil.show(CoursePDTActivity.this, response.getMessage());
+                                    }
+                                }
+
+                                @Override
+                                public void onError(VolleyError error) {
+
+                                }
+                            });
+                        }
+                    });
+                }
             }
             return convertView;
         }
@@ -291,6 +339,9 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         TextView text_student_name;
         TextView text_content;
         TextView text_status;
+        LinearLayout ll_teacher;
+        TextView text_confirm;
+        TextView text_shangke;
     }
 
 }

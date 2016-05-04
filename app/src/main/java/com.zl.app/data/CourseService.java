@@ -38,6 +38,25 @@ public class CourseService {
         int YISHANGKE = 4;
     }
 
+    /**
+     * 教师审核学生动态
+     *
+     * @param uid
+     * @param relationId
+     * @param type       确认 传totype值，已上课 传 2
+     * @param listener
+     */
+    public void teacherChecked(String uid, int relationId, int type, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("relationId", relationId + "");
+        params.put("type", type + "");
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_TEACHER_CHECKED, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 
     //提交课程学生动态
     public void submitCourseStudentsDT(String uid, String relationId, String totype, String content, DefaultResponseListener<BaseResponse> listener) {
