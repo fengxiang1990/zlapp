@@ -4,9 +4,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.android.volley.VolleyError;
+import com.zl.app.BaseActivity;
 import com.zl.app.R;
 import com.zl.app.adapter.OrgAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
@@ -81,6 +84,21 @@ public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRef
 
         setTitle(title);
         setBtnLeft1Enable(true);
+        setSearchTitleViewEnable(true);
+        setBtnRight1Enable(true);
+        setBtnRight1ImageResource(R.mipmap.find_select_icon);
+        searchTitleView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    pageNumber = 1;
+                    isLoadMore = false;
+                    companyname = searchTitleView.getText().toString();
+                    loadData();
+                }
+                return false;
+            }
+        });
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动，既是否向右滑动或向下滑动
@@ -156,4 +174,6 @@ public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRef
         pageNumber = 1;
         loadData();
     }
+
+
 }

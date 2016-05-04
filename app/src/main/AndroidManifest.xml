@@ -79,7 +79,9 @@
         <activity android:name=".activity.news.CommentsListActivity_" />
 
         <!--orgs -->
-        <activity android:name=".activity.org.OrgListActivity_" />
+        <activity
+            android:name=".activity.org.OrgListActivity_"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name=".activity.org.OrgWeiSiteActivity" />
         <activity android:name=".activity.org.OrgGradePostActivity" />
         <activity android:name=".activity.org.OrgYuYueActivity" />

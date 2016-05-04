@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     protected ImageView btnRight1;
     protected ImageView btnRight2;
     protected TextView titleView;
+    protected EditText searchTitleView;
     protected TextView textRight1;
     protected TextView textRight2;
     protected TextView textLeft1;
@@ -67,6 +69,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         btnRight1 = (ImageView) view.findViewById(R.id.rightBtn1);
         btnRight2 = (ImageView) view.findViewById(R.id.rightBtn2);
         titleView = (TextView) view.findViewById(R.id.titleView);
+        searchTitleView = (EditText) view.findViewById(R.id.search_titleView);
         textRight1 = (TextView) view.findViewById(R.id.right1);
         textRight2 = (TextView) view.findViewById(R.id.right2);
         toolbar.setTitle("");
@@ -153,6 +156,24 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     protected void setBtnRight2ImageResource(int resId) {
         btnRight2.setImageResource(resId);
     }
+
+
+    /**
+     * 是否启用搜索栏
+     *
+     * @param isEnable
+     */
+    protected void setSearchTitleViewEnable(boolean isEnable) {
+        if (isEnable) {
+            ViewUtil.show(searchTitleView);
+            ViewUtil.hide(titleView);
+        } else {
+            ViewUtil.show(titleView);
+            ViewUtil.hide(searchTitleView);
+        }
+    }
+
+
 
     /**
      * 设置左1按钮是否可用

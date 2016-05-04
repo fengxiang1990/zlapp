@@ -37,6 +37,29 @@
         android:src="@mipmap/ic_launcher"
         android:visibility="gone" />
 
+    <EditText
+        android:id="@+id/search_titleView"
+        android:drawableRight="@mipmap/find_search_icon"
+        android:paddingLeft="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="10dp"
+        android:background="@mipmap/search_bg_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:hint="搜索名称,地区"
+        android:ems="14"
+        android:textColorHint="@color/white"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        android:layout_marginRight="5dp" />
     <TextView
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
