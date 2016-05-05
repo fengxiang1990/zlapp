@@ -6,7 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.zl.app.BaseActivity;
@@ -19,11 +24,14 @@ import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.ToastUtil;
+import com.zl.app.util.ViewUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -33,12 +41,31 @@ import java.util.List;
  * Created by fengxiang on 2016/4/12.
  */
 @EActivity(R.layout.activity_org_list)
-public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRefreshLayout.OnRefreshListener {
+public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
     String tag = OrgListActivity.class.getName();
     @ViewById(R.id.swipe)
     SwipeRefreshLayout swipe;
     @ViewById(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    @ViewById(R.id.search_titleView)
+    EditText searchTitleView;
+
+    @ViewById(R.id.titleView)
+    TextView titleView;
+
+    @ViewById
+    ImageView leftBtn1;
+
+    @ViewById
+    ImageView rightBtn1;
+
+    @ViewById
+    LinearLayout ll_selection;
+
+    @SystemService
+    WindowManager windowManager;
+
     LinearLayoutManager layoutManager;
     OrgAdapter adapter;
     List<YyMobileCompany> data;
@@ -52,6 +79,11 @@ public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRef
 
     @AfterViews
     void afterviews() {
+        rightBtn1.setImageResource(R.mipmap.find_select_icon);
+        titleView.setVisibility(View.GONE);
+        searchTitleView.setVisibility(View.VISIBLE);
+        leftBtn1.setVisibility(View.VISIBLE);
+        rightBtn1.setVisibility(View.VISIBLE);
         swipe.setOnRefreshListener(this);
         homeService = new HomeServiceImpl();
         data = new ArrayList<YyMobileCompany>();
@@ -82,11 +114,6 @@ public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRef
             title = "更多";
         }
 
-        setTitle(title);
-        setBtnLeft1Enable(true);
-        setSearchTitleViewEnable(true);
-        setBtnRight1Enable(true);
-        setBtnRight1ImageResource(R.mipmap.find_select_icon);
         searchTitleView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -137,6 +164,39 @@ public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRef
             }
         });
         loadData();
+    }
+
+    @Click(R.id.leftBtn1)
+    void leftBtnClick() {
+        finish();
+    }
+
+    @Click(R.id.rightBtn1)
+    void rightBtn1Click() {
+        ll_selection.setVisibility(View.VISIBLE);
+        int screenWidth = windowManager.getDefaultDisplay().getWidth();
+        TranslateAnimation animation = new TranslateAnimation(screenWidth, 0, 0, 0);
+        animation.setDuration(300);
+        ll_selection.startAnimation(animation);
+
+    }
+
+    @Click(R.id.btn_confrim)
+    void btnConfirmClick() {
+        ll_selection.setVisibility(View.GONE);
+        int screenWidth = windowManager.getDefaultDisplay().getWidth();
+        TranslateAnimation animation = new TranslateAnimation(0, screenWidth, 0, 0);
+        animation.setDuration(300);
+        ll_selection.startAnimation(animation);
+    }
+
+    @Click(R.id.btn_cancel)
+    void btnCancelClick() {
+        ll_selection.setVisibility(View.GONE);
+        int screenWidth = windowManager.getDefaultDisplay().getWidth();
+        TranslateAnimation animation = new TranslateAnimation(0, screenWidth, 0, 0);
+        animation.setDuration(300);
+        ll_selection.startAnimation(animation);
     }
 
     public void loadData() {
