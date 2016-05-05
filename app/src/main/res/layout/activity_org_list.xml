@@ -84,7 +84,7 @@
                     android:clickable="true"
                     android:textColor="@color/white"
                     android:text="区域"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -94,16 +94,11 @@
                     android:clickable="true"
                     android:textColor="@color/white"
                     android:text="选择街道地址"
+                    android:drawableRight="@mipmap/more"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@mipmap/more"
-                    android:layout_weight="2.2"
-                    android:scaleType="center"
-                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout
@@ -117,7 +112,7 @@
                     android:clickable="true"
                     android:textColor="@color/white"
                     android:text="分类"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -127,69 +122,71 @@
                     android:clickable="true"
                     android:textColor="@color/white"
                     android:text="全部"
+                    android:drawableRight="@mipmap/more"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:src="@mipmap/more"
-                    android:layout_weight="2.2"
-                    android:scaleType="center"
-                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:gravity="center"
                     android:clickable="true"
                     android:textColor="@color/white"
                     android:text="排序"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
                 <RadioGroup
+                    android:id="@+id/rg"
+                    android:padding="6dp"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <RadioButton
+                        android:id="@+id/rb1"
                         android:button="@null"
                         android:text="全部"
+                        android:checked="true"
+                        android:background="@drawable/search_radio_selector"
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent" />
 
                     <RadioButton
-                        android:text="评价↑"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:id="@+id/rb2"
+                        android:text="评价↓"
+                        android:background="@drawable/search_radio_selector"
                         android:button="@null"
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="false" />
+                        android:layout_height="match_parent" />
 
                     <RadioButton
+                        android:id="@+id/rb3"
                         android:text="规模↓"
+                        android:background="@drawable/search_radio_selector"
                         android:button="@null"
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent" />
 
                 </RadioGroup>
 

@@ -16,6 +16,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -189,6 +190,7 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
         receiver2 = new Receiver2();
         registerReceiver(receiver2, new IntentFilter(ClassSelectActivity.classSelectionBroadcast));
 
+
     }
 
     @Click(R.id.leftBtn1)
@@ -242,7 +244,7 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
     public void loadData() {
         swipe.setRefreshing(true);
         homeService.getOrgs(uid, pageNumber, pageSize, typeId, companyname,
-                province_cityId, city_cityId, district_cityId, street_cityId,
+                province_cityId, city_cityId, district_cityId, street_cityId, orderName,
                 new DefaultResponseListener<BaseResponse<List<YyMobileCompany>>>() {
                     @Override
                     public void onSuccess(BaseResponse<List<YyMobileCompany>> response) {
@@ -289,6 +291,22 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
     }
 
 
+    @Click(R.id.rb1)
+    void rb1Click() {
+        //全部
+        orderName = null;
+    }
+
+    @Click(R.id.rb2)
+    void rb2Click() {
+        orderName = "grade";
+    }
+
+    @Click(R.id.rb3)
+    void rb3Click() {
+        orderName = "dimensions";
+    }
+
     void clearSelections() {
         province_cityId = 0;
         city_cityId = 0;
@@ -297,12 +315,15 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
         typeId = 0;
         text_class.setText("全部");
         text_area.setText("选择街道地址");
+        orderName = null;
     }
 
+    String orderName = null;
     int province_cityId = 0;//省
     int city_cityId = 0; //市
     int district_cityId = 0;//区县
     int street_cityId = 0;//街道
+
     class Receiver extends BroadcastReceiver {
 
         @Override

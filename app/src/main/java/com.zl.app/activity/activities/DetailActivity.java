@@ -243,7 +243,7 @@ public class DetailActivity extends BaseActivityWithToolBar {
             }
             YyMobileActivityComment comment = data.get(position);
             if (comment != null) {
-                Uri uri = Uri.parse(comment.getPicPath() == null ? "" : comment.getPicPath());
+                Uri uri = Uri.parse(comment.getPicPath() == null ? "" : comment.getUserPic());
                 holder.simpleDraweeView.setImageURI(uri);
                 holder.text_name.setText(comment.getUsername());
                 holder.text_content.setText(comment.getContent());

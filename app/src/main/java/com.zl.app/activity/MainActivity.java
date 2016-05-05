@@ -4,14 +4,12 @@ package com.zl.app.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
-import android.view.View;
+import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.zl.app.BaseFragment;
@@ -20,18 +18,13 @@ import com.zl.app.R;
 import com.zl.app.activity.activities.PublishActivity;
 import com.zl.app.activity.activities.SearchActivity;
 import com.zl.app.activity.user.LoginActivity_;
-import com.zl.app.activity.user.UserInfoActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
-import com.zl.app.data.user.UserService;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.fragment.FragmentActivities_;
 import com.zl.app.fragment.FragmentClass;
 import com.zl.app.fragment.FragmentClass_;
-import com.zl.app.fragment.FragmentFind;
 import com.zl.app.fragment.FragmentFind_;
-import com.zl.app.fragment.FragmentHome;
 import com.zl.app.fragment.FragmentMine_;
-import com.zl.app.fragment.FragmentSetting;
 import com.zl.app.fragment.course.FragmentCourse;
 import com.zl.app.fragment.course.FragmentCourse_;
 import com.zl.app.util.AppConfig;
@@ -43,7 +36,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.EditorAction;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -74,10 +66,10 @@ public class MainActivity extends BaseActivityWithToolBar {
     @App
     MyApplication application;
 
-    public BaseFragment  fragment_find;
-    public BaseFragment  fragment_class;
-    public BaseFragment  fragment_activities;
-    public BaseFragment  fragment_mine;
+    public BaseFragment fragment_find;
+    public BaseFragment fragment_class;
+    public BaseFragment fragment_activities;
+    public BaseFragment fragment_mine;
 
     FragmentManager frgmentManager;
 
@@ -96,7 +88,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         //setBtnLeft1ImageResource(R.mipmap.ic_more);
         //setBtnRight1Enable(true);
         //setBtnRight2Enable(true);
-       // setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
+        // setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
         //setBtnRight2ImageResource(R.mipmap.menu_search);
         frgmentManager = getSupportFragmentManager();
         fragment_find = new FragmentFind_();
@@ -256,6 +248,23 @@ public class MainActivity extends BaseActivityWithToolBar {
                     break;
             }
         }
+    }
+
+
+    private long mExitTime;
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Object mHelperUtils;
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

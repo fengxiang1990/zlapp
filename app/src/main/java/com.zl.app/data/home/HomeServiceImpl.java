@@ -1,5 +1,7 @@
 package com.zl.app.data.home;
 
+import android.text.TextUtils;
+
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.home.model.OrgType;
@@ -96,6 +98,7 @@ public class HomeServiceImpl implements HomeService {
     @Override
     public void getOrgs(String uid, int pageNo, int pageSize, int typeId, String companyname,
                         int province_cityId, int city_cityId, int district_cityId, int street_cityId,
+                        String orderName,
                         DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
@@ -116,6 +119,10 @@ public class HomeServiceImpl implements HomeService {
         }
         if (street_cityId != 0) {
             params.put("street.cityId", street_cityId + "");
+        }
+        if (!TextUtils.isEmpty(orderName)) {
+            params.put("orderName", orderName);
+            params.put("orderMethod", "desc");
         }
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORG_LIST, params, null,
                 new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
