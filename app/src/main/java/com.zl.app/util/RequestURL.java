@@ -152,5 +152,7 @@ public class RequestURL {
     //老师审核学生动态
     public static String API_TEACHER_CHECKED = SERVER + "mobilePeriod/tupdate.html";
 
+    //获取城市
+    public static String API_CITY_LIST = SERVER + "mobileCity/list.html";
 
 }

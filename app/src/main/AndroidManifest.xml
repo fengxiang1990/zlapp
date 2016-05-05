@@ -85,6 +85,8 @@
         <activity android:name=".activity.org.OrgWeiSiteActivity" />
         <activity android:name=".activity.org.OrgGradePostActivity" />
         <activity android:name=".activity.org.OrgYuYueActivity" />
+        <activity android:name=".activity.org.CitySelectActivity" />
+
 
         <!-- mine  -->
         <activity android:name=".activity.mine.MyYuyueActivity" />

@@ -4,6 +4,7 @@ import com.zl.app.data.home.model.YyMobileAdvt;
 import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.model.customer.YyMobileCompanyGrade;
+import com.zl.app.model.user.YyMobileCity;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
@@ -47,7 +48,12 @@ public interface HomeService {
     void getOrgSite(String uid, String companyId, DefaultResponseListener<BaseResponse<YyMobileCompany>> listener);
 
 
-    void getOrgs(String uid, int pageNo, int pageSize, int typeId, String companyname, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener);
+    void getOrgs(String uid, int pageNo, int pageSize, int typeId, String companyname,
+                 int province_cityId,
+                 int city_cityId,
+                 int district_cityId,
+                 int street_cityId,
+                 DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener);
 
 
     /**
@@ -75,4 +81,11 @@ public interface HomeService {
      */
     void getHomeNews(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileNews>>> listener);
 
+
+    /**
+     * @param uid
+     * @param cityId
+     * @param listener
+     */
+    void getCityAddress(String uid, int cityId, DefaultResponseListener<BaseResponse<List<YyMobileCity>>> listener);
 }

@@ -6,6 +6,7 @@ import com.zl.app.data.home.model.YyMobileAdvt;
 import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.model.customer.YyMobileCompanyGrade;
+import com.zl.app.model.user.YyMobileCity;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
@@ -80,7 +81,9 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public void getOrgs(String uid, int pageNo, int pageSize, int typeId, String companyname, DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener) {
+    public void getOrgs(String uid, int pageNo, int pageSize, int typeId, String companyname,
+                        int province_cityId, int city_cityId, int district_cityId, int street_cityId,
+                        DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
         params.put("pageNo", pageNo + "");
@@ -88,6 +91,18 @@ public class HomeServiceImpl implements HomeService {
         params.put("type.typeId", typeId + "");
         if (!StringUtil.isEmpty(companyname)) {
             params.put("companyname", companyname);
+        }
+        if (province_cityId != 0) {
+            params.put("province.cityId", province_cityId + "");
+        }
+        if (city_cityId != 0) {
+            params.put("city.cityId", city_cityId + "");
+        }
+        if (district_cityId != 0) {
+            params.put("district.cityId", district_cityId + "");
+        }
+        if (street_cityId != 0) {
+            params.put("street.cityId", street_cityId + "");
         }
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORG_LIST, params, null,
                 new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
@@ -128,6 +143,18 @@ public class HomeServiceImpl implements HomeService {
         params.put("PageSize", String.valueOf(pageSize));
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_HOME_NEWS, params, null,
                 new TypeToken<BaseResponse<List<YyMobileNews>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void getCityAddress(String uid, int cityId, DefaultResponseListener<BaseResponse<List<YyMobileCity>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("parentId", String.valueOf(cityId));
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_CITY_LIST, params, null,
+                new TypeToken<BaseResponse<List<YyMobileCity>>>() {
                 },
                 listener, listener);
         AppManager.getRequestQueue().add(request);
