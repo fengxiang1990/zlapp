@@ -61,11 +61,13 @@ public class FragmentActivities extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                YyMobileActivity yyMobileActivity = data.get(position - 1);
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("activityId", yyMobileActivity.getActivityId());
-                intent.putExtra("title", yyMobileActivity.getHeadline());
-                startActivity(intent);
+                if (position - 1 < data.size()) {
+                    YyMobileActivity yyMobileActivity = data.get(position - 1);
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra("activityId", yyMobileActivity.getActivityId());
+                    intent.putExtra("title", yyMobileActivity.getHeadline());
+                    startActivity(intent);
+                }
             }
         });
         listView.setXListViewListener(new XListView.IXListViewListener() {
