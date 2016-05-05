@@ -26,6 +26,7 @@ import com.zl.app.adapter.OrgAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
+import com.zl.app.data.home.model.OrgType;
 import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.model.user.YyMobileCity;
 import com.zl.app.util.AppConfig;
@@ -65,6 +66,9 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
     @ViewById(R.id.text_area)
     TextView text_area;
 
+    @ViewById(R.id.text_class)
+    TextView text_class;
+
     @ViewById
     ImageView leftBtn1;
 
@@ -90,6 +94,7 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
 
     Receiver receiver;
 
+    Receiver2 receiver2;
     @AfterViews
     void afterviews() {
         rightBtn1.setImageResource(R.mipmap.find_select_icon);
@@ -180,6 +185,10 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
 
         receiver = new Receiver();
         registerReceiver(receiver, new IntentFilter(CitySelectActivity.addressSelectionBroadcast));
+
+        receiver2 = new Receiver2();
+        registerReceiver(receiver2, new IntentFilter(ClassSelectActivity.classSelectionBroadcast));
+
     }
 
     @Click(R.id.leftBtn1)
@@ -221,6 +230,12 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
     @Click(R.id.text_area)
     void text_areaClick() {
         Intent intent = new Intent(OrgListActivity.this, CitySelectActivity.class);
+        startActivity(intent);
+    }
+
+    @Click(R.id.text_class)
+    void text_classClick() {
+        Intent intent = new Intent(OrgListActivity.this, ClassSelectActivity.class);
         startActivity(intent);
     }
 
@@ -268,6 +283,9 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
         if (receiver != null) {
             unregisterReceiver(receiver);
         }
+        if (receiver2 != null) {
+            unregisterReceiver(receiver2);
+        }
     }
 
 
@@ -276,6 +294,8 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
         city_cityId = 0;
         district_cityId = 0;
         street_cityId = 0;
+        typeId = 0;
+        text_class.setText("全部");
         text_area.setText("选择街道地址");
     }
 
@@ -283,7 +303,6 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
     int city_cityId = 0; //市
     int district_cityId = 0;//区县
     int street_cityId = 0;//街道
-
     class Receiver extends BroadcastReceiver {
 
         @Override
@@ -303,6 +322,22 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
                     city_cityId = level2.getCityId();
                     district_cityId = level3.getCityId();
                     street_cityId = level4.getCityId();
+                }
+            }
+        }
+
+    }
+
+    class Receiver2 extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String org_type = intent.getExtras().getString("org_type");
+            if (!TextUtils.isEmpty(org_type)) {
+                OrgType orgType = GsonUtil.getJsonObject(org_type, OrgType.class);
+                if (orgType != null) {
+                    text_class.setText(orgType.getName());
+                    typeId = orgType.getTypeId();
                 }
             }
         }

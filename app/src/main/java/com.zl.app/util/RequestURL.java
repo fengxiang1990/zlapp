@@ -155,4 +155,7 @@ public class RequestURL {
     //获取城市
     public static String API_CITY_LIST = SERVER + "mobileCity/list.html";
 
+    //获取机构分类
+    public static String API_ORG_TYPE_LIST = SERVER + "mobileCompany/type.html";
+
 }

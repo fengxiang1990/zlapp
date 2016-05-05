@@ -2,6 +2,7 @@ package com.zl.app.data.home;
 
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
+import com.zl.app.data.home.model.OrgType;
 import com.zl.app.data.home.model.YyMobileAdvt;
 import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.model.customer.YyMobileCompany;
@@ -23,6 +24,18 @@ import java.util.Map;
  */
 public class HomeServiceImpl implements HomeService {
 
+
+    @Override
+    public void getOrgTypes(String uid, DefaultResponseListener<BaseResponse<List<OrgType>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("code", "company");
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORG_TYPE_LIST, params, null,
+                new TypeToken<BaseResponse<List<OrgType>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 
     @Override
     public void postOrgYuyue(String uid, String companyId, String username, String tel, String content, DefaultResponseListener<BaseResponse<String>> listener) {

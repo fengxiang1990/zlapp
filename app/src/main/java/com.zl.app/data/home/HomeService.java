@@ -1,5 +1,6 @@
 package com.zl.app.data.home;
 
+import com.zl.app.data.home.model.OrgType;
 import com.zl.app.data.home.model.YyMobileAdvt;
 import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.model.customer.YyMobileCompany;
@@ -14,6 +15,13 @@ import java.util.List;
  * Created by fengxiang on 2016/2/16.
  */
 public interface HomeService {
+
+
+    /**
+     * @param uid
+     * @param listener
+     */
+    void getOrgTypes(String uid, DefaultResponseListener<BaseResponse<List<OrgType>>> listener);
 
     /**
      * 机构预约
