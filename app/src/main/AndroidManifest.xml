@@ -106,6 +106,9 @@
 
         <!-- course -->
         <activity android:name=".activity.course.CoursePDTActivity" />
+        <activity
+            android:name=".activity.course.CourseMessageActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- Baidu Map -->
         <service

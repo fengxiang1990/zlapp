@@ -1,5 +1,6 @@
 package com.zl.app.data;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -36,6 +37,49 @@ public class CourseService {
         int ZHENGCHANG = 2;
         int QUXIAO = 3;
         int YISHANGKE = 4;
+    }
+
+
+    /**
+     * 发送课程评论
+     *
+     * @param uid
+     * @param periodId
+     * @param content
+     * @param yyuserId
+     * @param image1
+     * @param image2
+     * @param image3
+     * @param image4
+     * @param listener
+     */
+    public void sendCourseMessage(String uid, int periodId, String content, int yyuserId,
+                                  String image1, String image2, String image3, String image4
+            , DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("period.periodId", periodId + "");
+        params.put("content", content);
+        if (yyuserId != 0) {
+            params.put("yyuserId", yyuserId + "");
+        }
+        if (!TextUtils.isEmpty(image1)) {
+            params.put("image1", image1);
+        }
+        if (!TextUtils.isEmpty(image2)) {
+            params.put("image2", image2);
+        }
+        if (!TextUtils.isEmpty(image3)) {
+            params.put("image3", image3);
+        }
+        if (!TextUtils.isEmpty(image4)) {
+            params.put("image4", image4);
+        }
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_COURSE_MSG_SEND, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
     }
 
     /**
