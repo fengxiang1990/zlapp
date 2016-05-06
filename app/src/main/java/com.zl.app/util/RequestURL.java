@@ -159,7 +159,7 @@ public class RequestURL {
     public static String API_ORG_TYPE_LIST = SERVER + "mobileCompany/type.html";
 
     //发送课程评论
-    public static String API_COURSE_MSG_SEND = SERVER + "mobilePeriod/send.html";
+    public static String API_COURSE_MSG_SEND = SERVER + "mobilePeriodBbs/send.html";
 
     //课程评论列表
     public static String API_COURSE_MSG_LIST = SERVER + "mobilePeriodBbs/list.html";
