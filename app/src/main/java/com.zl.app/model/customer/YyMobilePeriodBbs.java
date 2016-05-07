@@ -1,6 +1,5 @@
 package com.zl.app.model.customer;
 
-import java.util.Date;
 
 public class YyMobilePeriodBbs {
 	private Integer bbsId;//主键
@@ -12,7 +11,7 @@ public class YyMobilePeriodBbs {
 	private String image2;//图片2
 	private String image3;//图片3
 	private String image4;//图片4
-	private Date createDate;//发布时间
+	private String createDate;//发布时间
 	public Integer getBbsId() {
 		return bbsId;
 	}
@@ -37,11 +36,9 @@ public class YyMobilePeriodBbs {
 	public void setPicPath(String picPath) {
 		this.picPath = picPath;
 	}
-
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -69,10 +66,10 @@ public class YyMobilePeriodBbs {
 	public void setImage4(String image4) {
 		this.image4 = image4;
 	}
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	

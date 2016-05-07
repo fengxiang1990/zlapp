@@ -1,25 +1,34 @@
 package com.zl.app.activity.course;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.CourseService;
 import com.zl.app.model.customer.YyMobilePeriod;
+import com.zl.app.model.customer.YyMobilePeriodBbs;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by fengxiang on 2016/5/6.
@@ -37,6 +46,8 @@ public class CourseMessageActivity extends BaseActivityWithToolBar implements Vi
     int periodId;
     String uid;
 
+    MyAdapter adapter;
+    List<YyMobilePeriodBbs> data;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +59,9 @@ public class CourseMessageActivity extends BaseActivityWithToolBar implements Vi
     }
 
     public void initData() {
+        data = new ArrayList<YyMobilePeriodBbs>();
+        adapter = new MyAdapter(data);
+        listView.setAdapter(adapter);
         setBtnLeft1Enable(true);
         uid = AppConfig.getUid(preference);
         courseService = new CourseService();
@@ -78,7 +92,21 @@ public class CourseMessageActivity extends BaseActivityWithToolBar implements Vi
     }
 
     public void loadData() {
+         courseService.commentList(uid, periodId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriodBbs>>>() {
+             @Override
+             public void onSuccess(BaseResponse<List<YyMobilePeriodBbs>> response) {
+                 if(response != null && response.getResult()!=null){
+                     data.clear();
+                     data.addAll(response.getResult());
+                     adapter.notifyDataSetChanged();
+                 }
+             }
 
+             @Override
+             public void onError(VolleyError error) {
+
+             }
+         });
     }
 
 
@@ -103,6 +131,7 @@ public class CourseMessageActivity extends BaseActivityWithToolBar implements Vi
                         if (response != null) {
                             if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                                 editMsg.setText("");
+                                loadData();
                             }
                             ToastUtil.show(CourseMessageActivity.this, response.getMessage());
                         }
@@ -116,4 +145,59 @@ public class CourseMessageActivity extends BaseActivityWithToolBar implements Vi
                 break;
         }
     }
+
+    class MyAdapter extends BaseAdapter{
+
+        List<YyMobilePeriodBbs> data;
+        public MyAdapter( List<YyMobilePeriodBbs> data){
+             this.data = data;
+        }
+
+        @Override
+        public int getCount() {
+            return data.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            if(convertView == null){
+                viewHolder = new ViewHolder();
+                convertView = LayoutInflater.from(CourseMessageActivity.this).inflate(R.layout.item_course_comment,null);
+                viewHolder.img_course_comment = (SimpleDraweeView) convertView.findViewById(R.id.img_course_comment);
+                viewHolder.text_user = (TextView) convertView.findViewById(R.id.text_user);
+                viewHolder.text_time = (TextView) convertView.findViewById(R.id.text_time);
+                viewHolder.text_content = (TextView) convertView.findViewById(R.id.text_content);
+                convertView.setTag(viewHolder);
+            }else{
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            YyMobilePeriodBbs yyMobilePeriodBbs = data.get(position);
+            if(yyMobilePeriodBbs!=null){
+                viewHolder.img_course_comment.setImageURI(Uri.parse(yyMobilePeriodBbs.getPicPath()));
+                viewHolder.text_user.setText(yyMobilePeriodBbs.getUsername());
+                viewHolder.text_time.setText(yyMobilePeriodBbs.getCreateDate());
+                viewHolder.text_content.setText(yyMobilePeriodBbs.getContent());
+            }
+            return convertView;
+        }
+    }
+
+    class ViewHolder{
+        SimpleDraweeView img_course_comment;
+        TextView text_user;
+        TextView text_time;
+        TextView text_content;
+    }
+
 }
