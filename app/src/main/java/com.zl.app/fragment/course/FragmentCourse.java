@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
+import com.zl.app.activity.course.CourseMessageActivity;
 import com.zl.app.activity.course.CoursePDTActivity;
 import com.zl.app.activity.course.CourseTDTActivity;
 import com.zl.app.data.CourseService;
@@ -192,18 +193,28 @@ public class FragmentCourse extends BaseFragment {
                 holder.img_course.setImageURI(uri);
                 holder.text_course_name.setText(period.getClassname());
                 holder.text_course_time.setText(period.getClasstime());
+                holder.btn_inner.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), CourseMessageActivity.class);
+                        intent.putExtra("course", GsonUtil.gson.toJson(period));
+                        startActivity(intent);
+                    }
+                });
                 holder.btn_dt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (AppConfig.getLoginType(AppManager.getPreferences()) == 3) {
+                        // if (AppConfig.getLoginType(AppManager.getPreferences()) == 3) {
                             Intent intent = new Intent(getActivity(), CoursePDTActivity.class);
                             intent.putExtra("course", GsonUtil.gson.toJson(period));
                             startActivity(intent);
-                        } else if (AppConfig.getLoginType(AppManager.getPreferences()) == 5) {
+                        // }
+                        /**
+                         else if (AppConfig.getLoginType(AppManager.getPreferences()) == 5) {
                             Intent intent = new Intent(getActivity(), CourseTDTActivity.class);
                             intent.putExtra("course", GsonUtil.gson.toJson(period));
                             startActivity(intent);
-                        }
+                         }**/
                     }
                 });
             }
