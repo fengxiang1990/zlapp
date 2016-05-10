@@ -64,7 +64,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         setBtnLeft1Enable(true);
         courseService = new CourseService();
         role = AppConfig.getLoginType(preference);
-        //role = 5;
+        role = 5;
         popStudentStatus = new PopStudentStatus(this);
         popStudentStatus.setListener(new PopStudentStatus.OnSelectedListener() {
             @Override
@@ -127,8 +127,8 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
             setTitle(yyMobilePeriod.getClassname());
             if (role == 5) {
                 ll2.setVisibility(View.GONE);
-                loadDataTeacher();
-                //loadData();
+                //loadDataTeacher();
+                loadData();
             } else if (role == 3) {
                 loadData();
             }
@@ -288,7 +288,12 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                 }
                 holder.text_status.setText(statusStr);
                 if (role == 5) {
-                    ViewUtil.show(holder.ll_teacher);
+                    //判断是否需要审核
+                    if (period.getTotype() == 0) {
+                        ViewUtil.hide(holder.ll_teacher);
+                    } else {
+                        ViewUtil.show(holder.ll_teacher);
+                    }
                     holder.text_confirm.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

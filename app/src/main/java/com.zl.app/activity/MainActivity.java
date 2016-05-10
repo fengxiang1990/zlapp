@@ -144,6 +144,8 @@ public class MainActivity extends BaseActivityWithToolBar {
             SharedPreferences.Editor editor = preference.edit();
             editor.putInt(AppConfig.LOGIN_TYPE, 3);
             editor.commit();
+            course_left_btn_resId = R.mipmap.change_t;
+            setBtnLeft1ImageResource(course_left_btn_resId);
             ToastUtil.show(MainActivity.this, "切换成功");
         }
         if (AppConfig.getLoginType(preference) == 3) {
@@ -155,9 +157,8 @@ public class MainActivity extends BaseActivityWithToolBar {
                             SharedPreferences.Editor editor = preference.edit();
                             editor.putInt(AppConfig.LOGIN_TYPE, 5);
                             editor.commit();
-                            for (FragmentCourse fragment : ((FragmentClass) fragment_class).fragments) {
-                                fragment = new FragmentCourse_();
-                            }
+                            course_left_btn_resId = R.mipmap.change_p;
+                            setBtnLeft1ImageResource(course_left_btn_resId);
                         }
                         ToastUtil.show(MainActivity.this, response.getMessage());
                     }

@@ -14,6 +14,11 @@ public class YyMobileUser {
 	private String province; //省
 	private String city;//市
 	private String district;//区
+	private String street;//街道
+	private Integer pId; //省ID
+	private Integer cId;//市ID
+	private Integer dId;//区ID
+	private Integer sId;//街道ID
 	private String zuoyouming;//座右铭
 	private String introduce;//个人介绍
 	private String picPath;//头像路径
@@ -37,15 +42,6 @@ public class YyMobileUser {
 	private String updateDateFormat;//最新发布时间
 	private String uid;//64位唯一码
 	private String address;//详细地址
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public Integer getUserId() {
 		return userId;
 	}
@@ -251,4 +247,51 @@ public class YyMobileUser {
 		this.updateDateFormat = updateDateFormat;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public Integer getpId() {
+		return pId;
+	}
+
+	public void setpId(Integer pId) {
+		this.pId = pId;
+	}
+
+	public Integer getcId() {
+		return cId;
+	}
+
+	public void setcId(Integer cId) {
+		this.cId = cId;
+	}
+
+	public Integer getdId() {
+		return dId;
+	}
+
+	public void setdId(Integer dId) {
+		this.dId = dId;
+	}
+
+	public Integer getsId() {
+		return sId;
+	}
+
+	public void setsId(Integer sId) {
+		this.sId = sId;
+	}
 }
