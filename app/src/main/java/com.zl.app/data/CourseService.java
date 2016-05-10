@@ -6,6 +6,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.model.customer.YyMobilePeriod;
+import com.zl.app.model.customer.YyMobilePeriodBbs;
 import com.zl.app.model.customer.YyMobilePeriodStudent;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.GsonUtil;
@@ -40,6 +41,23 @@ public class CourseService {
     }
 
 
+    /**
+     * 获取课程评论列表
+     * @param uid
+     * @param periodId
+     * @param listener
+     */
+    public void commentList(String uid,int periodId,DefaultResponseListener<BaseResponse<List<YyMobilePeriodBbs>>> listener){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("period.periodId", periodId + "");
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_COURSE_MSG_LIST, params, null,
+                new TypeToken<BaseResponse<List<YyMobilePeriodBbs>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+
+    }
     /**
      * 发送课程评论
      *
