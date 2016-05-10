@@ -58,4 +58,12 @@ public class AppManager {
         AppManager.gson = gson;
     }
 
+    public static void finishAll(){
+        for (BaseActivity baseActivity : activities){
+            if (!baseActivity.isFinishing()){
+                baseActivity.finish();
+            }
+        }
+    }
+
 }

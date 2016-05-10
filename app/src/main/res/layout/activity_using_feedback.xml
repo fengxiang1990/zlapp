@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/feedback_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgray"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/give_some_suggestion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="top"
+            android:background="@null"
+            android:hint="@string/give_some_suggestion"
+            />
+
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <TableRow
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/image_to_insert1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_launcher"
+                />
+            <ImageView
+                android:id="@+id/image_to_insert2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"
+                android:clickable="false"
+                />
+            <ImageView
+                android:id="@+id/image_to_insert3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"
+                android:clickable="false"
+                />
+            <ImageView
+                android:id="@+id/image_to_insert4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"
+                android:clickable="false"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/image_to_insert5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"
+                android:clickable="false"
+                />
+            <ImageView
+                android:id="@+id/image_to_insert6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"
+                android:clickable="false"
+                />
+            <ImageView
+                android:id="@+id/image_to_insert7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"
+                android:clickable="false"
+                />
+            <ImageView
+                android:id="@+id/image_to_insert8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_launcher"
+                android:visibility="invisible"
+                android:clickable="false"
+                />
+        </TableRow>
+
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="110dp"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/red"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:text="@string/send_feedback"/>
+
+    </RelativeLayout>
+</LinearLayout>

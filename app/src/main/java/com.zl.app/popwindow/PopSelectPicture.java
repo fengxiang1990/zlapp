@@ -25,6 +25,8 @@ public class PopSelectPicture extends PopupWindow {
     View view;
     Handler handler = new Handler();
 
+    private OnPicturePopClickListener onPicturePopClickListener;
+
     public OnPicturePopClickListener getOnPicturePopClickListener() {
         return onPicturePopClickListener;
     }
@@ -32,8 +34,6 @@ public class PopSelectPicture extends PopupWindow {
     public void setOnPicturePopClickListener(OnPicturePopClickListener onPicturePopClickListener) {
         this.onPicturePopClickListener = onPicturePopClickListener;
     }
-
-    private OnPicturePopClickListener onPicturePopClickListener;
 
 
     public PopSelectPicture(Context context) {

@@ -14,10 +14,10 @@ import com.zl.app.activity.mine.FrendsActivity;
 import com.zl.app.activity.mine.MyChildrenActivity;
 import com.zl.app.activity.mine.MyYuyueActivity;
 import com.zl.app.activity.mine.OrderActivity;
+import com.zl.app.activity.mine.SystemSettingsActivity;
 import com.zl.app.activity.mine.UserInfoActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
-import com.zl.app.util.RequestURL;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -54,6 +54,9 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
     ImageView text_frends;
     String uid;
 
+    @ViewById(R.id.text_setting)
+    ImageView text_setting;
+
     @AfterViews
     void afterViews() {
         uid = AppConfig.getUid(AppManager.getPreferences());
@@ -68,6 +71,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
         text_order.setOnClickListener(this);
         text_info.setOnClickListener(this);
         text_frends.setOnClickListener(this);
+        text_setting.setOnClickListener(this);
     }
 
     @Override
@@ -92,6 +96,10 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.text_frends:
                 intent = new Intent(getActivity(), FrendsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.text_setting:
+                intent = new Intent(getActivity(), SystemSettingsActivity.class);
                 startActivity(intent);
                 break;
         }
