@@ -139,27 +139,36 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnLeft1Click() {
-        new UserServiceImpl().isTeacher(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
-            @Override
-            public void onSuccess(BaseResponse response) {
-                if (response != null) {
-                    if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                        SharedPreferences.Editor editor = preference.edit();
-                        editor.putInt(AppConfig.LOGIN_TYPE, 5);
-                        editor.commit();
-                        for (FragmentCourse fragment : ((FragmentClass) fragment_class).fragments) {
-                            fragment = new FragmentCourse_();
+        //如果当前登录用户是老师 不用检查 直接切换为普通用户
+        if (AppConfig.getLoginType(preference) == 5) {
+            SharedPreferences.Editor editor = preference.edit();
+            editor.putInt(AppConfig.LOGIN_TYPE, 3);
+            editor.commit();
+            ToastUtil.show(MainActivity.this, "切换成功");
+        }
+        if (AppConfig.getLoginType(preference) == 3) {
+            new UserServiceImpl().isTeacher(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse response) {
+                    if (response != null) {
+                        if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                            SharedPreferences.Editor editor = preference.edit();
+                            editor.putInt(AppConfig.LOGIN_TYPE, 5);
+                            editor.commit();
+                            for (FragmentCourse fragment : ((FragmentClass) fragment_class).fragments) {
+                                fragment = new FragmentCourse_();
+                            }
                         }
+                        ToastUtil.show(MainActivity.this, response.getMessage());
                     }
-                    ToastUtil.show(MainActivity.this, response.getMessage());
                 }
-            }
 
-            @Override
-            public void onError(VolleyError error) {
+                @Override
+                public void onError(VolleyError error) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override
