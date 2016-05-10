@@ -64,7 +64,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         setBtnLeft1Enable(true);
         courseService = new CourseService();
         role = AppConfig.getLoginType(preference);
-        role = 5;
+        //role = 5;
         popStudentStatus = new PopStudentStatus(this);
         popStudentStatus.setListener(new PopStudentStatus.OnSelectedListener() {
             @Override

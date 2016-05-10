@@ -52,18 +52,16 @@
 
         <TextView
             android:id="@+id/text_student"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2.5"
             android:clickable="true"
             android:padding="3dp"
             android:text="姓名" />
 
         <TextView
             android:id="@+id/text_student_status"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2.5"
             android:padding="3dp"
             android:clickable="true"
             android:text="状态" />
@@ -76,9 +74,8 @@
 
         <TextView
             android:id="@+id/text_send"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2.5"
             android:padding="3dp"
             android:clickable="true"
             android:text="发送" />
