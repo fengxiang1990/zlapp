@@ -172,8 +172,10 @@ public class UsingFeedbackActivity extends BaseActivityWithToolBar
                     break;
                 case TAKE_PHOTO:
                     if (resultCode == RESULT_OK){
+                        int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
+                        int image_width = screenWidth / 4 - 10;
                         Bitmap bitmap = getScaleBitmap(imageFile.getPath(), 10, 10);
-                        bitmap = ThumbnailUtils.extractThumbnail(bitmap, 180, 180);
+                        bitmap = ThumbnailUtils.extractThumbnail(bitmap, image_width, image_width);
                         refresh(bitmap);
                     }
                     break;
@@ -232,8 +234,10 @@ public class UsingFeedbackActivity extends BaseActivityWithToolBar
     private Bitmap getBitmapFromUri(Uri imageUri) {
         Bitmap bitmap = null;
         try{
+            int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
+            int image_width = screenWidth / 4 - 10;
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-            Bitmap smallBitmap = ThumbnailUtils.extractThumbnail(bitmap, 180, 180);
+            Bitmap smallBitmap = ThumbnailUtils.extractThumbnail(bitmap, image_width, image_width);
             return smallBitmap;
         }catch (Exception e){
             e.printStackTrace();
