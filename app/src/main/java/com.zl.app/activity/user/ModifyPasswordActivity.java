@@ -62,7 +62,8 @@ public class ModifyPasswordActivity extends BaseActivityWithToolBar {
             ToastUtil.show(getApplicationContext(), "密码不能为空");
             return;
         }
-        userService.modifyPassword(AppConfig.getUid(preference), passOld, passNew, passNew2, new DefaultResponseListener<BaseResponse>() {
+        userService.modifyPassword(AppConfig.getUid(preference), passOld, passNew, passNew2,
+                new DefaultResponseListener<BaseResponse>() {
 
             @Override
             public void onSuccess(BaseResponse response) {

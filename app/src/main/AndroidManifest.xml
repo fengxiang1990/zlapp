@@ -97,6 +97,9 @@
         <activity android:name=".activity.mine.UserInfoActivity" />
         <activity android:name=".activity.mine.UpdateUserNameActivity" />
         <activity android:name=".activity.mine.FrendsActivity" />
+        <activity android:name=".activity.mine.SystemSettingsActivity"/>
+        <activity android:name=".activity.mine.UsingFeedbackActivity"/>
+        <activity android:name=".activity.mine.ResetPasswordActivity"/>
 
         <!-- activities -->
         <activity android:name=".activity.activities.PublishActivity" />
@@ -116,6 +119,12 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote"></service>
+
+        <receiver android:name=".broadcastReceiver.LogoutBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.zl.app.LOGOUT_BROADCAST"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

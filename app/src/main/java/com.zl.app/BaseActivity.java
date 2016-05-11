@@ -21,4 +21,9 @@ public class BaseActivity extends AppCompatActivity {
         AppManager.setPreferences(preference);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.activities.remove(this);
+    }
 }

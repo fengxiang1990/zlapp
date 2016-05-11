@@ -62,4 +62,18 @@
     <string name="check_is_show_dz">是否显示点赞</string>
     <string name="check_is_show_sc">是否显示收藏</string>
 
+    <!--系统设置activity-->
+    <string name="system_settings">系统通知</string>
+    <string name="using_feedback">使用反馈</string>
+    <string name="function_outline">功能介绍</string>
+    <string name="about_us">关于我们</string>
+    <string name="service_protocal">服务协议</string>
+    <string name="reset_password">重置密码</string>
+    <string name="grade_mark">我要评分</string>
+    <string name="log_out">退出登录</string>
+
+    <!--使用反馈activity-->
+    <string name="give_some_suggestion">请说说您的意见吧</string>
+    <string name="send_feedback">发送</string>
+
 </resources>
