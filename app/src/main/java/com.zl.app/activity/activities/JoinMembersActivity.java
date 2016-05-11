@@ -51,6 +51,8 @@ public class JoinMembersActivity extends BaseActivityWithToolBar {
         listView.setAdapter(adapter);
         uid = AppConfig.getUid(preference);
         activityId = getIntent().getStringExtra("id");
+        setBtnLeft1Enable(true);
+        setTitle("参与人员");
         loadData();
 
     }
