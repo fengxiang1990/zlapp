@@ -72,6 +72,7 @@ public class GetPasswordActivity extends BaseActivityWithToolBar {
             public void onSuccess(BaseResponse response) {
                 ViewUtil.show(sendResponseView);
                 ToastUtil.show(getApplicationContext(), response.getMessage());
+                /*发出的验证码请求响应成功后，提示变为含有手机号（中间四位隐去）的信息*/
                 String responseStr = getResources().getString(R.string.register_msg_response);
                 String tel = telView.getText().toString();
                 tel = tel.substring(0, tel.length() - (tel.substring(3)).length()) + "****" + tel.substring(7);

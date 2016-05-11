@@ -4,88 +4,109 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.zl.app.R;
+import com.zl.app.adapter.AdviceImageAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.popwindow.PopSelectPicture;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by CQ on 2016/5/6 0006.
  */
 
 public class UsingFeedbackActivity extends BaseActivityWithToolBar
-        implements View.OnClickListener,PopSelectPicture.OnPicturePopClickListener{
+        implements View.OnClickListener,
+        PopSelectPicture.OnPicturePopClickListener, AdapterView.OnItemClickListener{
 
 
     private static final int TAKE_PHOTO = 1;
     private static final int PICK_FROM_ALBUM = 2;
+
+    private MyGridView imageContainer;
     private EditText giveSomeSuggestions;
+    private Button sendBtn;
+    private RelativeLayout feedBackLayout;
     private PopSelectPicture popSelectPicture;
-    private ImageView pictureToInsert1;
-    private ImageView pictureToInsert2;
-    private ImageView pictureToInsert3;
-    private ImageView pictureToInsert4;
-    private ImageView pictureToInsert5;
-    private ImageView pictureToInsert6;
-    private ImageView pictureToInsert7;
-    private ImageView pictureToInsert8;
-    private LinearLayout feedbackLayout;
+
     private Uri imageUri;
     private String imageName;
     private File imageFile;
+
+    private AdviceImageAdapter mAdapter;
+    private List<AdviceImage> images;
+
+    private static final int MAX_IMAGE = 4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_using_feedback);
         setBtnLeft1Enable(true);
-        setTitle(R.string.using_feedback);
+        setTitle("使用反馈");
 
-        feedbackLayout = (LinearLayout) findViewById(R.id.feedback_layout);
+        initData();
+        initView();
+        initEvent();
+
+    }
+
+    private void initData() {
+        images = new ArrayList<AdviceImage>();
+        /*第一张图片对象完成初始化并放入images中*/
+        AdviceImage image = new AdviceImage();
+        image.setBitmap(null);
+        image.setResourceId(R.mipmap.add_image);
+        images.add(image);
+    }
+
+    private void initView() {
+        imageContainer = (MyGridView)findViewById(R.id.image_container_grid_view);
+        feedBackLayout = (RelativeLayout)findViewById(R.id.feedback_layout);
+        sendBtn = (Button)findViewById(R.id.btn_send);
         popSelectPicture = new PopSelectPicture(this);
         giveSomeSuggestions = (EditText)findViewById(R.id.give_some_suggestion);
-        pictureToInsert1 = (ImageView)findViewById(R.id.image_to_insert1);
-        pictureToInsert2 = (ImageView)findViewById(R.id.image_to_insert2);
-        pictureToInsert3 = (ImageView)findViewById(R.id.image_to_insert3);
-        pictureToInsert4 = (ImageView)findViewById(R.id.image_to_insert4);
-        pictureToInsert5 = (ImageView)findViewById(R.id.image_to_insert5);
-        pictureToInsert6 = (ImageView)findViewById(R.id.image_to_insert6);
-        pictureToInsert7 = (ImageView)findViewById(R.id.image_to_insert7);
-        pictureToInsert8 = (ImageView)findViewById(R.id.image_to_insert8);
 
-        pictureToInsert1.setOnClickListener(this);
-        pictureToInsert2.setOnClickListener(this);
-        pictureToInsert3.setOnClickListener(this);
-        pictureToInsert4.setOnClickListener(this);
-        pictureToInsert5.setOnClickListener(this);
-        pictureToInsert6.setOnClickListener(this);
-        pictureToInsert7.setOnClickListener(this);
-        pictureToInsert8.setOnClickListener(this);
+        mAdapter = new AdviceImageAdapter(this, R.layout.item_grid_view, images);
+        imageContainer.setAdapter(mAdapter);
+    }
+
+    private void initEvent() {
+        imageContainer.setOnItemClickListener(this);
+        sendBtn.setOnClickListener(this);
         popSelectPicture.setOnPicturePopClickListener(this);
+    }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == (images.size() - 1)){
+            popSelectPicture.showAtLocation(feedBackLayout, Gravity.BOTTOM, 0, 0);
+        }else {
+            return;
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.image_to_insert1:
-                popSelectPicture.showAtLocation(feedbackLayout, Gravity.BOTTOM, 0, 0);
-                break;
-
-
+            case R.id.btn_send:
+                /*点击发送按钮后的逻辑*/
         }
 
     }
@@ -146,18 +167,44 @@ public class UsingFeedbackActivity extends BaseActivityWithToolBar
                 case PICK_FROM_ALBUM:
                     if (resultCode == RESULT_OK) {
                         imageUri = data.getData();
-                        pictureToInsert1.setImageBitmap(getBitmapFromUri(imageUri));
+                        refresh(getBitmapFromUri(imageUri));
                     }
                     break;
                 case TAKE_PHOTO:
                     if (resultCode == RESULT_OK){
-                        Bitmap bitmap = getScaleBitmap(imageFile.getPath(), 40, 40);
-                        pictureToInsert1.setImageBitmap(bitmap);
+                        Bitmap bitmap = getScaleBitmap(imageFile.getPath(), 10, 10);
+                        bitmap = ThumbnailUtils.extractThumbnail(bitmap, 180, 180);
+                        refresh(bitmap);
                     }
                     break;
             }
 
     }
+
+    /**
+     * 将拍照或相册获取的bitmap传入，设置到点击item的中
+     * 将下一个item显示为默认图片
+     * 刷新适配器
+     * @param bitmap
+     */
+    private void refresh(Bitmap bitmap) {
+        images.get(images.size() - 1)
+                .setResourceId(0);
+        images.get(images.size() - 1)
+                .setBitmap(bitmap);
+
+        AdviceImage image = new AdviceImage();
+        image.setBitmap(null);
+        if (images.size() < MAX_IMAGE) {
+            image.setResourceId(R.mipmap.add_image);
+        }else {
+            image.setResourceId(0);
+        }
+        images.add(image);
+
+        mAdapter.notifyDataSetChanged();
+    }
+
     /**
      *为了防止直接加载图片产生OOM，将图片进行适当压缩
      */
@@ -186,7 +233,7 @@ public class UsingFeedbackActivity extends BaseActivityWithToolBar
         Bitmap bitmap = null;
         try{
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-            Bitmap smallBitmap = getSmallBitmap(bitmap);
+            Bitmap smallBitmap = ThumbnailUtils.extractThumbnail(bitmap, 180, 180);
             return smallBitmap;
         }catch (Exception e){
             e.printStackTrace();

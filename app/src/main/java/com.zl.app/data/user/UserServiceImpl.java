@@ -1,9 +1,7 @@
 package com.zl.app.data.user;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppManager;
@@ -11,7 +9,6 @@ import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.util.net.GsonRequest;
-import com.zl.app.util.net.MultiPartStack;
 import com.zl.app.util.net.MultiPartStringRequest;
 
 import java.io.File;
@@ -160,6 +157,23 @@ public class UserServiceImpl implements UserService {
                 new TypeToken<BaseResponse>() {
                 },
                 listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void applyUserAdvice(String uid, String content, String image1_path, String image2_path,
+                                String image3_path, String image4_path,
+                                DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("adviceContent", content);
+        params.put("image1", image1_path);
+        params.put("image2", image2_path);
+        params.put("image3", image3_path);
+        params.put("image4", image4_path);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_USER_ADVICE, params, null,
+                new TypeToken<BaseResponse>() {
+                }, listener, listener);
         AppManager.getRequestQueue().add(request);
     }
 }

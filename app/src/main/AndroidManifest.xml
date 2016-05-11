@@ -119,6 +119,12 @@
             android:enabled="true"
             android:process=":remote"></service>
 
+        <receiver android:name=".broadcastReceiver.LogoutBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.zl.app.LOGOUT_BROADCAST"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -201,7 +201,7 @@ public class RegistActivity extends BaseActivityWithToolBar {
         handler.postDelayed(new RegetCodeRunnable(), 1000);
         seconds = 59;
     }
-
+    /*文本框输入数字后，下一步按钮由灰色变为红色*/
     public void initEvent() {
         telView.addTextChangedListener(new TextWatcher() {
 

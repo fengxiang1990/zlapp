@@ -164,6 +164,9 @@ public class RequestURL {
     //课程评论列表
     public static String API_COURSE_MSG_LIST = SERVER + "mobilePeriodBbs/list.html";
 
+    //意见反馈接口
+    public static String API_USER_ADVICE = SERVER + "mobileAdvice/insert.html";
+
 
 
 

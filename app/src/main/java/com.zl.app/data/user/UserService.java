@@ -110,4 +110,17 @@ public interface UserService {
     void updateUserInfo(String uid, String picPath, String nickName, String age, String qq, String introduce,
                         String mobileshow, String emailshow, String qqshow, String plshow, String dzshow, String scshow
             , DefaultResponseListener<BaseResponse> listener);
+
+    /**
+     * 意见反馈
+     * @param uid
+     * @param content
+     * @param image1_path
+     * @param image2_path
+     * @param image3_path
+     * @param image4_path
+     * @param listener
+     */
+    void applyUserAdvice(String uid, String content, String image1_path, String image2_path, String image3_path, String image4_path,
+                    DefaultResponseListener<BaseResponse> listener);
 }

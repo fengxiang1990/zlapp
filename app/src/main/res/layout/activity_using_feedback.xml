@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/feedback_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightgray"
-    android:orientation="vertical"
     android:weightSum="1">
 
     <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:background="@color/white">
@@ -24,118 +25,45 @@
 
     </LinearLayout>
 
-    <TableLayout
+    <RelativeLayout
+        android:id="@+id/image_layout"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/content_layout"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:padding="5dp">
 
-        <TableRow
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/image_to_insert1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_launcher"
-                />
-            <ImageView
-                android:id="@+id/image_to_insert2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_launcher"
-                android:visibility="invisible"
-                android:clickable="false"
-                />
-            <ImageView
-                android:id="@+id/image_to_insert3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_launcher"
-                android:visibility="invisible"
-                android:clickable="false"
-                />
-            <ImageView
-                android:id="@+id/image_to_insert4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_launcher"
-                android:visibility="invisible"
-                android:clickable="false"
-                />
-        </TableRow>
-
-        <TableRow
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/image_to_insert5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_launcher"
-                android:visibility="invisible"
-                android:clickable="false"
-                />
-            <ImageView
-                android:id="@+id/image_to_insert6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_launcher"
-                android:visibility="invisible"
-                android:clickable="false"
-                />
-            <ImageView
-                android:id="@+id/image_to_insert7"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_launcher"
-                android:visibility="invisible"
-                android:clickable="false"
-                />
-            <ImageView
-                android:id="@+id/image_to_insert8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_launcher"
-                android:visibility="invisible"
-                android:clickable="false"
-                />
-        </TableRow>
-
-    </TableLayout>
+        <com.zl.app.activity.mine.MyGridView
+            android:id="@+id/image_container_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_centerInParent="true"
+            android:numColumns="4"
+            android:cacheColorHint="#00000000"
+            android:listSelector="#00000000"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="3dp"
+            android:scrollbars="none"/>
+    </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/send_layout"
+        android:layout_below="@+id/image_layout"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="110dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/btn_send"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
             android:background="@color/red"
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
-            android:text="@string/send_feedback"/>
-
+            android:text="@string/send_feedback"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
-</LinearLayout>
+
+</RelativeLayout>
