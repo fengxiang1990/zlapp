@@ -103,6 +103,7 @@
         <activity android:name=".activity.activities.DetailActivity" />
         <activity android:name=".activity.activities.SearchActivity" />
         <activity android:name=".activity.activities.SearchResultActivity" />
+        <activity android:name=".activity.activities.JoinMembersActivity" />
 
         <!-- course -->
         <activity android:name=".activity.course.CoursePDTActivity" />

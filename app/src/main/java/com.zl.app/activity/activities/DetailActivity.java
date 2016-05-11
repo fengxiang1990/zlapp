@@ -1,5 +1,6 @@
 package com.zl.app.activity.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -109,6 +110,14 @@ public class DetailActivity extends BaseActivityWithToolBar {
             }
         });
 
+        text_count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, JoinMembersActivity.class);
+                intent.putExtra("id", activityId + "");
+                startActivity(intent);
+            }
+        });
         text_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
