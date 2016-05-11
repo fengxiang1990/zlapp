@@ -186,6 +186,9 @@ public class DetailActivity extends BaseActivityWithToolBar {
                     } else if (isjoin == 3) {
                         text_join.setText("报名参加");
                     }
+                    if (activity.getUserId() == AppConfig.getUserId(AppManager.getPreferences())) {
+                        text_join.setVisibility(View.GONE);
+                    }
                     simpleDraweeView.setImageURI(Uri.parse(activity.getPicPath()));
                     text_name.setText("发起人:" + activity.getUsername());
                     text_content.setText(activity.getHeadline());
