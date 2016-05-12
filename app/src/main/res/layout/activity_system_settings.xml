@@ -27,7 +27,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="15sp"
                 android:text="@string/using_feedback"/>
 
@@ -58,7 +58,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="15sp"
                 android:text="@string/function_outline"/>
 
@@ -90,7 +90,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="15sp"
                 android:text="@string/about_us"/>
 
@@ -122,7 +122,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="15sp"
                 android:text="@string/service_protocal"/>
 
@@ -153,7 +153,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="15sp"
                 android:text="@string/reset_password"/>
 
@@ -184,7 +184,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textSize="15sp"
                 android:text="@string/grade_mark"/>
 

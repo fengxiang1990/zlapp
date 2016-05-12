@@ -73,13 +73,13 @@ public interface UserService {
     /**
      * 修改密码接口
      *
-     * @param uid
+     * @param account 登陆手机号 账号
      * @param remark
      * @param password
      * @param passWordTwo
      * @param listener
      */
-    void modifyPassword(String uid, String remark, String password, String passWordTwo, DefaultResponseListener<BaseResponse> listener);
+    void modifyPassword(String account, String remark, String password, String passWordTwo, DefaultResponseListener<BaseResponse> listener);
 
 
     /**

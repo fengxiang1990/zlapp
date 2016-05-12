@@ -113,9 +113,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void modifyPassword(String uid, String remark, String password, String passWordTwo, DefaultResponseListener<BaseResponse> listener) {
+    public void modifyPassword(String account, String remark, String password, String passWordTwo, DefaultResponseListener<BaseResponse> listener) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", uid);
+        params.put("account", account);
         params.put("remark", remark);
         params.put("password", password);
         params.put("passWordTwo", passWordTwo);

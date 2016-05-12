@@ -105,6 +105,7 @@ public class ResetPasswordActivity extends BaseActivityWithToolBar implements Vi
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         String tel = String.valueOf(inputNumber.getText());
         String code = String.valueOf(inputCode.getText());
         switch (v.getId()){
@@ -139,13 +140,10 @@ public class ResetPasswordActivity extends BaseActivityWithToolBar implements Vi
                 }
                 break;
             case R.id.btn_for_sure:
-                String oldPassword = String.valueOf(inputOldPassword.getText());
+                String smsCode = String.valueOf(inputCode.getText());
+               // String oldPassword = String.valueOf(inputOldPassword.getText());
                 String newPassword = String.valueOf(inputNewPassword.getText());
                 String newPasswordAgain = String.valueOf(InputNewPasswordAgain);
-                if (TextUtils.isEmpty(oldPassword)){
-                    ToastUtil.show(getApplicationContext(), "密码不能为空！");
-                    return;
-                }
                 if (TextUtils.isEmpty(newPassword)){
                     ToastUtil.show(getApplicationContext(), "新密码不能为空！");
                     return;
@@ -156,7 +154,7 @@ public class ResetPasswordActivity extends BaseActivityWithToolBar implements Vi
                     InputNewPasswordAgain.setText("");
                     return;
                 }
-                userService.modifyPassword(AppConfig.getUid(preference), oldPassword, newPassword, newPasswordAgain,
+                userService.modifyPassword(AppConfig.getUserInfo(preference).getMobile(), smsCode, newPassword, newPasswordAgain,
                         new DefaultResponseListener<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse response) {

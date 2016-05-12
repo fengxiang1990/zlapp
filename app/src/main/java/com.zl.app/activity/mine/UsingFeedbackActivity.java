@@ -104,6 +104,7 @@ public class UsingFeedbackActivity extends BaseActivityWithToolBar
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()){
             case R.id.btn_send:
                 /*点击发送按钮后的逻辑*/
