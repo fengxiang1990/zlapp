@@ -87,6 +87,7 @@ public class GsonRequest<T> extends Request<T> {
         String jsonString = null;
         try {
             jsonString = new String(response.data, PROTOCOL_CHARSET);
+            Log.e(TAG,jsonString);
             T parsedGSON = mGson.fromJson(jsonString, mTypeToken.getType());
             return Response.success(parsedGSON, HttpHeaderParser.parseCacheHeaders(response));
 

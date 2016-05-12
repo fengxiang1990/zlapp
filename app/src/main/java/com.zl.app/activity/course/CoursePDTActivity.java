@@ -77,7 +77,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                         text_student_status.setTextColor(getResources().getColor(R.color.red));
                         break;
                     case CourseService.CourseStatusP.ZHENGCHANG:
-                        statusStr = "出席";
+                        statusStr = "待出席";
                         text_student_status.setTextColor(getResources().getColor(R.color.green));
                         break;
                     case CourseService.CourseStatusP.BUJIA:
@@ -119,6 +119,11 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                 YyMobilePeriodStudent student = data.get(position);
                 relationId = student == null ? 0 : student.getRelationId();
                 text_student.setText(student == null ? "" : student.getStudentName());
+                if(student.getParentId() > 0){
+                    ll2.setVisibility(View.VISIBLE);
+                }else{
+                    ll2.setVisibility(View.GONE);
+                }
             }
         });
         yyMobilePeriod = GsonUtil.getJsonObject(getIntent().getStringExtra("course"), YyMobilePeriod.class);
@@ -143,8 +148,8 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                     List<YyMobilePeriodStudent> list = response.getResult();
                     if (list != null && list.size() > 0) {
                         YyMobilePeriodStudent student = list.get(0);
-                        text_time.setText(student.getClasstime());
-                        text_teacher.setText(student.getTeacherName());
+                        text_time.setText(yyMobilePeriod.getClasstime());
+                        text_teacher.setText(yyMobilePeriod.getTeachername());
                         data.clear();
                         data.addAll(list);
                         adapter.notifyDataSetChanged();
@@ -167,8 +172,8 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                     List<YyMobilePeriodStudent> list = response.getResult();
                     if (list != null && list.size() > 0) {
                         YyMobilePeriodStudent student = list.get(0);
-                        text_time.setText(student.getClasstime());
-                        text_teacher.setText(student.getTeacherName());
+                        text_time.setText(yyMobilePeriod.getClasstime());
+                        text_teacher.setText(yyMobilePeriod.getTeachername());
                         data.clear();
                         data.addAll(list);
                         adapter.notifyDataSetChanged();
