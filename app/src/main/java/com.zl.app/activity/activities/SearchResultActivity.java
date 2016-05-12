@@ -3,6 +3,8 @@ package com.zl.app.activity.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +42,7 @@ public class SearchResultActivity extends BaseActivityWithToolBar {
     List<YyMobileActivity> data;
     MyAdapter adapter;
     String uid;
-    String keyword;
+    String keyword=" ";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,26 @@ public class SearchResultActivity extends BaseActivityWithToolBar {
         setContentView(R.layout.activity_search_activity_result);
         setTitle("搜索结果");
         setBtnLeft1Enable(true);
+        setSearchTitleViewEnable(true);
+        searchTitleView.setHint("搜索活动");
         listView = (XListView) findViewById(R.id.listview);
         data = new ArrayList<YyMobileActivity>();
         adapter = new MyAdapter(data);
-        keyword = getIntent().getStringExtra("keyword");
+        //keyword = getIntent().getStringExtra("keyword");
         listView.setAdapter(adapter);
         uid = AppConfig.getUid(preference);
+        searchTitleView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER){
+                       keyword = String.valueOf(searchTitleView.getText());
+                       if(!TextUtils.isEmpty(keyword)){
+                           loadData();
+                       }
+                }
+                return false;
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

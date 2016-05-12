@@ -41,6 +41,7 @@
         android:id="@+id/search_titleView"
         android:drawableRight="@mipmap/find_search_icon"
         android:paddingLeft="15dp"
+        android:imeOptions="actionSearch"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingRight="10dp"

@@ -17,6 +17,7 @@ import com.zl.app.MyApplication;
 import com.zl.app.R;
 import com.zl.app.activity.activities.PublishActivity;
 import com.zl.app.activity.activities.SearchActivity;
+import com.zl.app.activity.activities.SearchResultActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.UserServiceImpl;
@@ -132,7 +133,7 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnRight1Click() {
-        Intent intent = new Intent(this, SearchActivity.class);
+        Intent intent = new Intent(this, SearchResultActivity.class);
         startActivity(intent);
     }
 
@@ -209,7 +210,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setTextLeft1Val("发起活动");
         setTextLeft1Enable(true);
         setBtnRight1Enable(true);
-        setBtnRight1ImageResource(R.mipmap.ic_search_icon);
+        setBtnRight1ImageResource(R.mipmap.find_search_icon);
         setTitle("活动");
         switchFragment(frgmentManager.beginTransaction(), fragment_activities);
     }
