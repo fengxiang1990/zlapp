@@ -43,6 +43,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     TextView text_name;
     TextView text_desc;
     TextView text_zixun;
+    TextView text_detail;
     TextView text_score;
     RadioButton rb1;
     RadioButton rb2;
@@ -70,6 +71,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         adapter = new GradeCommentsAdapter(data);
         img_org = (SimpleDraweeView) findViewById(R.id.img_org);
         text_desc = (TextView) findViewById(R.id.text_desc);
+        text_detail = (TextView) findViewById(R.id.text_detail);
         text_name = (TextView) findViewById(R.id.text_name);
         text_zixun = (TextView) findViewById(R.id.text_zixun);
         text_score = (TextView) findViewById(R.id.text_score);
@@ -81,6 +83,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         rb2.setOnClickListener(this);
         rb3.setOnClickListener(this);
         text_zixun.setOnClickListener(this);
+        text_detail.setOnClickListener(this);
         listView = (XListView) findViewById(R.id.listview);
         listView.setXListViewListener(this);
         listView.setAdapter(adapter);
@@ -250,6 +253,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        Intent intent;
         switch (v.getId()) {
             case R.id.rb1:
                 type = 0;//全部
@@ -264,12 +268,17 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                 loadGradeComments();
                 break;
             case R.id.text_zixun:
-                Intent intent = new Intent(OrgWeiSiteActivity.this, OrgYuYueActivity.class);
+                intent = new Intent(OrgWeiSiteActivity.this, OrgYuYueActivity.class);
                 intent.putExtra("companyId", companyId);
                 intent.putExtra("phone", yyMobileCompany.getPhone());
                 startActivity(intent);
                 break;
-
+            case R.id.text_detail:
+                intent = new Intent(OrgWeiSiteActivity.this, WebDetailActivity.class);
+                intent.putExtra("url", yyMobileCompany.getDetailUrl());
+                intent.putExtra("title", yyMobileCompany.getCompanyname());
+                startActivity(intent);
+                break;
         }
     }
 }

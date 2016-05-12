@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.zl.app.R;
+import com.zl.app.activity.org.WebDetailActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 
 /**
@@ -58,8 +59,16 @@ public class SystemSettingsActivity extends BaseActivityWithToolBar implements V
             case R.id.function_outline:
                 break;
             case R.id.about_us:
+                Intent intent_about_us = new Intent(SystemSettingsActivity.this, WebDetailActivity.class);
+                intent_about_us.putExtra("url","http://ziluedu.net/about/mobile.html");
+                intent_about_us.putExtra("title", "关于我们");
+                startActivity(intent_about_us);
                 break;
             case R.id.service_protocal:
+                Intent  intent_protocal = new Intent(SystemSettingsActivity.this, WebDetailActivity.class);
+                intent_protocal.putExtra("url", "http://ziluedu.net/user/mobileprotocol.html");
+                intent_protocal.putExtra("title", "服务协议");
+                startActivity(intent_protocal);
                 break;
             case R.id.reset_password:
                 Intent reset_password_intent = new Intent(SystemSettingsActivity.this,

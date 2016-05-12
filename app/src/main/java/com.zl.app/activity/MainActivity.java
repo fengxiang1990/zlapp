@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     @AfterViews
     void afterViews() {
         context = MainActivity.this;
-        setTitle("首页");
+        setTitle("咨路教育");
         //首页新闻显示侧滑
         //setBtnLeft1Enable(false);
         //setBtnLeft1ImageResource(R.mipmap.ic_more);
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Click(R.id.tab_find)
     void radiol1Click() {
         setBtnLeft1Enable(false);
-        setTitle("发现");
+        setTitle("咨路教育");
         setTextLeft1Enable(false);
         setBtnRight1Enable(false);
         switchFragment(frgmentManager.beginTransaction(), fragment_find);
@@ -190,7 +190,12 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.tab_class)
     void radio1Click() {
-        setTitle("课程");
+        if(AppConfig.getLoginType(preference) == 3){
+            setTitle("课程(家长)");
+        }else if(AppConfig.getLoginType(preference) == 5){
+            setTitle("课程(老师)");
+        }
+
         setBtnLeft1Enable(true);
         setTextLeft1Enable(false);
         setBtnRight1Enable(false);

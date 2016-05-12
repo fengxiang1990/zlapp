@@ -17,6 +17,7 @@ public class YyMobileCompany {
 	private Integer cpno;//差评次数 2 4分
 	private String zhaiyao;//摘要
 	private Integer plactive;//1 不能评价 2 可以评价
+	private String detailUrl;
 	public Integer getCompanyId() {
 		return companyId;
 	}
@@ -96,4 +97,11 @@ public class YyMobileCompany {
 		this.plactive = plactive;
 	}
 
+	public String getDetailUrl() {
+		return detailUrl;
+	}
+
+	public void setDetailUrl(String detailUrl) {
+		this.detailUrl = detailUrl;
+	}
 }
