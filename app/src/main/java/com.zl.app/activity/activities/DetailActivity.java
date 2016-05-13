@@ -73,12 +73,14 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
     MyAdapter adapter;
     PopSelectPicture popSelectPicture;
 
+    View headerView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_detail);
         uid = AppConfig.getUid(preference);
         userService = new UserServiceImpl();
+        headerView = LayoutInflater.from(this).inflate(R.layout.activity_activity_detail_header,null);
         data = new ArrayList<YyMobileActivityComment>();
         popSelectPicture = new PopSelectPicture(this);
         popSelectPicture.setOnPicturePopClickListener(this);
@@ -89,17 +91,18 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
         setTitle(title);
         setBtnLeft1Enable(true);
         listView = (ListView) findViewById(R.id.listView);
+        listView.addHeaderView(headerView);
         listView.setAdapter(adapter);
-        simpleDraweeView = (SimpleDraweeView) findViewById(R.id.simpleDraweeView);
-        text_name = (TextView) findViewById(R.id.text_name);
-        text_join = (TextView) findViewById(R.id.text_join);
-        text_location = (TextView) findViewById(R.id.text_location);
-        text_time = (TextView) findViewById(R.id.text_time);
-        text_count = (TextView) findViewById(R.id.text_count);
-        text_content = (TextView) findViewById(R.id.text_content);
+        simpleDraweeView = (SimpleDraweeView) headerView.findViewById(R.id.simpleDraweeView);
+        text_name = (TextView) headerView.findViewById(R.id.text_name);
+        text_join = (TextView)headerView. findViewById(R.id.text_join);
+        text_location = (TextView)headerView. findViewById(R.id.text_location);
+        text_time = (TextView) headerView.findViewById(R.id.text_time);
+        text_count = (TextView) headerView.findViewById(R.id.text_count);
+        text_content = (TextView)headerView. findViewById(R.id.text_content);
         edit_content = (EditText) findViewById(R.id.edit_content);
         text_comment = (TextView) findViewById(R.id.text_comment);
-        text_comment_count = (TextView) findViewById(R.id.text_comment_count);
+        text_comment_count = (TextView)headerView. findViewById(R.id.text_comment_count);
         img_take_pic = (ImageView) findViewById(R.id.img_take_pic);
         ll_comment = (LinearLayout) findViewById(R.id.ll_comment);
         ll_imgs = (LinearLayout) findViewById(R.id.ll_imgs);
