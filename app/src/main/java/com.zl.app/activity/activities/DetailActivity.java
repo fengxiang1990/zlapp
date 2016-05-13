@@ -1,9 +1,12 @@
 package com.zl.app.activity.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,23 +24,28 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
+import com.zl.app.data.user.UserService;
+import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.model.activity.YyMobileActivity;
 import com.zl.app.model.activity.YyMobileActivityComment;
 import com.zl.app.popwindow.PopSelectPicture;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
+import com.zl.app.util.CameraUtil;
+import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 import com.zl.app.view.LoadingDialog;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by fengxiang on 2016/4/28.
  */
-public class DetailActivity extends BaseActivityWithToolBar {
+public class DetailActivity extends BaseActivityWithToolBar implements PopSelectPicture.OnPicturePopClickListener {
 
     SimpleDraweeView simpleDraweeView;
     TextView text_name;
@@ -51,22 +59,29 @@ public class DetailActivity extends BaseActivityWithToolBar {
     ListView listView;
     ImageView img_take_pic;
     LinearLayout ll_comment;
+    LinearLayout ll_imgs;
+    ImageView img1;
+    ImageView img_close;
     String uid;
     int activityId;
     ActivityService activityService;
+    UserService userService;
     YyMobileActivity activity;
     String title;
     int isjoin;
     List<YyMobileActivityComment> data;
     MyAdapter adapter;
     PopSelectPicture popSelectPicture;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_detail);
         uid = AppConfig.getUid(preference);
+        userService = new UserServiceImpl();
         data = new ArrayList<YyMobileActivityComment>();
         popSelectPicture = new PopSelectPicture(this);
+        popSelectPicture.setOnPicturePopClickListener(this);
         adapter = new MyAdapter(data);
         activityService = new ActivityService();
         activityId = getIntent().getIntExtra("activityId", 0);
@@ -87,40 +102,54 @@ public class DetailActivity extends BaseActivityWithToolBar {
         text_comment_count = (TextView) findViewById(R.id.text_comment_count);
         img_take_pic = (ImageView) findViewById(R.id.img_take_pic);
         ll_comment = (LinearLayout) findViewById(R.id.ll_comment);
+        ll_imgs = (LinearLayout) findViewById(R.id.ll_imgs);
+        img1 = (ImageView) findViewById(R.id.img1);
+        img_close = (ImageView) findViewById(R.id.img_close);
         loadData();
 
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resultUri = null;
+                ll_imgs.setVisibility(View.GONE);
+            }
+        });
         img_take_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popSelectPicture.showAtLocation(ll_comment, Gravity.BOTTOM,0,0);
+                popSelectPicture.showAtLocation(ll_comment, Gravity.BOTTOM, 0, 0);
             }
         });
         text_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String commentContent = String.valueOf(edit_content.getText());
+                final String commentContent = String.valueOf(edit_content.getText());
                 if (TextUtils.isEmpty(commentContent)) {
                     Toast.makeText(DetailActivity.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                activityService.comment(uid, activityId + "", activity.getUserId() + "", commentContent, "", new DefaultResponseListener<BaseResponse>() {
-                    @Override
-                    public void onSuccess(BaseResponse response) {
-                        if (response != null) {
-                            if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                                edit_content.setText("");
-                                loadData();
+                if (resultUri != null) {
+                    Bitmap bitmap = CameraUtil.getBitmapFromUri(DetailActivity.this, resultUri);
+                    File file = CameraUtil.saveBitmapFile(bitmap);
+                    userService.uploadUserHeadImg(uid, file, new DefaultResponseListener<String>() {
+                        @Override
+                        public void onSuccess(String response) {
+                            if (!TextUtils.isEmpty(response)) {
+                                BaseResponse baseResponse = GsonUtil.getJsonObject(response, BaseResponse.class);
+                                String imgUrl = baseResponse.getMessage();
+                                commitComment(commentContent, imgUrl);
                             }
-                            ToastUtil.show(DetailActivity.this, response.getMessage());
+                        }
+
+                        @Override
+                        public void onError(VolleyError error) {
 
                         }
-                    }
+                    });
+                } else {
+                    commitComment(commentContent, null);
+                }
 
-                    @Override
-                    public void onError(VolleyError error) {
-
-                    }
-                });
             }
         });
 
@@ -170,6 +199,29 @@ public class DetailActivity extends BaseActivityWithToolBar {
                         }
                     });
                 }
+
+            }
+        });
+    }
+
+    public void commitComment(String content, String img) {
+        activityService.comment(uid, activityId + "", activity.getUserId() + "", content, img, new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                if (response != null) {
+                    if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                        edit_content.setText("");
+                        loadData();
+                        ll_imgs.setVisibility(View.GONE);
+                        resultUri = null;
+                    }
+                    ToastUtil.show(DetailActivity.this, response.getMessage());
+
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
 
             }
         });
@@ -275,10 +327,10 @@ public class DetailActivity extends BaseActivityWithToolBar {
                 holder.text_name.setText(comment.getUsername());
                 holder.text_content.setText(comment.getContent());
                 holder.text_time.setText(comment.getCreateDate());
-                if(!TextUtils.isEmpty(comment.getPicPath())){
+                if (!TextUtils.isEmpty(comment.getPicPath())) {
                     holder.img_comment.setVisibility(View.VISIBLE);
                     holder.img_comment.setImageURI(Uri.parse(comment.getPicPath()));
-                }else{
+                } else {
                     holder.img_comment.setVisibility(View.GONE);
                 }
             }
@@ -294,6 +346,67 @@ public class DetailActivity extends BaseActivityWithToolBar {
         TextView text_time;
         TextView text_content;
         SimpleDraweeView img_comment;
+    }
+
+
+    //选取照片功能
+    public static final int DEFAULT_IMG_WIDTH = 400;
+
+    String imgNameByCamera;
+
+    @Override
+    public void onPicturePopClick(int status) {
+        switch (status) {
+            case PopSelectPicture.OnPicturePopClickListener.TakeCamera:
+                imgNameByCamera = CameraUtil.getImageName();
+                CameraUtil.getImageFromCamera(DetailActivity.this, imgNameByCamera);
+                popSelectPicture.dismiss();
+                break;
+            case PopSelectPicture.OnPicturePopClickListener.PickFromPics:
+                CameraUtil.getImageFromAlbum(DetailActivity.this);
+                popSelectPicture.dismiss();
+                break;
+        }
+    }
+
+    Uri resultUri;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Uri uri = null;
+        // 拍照
+        if (requestCode == CameraUtil.PHOTO_CAMERA) {
+            // 设置文件保存路径
+            File picture = new File(Environment.getExternalStorageDirectory() + "/" + imgNameByCamera);
+            if (data != null) {
+                Bitmap bitmap = data.getParcelableExtra("data");
+                if (bitmap != null) {
+                    uri = Uri.fromFile(picture);
+                }
+            } else {
+                if (picture.exists()) {
+                    uri = Uri.fromFile(picture);
+                }
+            }
+        }
+        // 读取相册缩放图片
+        if (requestCode == CameraUtil.PHOTO_ALBUM) {
+            if (data != null) {
+                uri = data.getData();
+            }
+        }
+        // 处理结果
+        if (requestCode == CameraUtil.PHOTO_RESULT) {
+            img1.setImageBitmap(CameraUtil.getBitmapFromUri(DetailActivity.this, uri));
+            resultUri = uri;
+        }
+        if (uri != null) {
+            Log.e("uri", uri.toString());
+            ll_imgs.setVisibility(View.VISIBLE);
+            img1.setImageBitmap(CameraUtil.getBitmapFromUri(DetailActivity.this, uri));
+            resultUri = uri;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
