@@ -69,19 +69,15 @@ public class YyMobileActivity {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 	public String getHdDate() {
 		return hdDate;
 	}
-
 	public void setHdDate(String hdDate) {
 		this.hdDate = hdDate;
 	}
-
 	public String getEndDate() {
 		return endDate;
 	}
-
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}

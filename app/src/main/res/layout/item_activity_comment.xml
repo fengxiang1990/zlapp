@@ -69,5 +69,14 @@
 
     </LinearLayout>
 
-
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_comment"
+        android:visibility="gone"
+        android:layout_marginLeft="78dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        fresco:roundAsCircle="false"
+        fresco:roundingBorderColor="@color/white"
+        fresco:roundingBorderWidth="4dp" />
 </LinearLayout>

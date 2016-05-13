@@ -5,8 +5,8 @@ public class YyMobileActivityComment {
 	private Integer commentId;//主键
 	private Integer userId;//留言人id
 	private String username;//留言人昵称
+	private String picPath;//留言图片
 	private String userPic;//留言人头像
-	private String picPath;
 	private String content;//留言内容
 	private Integer yyuser;//回复人ID
 	private String createDate;//留言时间
@@ -46,20 +46,17 @@ public class YyMobileActivityComment {
 	public void setYyuser(Integer yyuser) {
 		this.yyuser = yyuser;
 	}
-
 	public String getCreateDate() {
 		return createDate;
 	}
-
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-
 	public String getUserPic() {
 		return userPic;
 	}
-
 	public void setUserPic(String userPic) {
 		this.userPic = userPic;
 	}
+	
 }

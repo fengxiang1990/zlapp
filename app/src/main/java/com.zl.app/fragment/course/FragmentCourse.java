@@ -187,7 +187,7 @@ public class FragmentCourse extends BaseFragment {
             if (period != null) {
                 Uri uri = Uri.parse(period.getPicPath() == null ? "" : period.getPicPath());
                 holder.img_course.setImageURI(uri);
-                holder.text_course_name.setText(period.getClassname());
+                holder.text_course_name.setText(period.getPeriodname());
                 holder.text_course_time.setText(period.getClasstime());
                 holder.btn_inner.setOnClickListener(new View.OnClickListener() {
                     @Override

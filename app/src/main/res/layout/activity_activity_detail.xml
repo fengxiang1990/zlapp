@@ -150,9 +150,23 @@
         <LinearLayout
             android:id="@+id/ll_comment"
             android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_take_pic"
+                android:scaleType="center"
+                android:src="@mipmap/add_image"
+                android:layout_weight="8"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <EditText
                 android:id="@+id/edit_content"
@@ -169,6 +183,17 @@
                 android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+            </LinearLayout>
+           <LinearLayout
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img1"
+                    android:scaleType="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

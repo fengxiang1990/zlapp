@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
 import com.zl.app.model.activity.YyMobileActivity;
 import com.zl.app.model.activity.YyMobileActivityComment;
+import com.zl.app.popwindow.PopSelectPicture;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.ToastUtil;
@@ -47,6 +49,8 @@ public class DetailActivity extends BaseActivityWithToolBar {
     EditText edit_content;
     TextView text_comment;
     ListView listView;
+    ImageView img_take_pic;
+    LinearLayout ll_comment;
     String uid;
     int activityId;
     ActivityService activityService;
@@ -55,12 +59,14 @@ public class DetailActivity extends BaseActivityWithToolBar {
     int isjoin;
     List<YyMobileActivityComment> data;
     MyAdapter adapter;
+    PopSelectPicture popSelectPicture;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_detail);
         uid = AppConfig.getUid(preference);
         data = new ArrayList<YyMobileActivityComment>();
+        popSelectPicture = new PopSelectPicture(this);
         adapter = new MyAdapter(data);
         activityService = new ActivityService();
         activityId = getIntent().getIntExtra("activityId", 0);
@@ -79,8 +85,16 @@ public class DetailActivity extends BaseActivityWithToolBar {
         edit_content = (EditText) findViewById(R.id.edit_content);
         text_comment = (TextView) findViewById(R.id.text_comment);
         text_comment_count = (TextView) findViewById(R.id.text_comment_count);
+        img_take_pic = (ImageView) findViewById(R.id.img_take_pic);
+        ll_comment = (LinearLayout) findViewById(R.id.ll_comment);
         loadData();
 
+        img_take_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popSelectPicture.showAtLocation(ll_comment, Gravity.BOTTOM,0,0);
+            }
+        });
         text_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,17 +263,24 @@ public class DetailActivity extends BaseActivityWithToolBar {
                 holder.text_name = (TextView) convertView.findViewById(R.id.text_name);
                 holder.text_time = (TextView) convertView.findViewById(R.id.text_time);
                 holder.text_content = (TextView) convertView.findViewById(R.id.text_content);
+                holder.img_comment = (SimpleDraweeView) convertView.findViewById(R.id.img_comment);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
             YyMobileActivityComment comment = data.get(position);
             if (comment != null) {
-                Uri uri = Uri.parse(comment.getPicPath() == null ? "" : comment.getUserPic());
+                Uri uri = Uri.parse(comment.getUserPic() == null ? "" : comment.getUserPic());
                 holder.simpleDraweeView.setImageURI(uri);
                 holder.text_name.setText(comment.getUsername());
                 holder.text_content.setText(comment.getContent());
                 holder.text_time.setText(comment.getCreateDate());
+                if(!TextUtils.isEmpty(comment.getPicPath())){
+                    holder.img_comment.setVisibility(View.VISIBLE);
+                    holder.img_comment.setImageURI(Uri.parse(comment.getPicPath()));
+                }else{
+                    holder.img_comment.setVisibility(View.GONE);
+                }
             }
 
             return convertView;
@@ -272,6 +293,7 @@ public class DetailActivity extends BaseActivityWithToolBar {
         TextView text_name;
         TextView text_time;
         TextView text_content;
+        SimpleDraweeView img_comment;
     }
 
 }
