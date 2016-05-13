@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
+import com.zl.app.adapter.ActivityAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
 import com.zl.app.model.activity.YyMobileActivity;
@@ -36,11 +37,11 @@ import me.maxwin.view.XListView;
 /**
  * Created by fengxiang on 2016/4/28.
  */
-public class SearchResultActivity extends BaseActivityWithToolBar {
+public class SearchResultActivity extends BaseActivityWithToolBar implements ActivityAdapter.OnItemBtnClickListener {
 
     XListView listView;
     List<YyMobileActivity> data;
-    MyAdapter adapter;
+    ActivityAdapter adapter;
     String uid;
     String keyword = " ";
 
@@ -55,7 +56,7 @@ public class SearchResultActivity extends BaseActivityWithToolBar {
         listView = (XListView) findViewById(R.id.listview);
         listView.setPullLoadEnable(false);
         data = new ArrayList<YyMobileActivity>();
-        adapter = new MyAdapter(data);
+        adapter = new ActivityAdapter(SearchResultActivity.this,data,this);
         //keyword = getIntent().getStringExtra("keyword");
         listView.setAdapter(adapter);
         uid = AppConfig.getUid(preference);
@@ -118,106 +119,14 @@ public class SearchResultActivity extends BaseActivityWithToolBar {
         });
     }
 
-    class MyAdapter extends BaseAdapter {
 
-        List<YyMobileActivity> data;
-
-        public MyAdapter(List<YyMobileActivity> data) {
-            this.data = data;
-        }
-
-        @Override
-        public int getCount() {
-            return data.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView == null) {
-                convertView = LayoutInflater.from(SearchResultActivity.this).inflate(R.layout.item_activity, null);
-                holder = new ViewHolder();
-                holder.simpleDraweeView = (SimpleDraweeView) convertView.findViewById(R.id.simpleDraweeView);
-                holder.text_title = (TextView) convertView.findViewById(R.id.text_title);
-                holder.text_time = (TextView) convertView.findViewById(R.id.text_time);
-                holder.text_status = (TextView) convertView.findViewById(R.id.text_status);
-                holder.text_location = (TextView) convertView.findViewById(R.id.text_location);
-                holder.ll_edit = (LinearLayout) convertView.findViewById(R.id.ll_edit);
-                holder.img_delete = (ImageView) convertView.findViewById(R.id.img_delete);
-                holder.img_edit = (ImageView) convertView.findViewById(R.id.img_edit);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-            final YyMobileActivity activity = data.get(position);
-            if (activity != null) {
-                Uri uri = Uri.parse(activity.getPicPath() == null ? "" : activity.getPicPath());
-                holder.simpleDraweeView.setImageURI(uri);
-                holder.text_title.setText(activity.getHeadline());
-                holder.text_location.setText(activity.getAddress());
-                holder.text_time.setText(activity.getHdDate());
-                String statusStr = "";
-                switch (activity.getIsover()) {
-                    case 2:
-                        statusStr = "进行中";
-                        holder.text_status.setTextColor(getResources().getColor(R.color.red));
-                        break;
-                    case 3:
-                        statusStr = "往期活动";
-                        holder.text_status.setTextColor(getResources().getColor(R.color.gray));
-                        break;
-                }
-                if (activity.getUserId() == AppConfig.getUserId(AppManager.getPreferences())) {
-                    holder.ll_edit.setVisibility(View.GONE);
-                } else {
-                    holder.ll_edit.setVisibility(View.GONE);
-                }
-                holder.text_status.setText(statusStr);
-                holder.img_delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new ActivityService().delete(uid, activity.getActivityId() + "", new DefaultResponseListener<BaseResponse>() {
-                            @Override
-                            public void onSuccess(BaseResponse response) {
-                                if (response != null) {
-                                    ToastUtil.show(SearchResultActivity.this, response.getMessage());
-                                    loadData();
-                                }
-                            }
-
-                            @Override
-                            public void onError(VolleyError error) {
-
-                            }
-                        });
-                    }
-                });
-            }
-
-            return convertView;
-        }
+    @Override
+    public void onEdit(YyMobileActivity activity) {
 
     }
 
-    class ViewHolder {
-        SimpleDraweeView simpleDraweeView;
-        TextView text_title;
-        TextView text_status;
-        TextView text_location;
-        TextView text_time;
-        ImageView img_edit;
-        ImageView img_delete;
-        LinearLayout ll_edit;
-    }
+    @Override
+    public void onDelete(YyMobileActivity activity) {
 
+    }
 }

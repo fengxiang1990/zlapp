@@ -61,6 +61,7 @@ public class ActivityAdapter extends BaseAdapter {
             holder.ll_edit = (LinearLayout) convertView.findViewById(R.id.ll_edit);
             holder.img_delete = (ImageView) convertView.findViewById(R.id.img_delete);
             holder.img_edit = (ImageView) convertView.findViewById(R.id.img_edit);
+            holder.img_status = (ImageView) convertView.findViewById(R.id.img_status);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -77,9 +78,11 @@ public class ActivityAdapter extends BaseAdapter {
                 case 2:
                     statusStr = "进行中";
                     holder.text_status.setTextColor(context.getResources().getColor(R.color.red));
+                    holder.img_status.setImageResource(R.mipmap.ac_running);
                     break;
                 case 3:
                     statusStr = "往期活动";
+                    holder.img_status.setImageResource(R.mipmap.ac_not_running);
                     holder.text_status.setTextColor(context.getResources().getColor(R.color.gray));
                     break;
             }
@@ -115,6 +118,7 @@ public class ActivityAdapter extends BaseAdapter {
         ImageView img_edit;
         ImageView img_delete;
         LinearLayout ll_edit;
+        ImageView img_status;
     }
 
     public interface OnItemBtnClickListener {

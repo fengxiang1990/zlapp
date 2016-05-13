@@ -47,16 +47,14 @@
 
 
                 <RadioButton
-                    android:id="@+id/tab_class"
-                    style="@style/MainActivityBottomMenuItem"
-                    android:drawableTop="@drawable/tab_class_selector" />
-
-
-
-                <RadioButton
                     android:id="@+id/tab_activities"
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/tab_activity_selector" />
+
+                <RadioButton
+                    android:id="@+id/tab_class"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/tab_class_selector" />
 
 
                 <RadioButton
