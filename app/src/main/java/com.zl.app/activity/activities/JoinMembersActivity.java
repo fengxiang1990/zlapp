@@ -1,10 +1,12 @@
 package com.zl.app.activity.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
 import com.zl.app.model.activity.YyMobileActivity;
 import com.zl.app.model.activity.YyMobileActivityUser;
+import com.zl.app.model.customer.YyMobileCompany;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.ToastUtil;
@@ -54,7 +57,17 @@ public class JoinMembersActivity extends BaseActivityWithToolBar {
         setBtnLeft1Enable(true);
         setTitle("参与人员");
         loadData();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                YyMobileActivityUser user = data.get(position);
+                Intent intent = new Intent(JoinMembersActivity.this,HisActivitiesActivity.class);
+                intent.putExtra("userId",user.getUserId());
+                intent.putExtra("userName",user.getUsername());
+                startActivity(intent);
 
+            }
+        });
     }
 
     public void loadData() {

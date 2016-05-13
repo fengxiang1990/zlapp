@@ -42,7 +42,7 @@ public class SearchResultActivity extends BaseActivityWithToolBar {
     List<YyMobileActivity> data;
     MyAdapter adapter;
     String uid;
-    String keyword=" ";
+    String keyword = " ";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class SearchResultActivity extends BaseActivityWithToolBar {
         setSearchTitleViewEnable(true);
         searchTitleView.setHint("搜索活动");
         listView = (XListView) findViewById(R.id.listview);
+        listView.setPullLoadEnable(false);
         data = new ArrayList<YyMobileActivity>();
         adapter = new MyAdapter(data);
         //keyword = getIntent().getStringExtra("keyword");
@@ -61,11 +62,11 @@ public class SearchResultActivity extends BaseActivityWithToolBar {
         searchTitleView.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_ENTER){
-                       keyword = String.valueOf(searchTitleView.getText());
-                       if(!TextUtils.isEmpty(keyword)){
-                           loadData();
-                       }
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    keyword = String.valueOf(searchTitleView.getText());
+                    if (!TextUtils.isEmpty(keyword)) {
+                        loadData();
+                    }
                 }
                 return false;
             }

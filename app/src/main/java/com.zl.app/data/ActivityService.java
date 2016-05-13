@@ -40,6 +40,20 @@ public class ActivityService {
     //活动搜索
     String API_ACTIVITY_SEARCH = RequestURL.SERVER + "mobileActivity/search.html";
 
+    //他人活动
+    String API_HIS_ACTIVITY = RequestURL.SERVER + "mobileActivity/other.html";
+
+    public void getHisActivities(String uid, int userId, DefaultResponseListener<BaseResponse<List<YyMobileActivity>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("userId", userId+"");
+        GsonRequest request = new GsonRequest(Request.Method.POST, API_HIS_ACTIVITY, params, null,
+                new TypeToken<BaseResponse<List<YyMobileActivity>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
     public void searchActivities(String uid, String keyword, DefaultResponseListener<BaseResponse<List<YyMobileActivity>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
