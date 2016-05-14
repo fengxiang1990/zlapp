@@ -105,8 +105,9 @@ public class LoadingDialog {
         }
     }
 
-    public void setTitle(String title) {
+    public LoadingDialog setTitle(String title) {
         getTitleView().setText(title);
+        return loadingDialog;
     }
 
     Handler handler = new Handler();

@@ -1,14 +1,20 @@
 package com.zl.app.activity.mine;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.zl.app.R;
 import com.zl.app.activity.org.WebDetailActivity;
+import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
+import com.zl.app.util.AppManager;
 
 /**
  * Created by CQ on 2016/5/6 0006.
@@ -21,7 +27,7 @@ public class SystemSettingsActivity extends BaseActivityWithToolBar implements V
     private LinearLayout serviceProtocal;
     private LinearLayout resetPassword;
     private LinearLayout gradeMark;
-    private Button logout;
+    private TextView logout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,7 @@ public class SystemSettingsActivity extends BaseActivityWithToolBar implements V
         serviceProtocal = (LinearLayout)findViewById(R.id.service_protocal);
         resetPassword = (LinearLayout)findViewById(R.id.reset_password);
         gradeMark = (LinearLayout)findViewById(R.id.grade_mark);
-        logout = (Button)findViewById(R.id.log_out);
+        logout = (TextView)findViewById(R.id.log_out);
 
         usingFeedback.setOnClickListener(this);
         functionOutline.setOnClickListener(this);
@@ -89,8 +95,29 @@ public class SystemSettingsActivity extends BaseActivityWithToolBar implements V
      * Send a broadcast to logout.
      */
     private void logout() {
-        Intent intent = new Intent("com.zl.app.LOGOUT_BROADCAST");
-        sendBroadcast(intent);
+       // Intent intent = new Intent("com.zl.app.LOGOUT_BROADCAST");
+       // sendBroadcast(intent);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SystemSettingsActivity.this);
+        dialogBuilder.setMessage("确定要退出登录吗？");
+        dialogBuilder.setCancelable(false);
+        dialogBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        dialogBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                AppManager.finishAll();
+                Intent logoutIntent = new Intent(SystemSettingsActivity.this, LoginActivity_.class);
+                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(logoutIntent);
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
+
 
 }

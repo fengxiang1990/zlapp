@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.zl.app.activity.user.LoginActivity_;
@@ -18,8 +19,10 @@ import com.zl.app.util.AppManager;
  * 用于处理退出返回登录界面广播的broadcastReceiver.
  */
 public class LogoutBroadcastReceiver extends BroadcastReceiver {
+    String tag  = "LogoutBroadcastReceiver";
     @Override
     public void onReceive(final Context context, Intent intent) {
+        Log.e(tag,"onReceive");
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         dialogBuilder.setMessage("确定要退出登录吗？");
         dialogBuilder.setCancelable(false);

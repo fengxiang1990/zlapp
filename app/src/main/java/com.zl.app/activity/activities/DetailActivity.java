@@ -47,6 +47,7 @@ import java.util.List;
  */
 public class DetailActivity extends BaseActivityWithToolBar implements PopSelectPicture.OnPicturePopClickListener {
 
+    static final int DEFAULT_IMG_WH = 1200;
     SimpleDraweeView simpleDraweeView;
     TextView text_name;
     TextView text_join;
@@ -78,6 +79,8 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_detail);
+        setBtnRight1Enable(true);
+        setBtnRight1ImageResource(R.mipmap.ac_join_member);
         uid = AppConfig.getUid(preference);
         userService = new UserServiceImpl();
         headerView = LayoutInflater.from(this).inflate(R.layout.activity_activity_detail_header,null);
@@ -132,8 +135,15 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
                     return;
                 }
                 if (resultUri != null) {
-                    Bitmap bitmap = CameraUtil.getBitmapFromUri(DetailActivity.this, resultUri);
+                    //上传压缩后的图片
+                    //Bitmap bitmap = CameraUtil.getBitmapFromUri(DetailActivity.this, resultUri);
+                    //File file = CameraUtil.saveBitmapFile(bitmap);
+                    //上传原图(超过500kb 无法上传)
+                    //File file = CameraUtil.getFileByUri(DetailActivity.this,resultUri);
+                   //上传指定大小的图片
+                    Bitmap bitmap = CameraUtil.getBitmapFromUri(DetailActivity.this, resultUri,DEFAULT_IMG_WH,DEFAULT_IMG_WH);
                     File file = CameraUtil.saveBitmapFile(bitmap);
+                    LoadingDialog.getInstance(DetailActivity.this).setTitle("发送中...").show();
                     userService.uploadUserHeadImg(uid, file, new DefaultResponseListener<String>() {
                         @Override
                         public void onSuccess(String response) {
@@ -146,7 +156,7 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
 
                         @Override
                         public void onError(VolleyError error) {
-
+                            LoadingDialog.getInstance(DetailActivity.this).dismiss();
                         }
                     });
                 } else {
@@ -207,10 +217,18 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
         });
     }
 
+    @Override
+    protected void onBtnRight1Click(){
+        Intent intent = new Intent(DetailActivity.this, JoinMembersActivity.class);
+        intent.putExtra("id", activityId + "");
+        startActivity(intent);
+    }
+
     public void commitComment(String content, String img) {
         activityService.comment(uid, activityId + "", activity.getUserId() + "", content, img, new DefaultResponseListener<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse response) {
+                LoadingDialog.getInstance(DetailActivity.this).dismiss();
                 if (response != null) {
                     if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                         edit_content.setText("");
@@ -219,13 +237,12 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
                         resultUri = null;
                     }
                     ToastUtil.show(DetailActivity.this, response.getMessage());
-
                 }
             }
 
             @Override
             public void onError(VolleyError error) {
-
+                LoadingDialog.getInstance(DetailActivity.this).dismiss();
             }
         });
     }
@@ -351,9 +368,6 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
         SimpleDraweeView img_comment;
     }
 
-
-    //选取照片功能
-    public static final int DEFAULT_IMG_WIDTH = 400;
 
     String imgNameByCamera;
 

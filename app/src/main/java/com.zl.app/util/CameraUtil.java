@@ -90,6 +90,24 @@ public class CameraUtil {
     }
 
 
+    public static Bitmap getBitmapFromUri(Activity activity, Uri uri,int width,int height) {
+        Bitmap bitmap = null;
+        try {
+            // 读取uri所在的图片
+            bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), uri);
+            return getSmallBitmap(bitmap,width,height);
+        } catch (Exception e) {
+            Log.e("[Android]", e.getMessage());
+            Log.e("[Android]", "目录为：" + uri);
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+        }
+    }
+
     public static Bitmap getBitmapFromUri(Activity activity, Uri uri) {
         Bitmap bitmap = null;
         int screenWidth = activity.getWindowManager().getDefaultDisplay().getWidth();
@@ -115,6 +133,8 @@ public class CameraUtil {
      */
     public static Bitmap getSmallBitmap(Bitmap bitmap,int width,int height) {
         Matrix matrix = new Matrix();
+       // Log.e("width,height1",bitmap.getWidth() +"  "+ bitmap.getHeight());
+       // Log.e("width,height2",width +"  "+ height);
         float scaleX  = Float.parseFloat(width+"") / Float.parseFloat(bitmap.getWidth()+"");
         float scaleY  = Float.parseFloat(height+"") / Float.parseFloat(bitmap.getHeight()+"");
         matrix.postScale(scaleX, scaleY); //长和宽放大缩小的比例

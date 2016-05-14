@@ -52,6 +52,7 @@ public class FragmentClass extends BaseFragment{
 
     @AfterViews
     void afterViews() {
+        viewPager.setOffscreenPageLimit(3);
         fragments = new ArrayList<FragmentCourse>();
         courseLast = new FragmentCourse_();
         courseThis = new FragmentCourse_();
@@ -105,6 +106,14 @@ public class FragmentClass extends BaseFragment{
         datemap.put("last_week_7", last_week_7);
 
         viewPager.setCurrentItem(1);
+    }
+
+    public void reloadData(){
+        if(fragments!=null){
+            for(FragmentCourse course :fragments){
+                course.loadCourse();
+            }
+        }
     }
 
 

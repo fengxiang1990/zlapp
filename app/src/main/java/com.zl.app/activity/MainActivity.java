@@ -22,6 +22,7 @@ import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.fragment.FragmentActivities_;
+import com.zl.app.fragment.FragmentC;
 import com.zl.app.fragment.FragmentClass;
 import com.zl.app.fragment.FragmentClass_;
 import com.zl.app.fragment.FragmentFind_;
@@ -139,15 +140,18 @@ public class MainActivity extends BaseActivityWithToolBar {
 
 
     @Override
-    protected void onBtnLeft1Click() {
+    protected void onBtnLeft2Click() {
         //如果当前登录用户是老师 不用检查 直接切换为普通用户
         if (AppConfig.getLoginType(preference) == 5) {
             SharedPreferences.Editor editor = preference.edit();
             editor.putInt(AppConfig.LOGIN_TYPE, 3);
             editor.commit();
             course_left_btn_resId = R.mipmap.change_t;
-            setBtnLeft1ImageResource(course_left_btn_resId);
-            ToastUtil.show(MainActivity.this, "切换成功");
+            setBtnLeft2ImageResource(course_left_btn_resId);
+            ToastUtil.show(MainActivity.this, "已切换为家长");
+            setTitle("课程(家长)");
+            ((FragmentClass)fragment_class).reloadData();
+            return;
         }
         if (AppConfig.getLoginType(preference) == 3) {
             new UserServiceImpl().isTeacher(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
@@ -159,9 +163,12 @@ public class MainActivity extends BaseActivityWithToolBar {
                             editor.putInt(AppConfig.LOGIN_TYPE, 5);
                             editor.commit();
                             course_left_btn_resId = R.mipmap.change_p;
-                            setBtnLeft1ImageResource(course_left_btn_resId);
+                            setBtnLeft2ImageResource(course_left_btn_resId);
+                            ToastUtil.show(MainActivity.this, "已切换为老师");
+                            setTitle("课程(老师)");
+                            ((FragmentClass)fragment_class).reloadData();
                         }
-                        ToastUtil.show(MainActivity.this, response.getMessage());
+                        //ToastUtil.show(MainActivity.this, response.getMessage());
                     }
                 }
 
@@ -170,6 +177,7 @@ public class MainActivity extends BaseActivityWithToolBar {
 
                 }
             });
+            return;
         }
     }
 
@@ -185,6 +193,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setTitle("咨路教育");
         setTextLeft1Enable(false);
         setBtnRight1Enable(false);
+        setBtnLeft2Enable(false);
         switchFragment(frgmentManager.beginTransaction(), fragment_find);
     }
 
@@ -197,10 +206,11 @@ public class MainActivity extends BaseActivityWithToolBar {
             setTitle("课程(老师)");
         }
 
-        setBtnLeft1Enable(true);
+        setBtnLeft1Enable(false);
         setTextLeft1Enable(false);
         setBtnRight1Enable(false);
-        setBtnLeft1ImageResource(course_left_btn_resId);
+        setBtnLeft2Enable(true);
+        setBtnLeft2ImageResource(course_left_btn_resId);
         switchFragment(frgmentManager.beginTransaction(), fragment_class);
     }
 
@@ -210,6 +220,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setTextLeft1Val("发起活动");
         setTextLeft1Enable(true);
         setBtnRight1Enable(true);
+        setBtnLeft2Enable(false);
         setBtnRight1ImageResource(R.mipmap.find_search_icon);
         setTitle("活动");
         switchFragment(frgmentManager.beginTransaction(), fragment_activities);
@@ -221,6 +232,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setBtnLeft1Enable(false);
         setTextLeft1Enable(false);
         setBtnRight1Enable(false);
+        setBtnLeft2Enable(false);
         if (AppConfig.isLogin(preference)) {
             switchFragment(frgmentManager.beginTransaction(), fragment_mine);
         } else {

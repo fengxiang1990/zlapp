@@ -40,6 +40,7 @@ import java.util.List;
 @EFragment(R.layout.fragment_course)
 public class FragmentCourse extends BaseFragment {
 
+    String tag  = "FragmentCourse";
     @ViewById(R.id.list_course)
     ListView listView;
 
@@ -69,6 +70,7 @@ public class FragmentCourse extends BaseFragment {
     public void loadCourse() {
         //如果是家长登录
         if (AppConfig.getLoginType(AppManager.getPreferences()) == 3) {
+            Log.e(tag,"load parent data");
             String startDate = "";
             String endDate = "";
             if (type == -1) {
@@ -89,6 +91,7 @@ public class FragmentCourse extends BaseFragment {
                     Log.e("response", response.toString());
                     if (response != null) {
                         if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                            data.clear();
                             data.addAll(response.getResult() == null ? new ArrayList<YyMobilePeriod>() : response.getResult());
                             adapter.notifyDataSetChanged();
                         } else {
@@ -107,6 +110,7 @@ public class FragmentCourse extends BaseFragment {
         }
         //机构用户登录（教师）
         else if (AppConfig.getLoginType(AppManager.getPreferences()) == 5) {
+            Log.e(tag,"load teacher data");
             String startDate = "";
             String endDate = "";
             if (type == -1) {
@@ -126,6 +130,7 @@ public class FragmentCourse extends BaseFragment {
                 public void onSuccess(BaseResponse<List<YyMobilePeriod>> response) {
                     if (response != null) {
                         if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                            data.clear();
                             data.addAll(response.getResult() == null ? new ArrayList<YyMobilePeriod>() : response.getResult());
                             adapter.notifyDataSetChanged();
                         } else {

@@ -196,14 +196,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="20dp">
 
-        <Button
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
             android:id="@+id/log_out"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -213,7 +212,6 @@
             android:textColor="@color/red"
             android:text="@string/log_out"/>
 
-    </RelativeLayout>
 
 
 
