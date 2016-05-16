@@ -47,6 +47,18 @@ public class MineServiceImpl implements  MineService{
     }
 
     @Override
+    public void getChildDetail(String uid, int studentId, DefaultResponseListener<BaseResponse<YyMobileStudent>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("student.studentId", String.valueOf(studentId));
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_BABY_DETAIL, params, null,
+                new TypeToken<BaseResponse<YyMobileStudent>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public void getBabies(String uid, DefaultResponseListener<BaseResponse<List<YyMobileStudent>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);

@@ -125,6 +125,9 @@ public class RequestURL {
     //新增宝贝信息
     public static String API_ADD_BABY = SERVER + "mobileStudent/insert.html";
 
+    //孩子信息详情
+    public static String API_BABY_DETAIL = SERVER + "mobileStudent/view.html";
+
     //获取我的孩子信息
     public static String API_BABY_LIST = SERVER + "mobileStudent/list.html";
 

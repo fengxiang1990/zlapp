@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:id="@+id/root"
     android:orientation="vertical">
@@ -22,13 +23,15 @@
             android:text="头像"
             android:gravity="center_vertical" />
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/img_header"
-            android:clickable="true"
-            android:layout_width="match_parent"
-            android:layout_weight="8"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
             android:src="@mipmap/header_img"
-            android:layout_height="match_parent" />
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="@color/white"
+            fresco:roundingBorderWidth="4dp"/>
 
         <ImageView
             android:layout_marginRight="10dp"
@@ -65,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="王五"
+            android:text=""
             android:gravity="end|center_vertical" />
 
 
@@ -136,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="14535454354343"
+            android:text=""
             android:gravity="end|center_vertical" />
 
 
@@ -173,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="2015-05-05"
+            android:text=""
             android:gravity="end|center_vertical" />
 
 
@@ -209,7 +212,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="爸爸"
+            android:text=""
             android:gravity="end|center_vertical" />
 
         <ImageView

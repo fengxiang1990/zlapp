@@ -103,8 +103,6 @@ public class AddChildActivity extends BaseActivityWithToolBar implements View.On
                         type = 6;
                         break;
                 }
-
-                ToastUtil.show(getApplicationContext(), type + "");
             }
         });
     }

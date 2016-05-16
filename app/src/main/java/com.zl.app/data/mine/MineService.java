@@ -33,6 +33,13 @@ public interface MineService {
     void getOrders(String uid, DefaultResponseListener<BaseResponse<List<YyMobileContract>>> listener);
 
 
+    /**
+     * 获取孩子详情
+     * @param uid
+     * @param studentId
+     * @param listener
+     */
+    void getChildDetail(String uid,int studentId,DefaultResponseListener<BaseResponse<YyMobileStudent>> listener);
 
     /**
      * 获取我的孩子列表
