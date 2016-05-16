@@ -14,6 +14,7 @@ import com.zl.app.model.activity.YyMobileActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.DateUtil;
+import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
@@ -45,6 +46,8 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
         userName = getIntent().getStringExtra("userName");
         setTitle(userName + "的活动");
         setBtnLeft1Enable(true);
+        setBtnRight1Enable(true);
+        setBtnRight1ImageResource(R.mipmap.ac_chart);
         listView = (XListView) findViewById(R.id.listview);
         listView.setPullLoadEnable(false);
         data = new ArrayList<YyMobileActivity>();
@@ -78,6 +81,10 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
         loadData();
     }
 
+    @Override
+    protected void onBtnRight1Click(){
+        ToastUtil.show(HisActivitiesActivity.this,"chart");
+    }
 
     public void loadData() {
         new ActivityService().getHisActivities(AppConfig.getUid(AppManager.getPreferences()), userId, new DefaultResponseListener<BaseResponse<List<YyMobileActivity>>>() {
