@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -11,6 +12,7 @@ import com.zl.app.R;
 import com.zl.app.activity.mine.userupdate.UpdateAddressActivity;
 import com.zl.app.activity.mine.userupdate.UpdateQianMingActivity;
 import com.zl.app.activity.mine.userupdate.UpdateUserNameActivity;
+import com.zl.app.activity.mine.userupdate.UserQRActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
@@ -26,6 +28,7 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
     TextView text_address;
     TextView text_qianming;
     YyMobileUser userInfo;
+    ImageView img_qr;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,11 +42,13 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
         text_area = (TextView) findViewById(R.id.text_area);
         text_address = (TextView) findViewById(R.id.text_address);
         text_qianming = (TextView) findViewById(R.id.text_qianming);
+        img_qr = (ImageView) findViewById(R.id.img_qr);
         img_header.setOnClickListener(this);
         text_address.setOnClickListener(this);
         text_area.setOnClickListener(this);
         text_name.setOnClickListener(this);
         text_qianming.setOnClickListener(this);
+        img_qr.setOnClickListener(this);
     }
 
     public void getUserInfo(){
@@ -74,6 +79,10 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
                 break;
             case R.id.text_address:
                 intent = new Intent(UserInfoActivity.this, UpdateAddressActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.img_qr:
+                intent = new Intent(UserInfoActivity.this, UserQRActivity.class);
                 startActivity(intent);
                 break;
         }
