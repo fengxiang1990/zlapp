@@ -96,6 +96,7 @@ public class AppConfig {
     //保存更新的用户信息
     public static void saveUpdateInfo(SharedPreferences preference,YyMobileUser user){
         Editor editor = preference.edit();
+        editor.putString(USER_INFO_JSON, GsonUtil.gson.toJson(user));
         editor.putString(USER_HEAD_IMG, user.getPicPath());
         editor.putString(USER_NAME, user.getNickName());
         editor.putString(USER_AGE, String.valueOf(user.getAge()));

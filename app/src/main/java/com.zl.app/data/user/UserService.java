@@ -112,10 +112,12 @@ public interface UserService {
      * @param plshow
      * @param dzshow
      * @param scshow
+     * @param address
      * @param listener
      */
     void updateUserInfo(String uid, String picPath, String nickName, String age, String qq, String introduce,
                         String mobileshow, String emailshow, String qqshow, String plshow, String dzshow, String scshow
+                        ,String address
             , DefaultResponseListener<BaseResponse> listener);
 
     /**

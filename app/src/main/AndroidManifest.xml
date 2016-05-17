@@ -96,7 +96,9 @@
         <activity android:name=".activity.mine.EditChildActivity" />
         <activity android:name=".activity.mine.OrderActivity" />
         <activity android:name=".activity.mine.UserInfoActivity" />
-        <activity android:name=".activity.mine.UpdateUserNameActivity" />
+        <activity android:name=".activity.mine.userupdate.UpdateUserNameActivity" />
+        <activity android:name=".activity.mine.userupdate.UpdateQianMingActivity" />
+        <activity android:name=".activity.mine.userupdate.UpdateAddressActivity" />
         <activity android:name=".activity.mine.FrendsActivity" />
         <activity android:name=".activity.mine.SystemSettingsActivity"/>
         <activity android:name=".activity.mine.UsingFeedbackActivity"/>

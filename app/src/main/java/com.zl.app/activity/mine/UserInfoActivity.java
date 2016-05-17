@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
+import com.zl.app.activity.mine.userupdate.UpdateAddressActivity;
+import com.zl.app.activity.mine.userupdate.UpdateQianMingActivity;
+import com.zl.app.activity.mine.userupdate.UpdateUserNameActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
@@ -36,12 +39,6 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
         text_area = (TextView) findViewById(R.id.text_area);
         text_address = (TextView) findViewById(R.id.text_address);
         text_qianming = (TextView) findViewById(R.id.text_qianming);
-        img_header.setImageURI(Uri.parse(userInfo.getPicPath()));
-        text_name.setText(userInfo.getNickName());
-        text_area.setText(userInfo.getDistrict());
-        text_address.setText(userInfo.getAddress());
-        text_qianming.setText(userInfo.getIntroduce());
-
         img_header.setOnClickListener(this);
         text_address.setOnClickListener(this);
         text_area.setOnClickListener(this);
@@ -49,6 +46,19 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
         text_qianming.setOnClickListener(this);
     }
 
+    public void getUserInfo(){
+        userInfo = AppConfig.getUserInfo(preference);
+        img_header.setImageURI(Uri.parse(userInfo.getPicPath()));
+        text_name.setText(userInfo.getNickName());
+        text_area.setText(userInfo.getDistrict());
+        text_address.setText(userInfo.getAddress());
+        text_qianming.setText(userInfo.getIntroduce());
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        getUserInfo();
+    }
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -56,6 +66,14 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
         switch (v.getId()) {
             case R.id.text_name:
                 intent = new Intent(UserInfoActivity.this, UpdateUserNameActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.text_qianming:
+                intent = new Intent(UserInfoActivity.this, UpdateQianMingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.text_address:
+                intent = new Intent(UserInfoActivity.this, UpdateAddressActivity.class);
                 startActivity(intent);
                 break;
         }

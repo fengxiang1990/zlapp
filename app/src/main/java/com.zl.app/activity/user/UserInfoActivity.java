@@ -344,7 +344,7 @@ public class UserInfoActivity extends BaseActivityWithToolBar {
     public void saveUserInfo(final String picPath, final String nickName, final String age, final String qq, final String introduce
             , final int isMobileShow, final int isEmailShow, final int isQQShow, final int isPlShow, final int isDzShow, final int isScShow) {
         userService.updateUserInfo(AppConfig.getUid(preference), picPath,
-                nickName, age, qq, introduce, String.valueOf(isMobileShow), String.valueOf(isEmailShow), String.valueOf(isQQShow), String.valueOf(isPlShow), String.valueOf(isDzShow), String.valueOf(isScShow), new DefaultResponseListener<BaseResponse>() {
+                nickName, age, qq, introduce, String.valueOf(isMobileShow), String.valueOf(isEmailShow), String.valueOf(isQQShow), String.valueOf(isPlShow), String.valueOf(isDzShow), String.valueOf(isScShow),null, new DefaultResponseListener<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse response) {
                         YyMobileUser user = new YyMobileUser();

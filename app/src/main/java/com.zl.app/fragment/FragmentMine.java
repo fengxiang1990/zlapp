@@ -2,7 +2,6 @@ package com.zl.app.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +15,7 @@ import com.zl.app.activity.mine.MyYuyueActivity;
 import com.zl.app.activity.mine.OrderActivity;
 import com.zl.app.activity.mine.SystemSettingsActivity;
 import com.zl.app.activity.mine.UserInfoActivity;
+import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 
@@ -57,15 +57,10 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
     @ViewById(R.id.text_setting)
     ImageView text_setting;
 
+    YyMobileUser userInfo;
     @AfterViews
     void afterViews() {
         uid = AppConfig.getUid(AppManager.getPreferences());
-        String picPath = AppConfig.getUserHeadImg(AppManager.getPreferences());
-        Log.e(tag, picPath);
-        Uri uri = Uri.parse(picPath);
-        simpleDraweeView.setImageURI(uri);
-        String username = AppManager.getPreferences().getString(AppConfig.USER_NAME, "");
-        text_name.setText(username);
         text_yuyue.setOnClickListener(this);
         text_baby.setOnClickListener(this);
         text_order.setOnClickListener(this);
@@ -74,6 +69,18 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
         text_setting.setOnClickListener(this);
     }
 
+    public void getUserInfo(){
+        userInfo = AppConfig.getUserInfo(AppManager.getPreferences());
+        simpleDraweeView.setImageURI(Uri.parse(userInfo.getPicPath()));
+        text_name.setText(userInfo.getNickName());
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        getUserInfo();
+    }
     @Override
     public void onClick(View v) {
         Intent intent;
