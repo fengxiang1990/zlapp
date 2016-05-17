@@ -4,9 +4,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.model.YyMobileUser;
@@ -32,5 +29,7 @@ public class UserQRActivity extends BaseActivityWithToolBar{
         int width = getWindowManager().getDefaultDisplay().getWidth();
         Bitmap bitmap = QRUtil.createQRImage(String.valueOf(user.getUserId()),width/4*3,width/4*3);
         imageView.setImageBitmap(bitmap);
+
     }
+
 }

@@ -1,7 +1,9 @@
 package com.zl.app.activity.mine;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +11,12 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineService;
@@ -37,7 +42,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
     List<YyMobileUserFans> data;
     int pageNo = 1;
     int pageSize = 1000;
-
+    IntentIntegrator intentIntegrator;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +77,31 @@ public class FrendsActivity extends BaseActivityWithToolBar {
 
             }
         });
+
+        intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
+        intentIntegrator.setOrientationLocked(false);
+        intentIntegrator.initiateScan();
+       // Intent intent = intentIntegrator.createScanIntent();
+       // startActivity(intent);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Log.d("MainActivity", "Cancelled scan");
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Log.d("MainActivity", "Scanned");
+                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            // This is important, otherwise the result will not be passed to the fragment
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
     class MyAdapter extends BaseAdapter {
 

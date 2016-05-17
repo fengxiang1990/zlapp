@@ -104,6 +104,13 @@
         <activity android:name=".activity.mine.SystemSettingsActivity"/>
         <activity android:name=".activity.mine.UsingFeedbackActivity"/>
         <activity android:name=".activity.mine.ResetPasswordActivity"/>
+        <activity android:name=".activity.mine.CaptureActivityAnyOrientation"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
 
         <!-- activities -->
         <activity android:name=".activity.activities.PublishActivity" />
