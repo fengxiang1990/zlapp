@@ -50,6 +50,8 @@ public class FrendsActivity extends BaseActivityWithToolBar {
         listView = (ListView) findViewById(R.id.listView);
         setBtnLeft1Enable(true);
         setTitle("我的朋友");
+        setTextRight1Enable(true);
+        setTextRight1Val("扫一扫");
         mineService = new MineServiceImpl();
         data = new ArrayList<YyMobileUserFans>();
         adapter = new MyAdapter(data);
@@ -81,9 +83,14 @@ public class FrendsActivity extends BaseActivityWithToolBar {
         intentIntegrator = new IntentIntegrator(this);
         intentIntegrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
         intentIntegrator.setOrientationLocked(false);
+
+
+    }
+
+    @Override
+    protected void onTextRight1Click() {
+        super.onTextRight1Click();
         intentIntegrator.initiateScan();
-       // Intent intent = intentIntegrator.createScanIntent();
-       // startActivity(intent);
     }
 
     @Override
