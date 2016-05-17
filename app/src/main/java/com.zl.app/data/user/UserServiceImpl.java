@@ -24,6 +24,18 @@ public class UserServiceImpl implements UserService {
     String TAG = "UserServiceImpl";
 
     @Override
+    public void checkSmsCode(String account, String remark, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("account", account);
+        params.put("remark", remark);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_CHECK_SMS_CODE, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public void isTeacher(String uid, DefaultResponseListener<BaseResponse> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);

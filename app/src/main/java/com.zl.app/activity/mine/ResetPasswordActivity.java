@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ import com.zl.app.util.net.DefaultResponseListener;
  */
 
 public class ResetPasswordActivity extends BaseActivityWithToolBar implements View.OnClickListener{
+
+    String tag  = "ResetPasswordActivity";
 
     private LinearLayout firstStep;
     private LinearLayout secondStep;
@@ -135,8 +138,21 @@ public class ResetPasswordActivity extends BaseActivityWithToolBar implements Vi
                     ToastUtil.show(getApplicationContext(), "验证码不能为空！");
                     return;
                 }else {
-                    firstStep.setVisibility(View.GONE);
-                    secondStep.setVisibility(View.VISIBLE);
+                    userService.checkSmsCode(tel, code, new DefaultResponseListener<BaseResponse>() {
+                        @Override
+                        public void onSuccess(BaseResponse response) {
+                            if(response!=null && response.getStatus().equals(AppConfig.HTTP_OK)){
+                                firstStep.setVisibility(View.GONE);
+                                secondStep.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                        @Override
+                        public void onError(VolleyError error) {
+                            Log.e(tag,String.valueOf(error.getMessage()));
+                        }
+                    });
+
                 }
                 break;
             case R.id.btn_for_sure:
@@ -154,7 +170,7 @@ public class ResetPasswordActivity extends BaseActivityWithToolBar implements Vi
                     InputNewPasswordAgain.setText("");
                     return;
                 }
-                userService.modifyPassword(AppConfig.getUserInfo(preference).getMobile(), smsCode, newPassword, newPasswordAgain,
+                userService.modifyPassword(tel, smsCode, newPassword, newPasswordAgain,
                         new DefaultResponseListener<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse response) {

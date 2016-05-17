@@ -12,6 +12,13 @@ import java.util.concurrent.ExecutionException;
  */
 public interface UserService {
 
+    /**
+     * 校验验证码
+     * @param account
+     * @param remark
+     * @param listener
+     */
+    void checkSmsCode(String account,String remark,DefaultResponseListener<BaseResponse> listener);
 
     void isTeacher(String uid, DefaultResponseListener<BaseResponse> listener);
 

@@ -30,8 +30,11 @@ public class RequestURL {
     //忘记密码短信发送接口
     public static String API_GET_PASSWORD_CODE = SERVER + "mobileUser/sendCode.html";
 
+    //验证验证码
+    public static String API_CHECK_SMS_CODE = SERVER + "mobileUser/verifyCode.html";
+
     //修改密码接口
-    public static String API_MODIFY_PASSWORD = SERVER + "mobileUser/modifyPassword.html";
+    public static String API_MODIFY_PASSWORD = SERVER + "mobileUser/getpassword.html";
 
     //上传用户头像接口
     public static String API_USER_UPLOAD = SERVER + "mobileUpload/uploadFile.html";
