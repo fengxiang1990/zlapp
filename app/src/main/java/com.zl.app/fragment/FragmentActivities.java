@@ -1,24 +1,16 @@
 package com.zl.app.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
 import com.zl.app.activity.activities.DetailActivity;
 import com.zl.app.adapter.ActivityAdapter;
 import com.zl.app.data.ActivityService;
-import com.zl.app.model.activity.YyMobileActivity;
+import com.zl.app.data.model.activity.YyMobileActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.DateUtil;

@@ -3,9 +3,9 @@ package com.zl.app.data.home;
 import com.zl.app.data.home.model.OrgType;
 import com.zl.app.data.home.model.YyMobileAdvt;
 import com.zl.app.data.news.model.YyMobileNews;
-import com.zl.app.model.customer.YyMobileCompany;
-import com.zl.app.model.customer.YyMobileCompanyGrade;
-import com.zl.app.model.user.YyMobileCity;
+import com.zl.app.data.model.customer.YyMobileCompany;
+import com.zl.app.data.model.customer.YyMobileCompanyGrade;
+import com.zl.app.data.model.user.YyMobileCity;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 

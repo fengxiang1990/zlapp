@@ -1,4 +1,4 @@
-package com.zl.app.model;
+package com.zl.app.data.model;
 
 public class YyMobileBase {
 	private Integer typeId;//主键

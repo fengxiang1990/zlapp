@@ -1,4 +1,4 @@
-package com.zl.app.model.info;
+package com.zl.app.data.model.info;
 
 import java.util.Date;
 

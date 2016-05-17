@@ -13,8 +13,6 @@ import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
 import com.zl.app.data.home.model.OrgType;
-import com.zl.app.model.customer.YyMobileCompany;
-import com.zl.app.model.user.YyMobileCity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.net.BaseResponse;

@@ -3,11 +3,10 @@ package com.zl.app.data;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
-import com.baidu.mapapi.map.Text;
 import com.google.gson.reflect.TypeToken;
-import com.zl.app.model.activity.YyMobileActivity;
-import com.zl.app.model.activity.YyMobileActivityComment;
-import com.zl.app.model.activity.YyMobileActivityUser;
+import com.zl.app.data.model.activity.YyMobileActivity;
+import com.zl.app.data.model.activity.YyMobileActivityComment;
+import com.zl.app.data.model.activity.YyMobileActivityUser;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;

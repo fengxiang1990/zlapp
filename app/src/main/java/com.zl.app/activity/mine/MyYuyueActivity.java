@@ -1,6 +1,5 @@
 package com.zl.app.activity.mine;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,26 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
-import com.zl.app.activity.org.OrgWeiSiteActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineService;
 import com.zl.app.data.mine.MineServiceImpl;
-import com.zl.app.model.customer.YyMobileCompanyGrade;
-import com.zl.app.model.customer.YyMobileReservation;
+import com.zl.app.data.model.customer.YyMobileReservation;
 import com.zl.app.util.AppConfig;
-import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
-
-import org.androidannotations.annotations.App;
 
 import java.util.ArrayList;
 import java.util.List;

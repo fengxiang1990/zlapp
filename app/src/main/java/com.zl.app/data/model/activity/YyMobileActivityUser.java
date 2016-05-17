@@ -1,4 +1,4 @@
-package com.zl.app.model.activity;
+package com.zl.app.data.model.activity;
 
 public class YyMobileActivityUser {
 	private String picPath;//头像图片

@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
-import com.zl.app.model.customer.YyMobilePeriod;
-import com.zl.app.model.customer.YyMobilePeriodBbs;
-import com.zl.app.model.customer.YyMobilePeriodStudent;
+import com.zl.app.data.model.customer.YyMobilePeriod;
+import com.zl.app.data.model.customer.YyMobilePeriodBbs;
+import com.zl.app.data.model.customer.YyMobilePeriodStudent;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.RequestURL;

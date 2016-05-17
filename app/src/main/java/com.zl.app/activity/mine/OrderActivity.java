@@ -20,7 +20,7 @@ import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineService;
 import com.zl.app.data.mine.MineServiceImpl;
-import com.zl.app.model.customer.YyMobileContract;
+import com.zl.app.data.model.customer.YyMobileContract;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.ToastUtil;

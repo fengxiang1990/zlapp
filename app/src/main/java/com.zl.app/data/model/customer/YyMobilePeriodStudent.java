@@ -1,4 +1,4 @@
-package com.zl.app.model.customer;
+package com.zl.app.data.model.customer;
 
 
 

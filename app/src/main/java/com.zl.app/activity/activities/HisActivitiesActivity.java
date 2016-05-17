@@ -10,7 +10,7 @@ import com.zl.app.R;
 import com.zl.app.adapter.ActivityAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
-import com.zl.app.model.activity.YyMobileActivity;
+import com.zl.app.data.model.activity.YyMobileActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.DateUtil;

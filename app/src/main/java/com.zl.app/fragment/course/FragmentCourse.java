@@ -19,7 +19,7 @@ import com.zl.app.activity.course.CourseMessageActivity;
 import com.zl.app.activity.course.CoursePDTActivity;
 import com.zl.app.data.CourseService;
 import com.zl.app.fragment.FragmentClass;
-import com.zl.app.model.customer.YyMobilePeriod;
+import com.zl.app.data.model.customer.YyMobilePeriod;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.GsonUtil;

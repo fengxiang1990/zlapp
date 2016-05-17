@@ -2,11 +2,10 @@ package com.zl.app.data.mine;
 
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
-import com.zl.app.data.news.model.YyMobileBase;
-import com.zl.app.model.customer.YyMobileContract;
-import com.zl.app.model.customer.YyMobileReservation;
-import com.zl.app.model.user.YyMobileStudent;
-import com.zl.app.model.user.YyMobileUserFans;
+import com.zl.app.data.model.customer.YyMobileContract;
+import com.zl.app.data.model.customer.YyMobileReservation;
+import com.zl.app.data.model.user.YyMobileStudent;
+import com.zl.app.data.model.user.YyMobileUserFans;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;

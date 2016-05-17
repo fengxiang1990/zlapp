@@ -14,7 +14,7 @@ import com.zl.app.activity.org.OrgListActivity_;
 import com.zl.app.adapter.OrgAdapter;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
-import com.zl.app.model.customer.YyMobileCompany;
+import com.zl.app.data.model.customer.YyMobileCompany;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.ToastUtil;

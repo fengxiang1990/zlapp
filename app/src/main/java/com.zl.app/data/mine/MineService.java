@@ -1,9 +1,9 @@
 package com.zl.app.data.mine;
 
-import com.zl.app.model.customer.YyMobileContract;
-import com.zl.app.model.customer.YyMobileReservation;
-import com.zl.app.model.user.YyMobileStudent;
-import com.zl.app.model.user.YyMobileUserFans;
+import com.zl.app.data.model.customer.YyMobileContract;
+import com.zl.app.data.model.customer.YyMobileReservation;
+import com.zl.app.data.model.user.YyMobileStudent;
+import com.zl.app.data.model.user.YyMobileUserFans;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 

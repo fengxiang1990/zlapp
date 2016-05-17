@@ -1,4 +1,4 @@
-package com.zl.app.model.user;
+package com.zl.app.data.model.user;
 
 
 public class YyMobileCity {

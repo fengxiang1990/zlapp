@@ -12,8 +12,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
 import com.zl.app.activity.org.OrgWeiSiteActivity;
-import com.zl.app.model.customer.YyMobileCompany;
-import com.zl.app.util.RequestURL;
+import com.zl.app.data.model.customer.YyMobileCompany;
 import com.zl.app.util.StringUtil;
 
 import java.util.List;

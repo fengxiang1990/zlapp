@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
-import com.zl.app.model.activity.YyMobileActivity;
+import com.zl.app.data.model.activity.YyMobileActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 

@@ -10,7 +10,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineServiceImpl;
-import com.zl.app.model.user.YyMobileStudent;
+import com.zl.app.data.model.user.YyMobileStudent;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.net.BaseResponse;

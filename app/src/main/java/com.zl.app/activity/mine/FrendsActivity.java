@@ -1,10 +1,5 @@
 package com.zl.app.activity.mine;
 
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,10 +16,8 @@ import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineService;
 import com.zl.app.data.mine.MineServiceImpl;
-import com.zl.app.model.customer.YyMobileContract;
-import com.zl.app.model.user.YyMobileUserFans;
+import com.zl.app.data.model.user.YyMobileUserFans;
 import com.zl.app.util.AppConfig;
-import com.zl.app.util.RequestURL;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;

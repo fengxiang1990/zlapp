@@ -16,7 +16,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -24,17 +23,15 @@ import com.google.gson.reflect.TypeToken;
 import com.zl.app.BaseActivity;
 import com.zl.app.R;
 import com.zl.app.adapter.OrgAdapter;
-import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
 import com.zl.app.data.home.model.OrgType;
-import com.zl.app.model.customer.YyMobileCompany;
-import com.zl.app.model.user.YyMobileCity;
+import com.zl.app.data.model.customer.YyMobileCompany;
+import com.zl.app.data.model.user.YyMobileCity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
-import com.zl.app.util.ViewUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 

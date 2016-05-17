@@ -12,10 +12,9 @@ import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
-import com.zl.app.model.user.YyMobileCity;
+import com.zl.app.data.model.user.YyMobileCity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.GsonUtil;
-import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
