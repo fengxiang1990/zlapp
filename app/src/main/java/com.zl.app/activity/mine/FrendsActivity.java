@@ -50,8 +50,10 @@ public class FrendsActivity extends BaseActivityWithToolBar {
         listView = (ListView) findViewById(R.id.listView);
         setBtnLeft1Enable(true);
         setTitle("我的朋友");
-        setTextRight1Enable(true);
-        setTextRight1Val("扫一扫");
+       // setTextRight1Enable(true);
+       // setTextRight1Val("扫一扫");
+        setBtnRight1ImageResource(R.mipmap.qr_code_scan);
+        setBtnRight1Enable(true);
         mineService = new MineServiceImpl();
         data = new ArrayList<YyMobileUserFans>();
         adapter = new MyAdapter(data);
@@ -88,8 +90,8 @@ public class FrendsActivity extends BaseActivityWithToolBar {
     }
 
     @Override
-    protected void onTextRight1Click() {
-        super.onTextRight1Click();
+    protected void onBtnRight1Click() {
+        super.onBtnRight1Click();
         intentIntegrator.initiateScan();
     }
 

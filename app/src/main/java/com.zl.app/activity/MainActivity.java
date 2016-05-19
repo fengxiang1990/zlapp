@@ -168,7 +168,7 @@ public class MainActivity extends BaseActivityWithToolBar {
                             setTitle("课程(老师)");
                             ((FragmentClass)fragment_class).reloadData();
                         }
-                        //ToastUtil.show(MainActivity.this, response.getMessage());
+                        ToastUtil.show(MainActivity.this, response.getMessage());
                     }
                 }
 
