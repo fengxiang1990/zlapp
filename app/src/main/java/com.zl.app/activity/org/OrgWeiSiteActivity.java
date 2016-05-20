@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         setContentView(R.layout.activity_org_site);
         context = this;
         setBtnLeft1Enable(true);
-        setBtnRight1Enable(true);
+       // setBtnRight1Enable(true);
         setBtnRight1ImageResource(R.mipmap.write_icon);
         setTitle("机构");
         data = new ArrayList<YyMobileCompanyGrade>();
@@ -97,6 +98,9 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                     YyMobileCompany yyMobileCompany = response.getResult();
                     if (yyMobileCompany != null) {
                         OrgWeiSiteActivity.this.yyMobileCompany = yyMobileCompany;
+                        if(yyMobileCompany.getPlactive() == 2){
+                            setBtnRight1Enable(true);
+                        }
                         if (StringUtil.isEmpty(yyMobileCompany.getPicPath())) {
                             img_org.setVisibility(View.GONE);
                         } else {
@@ -222,13 +226,8 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
             }
             YyMobileCompanyGrade grade = data.get(position);
             if (grade != null) {
-                if (StringUtil.isEmpty(grade.getPicPath())) {
-                    holder.draweeView.setVisibility(View.GONE);
-                } else {
-                    holder.draweeView.setVisibility(View.VISIBLE);
-                    Uri uri = Uri.parse(RequestURL.SERVER + grade.getPicPath());
-                    holder.draweeView.setImageURI(uri);
-                }
+                Uri uri = Uri.parse(grade.getPicPath());
+                holder.draweeView.setImageURI(uri);
                 holder.text_content.setText(grade.getContent());
                 holder.text_score.setText(grade.getGrade() + "");
                 holder.text_time.setText(grade.getCreateDate());

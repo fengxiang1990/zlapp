@@ -37,16 +37,23 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
     String uid;
     int userId;
     String userName;
+    int mUserId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activities);
+        mUserId = AppConfig.getUserId(preference);
         userId = getIntent().getIntExtra("userId", 0);
         userName = getIntent().getStringExtra("userName");
         setTitle(userName + "的活动");
         setBtnLeft1Enable(true);
-        setBtnRight1Enable(true);
+        if (userId == mUserId) {
+            setBtnRight1Enable(false);
+        } else {
+            setBtnRight1Enable(true);
+        }
+
         setBtnRight1ImageResource(R.mipmap.ac_chart);
         listView = (XListView) findViewById(R.id.listview);
         listView.setPullLoadEnable(false);
@@ -82,8 +89,8 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
     }
 
     @Override
-    protected void onBtnRight1Click(){
-        ToastUtil.show(HisActivitiesActivity.this,"chart");
+    protected void onBtnRight1Click() {
+        ToastUtil.show(HisActivitiesActivity.this, "chart");
     }
 
     public void loadData() {
