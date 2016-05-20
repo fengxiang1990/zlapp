@@ -2,6 +2,7 @@ package com.zl.app.activity.org;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import com.zl.app.data.home.HomeServiceImpl;
 import com.zl.app.data.model.user.YyMobileCity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.GsonUtil;
+import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
@@ -54,6 +56,24 @@ public class CitySelectActivity extends BaseActivityWithToolBar {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 YyMobileCity yyMobileCity = data.get(position);
+                if(yyMobileCity.getName().equals("全部")){
+                    Intent intent = new Intent();
+                    intent.setAction(addressSelectionBroadcast);
+                    List<YyMobileCity> cities = new ArrayList<YyMobileCity>();
+                    if(level1!=null){
+                        cities.add(level1);
+                    }
+                    if(level2!=null){
+                        cities.add(level2);
+                    }
+                    if(level3!=null){
+                        cities.add(level3);
+                    }
+                    intent.putExtra("city_address", GsonUtil.gson.toJson(cities));
+                    sendBroadcast(intent);
+                    finish();
+                    return;
+                }
                 if (level1 == null) {
                     level1 = yyMobileCity;
                     loadData(level1.getCityId());
@@ -85,12 +105,18 @@ public class CitySelectActivity extends BaseActivityWithToolBar {
         });
     }
 
-    public void loadData(int cityId) {
+    public void loadData(final int cityId) {
         homeService.getCityAddress(uid, cityId, new DefaultResponseListener<BaseResponse<List<YyMobileCity>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileCity>> response) {
                 if (response != null && response.getResult() != null) {
                     data.clear();
+                    if(cityId!=0) {
+                        YyMobileCity total = new YyMobileCity();
+                        total.setName("全部");
+                        total.setCityId(cityId);
+                        data.add(total);
+                    }
                     data.addAll(response.getResult());
                     adapter.notifyDataSetChanged();
                 }

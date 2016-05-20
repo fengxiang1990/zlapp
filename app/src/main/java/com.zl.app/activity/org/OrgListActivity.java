@@ -93,6 +93,7 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
     Receiver receiver;
 
     Receiver2 receiver2;
+
     @AfterViews
     void afterviews() {
         rightBtn1.setImageResource(R.mipmap.find_select_icon);
@@ -340,6 +341,31 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
                     city_cityId = level2.getCityId();
                     district_cityId = level3.getCityId();
                     street_cityId = level4.getCityId();
+                }
+                if (cities != null && cities.size() == 1) {
+                    YyMobileCity level1 = cities.get(0);
+                    String address = level1.getName();
+                    text_area.setText(address);
+                    province_cityId = level1.getCityId();
+                }
+                if (cities != null && cities.size() == 2) {
+                    YyMobileCity level1 = cities.get(0);
+                    YyMobileCity level2 = cities.get(1);
+
+                    String address = level1.getName() + level2.getName();
+                    text_area.setText(address);
+                    province_cityId = level1.getCityId();
+                    city_cityId = level2.getCityId();
+                }
+                if (cities != null && cities.size() == 3) {
+                    YyMobileCity level1 = cities.get(0);
+                    YyMobileCity level2 = cities.get(1);
+                    YyMobileCity level3 = cities.get(2);
+                    String address = level1.getName() + level2.getName() + level3.getName();
+                    text_area.setText(address);
+                    province_cityId = level1.getCityId();
+                    city_cityId = level2.getCityId();
+                    district_cityId = level3.getCityId();
                 }
             }
         }
