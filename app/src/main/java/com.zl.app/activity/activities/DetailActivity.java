@@ -47,7 +47,7 @@ import java.util.List;
  */
 public class DetailActivity extends BaseActivityWithToolBar implements PopSelectPicture.OnPicturePopClickListener {
 
-    static final int DEFAULT_IMG_WH = 900;
+    static final int DEFAULT_IMG_WH = 800;
     SimpleDraweeView simpleDraweeView;
     TextView text_name;
     TextView text_join;

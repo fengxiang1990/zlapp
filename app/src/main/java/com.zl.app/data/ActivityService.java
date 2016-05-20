@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class ActivityService {
 
-
+    String API_AC_EDIT =RequestURL.SERVER +"mobileActivity/update.html";
     String API_ACTIVITY_DETAIL = RequestURL.SERVER + "mobileActivity/view.html";
     String API_LISI = RequestURL.SERVER +"mobileActivity/home.html";
     String API_DELETE = RequestURL.SERVER +"mobileActivity/del.html";
@@ -173,6 +173,31 @@ public class ActivityService {
         params.put("address", address);
         params.put("ispublic", ispublic+"");
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_SEND_ACTIVITY, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    /**
+     * 修改活动
+     * @param uid
+     * @param activityId
+     * @param hdDateString
+     * @param headline
+     * @param address
+     * @param ispublic
+     * @param listener
+     */
+    public void editActivity(String uid,int activityId,String hdDateString, String headline, String address, int ispublic,DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("activityId", activityId+"");
+        params.put("hdDateString", hdDateString);
+        params.put("headline", headline);
+        params.put("address", address);
+        params.put("ispublic", ispublic+"");
+        GsonRequest request = new GsonRequest(Request.Method.POST, API_AC_EDIT, params, null,
                 new TypeToken<BaseResponse>() {
                 },
                 listener, listener);

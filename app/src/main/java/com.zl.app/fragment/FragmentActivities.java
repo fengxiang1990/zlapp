@@ -8,12 +8,14 @@ import com.android.volley.VolleyError;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
 import com.zl.app.activity.activities.DetailActivity;
+import com.zl.app.activity.activities.PublishActivity;
 import com.zl.app.adapter.ActivityAdapter;
 import com.zl.app.data.ActivityService;
 import com.zl.app.data.model.activity.YyMobileActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.DateUtil;
+import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
@@ -76,9 +78,14 @@ public class FragmentActivities extends BaseFragment implements ActivityAdapter.
 
             }
         });
-        loadData();
+
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        loadData();
+    }
 
     public void loadData(){
         new ActivityService().getActivities(AppConfig.getUid(AppManager.getPreferences()), new DefaultResponseListener<BaseResponse<List<YyMobileActivity>>>() {
@@ -102,7 +109,9 @@ public class FragmentActivities extends BaseFragment implements ActivityAdapter.
 
     @Override
     public void onEdit(YyMobileActivity activity) {
-          ToastUtil.show(getActivity(),"修改");
+          Intent intent = new Intent(getActivity(), PublishActivity.class);
+          intent.putExtra("activity", GsonUtil.gson.toJson(activity));
+          startActivity(intent);
     }
 
     @Override
