@@ -2,6 +2,7 @@ package com.zl.app.data.model.user;
 
 
 public class YyMobileLetter {
+	private Integer contentId;//主键
 	private Integer createBy;//发送人id
 	private String createName;//发送人名称
 	private String createDate;//发送日期
@@ -46,5 +47,12 @@ public class YyMobileLetter {
 	public void setPicPath(String picPath) {
 		this.picPath = picPath;
 	}
-	
+
+	public Integer getContentId() {
+		return contentId;
+	}
+
+	public void setContentId(Integer contentId) {
+		this.contentId = contentId;
+	}
 }
