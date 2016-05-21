@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -104,6 +105,18 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragments.add(fragment_mine);
         tab_find.setChecked(true);
         initCourseLeftIcon();
+        new UserServiceImpl().updateJpushId(AppConfig.getUid(preference), AppConfig.JPUSH_ID, new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                if(response!=null){
+                    Log.e(TAG,response.getStatus());
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+            }
+        });
     }
 
     void initCourseLeftIcon() {

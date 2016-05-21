@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -25,5 +27,16 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         AppManager.activities.remove(this);
+
+    }
+
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
     }
 }

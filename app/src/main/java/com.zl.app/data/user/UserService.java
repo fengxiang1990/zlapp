@@ -13,6 +13,13 @@ import java.util.concurrent.ExecutionException;
 public interface UserService {
 
     /**
+     * 更新极光推送的唯一标识
+     * @param uid
+     * @param jid
+     * @param listener
+     */
+    void updateJpushId(String uid,String jid,DefaultResponseListener<BaseResponse> listener);
+    /**
      * 校验验证码
      * @param account
      * @param remark

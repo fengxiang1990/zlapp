@@ -30,6 +30,9 @@ public class RequestURL {
     //忘记密码短信发送接口
     public static String API_GET_PASSWORD_CODE = SERVER + "mobileUser/sendCode.html";
 
+    //更新极光推送的唯一标识
+    public static String API_UPDATE_JPUSHID = SERVER + "mobileUser/updateJpushId.html";
+
     //验证验证码
     public static String API_CHECK_SMS_CODE = SERVER + "mobileUser/verifyCode.html";
 

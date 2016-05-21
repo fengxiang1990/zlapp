@@ -11,11 +11,14 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.BitmapLruCache;
 import com.zl.app.util.net.MultiPartStack;
 
 import org.androidannotations.annotations.EApplication;
+
+import cn.jpush.android.api.JPushInterface;
 
 
 @EApplication
@@ -39,6 +42,10 @@ public class MyApplication extends Application {
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
+        JPushInterface.init(this);
+        String registrationId = JPushInterface.getRegistrationID(this);
+        Log.e(TAG,"registrationId-->"+registrationId);
+        AppConfig.JPUSH_ID = registrationId;
     }
 
 

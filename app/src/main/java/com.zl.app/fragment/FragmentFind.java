@@ -118,9 +118,6 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
                     }
                     data.addAll(list);
                     adapter.notifyDataSetChanged();
-                    for (YyMobileCompany yyMobileCompany : list) {
-                        Log.e(tag, yyMobileCompany.toString());
-                    }
                 } else {
                     ToastUtil.show(getActivity(), response.getMessage());
                 }

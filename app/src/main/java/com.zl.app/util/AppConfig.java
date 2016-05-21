@@ -38,6 +38,7 @@ public class AppConfig {
     public static String IS_SC_SHOW ="is_sc_show";//收藏
     public static String DATE = "date";
 
+    public static String JPUSH_ID;
     public static String IS_SHOW_IMG = "isNoImg";
 
     public static String LOGIN_TYPE = "login_type";
@@ -68,6 +69,7 @@ public class AppConfig {
         }
         return null;
     }
+
 
     //设置为登陆成功
     public static void setLoginSuccess(SharedPreferences preference, YyMobileUser user) {
