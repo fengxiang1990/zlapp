@@ -2,6 +2,7 @@ package com.zl.app.activity.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -44,6 +45,7 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activities);
+        uid = AppConfig.getUid(AppManager.getPreferences());
         mUserId = AppConfig.getUserId(preference);
         userId = getIntent().getIntExtra("userId", 0);
         userName = getIntent().getStringExtra("userName");
@@ -56,14 +58,15 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
             @Override
             public void onSuccess(BaseResponse<String> response) {
                    if(response!=null && response.getStatus().equals(AppConfig.HTTP_OK)){
-                       setBtnRight1Enable(true);
-                       String result  = response.getResult();
+                       String result  = response.getMessage();
                        if(result.equals("2")){
                            isFrend = true;
+                           setBtnRight1Enable(true);
                            setBtnRight1ImageResource(R.mipmap.ac_chart);
                        }
-                       if(result.equals("1")){
+                       if(result.equals("1") && userId != mUserId){
                            isFrend = false;
+                           setBtnRight1Enable(true);
                            setBtnRight1ImageResource(R.mipmap.addchild_icon);
                        }
                    }
@@ -80,7 +83,6 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
         data = new ArrayList<YyMobileActivity>();
         adapter = new ActivityAdapter(this, data, this);
         listView.setAdapter(adapter);
-        uid = AppConfig.getUid(AppManager.getPreferences());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
