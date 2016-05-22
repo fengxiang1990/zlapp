@@ -2,6 +2,7 @@ package com.zl.app.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -115,8 +116,8 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
      *
      * @param title
      */
-    protected void setTitle(@NonNull String title) {
-        if (titleView != null && !StringUtil.isEmpty(title)) {
+    protected void setTitle(@Nullable String title) {
+        if (titleView != null) {
             titleView.setText(title);
         }
     }

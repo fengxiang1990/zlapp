@@ -12,6 +12,9 @@ public class RequestURL {
 
     public static String SERVER = STANDARD_DOMAIN;
 
+    //判断是不是朋友
+    public static String API_CHECK_ISFREND =SERVER +  "mobileUser/checkFriend.html";
+
     //注册接口
     public static String API_REGIST = SERVER + "mobileUser/register.html";
 

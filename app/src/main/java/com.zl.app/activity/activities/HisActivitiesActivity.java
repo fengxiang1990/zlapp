@@ -11,6 +11,7 @@ import com.zl.app.adapter.ActivityAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
 import com.zl.app.data.model.activity.YyMobileActivity;
+import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.DateUtil;
@@ -38,7 +39,7 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
     int userId;
     String userName;
     int mUserId;
-
+    boolean isFrend = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +51,30 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
         setBtnLeft1Enable(true);
         if (userId == mUserId) {
             setBtnRight1Enable(false);
-        } else {
-            setBtnRight1Enable(true);
         }
+        new UserServiceImpl().checkFrend(uid, userId, new DefaultResponseListener<BaseResponse<String>>() {
+            @Override
+            public void onSuccess(BaseResponse<String> response) {
+                   if(response!=null && response.getStatus().equals(AppConfig.HTTP_OK)){
+                       setBtnRight1Enable(true);
+                       String result  = response.getResult();
+                       if(result.equals("2")){
+                           isFrend = true;
+                           setBtnRight1ImageResource(R.mipmap.ac_chart);
+                       }
+                       if(result.equals("1")){
+                           isFrend = false;
+                           setBtnRight1ImageResource(R.mipmap.addchild_icon);
+                       }
+                   }
+            }
 
-        setBtnRight1ImageResource(R.mipmap.ac_chart);
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+       // setBtnRight1ImageResource(R.mipmap.ac_chart);
         listView = (XListView) findViewById(R.id.listview);
         listView.setPullLoadEnable(false);
         data = new ArrayList<YyMobileActivity>();

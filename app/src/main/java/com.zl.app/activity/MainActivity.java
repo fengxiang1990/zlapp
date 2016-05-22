@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivityWithToolBar {
                                 setTitle("课程(老师)");
                                 ((FragmentClass) fragment_class).reloadData();
                             }
-                            ToastUtil.show(MainActivity.this, response.getMessage());
+                          //  ToastUtil.show(MainActivity.this, response.getMessage());
                         }
                     }
 
@@ -239,7 +239,7 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.tab_mine)
     void radio4Click() {
-        setTitle("我的");
+        setTitle(" ");
         setBtnLeft1Enable(false);
         setBtnRight1Enable(false);
         setBtnLeft2Enable(false);

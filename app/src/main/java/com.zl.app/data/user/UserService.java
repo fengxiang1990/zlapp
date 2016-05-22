@@ -12,6 +12,14 @@ import java.util.concurrent.ExecutionException;
  */
 public interface UserService {
 
+
+    /**
+     * 判断是不是朋友
+     * @param uid
+     * @param userId
+     * @param listener
+     */
+    void checkFrend(String uid,int userId,DefaultResponseListener<BaseResponse<String>> listener);
     /**
      * 更新极光推送的唯一标识
      * @param uid
