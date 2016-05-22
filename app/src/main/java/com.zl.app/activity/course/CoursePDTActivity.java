@@ -57,6 +57,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
     LinearLayout ll2;
     int role = 3;
     CourseService courseService;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,9 +120,9 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                 YyMobilePeriodStudent student = data.get(position);
                 relationId = student == null ? 0 : student.getRelationId();
                 text_student.setText(student == null ? "" : student.getStudentName());
-                if(student.getParentId() > 0){
+                if (student.getParentId() > 0) {
                     ll2.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     ll2.setVisibility(View.GONE);
                 }
             }
@@ -129,11 +130,10 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         yyMobilePeriod = GsonUtil.getJsonObject(getIntent().getStringExtra("course"), YyMobilePeriod.class);
         if (yyMobilePeriod != null) {
             periodId = yyMobilePeriod.getPeriodId();
-            setTitle(yyMobilePeriod.getClassname());
+            setTitle(yyMobilePeriod.getPeriodname());
             if (role == 5) {
                 ll2.setVisibility(View.GONE);
-                //loadDataTeacher();
-                loadData();
+                loadDataTeacher();
             } else if (role == 3) {
                 loadData();
             }
@@ -292,6 +292,30 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                         break;
                 }
                 holder.text_status.setText(statusStr);
+                if(role == 3){
+                    // 家长在学生动态里判断totype 如果有值 不能操作 ，显示{状态}申请中。
+                    if(period.getTotype()!=null){
+                        switch (period.getType()) {
+                            case CourseService.CourseStatusP.QINGJIA:
+                                statusStr = "请假申请中";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                                break;
+                            case CourseService.CourseStatusP.ZHENGCHANG:
+                                statusStr = "待出席";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                                break;
+                            case CourseService.CourseStatusP.BUJIA:
+                                statusStr = "补假申请中";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                                break;
+                            case CourseService.CourseStatusP.YISHANGKE:
+                                statusStr = "已上课";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                                break;
+                        }
+                        holder.text_status.setText(statusStr);
+                    }
+                }
                 if (role == 5) {
                     //判断是否需要审核
                     if (period.getTotype() == 0) {
