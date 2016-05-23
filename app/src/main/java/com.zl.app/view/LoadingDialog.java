@@ -3,6 +3,7 @@ package com.zl.app.view;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
@@ -66,7 +67,7 @@ public class LoadingDialog {
         dialog = builder.create();
         dialog.show();
         window = dialog.getWindow();
-
+        window.setBackgroundDrawable(new ColorDrawable());
         window.setContentView(R.layout.loading_dialog_layout);
         outter = (LinearLayout) window.findViewById(R.id.outter);
         progressBar = (ProgressBar) window.findViewById(R.id.progressBar);

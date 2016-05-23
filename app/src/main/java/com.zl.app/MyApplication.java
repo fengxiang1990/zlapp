@@ -42,10 +42,10 @@ public class MyApplication extends Application {
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
-        JPushInterface.init(this);
-        String registrationId = JPushInterface.getRegistrationID(this);
-        Log.e(TAG,"registrationId-->"+registrationId);
-        AppConfig.JPUSH_ID = registrationId;
+        //JPushInterface.init(this);
+       // String registrationId = JPushInterface.getRegistrationID(this);
+       // Log.e(TAG,"registrationId-->"+registrationId);
+       //AppConfig.JPUSH_ID = registrationId;
     }
 
 
