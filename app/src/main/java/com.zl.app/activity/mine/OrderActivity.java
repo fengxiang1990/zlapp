@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -151,7 +152,7 @@ public class OrderActivity extends BaseActivityWithToolBar {
             if (order != null) {
                 holder.text_class_name.setText(order.getHeadline());
                 holder.text_time.setText(order.getCreateDate());
-                holder.text_sum.setText("0");
+                holder.text_sum.setText(TextUtils.isEmpty(order.getCharge())?"0":order.getCharge());
             }
             return convertView;
         }

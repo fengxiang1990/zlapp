@@ -7,15 +7,15 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:padding="10dp"
+        android:padding="9dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/img_header"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_gravity="center"
             fresco:roundAsCircle="true"
             fresco:roundingBorderColor="@color/white"
@@ -41,6 +41,7 @@
                 android:id="@+id/text_activity"
                 android:layout_weight="1"
                 android:clickable="true"
+                android:textColor="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

@@ -15,6 +15,9 @@ public class RequestURL {
     //判断是不是朋友
     public static String API_CHECK_ISFREND =SERVER +  "mobileUser/checkFriend.html";
 
+    //添加好友
+    public static String API_ADD_FREND =SERVER +  "mobileUser/fans.html";
+
     //注册接口
     public static String API_REGIST = SERVER + "mobileUser/register.html";
 

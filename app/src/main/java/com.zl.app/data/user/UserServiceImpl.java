@@ -27,6 +27,19 @@ public class UserServiceImpl implements UserService {
     String TAG = "UserServiceImpl";
 
     @Override
+    public void addFrend(String uid, String ids, int gztype, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("ids", ids);
+        params.put("gztype", gztype+"");
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ADD_FREND, params, null,
+                new TypeToken<BaseResponse<String>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public void checkFrend(String uid, int userId, DefaultResponseListener<BaseResponse<String>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);

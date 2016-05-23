@@ -12,6 +12,14 @@ import java.util.concurrent.ExecutionException;
  */
 public interface UserService {
 
+    /**
+     * 添加好友
+     * @param uid
+     * @param ids
+     * @param gztype 1 单向  2 双向（扫码）
+     * @param listener
+     */
+    void addFrend(String uid,String ids,int gztype,DefaultResponseListener<BaseResponse> listener);
 
     /**
      * 判断是不是朋友

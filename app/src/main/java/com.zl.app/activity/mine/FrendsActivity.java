@@ -18,10 +18,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.zl.app.R;
+import com.zl.app.activity.activities.HisActivitiesActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineService;
 import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.user.YyMobileUserFans;
+import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
@@ -43,6 +45,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
     int pageNo = 1;
     int pageSize = 1000;
     IntentIntegrator intentIntegrator;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +53,8 @@ public class FrendsActivity extends BaseActivityWithToolBar {
         listView = (ListView) findViewById(R.id.listView);
         setBtnLeft1Enable(true);
         setTitle("我的朋友");
-       // setTextRight1Enable(true);
-       // setTextRight1Val("扫一扫");
+        // setTextRight1Enable(true);
+        // setTextRight1Val("扫一扫");
         setBtnRight1ImageResource(R.mipmap.qr_code_scan);
         setBtnRight1Enable(true);
         mineService = new MineServiceImpl();
@@ -62,9 +65,22 @@ public class FrendsActivity extends BaseActivityWithToolBar {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                YyMobileUserFans fans = data.get(position);
+                Intent intent = new Intent(FrendsActivity.this, HisActivitiesActivity.class);
+                intent.putExtra("userId", fans.getPersonId());
+                intent.putExtra("userName", fans.getPersonName());
+                startActivity(intent);
             }
         });
+        loadData();
+        intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
+        intentIntegrator.setOrientationLocked(false);
+
+
+    }
+
+    void loadData(){
         mineService.getFrends(uid, pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileUserFans>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileUserFans>> response) {
@@ -82,13 +98,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
             }
         });
 
-        intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
-        intentIntegrator.setOrientationLocked(false);
-
-
     }
-
     @Override
     protected void onBtnRight1Click() {
         super.onBtnRight1Click();
@@ -98,13 +108,28 @@ public class FrendsActivity extends BaseActivityWithToolBar {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
+        if (result != null) {
+            if (result.getContents() == null) {
                 Log.d("MainActivity", "Cancelled scan");
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+                // Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 Log.d("MainActivity", "Scanned");
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                String userId = result.getContents();
+                new UserServiceImpl().addFrend(AppConfig.getUid(preference), userId, 2, new DefaultResponseListener<BaseResponse>() {
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {
+                            ToastUtil.show(FrendsActivity.this, "已添加好友");
+                            loadData();
+                        }
+                    }
+
+                    @Override
+                    public void onError(VolleyError error) {
+
+                    }
+                });
             }
         } else {
             // This is important, otherwise the result will not be passed to the fragment
