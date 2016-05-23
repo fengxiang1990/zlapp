@@ -3,24 +3,34 @@ package com.zl.app.activity.mine;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.zl.app.CameraActivity;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.user.YyMobileStudent;
 import com.zl.app.util.AppConfig;
+import com.zl.app.util.CameraUtil;
 import com.zl.app.util.GsonUtil;
+import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
+
+import java.io.File;
 
 /**
  * Created by fengxiang on 2016/4/19.
  */
-public class EditChildActivity extends BaseActivityWithToolBar {
+public class EditChildActivity extends CameraActivity{
 
+    String tag  = "EditChildActivity";
+    View root;
     TextView text_name;
     TextView text_id_number;
     TextView text_birthday;
@@ -36,6 +46,7 @@ public class EditChildActivity extends BaseActivityWithToolBar {
         setBtnLeft1Enable(true);
         setTitle("我的宝贝");
         uid = AppConfig.getUid(preference);
+        root = findViewById(R.id.root);
         img_header = (SimpleDraweeView) findViewById(R.id.img_header);
         text_name = (TextView) findViewById(R.id.text_name);
         text_id_number = (TextView) findViewById(R.id.text_id_number);
@@ -87,5 +98,21 @@ public class EditChildActivity extends BaseActivityWithToolBar {
             });
 
         }
+        initEvent();
+    }
+
+    @Override
+    protected void onGetImageSuccess(File file) {
+        Log.e(tag,file==null?"file is null":file.getAbsolutePath());
+
+    }
+
+    void initEvent(){
+           img_header.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   popSelectPicture.showAtLocation(root, Gravity.BOTTOM,0,0);
+               }
+           });
     }
 }
