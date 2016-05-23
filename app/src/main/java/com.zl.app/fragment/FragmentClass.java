@@ -3,7 +3,6 @@ package com.zl.app.fragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
@@ -11,8 +10,9 @@ import com.viewpagerindicator.TabPageIndicator;
 import com.zl.app.BaseFragment;
 import com.zl.app.R;
 import com.zl.app.fragment.course.FragmentCourse;
+import com.zl.app.fragment.course.FragmentCourseSearch;
+import com.zl.app.fragment.course.FragmentCourseSearch_;
 import com.zl.app.fragment.course.FragmentCourse_;
-import com.zl.app.util.DateUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -21,7 +21,6 @@ import org.androidannotations.annotations.ViewById;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,7 @@ import java.util.Map;
  * Created by fengxiang on 2016/3/28.
  */
 @EFragment(R.layout.fragment_class)
-public class FragmentClass extends BaseFragment{
+public class FragmentClass extends BaseFragment {
 
     @ViewById(R.id.pageIndicator)
     TabPageIndicator pageIndicator;
@@ -41,11 +40,11 @@ public class FragmentClass extends BaseFragment{
 
     private static final String[] CONTENT = new String[]{"上周", "本周", "下周", "其他"};
 
-    public List<FragmentCourse> fragments;
+    public List<BaseFragment> fragments;
     FragmentCourse courseLast;
     FragmentCourse courseThis;
     FragmentCourse courseNext;
-    FragmentCourse courseOther;
+    FragmentCourseSearch courseOther;
     MyPagerAdapter adapter;
 
     public static Map<String, String> datemap = new HashMap<String, String>();
@@ -53,15 +52,14 @@ public class FragmentClass extends BaseFragment{
     @AfterViews
     void afterViews() {
         viewPager.setOffscreenPageLimit(3);
-        fragments = new ArrayList<FragmentCourse>();
+        fragments = new ArrayList<BaseFragment>();
         courseLast = new FragmentCourse_();
         courseThis = new FragmentCourse_();
         courseNext = new FragmentCourse_();
-        courseOther = new FragmentCourse_();
+        courseOther = new FragmentCourseSearch_();
         courseLast.type = -1;
         courseThis.type = 0;
         courseNext.type = 1;
-        courseOther.type = 2;
         fragments.add(courseLast);
         fragments.add(courseThis);
         fragments.add(courseNext);
@@ -108,10 +106,13 @@ public class FragmentClass extends BaseFragment{
         viewPager.setCurrentItem(1);
     }
 
-    public void reloadData(){
-        if(fragments!=null){
-            for(FragmentCourse course :fragments){
-                course.loadCourse();
+    public void reloadData() {
+        if (fragments != null) {
+            for (BaseFragment fragment : fragments) {
+                if (fragment instanceof FragmentCourse) {
+                    ((FragmentCourse) fragment).loadCourse();
+                }
+
             }
         }
     }
