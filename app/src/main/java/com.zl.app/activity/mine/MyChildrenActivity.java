@@ -56,11 +56,18 @@ public class MyChildrenActivity extends BaseActivityWithToolBar {
                 startActivity(intent);
             }
         });
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
         new MineServiceImpl().getBabies(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse<List<YyMobileStudent>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileStudent>> response) {
                 if (response != null) {
                     if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                        data.clear();
                         data.addAll(response.getResult() == null ? new ArrayList<YyMobileStudent>() : response.getResult());
                         adapter.notifyDataSetChanged();
                     } else {
@@ -74,8 +81,8 @@ public class MyChildrenActivity extends BaseActivityWithToolBar {
 
             }
         });
-
     }
+
 
     @Override
     protected void onBtnRight1Click() {

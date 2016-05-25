@@ -1,5 +1,7 @@
 package com.zl.app.data.mine;
 
+import android.text.TextUtils;
+
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.model.customer.YyMobileContract;
@@ -19,7 +21,35 @@ import java.util.Map;
 /**
  * Created by fxa on 2016/4/17.
  */
-public class MineServiceImpl implements  MineService{
+public class MineServiceImpl implements MineService {
+
+    @Override
+    public void updateStudent(String uid, int studentId, String photo, String name, String birthday, String idCard, int type, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("student.studentId", studentId + "");
+        if (!TextUtils.isEmpty(photo)) {
+            params.put("student.photo", photo);
+        }
+        if (!TextUtils.isEmpty(name)) {
+            params.put("student.name", name);
+        }
+        if (!TextUtils.isEmpty(birthday)) {
+            params.put("birthdayString", birthday);
+        }
+        if (!TextUtils.isEmpty(idCard)) {
+            params.put("student.idCard", idCard);
+        }
+        if (type > 0) {
+            params.put("type", type + "");
+        }
+
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_UPDATE_CHILD_INFO, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 
     @Override
     public void getFrends(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileUserFans>>> listener) {
@@ -88,8 +118,8 @@ public class MineServiceImpl implements  MineService{
     public void getMyYuyue(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileReservation>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
-        params.put("pageNo",pageNo+"");
-        params.put("pageSize",pageSize+"");
+        params.put("pageNo", pageNo + "");
+        params.put("pageSize", pageSize + "");
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_MY_YUYUE, params, null,
                 new TypeToken<BaseResponse<List<YyMobileReservation>>>() {
                 },

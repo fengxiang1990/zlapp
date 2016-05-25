@@ -14,6 +14,21 @@ import java.util.List;
  */
 public interface MineService {
 
+
+    /**
+     * ss
+     * @param uid
+     * @param studentId
+     * @param photo
+     * @param name
+     * @param birthday
+     * @param idCard
+     * @param type
+     * @param listener
+     */
+    void updateStudent(String uid,int studentId,String photo,String name,
+                       String birthday,String idCard,int type,DefaultResponseListener<BaseResponse> listener);
+
     /**
      * 获取朋友
      *

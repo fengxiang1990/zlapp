@@ -158,6 +158,9 @@ public class RequestURL {
     //获取订单
     public static String API_ORDER_LIST = SERVER + "mobileContract/list.html";
 
+    //更新孩子信息
+    public static String API_UPDATE_CHILD_INFO = SERVER + "mobileStudent/update.html";
+
     //获取朋友
     public static String API_FREND_LIST = SERVER + "mobileUser/friends.html";
 

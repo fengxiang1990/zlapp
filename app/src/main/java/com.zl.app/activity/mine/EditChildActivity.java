@@ -12,24 +12,24 @@ import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.CameraActivity;
 import com.zl.app.R;
-import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.user.YyMobileStudent;
+import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.util.AppConfig;
-import com.zl.app.util.CameraUtil;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
+import com.zl.app.view.LoadingDialog;
 
 import java.io.File;
 
 /**
  * Created by fengxiang on 2016/4/19.
  */
-public class EditChildActivity extends CameraActivity{
+public class EditChildActivity extends CameraActivity {
 
-    String tag  = "EditChildActivity";
+    String tag = "EditChildActivity";
     View root;
     TextView text_name;
     TextView text_id_number;
@@ -38,7 +38,7 @@ public class EditChildActivity extends CameraActivity{
     SimpleDraweeView img_header;
     String childStr;
     String uid;
-
+    YyMobileStudent student;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +59,7 @@ public class EditChildActivity extends CameraActivity{
             new MineServiceImpl().getChildDetail(uid, student1.getStudentId(), new DefaultResponseListener<BaseResponse<YyMobileStudent>>() {
                 @Override
                 public void onSuccess(BaseResponse<YyMobileStudent> response) {
-                    YyMobileStudent student = response.getResult();
-
+                    student = response.getResult();
                     if (student != null) {
                         text_name.setText(student.getName());
                         text_id_number.setText(student.getIdCard());
@@ -103,16 +102,47 @@ public class EditChildActivity extends CameraActivity{
 
     @Override
     protected void onGetImageSuccess(File file) {
-        Log.e(tag,file==null?"file is null":file.getAbsolutePath());
+        Log.e(tag, file == null ? "file is null" : file.getAbsolutePath());
+        LoadingDialog.getInstance(EditChildActivity.this).setTitle("正在上传头像...").show();
+        new UserServiceImpl().uploadUserHeadImg(AppConfig.getUid(preference), file, new DefaultResponseListener<String>() {
+            @Override
+            public void onSuccess(String response) {
+                LoadingDialog.getInstance(EditChildActivity.this).dismiss();
+                if (!TextUtils.isEmpty(response)) {
+                    BaseResponse baseResponse = GsonUtil.getJsonObject(response, BaseResponse.class);
+                    final String imgUrl = baseResponse.getMessage();
+                    Log.e("EditChildActivity", "imgUrl--->" + imgUrl);
+                    new MineServiceImpl().updateStudent(uid, student.getStudentId(), imgUrl, null, null, null, 0, new DefaultResponseListener<BaseResponse>() {
+                        @Override
+                        public void onSuccess(BaseResponse response) {
+                            if(response!=null && response.getStatus().equals(AppConfig.HTTP_OK)){
+                                 img_header.setImageURI(Uri.parse(imgUrl));
+                            }
+                            ToastUtil.show(EditChildActivity.this,response.getMessage());
+                        }
 
+                        @Override
+                        public void onError(VolleyError error) {
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+                ToastUtil.show(EditChildActivity.this, error.getMessage());
+                LoadingDialog.getInstance(EditChildActivity.this).dismiss();
+            }
+        });
     }
 
-    void initEvent(){
-           img_header.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   popSelectPicture.showAtLocation(root, Gravity.BOTTOM,0,0);
-               }
-           });
+
+    void initEvent() {
+        img_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popSelectPicture.showAtLocation(root, Gravity.BOTTOM, 0, 0);
+            }
+        });
     }
 }
