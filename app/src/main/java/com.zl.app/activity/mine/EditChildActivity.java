@@ -1,17 +1,24 @@
 package com.zl.app.activity.mine;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.CameraActivity;
 import com.zl.app.R;
+import com.zl.app.activity.mine.babyupdate.UpdateBabyNameOrIdActivity;
+import com.zl.app.activity.mine.userupdate.UpdateAddressActivity;
+import com.zl.app.activity.mine.userupdate.UpdateQianMingActivity;
+import com.zl.app.activity.mine.userupdate.UpdateUserNameActivity;
+import com.zl.app.activity.mine.userupdate.UserQRActivity;
 import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.user.YyMobileStudent;
 import com.zl.app.data.user.UserServiceImpl;
@@ -27,7 +34,7 @@ import java.io.File;
 /**
  * Created by fengxiang on 2016/4/19.
  */
-public class EditChildActivity extends CameraActivity {
+public class EditChildActivity extends CameraActivity implements View.OnClickListener{
 
     String tag = "EditChildActivity";
     View root;
@@ -39,6 +46,8 @@ public class EditChildActivity extends CameraActivity {
     String childStr;
     String uid;
     YyMobileStudent student;
+    LinearLayout ll_name_update,ll_id_update,ll_birthday_update;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +61,12 @@ public class EditChildActivity extends CameraActivity {
         text_id_number = (TextView) findViewById(R.id.text_id_number);
         text_birthday = (TextView) findViewById(R.id.text_birthday);
         text_ralationship = (TextView) findViewById(R.id.text_ralationship);
+        ll_name_update = (LinearLayout) findViewById(R.id.ll_name_edit);
+        ll_id_update= (LinearLayout) findViewById(R.id.ll_id_edit);
+        ll_birthday_update = (LinearLayout) findViewById(R.id.ll_birthday_edit);
+        ll_name_update.setOnClickListener(this);
+        ll_id_update.setOnClickListener(this);
+        ll_birthday_update.setOnClickListener(this);
         childStr = getIntent().getStringExtra("child");
         if (!TextUtils.isEmpty(childStr)) {
             YyMobileStudent student1 = GsonUtil.getJsonObject(childStr, YyMobileStudent.class);
@@ -98,6 +113,41 @@ public class EditChildActivity extends CameraActivity {
 
         }
         initEvent();
+    }
+
+
+    /**
+     * 修改信息状态
+     */
+    public interface UpdateStatus{
+          int TYPE_UP_NANME =1;//修改姓名
+          int TYPE_UP_IDCARD =2;//修改身份证
+          int TYPE_UP_BIRTHDAY =3;//修改生日
+    }
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.ll_name_edit:
+                intent = new Intent(EditChildActivity.this, UpdateBabyNameOrIdActivity.class);
+                intent.putExtra("text",student.getName());
+                intent.putExtra("type",UpdateStatus.TYPE_UP_NANME);
+                intent.putExtra("id",student.getStudentId());
+                startActivity(intent);
+                break;
+            case R.id.ll_id_edit:
+                intent = new Intent(EditChildActivity.this, UpdateBabyNameOrIdActivity.class);
+                intent.putExtra("text",student.getIdCard());
+                intent.putExtra("type",UpdateStatus.TYPE_UP_IDCARD);
+                intent.putExtra("id",student.getStudentId());
+                startActivity(intent);
+                break;
+            case R.id.ll_birthday_edit:
+
+                break;
+
+        }
     }
 
     @Override

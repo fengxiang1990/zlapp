@@ -117,6 +117,7 @@
             android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
+        <activity android:name=".activity.mine.babyupdate.UpdateBabyNameOrIdActivity"/>
 
         <!-- activities -->
         <activity android:name=".activity.activities.PublishActivity" />

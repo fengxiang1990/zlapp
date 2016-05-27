@@ -49,6 +49,8 @@
         android:background="@color/lightgray" />
 
     <LinearLayout
+        android:id="@+id/ll_name_edit"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -120,6 +122,8 @@
         android:background="@color/lightgray" />
 
     <LinearLayout
+        android:id="@+id/ll_id_edit"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -157,6 +161,8 @@
         android:background="@color/lightgray" />
 
     <LinearLayout
+        android:id="@+id/ll_birthday_edit"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

@@ -25,7 +25,8 @@ public class UpdateAddressActivity extends BaseActivityWithToolBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_nickename);
         editText = (EditText) findViewById(R.id.editText);
-        editText.setHint("请输入您的地址");
+      //  editText.setHint("请输入您的地址");
+        editText.setText(getIntent().getStringExtra("text"));
         setTitle("修改地址");
         setBtnLeft1Enable(true);
         setTextRight1Enable(true);

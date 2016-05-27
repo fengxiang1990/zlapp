@@ -26,6 +26,7 @@ public class UpdateUserNameActivity extends BaseActivityWithToolBar {
         setContentView(R.layout.activity_update_nickename);
         editText = (EditText) findViewById(R.id.editText);
         setTitle("修改昵称");
+        editText.setText(getIntent().getStringExtra("text"));
         setBtnLeft1Enable(true);
         setTextRight1Enable(true);
         setTextRight1Val("保存");

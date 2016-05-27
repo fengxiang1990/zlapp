@@ -95,14 +95,17 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
         switch (v.getId()) {
             case R.id.text_name:
                 intent = new Intent(UserInfoActivity.this, UpdateUserNameActivity.class);
+                intent.putExtra("text",userInfo.getNickName());
                 startActivity(intent);
                 break;
             case R.id.text_qianming:
                 intent = new Intent(UserInfoActivity.this, UpdateQianMingActivity.class);
+                intent.putExtra("text",userInfo.getIntroduce());
                 startActivity(intent);
                 break;
             case R.id.text_address:
                 intent = new Intent(UserInfoActivity.this, UpdateAddressActivity.class);
+                intent.putExtra("text",userInfo.getAddress());
                 startActivity(intent);
                 break;
             case R.id.img_qr:
