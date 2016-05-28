@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.CameraActivity;
 import com.zl.app.R;
+import com.zl.app.activity.mine.babyupdate.UpdateBabyBirthdateActivity;
 import com.zl.app.activity.mine.babyupdate.UpdateBabyNameOrIdActivity;
 import com.zl.app.activity.mine.userupdate.UpdateAddressActivity;
 import com.zl.app.activity.mine.userupdate.UpdateQianMingActivity;
@@ -144,7 +145,10 @@ public class EditChildActivity extends CameraActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.ll_birthday_edit:
-
+                intent = new Intent(EditChildActivity.this, UpdateBabyBirthdateActivity.class);
+                intent.putExtra("text",student.getBirthday());
+                intent.putExtra("id",student.getStudentId());
+                startActivity(intent);
                 break;
 
         }

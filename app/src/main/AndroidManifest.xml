@@ -118,6 +118,7 @@
 
         </activity>
         <activity android:name=".activity.mine.babyupdate.UpdateBabyNameOrIdActivity"/>
+        <activity android:name=".activity.mine.babyupdate.UpdateBabyBirthdateActivity"/>
 
         <!-- activities -->
         <activity android:name=".activity.activities.PublishActivity" />

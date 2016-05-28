@@ -36,6 +36,7 @@ public class DateTimePickDialogUtil implements OnDateChangedListener, OnTimeChan
     private DatePicker datePicker;
     private TimePicker timePicker;
     private AlertDialog ad;
+    private String dateStyle;
     private String dateTime;
     private String initDateTime;
     private Activity activity;
@@ -46,18 +47,34 @@ public class DateTimePickDialogUtil implements OnDateChangedListener, OnTimeChan
      * @param activity     ：调用的父activity
      * @param initDateTime 初始日期时间值，作为弹出窗口的标题和日期时间初始值
      */
-    public DateTimePickDialogUtil(Activity activity, String initDateTime) {
+    public DateTimePickDialogUtil(Activity activity,Date date,DateUtil.DateStyle dateStyle) {
         this.activity = activity;
-        this.initDateTime = initDateTime;
-
+        this.dateStyle  = dateStyle.getValue();
+        this.initDateTime = DateUtil.DateToString(date, dateStyle);
     }
 
+
+    /**
+     * 设置时间选择的不可用
+     * @param enable
+     */
+    public void setTimePickerEnable(boolean enable){
+        if(timePicker!=null){
+            if(!enable){
+                dateStyle = DateUtil.DateStyle.YYYY_MM_DD.getValue();
+                timePicker.setVisibility(View.GONE);
+            }else{
+                timePicker.setVisibility(View.VISIBLE);
+            }
+        }
+
+    }
     public void init(DatePicker datePicker, TimePicker timePicker) {
         Calendar calendar = Calendar.getInstance();
         if (!(null == initDateTime || "".equals(initDateTime))) {
             calendar = this.getCalendarByInintData(initDateTime);
         } else {
-            initDateTime = DateTime.now().toString("yyyy-MM-dd HH:mm");
+            initDateTime = DateTime.now().toString(dateStyle);
         }
 
         datePicker.init(calendar.get(Calendar.YEAR),
@@ -124,7 +141,7 @@ public class DateTimePickDialogUtil implements OnDateChangedListener, OnTimeChan
         calendar.set(datePicker.getYear(), datePicker.getMonth(),
                 datePicker.getDayOfMonth(), timePicker.getCurrentHour(),
                 timePicker.getCurrentMinute());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat(dateStyle);
 
         dateTime = sdf.format(calendar.getTime());
         if (ad != null)

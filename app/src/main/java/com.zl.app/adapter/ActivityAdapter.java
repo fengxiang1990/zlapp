@@ -77,20 +77,22 @@ public class ActivityAdapter extends BaseAdapter {
             switch (activity.getIsover()) {
                 case 2:
                     statusStr = "进行中";
+                    if (activity.getUserId() == AppConfig.getUserId(AppManager.getPreferences())) {
+                        holder.ll_edit.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.ll_edit.setVisibility(View.GONE);
+                    }
                     holder.text_status.setTextColor(context.getResources().getColor(R.color.red));
                     holder.img_status.setImageResource(R.mipmap.ac_running);
                     break;
                 case 3:
                     statusStr = "往期活动";
+                    holder.ll_edit.setVisibility(View.GONE);
                     holder.img_status.setImageResource(R.mipmap.ac_not_running);
                     holder.text_status.setTextColor(context.getResources().getColor(R.color.gray));
                     break;
             }
-            if (activity.getUserId() == AppConfig.getUserId(AppManager.getPreferences())) {
-                holder.ll_edit.setVisibility(View.VISIBLE);
-            } else {
-                holder.ll_edit.setVisibility(View.GONE);
-            }
+
             holder.text_status.setText(statusStr);
             holder.img_delete.setOnClickListener(new View.OnClickListener() {
                 @Override

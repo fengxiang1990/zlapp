@@ -157,7 +157,7 @@ public class PublishActivity extends BaseActivityWithToolBar implements View.OnC
     private void showDateTimePickerDialog() {
         Date date = new Date();
         DateTimePickDialogUtil dateTimePicker = new DateTimePickDialogUtil(
-                PublishActivity.this, DateUtil.DateToString(date, DateUtil.DateStyle.YYYY_MM_DD_HH_MM));
+                PublishActivity.this,date,DateUtil.DateStyle.YYYY_MM_DD_HH_MM);
         dateTimePicker.dateTimePickDialog(edit_date);
     }
 

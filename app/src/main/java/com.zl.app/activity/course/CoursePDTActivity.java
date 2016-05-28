@@ -273,50 +273,79 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                 holder.text_student_name.setText(period.getStudentName());
                 holder.text_content.setText(period.getContent());
                 String statusStr = "";
-                switch (period.getType()) {
-                    case CourseService.CourseStatusP.QINGJIA:
-                        statusStr = "请假";
-                        holder.text_status.setTextColor(getResources().getColor(R.color.red));
-                        break;
-                    case CourseService.CourseStatusP.ZHENGCHANG:
-                        statusStr = "正常";
-                        holder.text_status.setTextColor(getResources().getColor(R.color.green));
-                        break;
-                    case CourseService.CourseStatusP.BUJIA:
-                        statusStr = "补假";
-                        holder.text_status.setTextColor(getResources().getColor(R.color.red));
-                        break;
-                    case CourseService.CourseStatusP.YISHANGKE:
-                        statusStr = "已上课";
-                        holder.text_status.setTextColor(getResources().getColor(R.color.green));
-                        break;
-                }
-                holder.text_status.setText(statusStr);
                 if(role == 3){
                     // 家长在学生动态里判断totype 如果有值 不能操作 ，显示{状态}申请中。
-                    if(period.getTotype()!=null){
-                        switch (period.getType()) {
+                        switch (period.getTotype()) {
                             case CourseService.CourseStatusP.QINGJIA:
                                 statusStr = "请假申请中";
                                 holder.text_status.setTextColor(getResources().getColor(R.color.red));
                                 break;
                             case CourseService.CourseStatusP.ZHENGCHANG:
-                                statusStr = "待出席";
-                                holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                                statusStr = "待出席申请中";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.red));
                                 break;
                             case CourseService.CourseStatusP.BUJIA:
                                 statusStr = "补假申请中";
                                 holder.text_status.setTextColor(getResources().getColor(R.color.red));
                                 break;
                             case CourseService.CourseStatusP.YISHANGKE:
-                                statusStr = "已上课";
-                                holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                                statusStr = "已上课申请中";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                                break;
+                            default:
+                                if(period.getType() == CourseService.CourseStatusP.QINGJIA){
+                                    statusStr = "请假";
+                                    holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                                } else if(period.getType() == CourseService.CourseStatusP.ZHENGCHANG) {
+                                    statusStr = "待出席";
+                                    holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                                } else if(period.getType() == CourseService.CourseStatusP.BUJIA) {
+                                    statusStr = "补假";
+                                    holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                                }else if(period.getType() == CourseService.CourseStatusP.YISHANGKE) {
+                                    statusStr = "已上课";
+                                    holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                                }
                                 break;
                         }
                         holder.text_status.setText(statusStr);
                     }
-                }
+
                 if (role == 5) {
+                    switch (period.getTotype()) {
+                        case CourseService.CourseStatusP.QINGJIA:
+                            statusStr = "请假申请中";
+                            holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                            break;
+                        case CourseService.CourseStatusP.ZHENGCHANG:
+                            statusStr = "待出席申请中";
+                            holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                            break;
+                        case CourseService.CourseStatusP.BUJIA:
+                            statusStr = "补假申请中";
+                            holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                            break;
+                        case CourseService.CourseStatusP.YISHANGKE:
+                            statusStr = "已上课申请中";
+                            holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                            break;
+                        default:
+                            if(period.getType() == CourseService.CourseStatusP.QINGJIA){
+                                statusStr = "请假";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                            } else if(period.getType() == CourseService.CourseStatusP.ZHENGCHANG) {
+                                statusStr = "待出席";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                            } else if(period.getType() == CourseService.CourseStatusP.BUJIA) {
+                                statusStr = "补假";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                            }else if(period.getType() == CourseService.CourseStatusP.YISHANGKE) {
+                                statusStr = "已上课";
+                                holder.text_status.setTextColor(getResources().getColor(R.color.green));
+                            }
+                            break;
+                    }
+                    holder.text_status.setText(statusStr);
                     //判断是否需要审核
                     if (period.getTotype() == 0) {
                         ViewUtil.hide(holder.ll_teacher);

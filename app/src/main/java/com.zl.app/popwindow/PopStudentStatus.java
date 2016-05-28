@@ -40,7 +40,7 @@ public class PopStudentStatus extends PopupWindow {
     public PopStudentStatus(Context context) {
         super(context);
         Log.e("pop", "create  PopSelectPicture");
-        this.setWidth(250);
+        this.setWidth(350);
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         BitmapDrawable drawable = new BitmapDrawable();
         this.setBackgroundDrawable(drawable);// 这样设置才能点击屏幕外dismiss窗口

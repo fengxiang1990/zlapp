@@ -6,7 +6,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/base_bg</item>
         <item name="colorPrimaryDark">@color/base_bg</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#5c6bc0</item>
         <item name="toolbarStyle">@style/MyToolBar</item>
     </style>
 
