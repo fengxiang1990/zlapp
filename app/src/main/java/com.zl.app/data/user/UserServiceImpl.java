@@ -7,6 +7,7 @@ import com.android.volley.toolbox.RequestFuture;
 import com.baidu.mapapi.map.Text;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.user.model.YyMobileUser;
+import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;
@@ -134,6 +135,7 @@ public class UserServiceImpl implements UserService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("account", account);
         params.put("password", password);
+        params.put("jid", AppConfig.JPUSH_ID);
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_LOGIN, params, null,
                 new TypeToken<BaseResponse<YyMobileUser>>() {
                 },

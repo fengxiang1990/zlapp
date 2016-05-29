@@ -69,6 +69,8 @@ public class CourseMessageActivity extends BaseActivityWithToolBar implements Vi
         if (yyMobilePeriod != null) {
             periodId = yyMobilePeriod.getPeriodId();
             setTitle(yyMobilePeriod.getClassname());
+            textTime.setText(yyMobilePeriod.getClasstime());
+            textTeacher.setText(yyMobilePeriod.getTeachername());
         }
     }
 

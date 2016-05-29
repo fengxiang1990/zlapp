@@ -39,14 +39,16 @@ public class OrgYuYueActivity extends BaseActivityWithToolBar {
         homeService = new HomeServiceImpl();
         setBtnLeft1Enable(true);
         setTitle("预约咨询");
-        setBtnRight1Enable(true);
-        setBtnRight1ImageResource(R.mipmap.phone_icon);
         edit_name = (EditText) findViewById(R.id.edit_name);
         edit_tel = (EditText) findViewById(R.id.edit_tel);
         edit_content = (EditText) findViewById(R.id.edit_content);
         btn_send = (Button) findViewById(R.id.btn_send);
         companyId = getIntent().getStringExtra("companyId");
         phone = getIntent().getStringExtra("phone");
+        if(!TextUtils.isEmpty(phone)){
+            setBtnRight1Enable(true);
+            setBtnRight1ImageResource(R.mipmap.phone_icon);
+        }
         uid = AppConfig.getUid(preference);
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override

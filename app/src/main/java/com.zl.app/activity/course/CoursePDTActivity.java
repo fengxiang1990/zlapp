@@ -40,6 +40,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
 
     TextView text_time;
     TextView text_teacher;
+    TextView text_teacher_lable;
     YyMobilePeriod yyMobilePeriod;
     ListView listView;
     TextView text_student_status;
@@ -97,6 +98,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
         adapter = new MyAdapter(data);
         text_time = (TextView) findViewById(R.id.text_time);
         text_teacher = (TextView) findViewById(R.id.text_teacher);
+        text_teacher_lable = (TextView) findViewById(R.id.text_teacher_lable);
         listView = (ListView) findViewById(R.id.listView);
         text_student_status = (TextView) findViewById(R.id.text_student_status);
         text_student = (TextView) findViewById(R.id.text_student);
@@ -120,7 +122,7 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                 YyMobilePeriodStudent student = data.get(position);
                 relationId = student == null ? 0 : student.getRelationId();
                 text_student.setText(student == null ? "" : student.getStudentName());
-                if (student.getParentId() > 0) {
+                if (student.getParentId() > 0 && student.getTotype() == 0) {
                     ll2.setVisibility(View.VISIBLE);
                 } else {
                     ll2.setVisibility(View.GONE);
@@ -133,6 +135,8 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
             setTitle(yyMobilePeriod.getPeriodname());
             if (role == 5) {
                 ll2.setVisibility(View.GONE);
+                text_teacher_lable.setVisibility(View.GONE);
+                text_teacher.setVisibility(View.GONE);
                 loadDataTeacher();
             } else if (role == 3) {
                 loadData();
@@ -279,18 +283,22 @@ public class CoursePDTActivity extends BaseActivityWithToolBar implements View.O
                             case CourseService.CourseStatusP.QINGJIA:
                                 statusStr = "请假申请中";
                                 holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                                ll2.setVisibility(View.GONE);
                                 break;
                             case CourseService.CourseStatusP.ZHENGCHANG:
                                 statusStr = "待出席申请中";
                                 holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                                ll2.setVisibility(View.GONE);
                                 break;
                             case CourseService.CourseStatusP.BUJIA:
                                 statusStr = "补假申请中";
                                 holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                                ll2.setVisibility(View.GONE);
                                 break;
                             case CourseService.CourseStatusP.YISHANGKE:
                                 statusStr = "已上课申请中";
                                 holder.text_status.setTextColor(getResources().getColor(R.color.red));
+                                ll2.setVisibility(View.GONE);
                                 break;
                             default:
                                 if(period.getType() == CourseService.CourseStatusP.QINGJIA){

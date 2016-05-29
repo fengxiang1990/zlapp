@@ -14,6 +14,7 @@ import com.zl.app.R;
 import com.zl.app.activity.org.WebDetailActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
+import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 
 /**
@@ -110,6 +111,7 @@ public class SystemSettingsActivity extends BaseActivityWithToolBar implements V
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 AppManager.finishAll();
+                AppConfig.logout(preference);
                 Intent logoutIntent = new Intent(SystemSettingsActivity.this, LoginActivity_.class);
                 logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(logoutIntent);

@@ -105,6 +105,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragments.add(fragment_mine);
         tab_find.setChecked(true);
         initCourseLeftIcon();
+        /**
         new UserServiceImpl().updateJpushId(AppConfig.getUid(preference), AppConfig.JPUSH_ID, new DefaultResponseListener<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse response) {
@@ -116,7 +117,7 @@ public class MainActivity extends BaseActivityWithToolBar {
             @Override
             public void onError(VolleyError error) {
             }
-        });
+        });**/
     }
 
     void initCourseLeftIcon() {
@@ -214,13 +215,14 @@ public class MainActivity extends BaseActivityWithToolBar {
         isCurrentTabIsActivity = false;
         if (AppConfig.getLoginType(preference) == 3) {
             setTitle("课程(家长)");
+            setBtnLeft2Enable(false);
         } else if (AppConfig.getLoginType(preference) == 5) {
             setTitle("课程(老师)");
+            setBtnLeft2Enable(true);
         }
-
         setBtnLeft1Enable(false);
         setBtnRight1Enable(false);
-        setBtnLeft2Enable(true);
+
         setBtnLeft2ImageResource(course_left_btn_resId);
         switchFragment(frgmentManager.beginTransaction(), fragment_class);
     }

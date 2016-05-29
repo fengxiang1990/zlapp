@@ -70,6 +70,32 @@ public class AppConfig {
         return null;
     }
 
+    /**
+     * 登出
+     * @param preference
+     */
+    public static void logout(SharedPreferences preference){
+        Editor editor = preference.edit();
+        editor.putString(USER_INFO_JSON, null);
+        editor.putBoolean(IS_LOGIN, false);
+        editor.putInt(USER_ID,0);
+        editor.putString(USER_HEAD_IMG, null);
+        editor.putString(USER_UID, null);
+        editor.putString(USER_NAME, null);
+        editor.putString(TEL_PHONE, null);
+        editor.putString(MAIL, null);
+        editor.putInt(LOGIN_TYPE, 0);
+        editor.putString(USER_AGE, null);
+        editor.putString(USER_QQ, null);
+        editor.putString(USER_INTRODUCE, null);
+        editor.putInt(IS_MOBILE_SHOW, 0);
+        editor.putInt(IS_EMAIL_SHOW,0);
+        editor.putInt(IS_QQ_SHOW, 0);
+        editor.putInt(IS_PL_SHOW,0);
+        editor.putInt(IS_DZ_SHOW,0);
+        editor.putInt(IS_SC_SHOW,0);
+        editor.commit();
+    }
 
     //设置为登陆成功
     public static void setLoginSuccess(SharedPreferences preference, YyMobileUser user) {
