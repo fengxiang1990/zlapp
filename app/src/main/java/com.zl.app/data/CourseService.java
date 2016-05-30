@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
+import com.baidu.mapapi.map.Text;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.model.customer.YyMobilePeriod;
 import com.zl.app.data.model.customer.YyMobilePeriodBbs;
@@ -77,7 +78,9 @@ public class CourseService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
         params.put("period.periodId", periodId + "");
-        params.put("content", content);
+        if(!TextUtils.isEmpty(content)){
+            params.put("content", content);
+        }
         if (yyuserId != 0) {
             params.put("yyuserId", yyuserId + "");
         }

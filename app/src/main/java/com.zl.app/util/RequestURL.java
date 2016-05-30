@@ -161,6 +161,9 @@ public class RequestURL {
     //更新孩子信息
     public static String API_UPDATE_CHILD_INFO = SERVER + "mobileStudent/update.html";
 
+    //搜索朋友
+    public static String API_FREND_SEARCH = SERVER + "mobileUser/findfans.html";
+
     //获取朋友
     public static String API_FREND_LIST = SERVER + "mobileUser/friends.html";
 

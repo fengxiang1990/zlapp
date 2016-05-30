@@ -52,6 +52,18 @@ public class MineServiceImpl implements MineService {
     }
 
     @Override
+    public void searchFrends(String uid, String mobile, DefaultResponseListener<BaseResponse<YyMobileUserFans>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("mobile", mobile);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_FREND_SEARCH, params, null,
+                new TypeToken<BaseResponse<YyMobileUserFans>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public void getFrends(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileUserFans>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);

@@ -3,7 +3,8 @@ package com.zl.app.activity.mine;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +12,15 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.zl.app.R;
 import com.zl.app.activity.activities.HisActivitiesActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineService;
 import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.user.YyMobileUserFans;
-import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
@@ -33,64 +30,66 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by fengxiang on 2016/4/25.
+ * Created by fxa on 2016/5/30.
  */
-public class FrendsActivity extends BaseActivityWithToolBar {
+public class FrendSearchActivity extends BaseActivityWithToolBar {
 
     ListView listView;
     MineService mineService;
     String uid;
     MyAdapter adapter;
     List<YyMobileUserFans> data;
-    int pageNo = 1;
-    int pageSize = 1000;
-    IntentIntegrator intentIntegrator;
+    String keyword = " ";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frends);
-        listView = (ListView) findViewById(R.id.listView);
+        setTitle("搜索结果");
         setBtnLeft1Enable(true);
-        setTitle("我的朋友");
-        // setTextRight1Enable(true);
-        // setTextRight1Val("扫一扫");
-        setBtnRight2ImageResource(R.mipmap.find_search_icon);
-        setBtnRight1ImageResource(R.mipmap.qr_code_scan);
-        setBtnRight1Enable(true);
-        setBtnRight2Enable(true);
+        setSearchTitleViewEnable(true);
+        searchTitleView.setHint("搜索朋友");
+        listView = (ListView) findViewById(R.id.listView);
         mineService = new MineServiceImpl();
         data = new ArrayList<YyMobileUserFans>();
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
         uid = AppConfig.getUid(preference);
+        searchTitleView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    keyword = String.valueOf(searchTitleView.getText());
+                    if (!TextUtils.isEmpty(keyword)) {
+                        loadData();
+                    }
+                }
+                return false;
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 YyMobileUserFans fans = data.get(position);
-                Intent intent = new Intent(FrendsActivity.this, HisActivitiesActivity.class);
+                Intent intent = new Intent(FrendSearchActivity.this, HisActivitiesActivity.class);
                 intent.putExtra("userId", fans.getPersonId());
                 intent.putExtra("userName", fans.getPersonName());
                 startActivity(intent);
             }
         });
-        loadData();
-        intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
-        intentIntegrator.setOrientationLocked(false);
-
 
     }
 
-    void loadData(){
-        mineService.getFrends(uid, pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileUserFans>>>() {
+    void loadData() {
+        mineService.searchFrends(uid,keyword, new DefaultResponseListener<BaseResponse<YyMobileUserFans>>() {
             @Override
-            public void onSuccess(BaseResponse<List<YyMobileUserFans>> response) {
+            public void onSuccess(BaseResponse<YyMobileUserFans> response) {
                 if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                    data.addAll(response.getResult());
+                    data.clear();
+                    data.add(response.getResult());
                     adapter.notifyDataSetChanged();
                 } else {
-                    ToastUtil.show(FrendsActivity.this, response.getMessage());
+                    ToastUtil.show(FrendSearchActivity.this, response.getMessage());
                 }
             }
 
@@ -100,50 +99,6 @@ public class FrendsActivity extends BaseActivityWithToolBar {
             }
         });
 
-    }
-    @Override
-    protected void onBtnRight1Click() {
-        super.onBtnRight1Click();
-        intentIntegrator.initiateScan();
-    }
-
-    @Override
-    protected void onBtnRight2Click() {
-        super.onBtnRight2Click();
-        Intent intent = new Intent(FrendsActivity.this,FrendSearchActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() == null) {
-                Log.d("MainActivity", "Cancelled scan");
-                // Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-            } else {
-                Log.d("MainActivity", "Scanned");
-                // Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                String userId = result.getContents();
-                new UserServiceImpl().addFrend(AppConfig.getUid(preference), userId, 2, new DefaultResponseListener<BaseResponse>() {
-                    @Override
-                    public void onSuccess(BaseResponse response) {
-                        if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {
-                            ToastUtil.show(FrendsActivity.this, "已添加好友");
-                            loadData();
-                        }
-                    }
-
-                    @Override
-                    public void onError(VolleyError error) {
-
-                    }
-                });
-            }
-        } else {
-            // This is important, otherwise the result will not be passed to the fragment
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
     class MyAdapter extends BaseAdapter {

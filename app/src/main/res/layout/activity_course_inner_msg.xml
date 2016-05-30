@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root"
     android:orientation="vertical">
 
     <LinearLayout
@@ -59,9 +60,16 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
+        <ImageView
+            android:id="@+id/img_take_pic"
+            android:src="@mipmap/add_image"
+            android:clickable="true"
+            android:layout_weight="5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_msg"
             android:layout_weight="1" />

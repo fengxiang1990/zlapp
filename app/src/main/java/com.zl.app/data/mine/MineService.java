@@ -16,7 +16,7 @@ public interface MineService {
 
 
     /**
-     * ss
+     *
      * @param uid
      * @param studentId
      * @param photo
@@ -28,6 +28,15 @@ public interface MineService {
      */
     void updateStudent(String uid,int studentId,String photo,String name,
                        String birthday,String idCard,int type,DefaultResponseListener<BaseResponse> listener);
+
+    /**
+     * 搜索朋友
+     *
+     * @param uid
+     * @param mobile
+     * @param listener
+     */
+    void searchFrends(String uid,String mobile, DefaultResponseListener<BaseResponse<YyMobileUserFans>> listener);
 
     /**
      * 获取朋友
