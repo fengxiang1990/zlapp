@@ -79,6 +79,10 @@
         <activity android:name=".activity.user.ModifyPasswordActivity_" />
         <activity android:name=".activity.user.UserInfoActivity_" />
 
+        <!--chart -->
+        <activity android:name=".activity.chart.ChartActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
         <!--news -->
         <activity android:name=".activity.news.NewsDetailActivity_" />
         <activity android:name=".activity.news.NewsDetailActivityWeb_" />

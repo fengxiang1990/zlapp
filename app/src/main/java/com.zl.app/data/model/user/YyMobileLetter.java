@@ -9,6 +9,20 @@ public class YyMobileLetter {
 	private String content;//内容
 	private Integer status;//3 未读 2已读
 	private String picPath;//发送人头像
+	private String contentPic;//发送的图片路径
+	
+	public Integer getContentId() {
+		return contentId;
+	}
+	public void setContentId(Integer contentId) {
+		this.contentId = contentId;
+	}
+	public String getContentPic() {
+		return contentPic;
+	}
+	public void setContentPic(String contentPic) {
+		this.contentPic = contentPic;
+	}
 	public Integer getCreateBy() {
 		return createBy;
 	}
@@ -21,11 +35,9 @@ public class YyMobileLetter {
 	public void setCreateName(String createName) {
 		this.createName = createName;
 	}
-
 	public String getCreateDate() {
 		return createDate;
 	}
-
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
@@ -48,11 +60,17 @@ public class YyMobileLetter {
 		this.picPath = picPath;
 	}
 
-	public Integer getContentId() {
-		return contentId;
-	}
-
-	public void setContentId(Integer contentId) {
-		this.contentId = contentId;
+	@Override
+	public String toString() {
+		return "YyMobileLetter{" +
+				"contentId=" + contentId +
+				", createBy=" + createBy +
+				", createName='" + createName + '\'' +
+				", createDate='" + createDate + '\'' +
+				", content='" + content + '\'' +
+				", status=" + status +
+				", picPath='" + picPath + '\'' +
+				", contentPic='" + contentPic + '\'' +
+				'}';
 	}
 }

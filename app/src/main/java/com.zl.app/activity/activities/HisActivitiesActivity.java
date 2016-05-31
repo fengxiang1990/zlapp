@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 
 import com.android.volley.VolleyError;
 import com.zl.app.R;
+import com.zl.app.activity.chart.ChartActivity;
 import com.zl.app.adapter.ActivityAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
@@ -112,7 +113,10 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
 
     @Override
     protected void onBtnRight1Click() {
-        ToastUtil.show(HisActivitiesActivity.this, "chart");
+        Intent intent = new Intent(HisActivitiesActivity.this, ChartActivity.class);
+        intent.putExtra("userId",userId);
+        intent.putExtra("userName",userName);
+        startActivity(intent);
     }
 
     public void loadData() {
