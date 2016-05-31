@@ -34,6 +34,7 @@ import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
+import com.zl.app.view.LoadingDialog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -240,13 +241,15 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
     }
 
     public void loadData() {
-        swipe.setRefreshing(true);
+        //swipe.setRefreshing(true);
+        LoadingDialog.getInstance(OrgListActivity.this).show();
         homeService.getOrgs(uid, pageNumber, pageSize, typeId, companyname,
                 province_cityId, city_cityId, district_cityId, street_cityId, orderName,
                 new DefaultResponseListener<BaseResponse<List<YyMobileCompany>>>() {
                     @Override
                     public void onSuccess(BaseResponse<List<YyMobileCompany>> response) {
                         swipe.setRefreshing(false);
+                        LoadingDialog.getInstance(OrgListActivity.this).dismiss();
                         if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                             List<YyMobileCompany> list = response.getResult();
                             if (!isLoadMore) {
@@ -264,7 +267,8 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
 
                     @Override
                     public void onError(VolleyError error) {
-                        swipe.setRefreshing(false);
+                        //swipe.setRefreshing(false);
+                        LoadingDialog.getInstance(OrgListActivity.this).dismiss();
                     }
                 });
     }
