@@ -43,6 +43,8 @@ public class AppConfig {
 
     public static String LOGIN_TYPE = "login_type";
     public static String USER_INFO_JSON = "user_info_json";
+    public static String latitude;
+    public static String longitude;
     //检查是否无图模式
     public static boolean isShowImg(SharedPreferences preference) {
         return preference.getBoolean(AppConfig.IS_SHOW_IMG, true);

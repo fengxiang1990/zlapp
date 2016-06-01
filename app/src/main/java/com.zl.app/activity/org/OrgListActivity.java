@@ -56,8 +56,11 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
     @ViewById(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @ViewById(R.id.search_titleView)
+    @ViewById(R.id.edit_search)
     EditText searchTitleView;
+
+    @ViewById(R.id.searchView)
+    View searchView;
 
     @ViewById(R.id.titleView)
     TextView titleView;
@@ -97,6 +100,7 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
 
     @AfterViews
     void afterviews() {
+        searchView.setVisibility(View.VISIBLE);
         rightBtn1.setImageResource(R.mipmap.find_select_icon);
         titleView.setVisibility(View.GONE);
         searchTitleView.setVisibility(View.VISIBLE);

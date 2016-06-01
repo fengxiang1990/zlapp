@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +29,9 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     protected ImageView btnRight1;
     protected ImageView btnRight2;
     protected TextView titleView;
-    protected EditText searchTitleView;
+    protected FrameLayout searchView;
+    protected EditText editSearch;
+    protected ImageView btn_search;
     protected TextView textRight1;
     protected TextView textRight2;
     protected TextView textLeft1;
@@ -70,7 +73,9 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         btnRight1 = (ImageView) view.findViewById(R.id.rightBtn1);
         btnRight2 = (ImageView) view.findViewById(R.id.rightBtn2);
         titleView = (TextView) view.findViewById(R.id.titleView);
-        searchTitleView = (EditText) view.findViewById(R.id.search_titleView);
+        editSearch = (EditText) view.findViewById(R.id.edit_search);
+        btn_search = (ImageView) view.findViewById(R.id.btn_search);
+        searchView = (FrameLayout) view.findViewById(R.id.searchView);
         textRight1 = (TextView) view.findViewById(R.id.right1);
         textRight2 = (TextView) view.findViewById(R.id.right2);
         toolbar.setTitle("");
@@ -166,11 +171,11 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
      */
     protected void setSearchTitleViewEnable(boolean isEnable) {
         if (isEnable) {
-            ViewUtil.show(searchTitleView);
+            ViewUtil.show(searchView);
             ViewUtil.hide(titleView);
         } else {
             ViewUtil.show(titleView);
-            ViewUtil.hide(searchTitleView);
+            ViewUtil.hide(searchView);
         }
     }
 

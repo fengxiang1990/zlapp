@@ -76,6 +76,8 @@ public class MyApplication extends Application {
             Log.i(TAG, "addr:" + location.getAddrStr());
             Log.i(TAG, "longitude:" + location.getLongitude());
             Log.i(TAG, "latitude:" + location.getLatitude());
+            AppConfig.latitude = String.valueOf(location.getLatitude());
+            AppConfig.longitude= String.valueOf(location.getLongitude());
         }
     }
 

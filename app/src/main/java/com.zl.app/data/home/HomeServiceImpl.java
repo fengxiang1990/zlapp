@@ -10,6 +10,7 @@ import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.data.model.customer.YyMobileCompany;
 import com.zl.app.data.model.customer.YyMobileCompanyGrade;
 import com.zl.app.data.model.user.YyMobileCity;
+import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
@@ -137,6 +138,8 @@ public class HomeServiceImpl implements HomeService {
         params.put("uid", uid);
         params.put("pageNo", pageNo + "");
         params.put("pageSize", pageSize + "");
+        params.put("lat", AppConfig.latitude);
+        params.put("lng", AppConfig.longitude);
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_HOME_TUIJIAN, params, null,
                 new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
                 },

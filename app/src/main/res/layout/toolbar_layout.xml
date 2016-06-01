@@ -25,57 +25,75 @@
         android:layout_marginLeft="16dp"
         android:clickable="true"
         android:text="按钮1"
-        android:visibility="gone"
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/leftBtn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_marginLeft="10dp"
+        android:clickable="true"
         android:src="@mipmap/ic_launcher"
         android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/search_titleView"
-        android:drawableRight="@mipmap/find_search_icon"
-        android:paddingLeft="15dp"
-        android:imeOptions="actionSearch"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingRight="10dp"
-        android:background="@mipmap/search_bg_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/searchView"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:clickable="true"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:textColor="@android:color/white"
-        android:textSize="15sp"
-        android:hint="搜索名称,地区"
-        android:ems="14"
-        android:textColorHint="@color/white"
-        android:layout_marginLeft="5dp"
-        android:visibility="gone"
-        android:layout_marginRight="5dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@mipmap/search_bg_img"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:ems="14"
+            android:hint="搜索名称,地区"
+            android:imeOptions="actionSearch"
+            android:paddingBottom="8dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/white"
+            android:textSize="15sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btn_search"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/find_search_icon" />
+    </FrameLayout>
+
     <TextView
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:clickable="true"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:text="标题"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:clickable="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="标题"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
 
     <TextView

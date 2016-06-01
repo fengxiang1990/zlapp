@@ -42,7 +42,7 @@ public class SearchResultActivity extends BaseActivityWithToolBar implements Act
         setTitle("搜索结果");
         setBtnLeft1Enable(true);
         setSearchTitleViewEnable(true);
-        searchTitleView.setHint("搜索活动");
+        editSearch.setHint("搜索活动");
         listView = (XListView) findViewById(R.id.listview);
         listView.setPullLoadEnable(false);
         data = new ArrayList<YyMobileActivity>();
@@ -50,11 +50,20 @@ public class SearchResultActivity extends BaseActivityWithToolBar implements Act
         //keyword = getIntent().getStringExtra("keyword");
         listView.setAdapter(adapter);
         uid = AppConfig.getUid(preference);
-        searchTitleView.setOnKeyListener(new View.OnKeyListener() {
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                keyword = String.valueOf(editSearch.getText());
+                if (!TextUtils.isEmpty(keyword)) {
+                    loadData();
+                }
+            }
+        });
+        editSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    keyword = String.valueOf(searchTitleView.getText());
+                    keyword = String.valueOf(editSearch.getText());
                     if (!TextUtils.isEmpty(keyword)) {
                         loadData();
                     }

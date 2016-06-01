@@ -48,18 +48,27 @@ public class FrendSearchActivity extends BaseActivityWithToolBar {
         setTitle("搜索结果");
         setBtnLeft1Enable(true);
         setSearchTitleViewEnable(true);
-        searchTitleView.setHint("搜索朋友");
+        editSearch.setHint("搜索朋友");
         listView = (ListView) findViewById(R.id.listView);
         mineService = new MineServiceImpl();
         data = new ArrayList<YyMobileUserFans>();
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
         uid = AppConfig.getUid(preference);
-        searchTitleView.setOnKeyListener(new View.OnKeyListener() {
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                keyword = String.valueOf(editSearch.getText());
+                if (!TextUtils.isEmpty(keyword)) {
+                    loadData();
+                }
+            }
+        });
+        editSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    keyword = String.valueOf(searchTitleView.getText());
+                    keyword = String.valueOf(editSearch.getText());
                     if (!TextUtils.isEmpty(keyword)) {
                         loadData();
                     }

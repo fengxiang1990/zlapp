@@ -50,6 +50,7 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
         holder.text_org_name.setText(org.getCompanyname());
         holder.text_score.setText(org.getGrade()+"");
         holder.text_type.setText(org.getTypeName());
+        holder.text_juli.setText(org.getDistance().contains("千米")?org.getDistance().replace("千米","km"):org.getDistance());
         holder.text_area1.setText(org.getAddress());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +75,7 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
         public TextView text_org_name;
         public TextView text_score;
         public SimpleDraweeView img_org;
+        public TextView text_juli;
         public TextView text_type;
         public TextView text_area1;
         public TextView text_area2;
@@ -84,6 +86,7 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
             text_score = (TextView) view.findViewById(R.id.text_score);
             img_org = (SimpleDraweeView) view.findViewById(R.id.img_org);
             text_type = (TextView) view.findViewById(R.id.text_type);
+            text_juli = (TextView) view.findViewById(R.id.text_juli);
             text_area1 = (TextView) view.findViewById(R.id.text_area1);
             text_area2 = (TextView) view.findViewById(R.id.text_area2);
         }
