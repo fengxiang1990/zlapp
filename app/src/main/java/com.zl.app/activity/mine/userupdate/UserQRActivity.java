@@ -27,7 +27,7 @@ public class UserQRActivity extends BaseActivityWithToolBar{
         setBtnLeft1Enable(true);
         user = AppConfig.getUserInfo(preference);
         int width = getWindowManager().getDefaultDisplay().getWidth();
-        Bitmap bitmap = QRUtil.createQRImage(String.valueOf(user.getUserId()),width/4*3,width/4*3);
+        Bitmap bitmap = QRUtil.createQRImage("http://www.ziluedu.cn/mobileUser/fans.html?ids="+user.getUserId()+"",width/4*3,width/4*3);
         imageView.setImageBitmap(bitmap);
 
     }

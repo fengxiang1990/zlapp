@@ -13,8 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.reflect.TypeToken;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.zl.app.R;
@@ -25,9 +27,12 @@ import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.user.YyMobileUserFans;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.util.AppConfig;
+import com.zl.app.util.AppManager;
+import com.zl.app.util.RequestURL;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
+import com.zl.app.util.net.GsonRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +92,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileUserFans>> response) {
                 if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                    data.clear();
                     data.addAll(response.getResult());
                     adapter.notifyDataSetChanged();
                 } else {
@@ -124,8 +130,11 @@ public class FrendsActivity extends BaseActivityWithToolBar {
             } else {
                 Log.d("MainActivity", "Scanned");
                 // Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                String userId = result.getContents();
-                new UserServiceImpl().addFrend(AppConfig.getUid(preference), userId, 2, new DefaultResponseListener<BaseResponse>() {
+                Log.e("FrendsActivity","Scanned: " + result.getContents());
+                String url = result.getContents();
+                url +="&uid="+uid;
+                url +="&gztype=2";
+                new UserServiceImpl().addFrend(url,new DefaultResponseListener<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse response) {
                         if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {
