@@ -6,9 +6,11 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.baidu.mapapi.map.Text;
 import com.google.gson.reflect.TypeToken;
+import com.zl.app.data.model.customer.YyMobileCompany;
 import com.zl.app.data.model.customer.YyMobilePeriod;
 import com.zl.app.data.model.customer.YyMobilePeriodBbs;
 import com.zl.app.data.model.customer.YyMobilePeriodStudent;
+import com.zl.app.data.model.user.YyMobileStudent;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.RequestURL;
@@ -25,6 +27,13 @@ import java.util.Map;
  */
 public class CourseService {
 
+    public String API_GET_TEACHER_ORG ="http://www.ziluedu.cn/mobilePeriod/tcompany.html";
+
+    public String API_GET_PARENT_ORG  = "http://www.ziluedu.cn/mobilePeriod/pcompany.html";
+
+    //精确搜索 家长的孩子列表接口
+    public String API_GET_CHILDREN  = "http://www.ziluedu.cn/mobilePeriod/pstudent.html";
+
 
     public interface CourseStatusP {
         //        1 请假 2 正常 3补假 4已上课
@@ -39,6 +48,57 @@ public class CourseService {
         int ZHENGCHANG = 2;
         int QUXIAO = 3;
         int YISHANGKE = 4;
+    }
+
+
+    /**
+     * 精确搜索 老师的机构列表接口
+     * @param uid
+     * @param listener
+     */
+    public void getCourseTeacherOrg(String uid,DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        GsonRequest request = new GsonRequest(Request.Method.POST,
+                API_GET_TEACHER_ORG, params, null,
+                new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    /**
+     * 精确搜索 家长的机构列表接口
+     * @param uid
+     * @param listener
+     */
+    public void getCourseParentOrg(String uid,
+       DefaultResponseListener<BaseResponse<List<YyMobileCompany>>> listener){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        GsonRequest request = new GsonRequest(Request.Method.POST,
+                API_GET_PARENT_ORG, params, null,
+                new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    /**
+     * 精确搜索 家长的孩子列表接口
+     * @param uid
+     * @param listener
+     */
+    public void getParentChildren(String uid,
+              DefaultResponseListener<BaseResponse<List<YyMobileStudent>>> listener){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        GsonRequest request = new GsonRequest(Request.Method.POST,
+                API_GET_CHILDREN, params, null,
+                new TypeToken<BaseResponse<List<YyMobileStudent>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
     }
 
 
