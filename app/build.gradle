@@ -46,6 +46,7 @@ android {
 
 
 dependencies {
+    compile project(':viewbadger')
     compile project(':xListView')
     compile fileTree(dir: 'src/main/libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -65,6 +66,7 @@ dependencies {
     compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
     compile 'com.google.zxing:core:3.2.1'
     compile files('src/main/libs/jpush-android-2.1.5.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
 
 

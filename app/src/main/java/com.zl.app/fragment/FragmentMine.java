@@ -13,6 +13,7 @@ import com.zl.app.activity.mine.FrendsActivity;
 import com.zl.app.activity.mine.MyChildrenActivity;
 import com.zl.app.activity.mine.MyYuyueActivity;
 import com.zl.app.activity.mine.OrderActivity;
+import com.zl.app.activity.mine.SystemNoticeActivity;
 import com.zl.app.activity.mine.SystemSettingsActivity;
 import com.zl.app.activity.mine.UserInfoActivity;
 import com.zl.app.data.user.model.YyMobileUser;
@@ -57,6 +58,10 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
     @ViewById(R.id.text_setting)
     ImageView text_setting;
 
+    @ViewById(R.id.text_sys_msg)
+    ImageView text_sys_msg;
+
+
     YyMobileUser userInfo;
     @AfterViews
     void afterViews() {
@@ -67,6 +72,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
         text_info.setOnClickListener(this);
         text_frends.setOnClickListener(this);
         text_setting.setOnClickListener(this);
+        text_sys_msg.setOnClickListener(this);
     }
 
     public void getUserInfo(){
@@ -107,6 +113,10 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.text_setting:
                 intent = new Intent(getActivity(), SystemSettingsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.text_sys_msg:
+                intent = new Intent(getActivity(), SystemNoticeActivity.class);
                 startActivity(intent);
                 break;
         }

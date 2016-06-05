@@ -2,6 +2,7 @@ package com.zl.app.data.mine;
 
 import com.zl.app.data.model.customer.YyMobileContract;
 import com.zl.app.data.model.customer.YyMobileReservation;
+import com.zl.app.data.model.customer.YyMobileSi;
 import com.zl.app.data.model.user.YyMobileStudent;
 import com.zl.app.data.model.user.YyMobileUserFans;
 import com.zl.app.util.net.BaseResponse;
@@ -14,6 +15,29 @@ import java.util.List;
  */
 public interface MineService {
 
+    /**
+     * 操作老师邀请接口
+     * @param uid
+     * @param teacherId
+     * @param type
+     * @param listener
+     */
+    void acceptTeacher(String uid,int teacherId,int type,DefaultResponseListener<BaseResponse> listener);
+    /**
+     * 系统通知
+     * @param uid
+     * @param pageNo
+     * @param pageSize
+     * @param listener
+     */
+    void getSystemNotice(String uid,int pageNo,int pageSize,DefaultResponseListener<BaseResponse<List<YyMobileSi>>> listener);
+    /**
+     * 删除好友
+     * @param uid
+     * @param ids
+     * @param listener
+     */
+     void deleteFrend(String uid,String ids,DefaultResponseListener<BaseResponse> listener);
 
     /**
      *

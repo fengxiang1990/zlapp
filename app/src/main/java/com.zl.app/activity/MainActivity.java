@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -18,8 +17,10 @@ import com.zl.app.MyApplication;
 import com.zl.app.R;
 import com.zl.app.activity.activities.PublishActivity;
 import com.zl.app.activity.activities.SearchResultActivity;
+import com.zl.app.activity.chart.ChartListActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
+import com.zl.app.data.ChartService;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.fragment.FragmentActivities_;
 import com.zl.app.fragment.FragmentClass;
@@ -77,18 +78,12 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     public static int course_left_btn_resId = R.mipmap.change_t;
 
-
     @AfterViews
     void afterViews() {
         context = MainActivity.this;
         setTitle("咨路教育");
-        //首页新闻显示侧滑
-        //setBtnLeft1Enable(false);
-        //setBtnLeft1ImageResource(R.mipmap.ic_more);
-        //setBtnRight1Enable(true);
-        //setBtnRight2Enable(true);
-        // setBtnRight1ImageResource(R.mipmap.icon_side_setting_selected);
-        //setBtnRight2ImageResource(R.mipmap.menu_search);
+        setBtnRight2Enable(true);
+        setBtnRight2ImageResource(R.mipmap.ac_chart);
         frgmentManager = getSupportFragmentManager();
         fragment_find = new FragmentFind_();
         fragment_class = new FragmentClass_();
@@ -106,18 +101,43 @@ public class MainActivity extends BaseActivityWithToolBar {
         tab_find.setChecked(true);
         initCourseLeftIcon();
         /**
-        new UserServiceImpl().updateJpushId(AppConfig.getUid(preference), AppConfig.JPUSH_ID, new DefaultResponseListener<BaseResponse>() {
+         new UserServiceImpl().updateJpushId(AppConfig.getUid(preference), AppConfig.JPUSH_ID, new DefaultResponseListener<BaseResponse>() {
+        @Override public void onSuccess(BaseResponse response) {
+        if(response!=null){
+        Log.e(TAG,response.getStatus());
+        }
+        }
+
+        @Override public void onError(VolleyError error) {
+        }
+        });**/
+
+    }
+
+
+    int newMsgCount = 0;
+
+    void initChartMsgCount() {
+        new ChartService().getNewMsgCount(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse response) {
-                if(response!=null){
-                    Log.e(TAG,response.getStatus());
+                if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {
+                    newMsgCount = Integer.parseInt(response.getMessage());
+                    if (newMsgCount > 0) {
+                        setBtnRight2MsgCountEnable(true);
+                        text_msg_count.setText(newMsgCount + "");
+                    } else {
+                        setBtnRight2MsgCountEnable(false);
+                        text_msg_count.setText("");
+                    }
                 }
             }
 
             @Override
             public void onError(VolleyError error) {
+
             }
-        });**/
+        });
     }
 
     void initCourseLeftIcon() {
@@ -132,13 +152,30 @@ public class MainActivity extends BaseActivityWithToolBar {
                 course_left_btn_resId = R.mipmap.change_p;
                 break;
         }
+        new UserServiceImpl().isTeacher(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                if (response != null) {
+                    if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                           //是老师
+                        setBtnLeft2Enable(true);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+        return;
+
     }
 
     @Override
     protected void onBtnRight2Click() {
-        ToastUtil.show(context, "search btn click");
-        application.mLocationClient.start();
-
+        Intent intent = new Intent(MainActivity.this, ChartListActivity.class);
+        startActivity(intent);
     }
 
 
@@ -157,7 +194,6 @@ public class MainActivity extends BaseActivityWithToolBar {
             Intent intent = new Intent(MainActivity.this, PublishActivity.class);
             startActivity(intent);
         } else {
-
             //如果当前登录用户是老师 不用检查 直接切换为普通用户
             if (AppConfig.getLoginType(preference) == 5) {
                 SharedPreferences.Editor editor = preference.edit();
@@ -185,7 +221,7 @@ public class MainActivity extends BaseActivityWithToolBar {
                                 setTitle("课程(老师)");
                                 ((FragmentClass) fragment_class).reloadData();
                             }
-                          //  ToastUtil.show(MainActivity.this, response.getMessage());
+                            //  ToastUtil.show(MainActivity.this, response.getMessage());
                         }
                     }
 
@@ -202,6 +238,12 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.tab_find)
     void radiol1Click() {
+        if (newMsgCount > 0) {
+            setBtnRight2MsgCountEnable(true);
+        } else {
+            setBtnRight2MsgCountEnable(false);
+        }
+        setBtnRight2Enable(true);
         setBtnLeft1Enable(false);
         setTitle("咨路教育");
         setBtnRight1Enable(false);
@@ -220,9 +262,9 @@ public class MainActivity extends BaseActivityWithToolBar {
             setTitle("课程(老师)");
             setBtnLeft2Enable(true);
         }
+        setBtnRight2Enable(false);
         setBtnLeft1Enable(false);
         setBtnRight1Enable(false);
-
         setBtnLeft2ImageResource(course_left_btn_resId);
         switchFragment(frgmentManager.beginTransaction(), fragment_class);
     }
@@ -233,6 +275,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setBtnLeft1Enable(false);
         setBtnRight1Enable(true);
         setBtnLeft2Enable(true);
+        setBtnRight2Enable(false);
         setBtnLeft2ImageResource(R.mipmap.ic_publish_activity);
         setBtnRight1ImageResource(R.mipmap.find_search_icon);
         setTitle("我的活动");
@@ -245,6 +288,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         setBtnLeft1Enable(false);
         setBtnRight1Enable(false);
         setBtnLeft2Enable(false);
+        setBtnRight2Enable(false);
         if (AppConfig.isLogin(preference)) {
             switchFragment(frgmentManager.beginTransaction(), fragment_mine);
         } else {
@@ -272,6 +316,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Override
     protected void onResume() {
         super.onResume();
+        initChartMsgCount();
         if (AppConfig.isLogin(preference)) {
             switch (radioGroup.getCheckedRadioButtonId()) {
                 case R.id.tab_find:

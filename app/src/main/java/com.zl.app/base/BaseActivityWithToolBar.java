@@ -36,6 +36,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     protected TextView textRight2;
     protected TextView textLeft1;
     protected LinearLayout rootView;
+    protected TextView text_msg_count;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
         searchView = (FrameLayout) view.findViewById(R.id.searchView);
         textRight1 = (TextView) view.findViewById(R.id.right1);
         textRight2 = (TextView) view.findViewById(R.id.right2);
+        text_msg_count = (TextView) view.findViewById(R.id.text_msg_count);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         btnLeft1.setOnClickListener(this);
@@ -208,6 +210,19 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
     }
 
     /**
+     * 设置右2按钮数字角标是否可用
+     *
+     * @param isEnable
+     */
+    protected void setBtnRight2MsgCountEnable(boolean isEnable) {
+        if (isEnable) {
+            ViewUtil.show(text_msg_count);
+        } else {
+            ViewUtil.hide(text_msg_count);
+        }
+    }
+
+    /**
      * 设置右1按钮是否可用
      *
      * @param isEnable
@@ -230,6 +245,7 @@ public abstract class BaseActivityWithToolBar extends BaseActivity implements Vi
             ViewUtil.show(btnRight2);
         } else {
             ViewUtil.hide(btnRight2);
+            setBtnRight2MsgCountEnable(false);
         }
     }
 

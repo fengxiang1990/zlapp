@@ -8,10 +8,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -84,6 +86,20 @@ public class ChartActivity extends CameraActivity {
         data = new ArrayList<>();
         adapter = new ChartAdapter(data);
         listView.setAdapter(adapter);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.e("scrollState",scrollState+"");
+                if(scrollState == 0 && isLoadNew){
+                   // listView.setSelection(adapter.getCount()-1);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
 
         listView.setXListViewListener(new XListView.IXListViewListener() {
             @Override
@@ -200,6 +216,9 @@ public class ChartActivity extends CameraActivity {
                     data.clear();
                     data.addAll(response.getResult());
                     adapter.notifyDataSetChanged();
+                   // if(isLoadNew){
+                        //listView.setSelection(adapter.getCount()-1);
+                  //  }
                 }
             }
 

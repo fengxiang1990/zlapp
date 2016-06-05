@@ -4,8 +4,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.model.user.YyMobileLetter;
+import com.zl.app.data.model.user.YyMobileUserLetter;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
@@ -23,13 +25,53 @@ public class ChartService {
 
     String tag  = "ChartService";
 
+    String API_CHART_LIST = "http://www.ziluedu.cn/mobileLetter/getLetters.html";
+
     String API_SEND = "http://www.ziluedu.cn/mobileLetter/send.html";
 
     String API_LIST_OLD = "http://www.ziluedu.cn/mobileLetter/oldlist.html";
 
     String API_LIST_NEW = "http://www.ziluedu.cn/mobileLetter/newlist.html";
 
+    String API_GET_NEW_MSG_COUNT  = "http://www.ziluedu.cn/mobileLetter/checkLetter.html";
+
     int pageSize = 15;
+
+
+    /**
+     * 未读私信数量接口
+     * @param uid
+     * @param listener
+     */
+    public void getNewMsgCount(String uid, DefaultResponseListener<BaseResponse> listener){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        Log.e(tag,params.toString());
+        GsonRequest request = new GsonRequest(Request.Method.POST, API_GET_NEW_MSG_COUNT, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+    /**
+     * 获取聊天列表
+     * @param uid
+     * @param pageNo
+     * @param pageSize
+     * @param listener
+     */
+    public void getChartList(String uid,int pageNo,int pageSize,DefaultResponseListener<BaseResponse<List<YyMobileUserLetter>>> listener){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("pageNo", pageNo+"");
+        params.put("pageSize", pageSize+"");
+        Log.e(tag,params.toString());
+        GsonRequest request = new GsonRequest(Request.Method.POST, API_CHART_LIST, params, null,
+                new TypeToken<BaseResponse<List<YyMobileUserLetter>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 
     /**
      * 发送聊天信息

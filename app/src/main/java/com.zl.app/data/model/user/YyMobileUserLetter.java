@@ -52,5 +52,17 @@ public class YyMobileUserLetter {
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "YyMobileUserLetter{" +
+				"letterId=" + letterId +
+				", personId=" + personId +
+				", personName='" + personName + '\'' +
+				", picPath='" + picPath + '\'' +
+				", updateDate='" + updateDate + '\'' +
+				", content='" + content + '\'' +
+				", updateBy='" + updateBy + '\'' +
+				'}';
+	}
 }

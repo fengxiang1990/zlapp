@@ -1,5 +1,7 @@
 package com.zl.app.activity.mine;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,12 +13,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.reflect.TypeToken;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.zl.app.R;
@@ -27,12 +26,9 @@ import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.user.YyMobileUserFans;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.util.AppConfig;
-import com.zl.app.util.AppManager;
-import com.zl.app.util.RequestURL;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
-import com.zl.app.util.net.GsonRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +65,42 @@ public class FrendsActivity extends BaseActivityWithToolBar {
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
         uid = AppConfig.getUid(preference);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final YyMobileUserFans fans = data.get(position);
+                new AlertDialog.Builder(FrendsActivity.this)
+                        .setTitle("删除好友")
+                        .setMessage("是否要删除好友?")
+                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(final DialogInterface dialog, int which) {
+                                new MineServiceImpl().deleteFrend(uid, fans.getPersonId() + "", new DefaultResponseListener<BaseResponse>() {
+                                    @Override
+                                    public void onSuccess(BaseResponse response) {
+                                        if (response != null) {
+                                            loadData();
+                                            ToastUtil.show(FrendsActivity.this, response.getMessage());
+                                            dialog.dismiss();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(VolleyError error) {
+                                        ToastUtil.show(FrendsActivity.this, error.getMessage());
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                        .show();
+                return true;
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,7 +119,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
 
     }
 
-    void loadData(){
+    void loadData() {
         mineService.getFrends(uid, pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileUserFans>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileUserFans>> response) {
@@ -107,6 +139,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
         });
 
     }
+
     @Override
     protected void onBtnRight1Click() {
         super.onBtnRight1Click();
@@ -116,7 +149,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
     @Override
     protected void onBtnRight2Click() {
         super.onBtnRight2Click();
-        Intent intent = new Intent(FrendsActivity.this,FrendSearchActivity.class);
+        Intent intent = new Intent(FrendsActivity.this, FrendSearchActivity.class);
         startActivity(intent);
     }
 
@@ -130,11 +163,11 @@ public class FrendsActivity extends BaseActivityWithToolBar {
             } else {
                 Log.d("MainActivity", "Scanned");
                 // Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                Log.e("FrendsActivity","Scanned: " + result.getContents());
+                Log.e("FrendsActivity", "Scanned: " + result.getContents());
                 String url = result.getContents();
-                url +="&uid="+uid;
-                url +="&gztype=2";
-                new UserServiceImpl().addFrend(url,new DefaultResponseListener<BaseResponse>() {
+                url += "&uid=" + uid;
+                url += "&gztype=2";
+                new UserServiceImpl().addFrend(url, new DefaultResponseListener<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse response) {
                         if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {

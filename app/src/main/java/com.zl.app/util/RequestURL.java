@@ -161,6 +161,15 @@ public class RequestURL {
     //更新孩子信息
     public static String API_UPDATE_CHILD_INFO = SERVER + "mobileStudent/update.html";
 
+    //系统通知(接受邀请)
+    public static String API_SYSTEM_NOTICE_ACCEPT = SERVER + "mobileSi/acceptTeacher.html";
+
+    //系统通知
+    public static String API_SYSTEM_NOTICE = SERVER + "mobileSi/list.html";
+
+    //删除好友
+    public static String API_DELETE_FREND = SERVER + "mobileUser/unfans.html";
+
     //搜索朋友
     public static String API_FREND_SEARCH = SERVER + "mobileUser/findfans.html";
 

@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.model.customer.YyMobileContract;
 import com.zl.app.data.model.customer.YyMobileReservation;
+import com.zl.app.data.model.customer.YyMobileSi;
 import com.zl.app.data.model.user.YyMobileStudent;
 import com.zl.app.data.model.user.YyMobileUserFans;
 import com.zl.app.util.AppManager;
@@ -22,6 +23,44 @@ import java.util.Map;
  * Created by fxa on 2016/4/17.
  */
 public class MineServiceImpl implements MineService {
+
+    @Override
+    public void acceptTeacher(String uid, int teacherId, int type, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("teacherId", teacherId + "");
+        params.put("type", type + "");
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_SYSTEM_NOTICE_ACCEPT, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void getSystemNotice(String uid, int pageNo, int pageSize, DefaultResponseListener<BaseResponse<List<YyMobileSi>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("pageNo", pageNo + "");
+        params.put("pageSize", pageSize + "");
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_SYSTEM_NOTICE, params, null,
+                new TypeToken<BaseResponse<List<YyMobileSi>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void deleteFrend(String uid, String ids, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("ids", ids + "");
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_DELETE_FREND, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 
     @Override
     public void updateStudent(String uid, int studentId, String photo, String name, String birthday, String idCard, int type, DefaultResponseListener<BaseResponse> listener) {
