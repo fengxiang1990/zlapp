@@ -51,11 +51,11 @@ public class StartActivity extends BaseActivity {
             public void onAnimationEnd(Animation animation) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent();
-                if (AppConfig.isLogin(preference)) {
+                //if (AppConfig.isLogin(preference)) {
                     intent.setClass(StartActivity.this, MainActivity_.class);
-                } else {
-                    intent.setClass(StartActivity.this, LoginActivity_.class);
-                }
+               // } else {
+               //     intent.setClass(StartActivity.this, LoginActivity_.class);
+               // }
                 startActivity(intent);
                 StartActivity.this.finish();
             }

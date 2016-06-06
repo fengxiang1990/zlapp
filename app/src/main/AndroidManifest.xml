@@ -73,7 +73,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MainActivity_"/>
+        <activity android:name=".activity.MainActivity_" android:launchMode="singleTask"/>
         <activity android:name=".activity.user.LoginActivity_"/>
         <activity android:name=".activity.user.RegistActivity_"/>
         <activity android:name=".activity.user.GetPasswordActivity_"/>

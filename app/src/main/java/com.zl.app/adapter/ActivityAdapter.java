@@ -26,6 +26,8 @@ public class ActivityAdapter extends BaseAdapter {
     OnItemBtnClickListener listener;
     Context context;
 
+    public boolean isSearch = false;
+
     public ActivityAdapter(Context context, List<YyMobileActivity> data, OnItemBtnClickListener listener) {
         this.data = data;
         this.context = context;
@@ -92,7 +94,9 @@ public class ActivityAdapter extends BaseAdapter {
                     holder.text_status.setTextColor(context.getResources().getColor(R.color.gray));
                     break;
             }
-
+            if(isSearch){
+                holder.ll_edit.setVisibility(View.GONE);
+            }
             holder.text_status.setText(statusStr);
             holder.img_delete.setOnClickListener(new View.OnClickListener() {
                 @Override

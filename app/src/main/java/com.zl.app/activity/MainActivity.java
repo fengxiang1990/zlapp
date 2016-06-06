@@ -174,15 +174,26 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnRight2Click() {
-        Intent intent = new Intent(MainActivity.this, ChartListActivity.class);
-        startActivity(intent);
+        if (AppConfig.isLogin(preference)) {
+            Intent intent = new Intent(MainActivity.this, ChartListActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+            startActivity(intent);
+        }
+
     }
 
 
     @Override
     protected void onBtnRight1Click() {
-        Intent intent = new Intent(this, SearchResultActivity.class);
-        startActivity(intent);
+        if (AppConfig.isLogin(preference)) {
+            Intent intent = new Intent(this, SearchResultActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+            startActivity(intent);
+        }
     }
 
 
@@ -266,7 +277,18 @@ public class MainActivity extends BaseActivityWithToolBar {
         setBtnLeft1Enable(false);
         setBtnRight1Enable(false);
         setBtnLeft2ImageResource(course_left_btn_resId);
-        switchFragment(frgmentManager.beginTransaction(), fragment_class);
+        if (AppConfig.isLogin(preference)) {
+            switchFragment(frgmentManager.beginTransaction(), fragment_class);
+        } else {
+            setTitle("咨路教育");
+            tab_find.setChecked(true);
+            setBtnLeft1Enable(false);
+            setBtnLeft2Enable(false);
+            setBtnRight1Enable(false);
+            setBtnRight2Enable(true);
+            Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+            startActivity(intent);
+        }
     }
 
     @Click(R.id.tab_activities)
@@ -279,7 +301,18 @@ public class MainActivity extends BaseActivityWithToolBar {
         setBtnLeft2ImageResource(R.mipmap.ic_publish_activity);
         setBtnRight1ImageResource(R.mipmap.find_search_icon);
         setTitle("我的活动");
-        switchFragment(frgmentManager.beginTransaction(), fragment_activities);
+        if (AppConfig.isLogin(preference)) {
+            switchFragment(frgmentManager.beginTransaction(), fragment_activities);
+        } else {
+            setTitle("咨路教育");
+            tab_find.setChecked(true);
+            setBtnLeft1Enable(false);
+            setBtnLeft2Enable(false);
+            setBtnRight1Enable(false);
+            setBtnRight2Enable(true);
+            Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+            startActivity(intent);
+        }
     }
 
     @Click(R.id.tab_mine)
@@ -292,6 +325,12 @@ public class MainActivity extends BaseActivityWithToolBar {
         if (AppConfig.isLogin(preference)) {
             switchFragment(frgmentManager.beginTransaction(), fragment_mine);
         } else {
+            setTitle("咨路教育");
+            tab_find.setChecked(true);
+            setBtnLeft1Enable(false);
+            setBtnLeft2Enable(false);
+            setBtnRight1Enable(false);
+            setBtnRight2Enable(true);
             Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
             startActivity(intent);
         }

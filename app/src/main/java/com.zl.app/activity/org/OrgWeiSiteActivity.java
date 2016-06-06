@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
+import com.zl.app.activity.MainActivity_;
+import com.zl.app.activity.StartActivity;
+import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
@@ -267,9 +270,13 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                 loadGradeComments();
                 break;
             case R.id.text_zixun:
-                intent = new Intent(OrgWeiSiteActivity.this, OrgYuYueActivity.class);
-                intent.putExtra("companyId", companyId);
-                intent.putExtra("phone", yyMobileCompany.getPhone());
+                if (AppConfig.isLogin(preference)) {
+                    intent = new Intent(OrgWeiSiteActivity.this, OrgYuYueActivity.class);
+                    intent.putExtra("companyId", companyId);
+                    intent.putExtra("phone", yyMobileCompany.getPhone());
+                } else {
+                    intent = new  Intent(OrgWeiSiteActivity.this, LoginActivity_.class);
+                 }
                 startActivity(intent);
                 break;
             case R.id.text_detail:

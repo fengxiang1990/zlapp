@@ -148,7 +148,7 @@ public class AppConfig {
     }
 
     public static String getUid(SharedPreferences preference) {
-        return preference.getString(AppConfig.USER_UID, null);
+        return preference.getString(AppConfig.USER_UID, "g5601f7f-4b9c-40bf-937e-4740778da12g");
     }
 
     public static String getUserHeadImg(SharedPreferences preference) {

@@ -47,6 +47,7 @@ public class SearchResultActivity extends BaseActivityWithToolBar implements Act
         listView.setPullLoadEnable(false);
         data = new ArrayList<YyMobileActivity>();
         adapter = new ActivityAdapter(SearchResultActivity.this,data,this);
+        adapter.isSearch = true;
         //keyword = getIntent().getStringExtra("keyword");
         listView.setAdapter(adapter);
         uid = AppConfig.getUid(preference);
