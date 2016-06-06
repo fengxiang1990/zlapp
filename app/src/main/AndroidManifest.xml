@@ -142,7 +142,8 @@
         <activity android:name=".activity.activities.HisActivitiesActivity"/>
 
         <!-- course -->
-
+        <activity android:name=".activity.course.StatusChoiceActivity"/>
+        <activity android:name=".activity.course.CourseSearchResultActivity_"/>
         <activity android:name=".activity.course.SearchCourceOrgActivity"/>
         <activity android:name=".activity.course.CoursePDTActivity"/>
         <activity
