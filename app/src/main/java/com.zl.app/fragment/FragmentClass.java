@@ -75,32 +75,36 @@ public class FragmentClass extends BaseFragment {
         Log.e("this_week_1", this_week_1);
         datemap.put("this_week_1", this_week_1);
         cal = Calendar.getInstance();
+        cal.add(Calendar.WEEK_OF_YEAR, 1);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY); //获取本周日的日期
-       // cal.add(Calendar.WEEK_OF_YEAR, );
         String this_week_7 = df.format(cal.getTime());
         Log.e("this_week_7", this_week_7);
         datemap.put("this_week_7", this_week_7);
+
         cal = Calendar.getInstance();
+        cal.add(Calendar.WEEK_OF_YEAR, 1);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); //下周一
         //cal.add(Calendar.WEEK_OF_YEAR, 1);
         String next_week_1 = df.format(cal.getTime());
         Log.e("next_week_1", next_week_1);
         datemap.put("next_week_1", next_week_1);
+
         cal = Calendar.getInstance();
+        cal.add(Calendar.WEEK_OF_YEAR,2);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY); //下周日
-        cal.add(Calendar.WEEK_OF_YEAR,1);
         String next_week_7 = df.format(cal.getTime());
         Log.e("next_week_7", next_week_7);
         datemap.put("next_week_7", next_week_7);
+
         cal = Calendar.getInstance();
+        cal.add(Calendar.WEEK_OF_YEAR, -1);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); //上周一
-        cal.add(Calendar.WEEK_OF_YEAR, -2);
         String last_week_1 = df.format(cal.getTime());
         Log.e("last_week_1", last_week_1);
         datemap.put("last_week_1", last_week_1);
+
         cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY); //上周日
-        cal.add(Calendar.WEEK_OF_YEAR, -1);
         String last_week_7 = df.format(cal.getTime());
         Log.e("last_week_7", last_week_7);
         datemap.put("last_week_7", last_week_7);
