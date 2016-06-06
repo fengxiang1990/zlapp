@@ -39,11 +39,13 @@ public class CitySelectActivity extends BaseActivityWithToolBar {
     YyMobileCity level3;//区
     YyMobileCity level4;//街道
 
+    boolean isUpdateArea = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_select);
         setTitle("选择地址");
+        isUpdateArea = getIntent().getBooleanExtra("isUpdateArea",false);
         uid = AppConfig.getUid(preference);
         homeService = new HomeServiceImpl();
         setBtnLeft1Enable(true);

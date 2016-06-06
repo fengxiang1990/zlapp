@@ -1,29 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/feedback_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/lightgray"
-    android:weightSum="1">
+                android:id="@+id/feedback_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/lightgray"
+                android:weightSum="1">
 
     <LinearLayout
         android:id="@+id/content_layout"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="240dp"
+        android:layout_alignParentTop="true"
         android:background="@color/white">
 
         <EditText
             android:id="@+id/give_some_suggestion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
-            android:gravity="top"
             android:background="@null"
+            android:gravity="top"
             android:hint="@string/give_some_suggestion"
+            android:padding="10dp"
             />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:id="@+id/image_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/content_layout"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/add_image"/>
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/add_image"/>
+
+        <ImageView
+            android:id="@+id/img3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/add_image"/>
+
+        <ImageView
+            android:id="@+id/img4"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/add_image"/>
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/image_layout"
@@ -32,39 +69,40 @@
         android:layout_below="@+id/content_layout"
         android:layout_marginTop="20dp"
         android:background="@color/white"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:visibility="gone">
 
         <com.zl.app.activity.mine.MyGridView
             android:id="@+id/image_container_grid_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_centerInParent="true"
-            android:numColumns="4"
             android:cacheColorHint="#00000000"
-            android:listSelector="#00000000"
-            android:stretchMode="columnWidth"
+            android:gravity="center"
             android:horizontalSpacing="3dp"
-            android:scrollbars="none"/>
+            android:listSelector="#00000000"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/send_layout"
-        android:layout_below="@+id/image_layout"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/image_layout">
 
         <Button
             android:id="@+id/btn_send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="@color/red"
             android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="@color/white"
             android:text="@string/send_feedback"
-            android:layout_alignParentBottom="true" />
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
     </RelativeLayout>
 
 </RelativeLayout>

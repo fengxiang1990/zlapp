@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -19,6 +20,7 @@ import com.zl.app.activity.mine.userupdate.UpdateAddressActivity;
 import com.zl.app.activity.mine.userupdate.UpdateQianMingActivity;
 import com.zl.app.activity.mine.userupdate.UpdateUserNameActivity;
 import com.zl.app.activity.mine.userupdate.UserQRActivity;
+import com.zl.app.activity.org.CitySelectActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.data.user.model.YyMobileUser;
@@ -48,7 +50,7 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
     YyMobileUser userInfo;
     ImageView img_qr;
     View root;
-
+    LinearLayout ll_area;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +67,14 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
         text_address = (TextView) findViewById(R.id.text_address);
         text_qianming = (TextView) findViewById(R.id.text_qianming);
         img_qr = (ImageView) findViewById(R.id.img_qr);
+        ll_area = (LinearLayout) findViewById(R.id.ll_area);
         img_header.setOnClickListener(this);
         text_address.setOnClickListener(this);
         text_area.setOnClickListener(this);
         text_name.setOnClickListener(this);
         text_qianming.setOnClickListener(this);
         img_qr.setOnClickListener(this);
+        ll_area.setOnClickListener(this);
     }
 
     public void getUserInfo() {
@@ -114,6 +118,11 @@ public class UserInfoActivity extends BaseActivityWithToolBar implements View.On
                 break;
             case R.id.img_header:
                 popSelectPicture.showAtLocation(root, Gravity.BOTTOM, 0, 0);
+                break;
+            case R.id.ll_area:
+                intent = new Intent(UserInfoActivity.this, CitySelectActivity.class);
+                intent.putExtra("isUpdateArea",true);
+                startActivity(intent);
                 break;
         }
     }

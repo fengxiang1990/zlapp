@@ -3,6 +3,7 @@ package com.zl.app.activity.mine;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,13 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.zl.app.R;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.user.YyMobileStudent;
+import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.GsonUtil;
 import com.zl.app.util.ToastUtil;
@@ -34,6 +38,8 @@ public class MyChildrenActivity extends BaseActivityWithToolBar {
     ListView listView;
     List<YyMobileStudent> data;
     MyAdapter adapter;
+    IntentIntegrator intentIntegrator;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +47,9 @@ public class MyChildrenActivity extends BaseActivityWithToolBar {
         setTitle("我的宝贝");
         setBtnLeft1Enable(true);
         setBtnRight1Enable(true);
+        setBtnRight2Enable(true);
         setBtnRight1ImageResource(R.mipmap.addchild_icon);
+        setBtnRight2ImageResource(R.mipmap.qr_code_scan);
         listView = (ListView) findViewById(R.id.listView2);
         data = new ArrayList<YyMobileStudent>();
         adapter = new MyAdapter(data);
@@ -56,12 +64,13 @@ public class MyChildrenActivity extends BaseActivityWithToolBar {
                 startActivity(intent);
             }
         });
+        intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
+        intentIntegrator.setOrientationLocked(false);
 
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
+    public void loadData() {
         new MineServiceImpl().getBabies(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse<List<YyMobileStudent>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileStudent>> response) {
@@ -81,6 +90,12 @@ public class MyChildrenActivity extends BaseActivityWithToolBar {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
     }
 
 
@@ -143,5 +158,45 @@ public class MyChildrenActivity extends BaseActivityWithToolBar {
         SimpleDraweeView img_child;
         TextView text_name;
         TextView text_id_number;
+    }
+
+    @Override
+    protected void onBtnRight2Click() {
+        super.onBtnRight1Click();
+        intentIntegrator.initiateScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Log.d("MainActivity", "Cancelled scan");
+                // Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Log.d("MainActivity", "Scanned");
+                // Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                Log.e("FrendsActivity", "Scanned: " + result.getContents());
+                String url = result.getContents();
+                url += "&uid=" + AppConfig.getUid(preference);
+                new UserServiceImpl().addFrend(url, new DefaultResponseListener<BaseResponse>() {
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {
+                            loadData();
+                        }
+                        ToastUtil.show(MyChildrenActivity.this, response.getMessage());
+                    }
+
+                    @Override
+                    public void onError(VolleyError error) {
+
+                    }
+                });
+            }
+        } else {
+            // This is important, otherwise the result will not be passed to the fragment
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

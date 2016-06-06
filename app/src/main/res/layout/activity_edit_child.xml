@@ -88,6 +88,8 @@
         android:background="@color/lightgray" />
 
     <LinearLayout
+        android:id="@+id/ll_qr"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,11 +119,13 @@
     </LinearLayout>
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/lightgray" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_id_edit"
         android:clickable="true"
         android:layout_width="match_parent"
@@ -161,6 +165,7 @@
         android:background="@color/lightgray" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_birthday_edit"
         android:clickable="true"
         android:layout_width="match_parent"
@@ -195,11 +200,14 @@
     </LinearLayout>
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/lightgray" />
 
     <LinearLayout
+        android:id="@+id/ll_ralationship_edit"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

@@ -126,9 +126,12 @@
             android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
+
+        <activity android:name=".activity.mine.babyupdate.BabyQRActivity"/>
         <activity android:name=".activity.mine.babyupdate.UpdateBabyNameOrIdActivity"/>
         <activity android:name=".activity.mine.babyupdate.UpdateBabyBirthdateActivity"/>
         <activity android:name=".activity.mine.FrendSearchActivity"/>
+        <activity android:name=".activity.mine.babyupdate.ChildRalationShipChoiceActicity"/>
 
 
         <!-- activities -->
