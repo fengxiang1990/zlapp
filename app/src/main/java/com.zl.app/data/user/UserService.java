@@ -20,6 +20,13 @@ import java.util.concurrent.ExecutionException;
 public interface UserService {
 
     /**
+     * 检查更新
+     * @param listener
+     */
+    void checkUpdate(DefaultResponseListener<BaseResponse> listener);
+
+
+    /**
      * 添加好友(扫码)
      * @param url
      * @param listener

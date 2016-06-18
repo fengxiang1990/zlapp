@@ -29,6 +29,15 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    public void checkUpdate(DefaultResponseListener<BaseResponse> listener) {
+        GsonRequest request = new GsonRequest(Request.Method.GET, RequestURL.API_CHECK_UPDATE, null, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
     public void addFrend(String url, DefaultResponseListener<BaseResponse> listener) {
         GsonRequest request = new GsonRequest(Request.Method.GET, url, null, null,
                 new TypeToken<BaseResponse<String>>() {

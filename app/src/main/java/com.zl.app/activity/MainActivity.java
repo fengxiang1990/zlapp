@@ -1,11 +1,16 @@
 package com.zl.app.activity;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -18,6 +23,7 @@ import com.zl.app.R;
 import com.zl.app.activity.activities.PublishActivity;
 import com.zl.app.activity.activities.SearchResultActivity;
 import com.zl.app.activity.chart.ChartListActivity;
+import com.zl.app.activity.org.WebDetailActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ChartService;
@@ -28,6 +34,7 @@ import com.zl.app.fragment.FragmentClass_;
 import com.zl.app.fragment.FragmentFind_;
 import com.zl.app.fragment.FragmentMine_;
 import com.zl.app.util.AppConfig;
+import com.zl.app.util.PackageUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
@@ -111,8 +118,50 @@ public class MainActivity extends BaseActivityWithToolBar {
         @Override public void onError(VolleyError error) {
         }
         });**/
-
+        checkUpdate();
     }
+
+
+    void checkUpdate(){
+         new UserServiceImpl().checkUpdate(new DefaultResponseListener<BaseResponse>() {
+             @Override
+             public void onSuccess(BaseResponse response) {
+                 int currentVersion = PackageUtil.getPackageInfo(MainActivity.this).versionCode;
+                 int remoteVersion = 0;
+                 if(response.getStatus().equals(AppConfig.HTTP_OK)){
+                     String targetVersionStr = response.getMessage();
+                     if(!TextUtils.isEmpty(targetVersionStr)){
+                         remoteVersion = Integer.parseInt(targetVersionStr);
+                     }
+                     if(remoteVersion > currentVersion){
+                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                         builder.setTitle("系统提示")
+                                 .setMessage("检测到有最新版本,是否更新?")
+                                 .setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+                                     @Override
+                                     public void onClick(DialogInterface dialog, int which) {
+                                         Intent intent = new Intent(MainActivity.this,WebDetailActivity.class);
+                                         intent.putExtra("title","咨路教育");
+                                         intent.putExtra("url","http://ziluedu.net/app/download.html#download");
+                                         startActivity(intent);
+                                     }
+                                 }).setNegativeButton("稍后更新", new DialogInterface.OnClickListener() {
+                             @Override
+                             public void onClick(DialogInterface dialog, int which) {
+                                 dialog.dismiss();
+                             }
+                         }).create().show();
+                     }
+                 }
+             }
+
+             @Override
+             public void onError(VolleyError error) {
+
+             }
+         });
+    }
+
 
 
     int newMsgCount = 0;

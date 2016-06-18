@@ -12,6 +12,9 @@ public class RequestURL {
 
     public static String SERVER = STANDARD_DOMAIN;
 
+    //检查更新
+    public static String API_CHECK_UPDATE = SERVER + "mobileBase/getVersion.html";
+
     //判断是不是朋友
     public static String API_CHECK_ISFREND =SERVER +  "mobileUser/checkFriend.html";
 
