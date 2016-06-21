@@ -74,7 +74,7 @@
         </activity>
 
         <activity android:name=".activity.MainActivity_" android:launchMode="singleTask"/>
-        <activity android:name=".activity.user.LoginActivity_"/>
+        <activity android:name=".activity.user.LoginActivity_" android:launchMode="singleTask"/>
         <activity android:name=".activity.user.RegistActivity_"/>
         <activity android:name=".activity.user.GetPasswordActivity_"/>
         <activity android:name=".activity.user.ModifyPasswordActivity_"/>

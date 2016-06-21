@@ -145,6 +145,7 @@ public class UsingFeedbackActivity extends CameraActivity
 
             @Override
             public void onError(VolleyError error) {
+                Log.e("UsingFeedbackActivity",error.toString());
                 ToastUtil.show(UsingFeedbackActivity.this, error.getMessage());
                 LoadingDialog.getInstance(UsingFeedbackActivity.this).dismiss();
             }
@@ -199,11 +200,11 @@ public class UsingFeedbackActivity extends CameraActivity
                     ToastUtil.show(UsingFeedbackActivity.this, "请填写您的建议");
                     return;
                 }
-                if (imgurl1 == null || imgurl2 == null
-                        || imgurl3 == null || imgurl4 == null) {
-                    ToastUtil.show(UsingFeedbackActivity.this, "请上传四张图片");
-                    return;
-                }
+//                if (imgurl1 == null || imgurl2 == null
+//                        || imgurl3 == null || imgurl4 == null) {
+//                    ToastUtil.show(UsingFeedbackActivity.this, "请上传四张图片");
+//                    return;
+//                }
                 new UserServiceImpl().applyUserAdvice(AppConfig.getUid(preference), String.valueOf(giveSomeSuggestions.getText())
                         , imgurl1, imgurl2, imgurl3, imgurl4, new DefaultResponseListener<BaseResponse>() {
                             @Override

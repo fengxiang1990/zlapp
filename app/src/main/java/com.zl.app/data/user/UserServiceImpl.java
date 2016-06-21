@@ -266,10 +266,19 @@ public class UserServiceImpl implements UserService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
         params.put("adviceContent", content);
-        params.put("image1", image1_path);
-        params.put("image2", image2_path);
-        params.put("image3", image3_path);
-        params.put("image4", image4_path);
+        if(!TextUtils.isEmpty(image1_path)){
+            params.put("image1", image1_path);
+        }
+        if(!TextUtils.isEmpty(image2_path)){
+            params.put("image2", image2_path);
+        }
+        if(!TextUtils.isEmpty(image3_path)){
+            params.put("image3", image3_path);
+        }
+        if(!TextUtils.isEmpty(image4_path)){
+            params.put("image4", image4_path);
+        }
+
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_USER_ADVICE, params, null,
                 new TypeToken<BaseResponse>() {
                 }, listener, listener);

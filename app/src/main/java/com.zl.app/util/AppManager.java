@@ -1,5 +1,7 @@
 package com.zl.app.util;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
@@ -16,6 +18,7 @@ public class AppManager {
     public static List<BaseActivity> activities = new ArrayList<BaseActivity>();
     public static List<BaseFragment> fragments = new ArrayList<BaseFragment>();
 
+    public static Context context;
 
     private static ImageLoader imageLoader;
 

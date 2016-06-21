@@ -16,6 +16,8 @@
 
 package com.zl.app.util.net;
 
+import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -30,6 +32,8 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.zl.app.activity.user.LoginActivity_;
+import com.zl.app.util.AppManager;
 import com.zl.app.util.StringUtil;
 
 import java.io.UnsupportedEncodingException;
@@ -87,7 +91,6 @@ public class GsonRequest<T> extends Request<T> {
         String jsonString = null;
         try {
             jsonString = new String(response.data, PROTOCOL_CHARSET);
-            Log.e(TAG,jsonString);
             T parsedGSON = mGson.fromJson(jsonString, mTypeToken.getType());
             return Response.success(parsedGSON, HttpHeaderParser.parseCacheHeaders(response));
 
@@ -102,6 +105,10 @@ public class GsonRequest<T> extends Request<T> {
             return Response.error(new VolleyError(e));
         } finally {
             Log.e(TAG, "the response is:" + StringUtil.replaceAllInvalid(jsonString));
+            if(StringUtil.replaceAllInvalid(jsonString).contains("请先登录账号")){
+                Intent intent =new Intent(AppManager.context, LoginActivity_.class);
+                AppManager.context.startActivity(intent);
+            }
         }
     }
 

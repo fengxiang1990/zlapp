@@ -74,12 +74,15 @@ public class FragmentCourseSearch extends BaseFragment {
         intent.putExtra("endDate", String.valueOf(text_time_end.getText()));
         intent.putExtra("statusP",statusP==null?null:statusP.type);
         intent.putExtra("statusT",statusT==null?null:statusT.type);
-        if (TextUtils.isEmpty(String.valueOf(text_time_from.getText()))) {
-            ToastUtil.show(getActivity(), "开始时间不能为空!");
+
+        if (!TextUtils.isEmpty(String.valueOf(text_time_from.getText()))
+                && TextUtils.isEmpty(String.valueOf(text_time_end.getText()))) {
+            ToastUtil.show(getActivity(), "结束时间不能为空!");
+
             return;
         }
-        if (TextUtils.isEmpty(String.valueOf(text_time_from.getText()))) {
-            ToastUtil.show(getActivity(), "结束时间不能为空!");
+        if (TextUtils.isEmpty(String.valueOf(text_time_from.getText())) && !TextUtils.isEmpty(String.valueOf(text_time_end.getText()))) {
+            ToastUtil.show(getActivity(), "开始时间不能为空!");
             return;
         }
         startActivity(intent);

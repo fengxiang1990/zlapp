@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import com.zl.app.BaseActivity;
 import com.zl.app.R;
 import com.zl.app.adapter.OrgAdapter;
+import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.home.HomeService;
 import com.zl.app.data.home.HomeServiceImpl;
 import com.zl.app.data.home.model.OrgType;
@@ -49,7 +50,7 @@ import java.util.List;
  * Created by fengxiang on 2016/4/12.
  */
 @EActivity(R.layout.activity_org_list)
-public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRefreshLayout.OnRefreshListener {
     String tag = OrgListActivity.class.getName();
     @ViewById(R.id.swipe)
     SwipeRefreshLayout swipe;
@@ -135,6 +136,16 @@ public class OrgListActivity extends BaseActivity implements SwipeRefreshLayout.
         } else if (typeId == -1) {
             title = "更多";
         }
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageNumber = 1;
+                isLoadMore = false;
+                companyname = searchTitleView.getText().toString();
+                loadData();
+            }
+        });
 
         searchTitleView.setOnKeyListener(new View.OnKeyListener() {
             @Override

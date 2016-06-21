@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -58,6 +59,9 @@ public class MultiPartStringRequest<T> extends Request<T> implements MultiPartRe
             ErrorListener errorListener) {
         super(method,url,errorListener);
         mListener = listener;
+        setRetryPolicy(new DefaultRetryPolicy(10000,
+                5,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 

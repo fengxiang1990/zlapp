@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,6 +35,7 @@ import com.zl.app.fragment.FragmentClass_;
 import com.zl.app.fragment.FragmentFind_;
 import com.zl.app.fragment.FragmentMine_;
 import com.zl.app.util.AppConfig;
+import com.zl.app.util.AppManager;
 import com.zl.app.util.PackageUtil;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
@@ -82,12 +84,14 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     List<BaseFragment> fragments;
 
+    boolean isTeacher = false;
 
     public static int course_left_btn_resId = R.mipmap.change_t;
 
     @AfterViews
     void afterViews() {
         context = MainActivity.this;
+        AppManager.context = context;
         setTitle("咨路教育");
         setBtnRight2Enable(true);
         setBtnRight2ImageResource(R.mipmap.ac_chart);
@@ -190,7 +194,8 @@ public class MainActivity extends BaseActivityWithToolBar {
     }
 
     void initCourseLeftIcon() {
-        int loginType = AppConfig.getLoginType(preference);
+        final int loginType = AppConfig.getLoginType(preference);
+        Log.e(TAG,"loginType-->"+loginType);
         switch (loginType) {
             case 3:
                 //当前是家长登录
@@ -205,9 +210,19 @@ public class MainActivity extends BaseActivityWithToolBar {
             @Override
             public void onSuccess(BaseResponse response) {
                 if (response != null) {
+                    //是老师 并且当前选中课程页面
                     if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                           //是老师
+                        isTeacher = true;
+                        /**
+                        //当前是家长身份进入应用
+                        if(loginType == 3){
+                            setBtnLeft2ImageResource(R.mipmap.change_t);
+                        }
+                        if(loginType == 5){
+                            setBtnLeft2ImageResource(R.mipmap.change_p);
+                        }
                         setBtnLeft2Enable(true);
+                         **/
                     }
                 }
             }
@@ -317,7 +332,12 @@ public class MainActivity extends BaseActivityWithToolBar {
         isCurrentTabIsActivity = false;
         if (AppConfig.getLoginType(preference) == 3) {
             setTitle("课程(家长)");
-            setBtnLeft2Enable(false);
+            if(isTeacher){
+                setBtnLeft2Enable(true);
+            }else{
+                setBtnLeft2Enable(false);
+            }
+
         } else if (AppConfig.getLoginType(preference) == 5) {
             setTitle("课程(老师)");
             setBtnLeft2Enable(true);

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
+import com.zl.app.activity.activities.HisActivitiesActivity;
 import com.zl.app.data.model.activity.YyMobileActivity;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
@@ -95,6 +96,9 @@ public class ActivityAdapter extends BaseAdapter {
                     break;
             }
             if(isSearch){
+                holder.ll_edit.setVisibility(View.GONE);
+            }
+            if(context instanceof HisActivitiesActivity){
                 holder.ll_edit.setVisibility(View.GONE);
             }
             holder.text_status.setText(statusStr);

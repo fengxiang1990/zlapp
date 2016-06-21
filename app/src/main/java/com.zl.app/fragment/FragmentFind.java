@@ -64,8 +64,6 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         homeService=new HomeServiceImpl();
-        uid = AppConfig.getUid(AppManager.getPreferences());
-
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动，既是否向右滑动或向下滑动
             boolean isSlidingToLast = false;
@@ -101,9 +99,15 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
                 isSlidingToLast = dy > 0;
             }
         });
-        loadData();
     }
 
+
+    @Override
+    public void  onResume(){
+        super.onResume();
+        uid = AppConfig.getUid(AppManager.getPreferences());
+        loadData();
+    }
 
     public void loadData() {
         id_swipe_ly.setRefreshing(true);
