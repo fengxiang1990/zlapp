@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
-import com.zl.app.activity.MainActivity_;
-import com.zl.app.activity.StartActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.home.HomeService;
@@ -26,7 +23,6 @@ import com.zl.app.data.model.customer.YyMobileCompany;
 import com.zl.app.data.model.customer.YyMobileCompanyGrade;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.DateUtil;
-import com.zl.app.util.RequestURL;
 import com.zl.app.util.StringUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
@@ -68,7 +64,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         setContentView(R.layout.activity_org_site);
         context = this;
         setBtnLeft1Enable(true);
-       // setBtnRight1Enable(true);
+        // setBtnRight1Enable(true);
         setBtnRight1ImageResource(R.mipmap.write_icon);
         setTitle("机构");
         data = new ArrayList<YyMobileCompanyGrade>();
@@ -94,6 +90,11 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
         homeService = new HomeServiceImpl();
         uid = AppConfig.getUid(preference);
         companyId = getIntent().getStringExtra("companyId");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         homeService.getOrgSite(uid, companyId, new DefaultResponseListener<BaseResponse<YyMobileCompany>>() {
             @Override
             public void onSuccess(BaseResponse<YyMobileCompany> response) {
@@ -101,7 +102,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                     YyMobileCompany yyMobileCompany = response.getResult();
                     if (yyMobileCompany != null) {
                         OrgWeiSiteActivity.this.yyMobileCompany = yyMobileCompany;
-                        if(yyMobileCompany.getPlactive() == 2){
+                        if (yyMobileCompany.getPlactive() == 2) {
                             setBtnRight1Enable(true);
                         }
                         if (StringUtil.isEmpty(yyMobileCompany.getPicPath())) {
@@ -275,8 +276,8 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                     intent.putExtra("companyId", companyId);
                     intent.putExtra("phone", yyMobileCompany.getPhone());
                 } else {
-                    intent = new  Intent(OrgWeiSiteActivity.this, LoginActivity_.class);
-                 }
+                    intent = new Intent(OrgWeiSiteActivity.this, LoginActivity_.class);
+                }
                 startActivity(intent);
                 break;
             case R.id.text_detail:

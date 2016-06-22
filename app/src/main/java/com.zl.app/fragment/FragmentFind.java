@@ -20,6 +20,7 @@ import com.zl.app.util.AppManager;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
+import com.zl.app.view.LoadingDialog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -106,14 +107,16 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
     public void  onResume(){
         super.onResume();
         uid = AppConfig.getUid(AppManager.getPreferences());
+        LoadingDialog.getInstance(getActivity()).show();
         loadData();
     }
 
     public void loadData() {
-        id_swipe_ly.setRefreshing(true);
+        //id_swipe_ly.setRefreshing(true);
         homeService.getHomeCompany(uid, pageNumber, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileCompany>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileCompany>> response) {
+                LoadingDialog.getInstance(getActivity()).dismiss();
                 id_swipe_ly.setRefreshing(false);
                 if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                     List<YyMobileCompany> list = response.getResult();
@@ -129,6 +132,7 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
 
             @Override
             public void onError(VolleyError error) {
+                LoadingDialog.getInstance(getActivity()).dismiss();
                 id_swipe_ly.setRefreshing(false);
             }
         });

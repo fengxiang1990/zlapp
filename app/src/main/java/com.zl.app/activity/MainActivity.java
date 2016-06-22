@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -177,8 +175,10 @@ public class MainActivity extends BaseActivityWithToolBar {
                 if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {
                     newMsgCount = Integer.parseInt(response.getMessage());
                     if (newMsgCount > 0) {
-                        setBtnRight2MsgCountEnable(true);
-                        text_msg_count.setText(newMsgCount + "");
+                        if(!fragment_find.isHidden()){
+                            setBtnRight2MsgCountEnable(true);
+                            text_msg_count.setText(newMsgCount + "");
+                        }
                     } else {
                         setBtnRight2MsgCountEnable(false);
                         text_msg_count.setText("");
@@ -206,32 +206,36 @@ public class MainActivity extends BaseActivityWithToolBar {
                 course_left_btn_resId = R.mipmap.change_p;
                 break;
         }
-        new UserServiceImpl().isTeacher(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
-            @Override
-            public void onSuccess(BaseResponse response) {
-                if (response != null) {
-                    //是老师 并且当前选中课程页面
-                    if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                        isTeacher = true;
-                        /**
-                        //当前是家长身份进入应用
-                        if(loginType == 3){
-                            setBtnLeft2ImageResource(R.mipmap.change_t);
+        if(!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")){
+            Log.e(TAG,"判断是不是老师");
+            new UserServiceImpl().isTeacher(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse response) {
+                    if (response != null) {
+                        //是老师 并且当前选中课程页面
+                        if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                            isTeacher = true;
+                            /**
+                             //当前是家长身份进入应用
+                             if(loginType == 3){
+                             setBtnLeft2ImageResource(R.mipmap.change_t);
+                             }
+                             if(loginType == 5){
+                             setBtnLeft2ImageResource(R.mipmap.change_p);
+                             }
+                             setBtnLeft2Enable(true);
+                             **/
                         }
-                        if(loginType == 5){
-                            setBtnLeft2ImageResource(R.mipmap.change_p);
-                        }
-                        setBtnLeft2Enable(true);
-                         **/
                     }
                 }
-            }
 
-            @Override
-            public void onError(VolleyError error) {
+                @Override
+                public void onError(VolleyError error) {
 
-            }
-        });
+                }
+            });
+        }
+
         return;
 
     }
@@ -424,7 +428,9 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Override
     protected void onResume() {
         super.onResume();
-        initChartMsgCount();
+        if(!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")) {
+            initChartMsgCount();
+        }
         if (AppConfig.isLogin(preference)) {
             switch (radioGroup.getCheckedRadioButtonId()) {
                 case R.id.tab_find:

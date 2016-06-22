@@ -283,8 +283,10 @@ public class ChartActivity extends CameraActivity {
                 holder.text_left_content.setText(yyMobileLetter.getContent());
                 if (!TextUtils.isEmpty(yyMobileLetter.getContentPic())) {
                     ViewUtil.show(holder.img_left);
+                    ViewUtil.hide(holder.text_left_content);
                     holder.img_left.setImageURI(Uri.parse(yyMobileLetter.getContentPic()));
                 }else{
+                    ViewUtil.show(holder.text_left_content);
                     ViewUtil.hide(holder.img_left);
                 }
             }
@@ -296,8 +298,10 @@ public class ChartActivity extends CameraActivity {
                 holder.text_right_content.setText(yyMobileLetter.getContent());
                 if (!TextUtils.isEmpty(yyMobileLetter.getContentPic())) {
                     ViewUtil.show(holder.img_right);
+                    ViewUtil.hide(holder.text_right_content);
                     holder.img_right.setImageURI(Uri.parse(yyMobileLetter.getContentPic()));
                 }else{
+                    ViewUtil.show(holder.text_right_content);
                     ViewUtil.hide(holder.img_right);
                 }
             }

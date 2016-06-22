@@ -113,7 +113,7 @@
         <activity android:name=".activity.mine.userupdate.UpdateQianMingActivity"/>
         <activity android:name=".activity.mine.userupdate.UpdateAddressActivity"/>
         <activity android:name=".activity.mine.userupdate.UserQRActivity"/>
-        <activity android:name=".activity.mine.FrendsActivity"/>
+        <activity android:name=".activity.mine.FrendsActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.mine.SystemSettingsActivity"/>
         <activity android:name=".activity.mine.UsingFeedbackActivity"/>
         <activity android:name=".activity.mine.ResetPasswordActivity"/>

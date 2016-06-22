@@ -29,6 +29,7 @@ import com.zl.app.util.AppConfig;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
+import com.zl.app.view.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
                 startActivity(intent);
             }
         });
-        loadData();
+
         intentIntegrator = new IntentIntegrator(this);
         intentIntegrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
         intentIntegrator.setOrientationLocked(false);
@@ -119,10 +120,18 @@ public class FrendsActivity extends BaseActivityWithToolBar {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LoadingDialog.getInstance(this).show();
+        loadData();
+    }
+
     void loadData() {
         mineService.getFrends(uid, pageNo, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileUserFans>>>() {
             @Override
             public void onSuccess(BaseResponse<List<YyMobileUserFans>> response) {
+                LoadingDialog.getInstance(FrendsActivity.this).dismiss();
                 if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                     data.clear();
                     data.addAll(response.getResult());
@@ -134,7 +143,7 @@ public class FrendsActivity extends BaseActivityWithToolBar {
 
             @Override
             public void onError(VolleyError error) {
-
+                LoadingDialog.getInstance(FrendsActivity.this).dismiss();
             }
         });
 

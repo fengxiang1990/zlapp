@@ -1,5 +1,7 @@
 package com.zl.app.activity.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.widget.AdapterView;
 import com.android.volley.VolleyError;
 import com.zl.app.R;
 import com.zl.app.activity.chart.ChartActivity;
+import com.zl.app.activity.mine.FrendsActivity;
 import com.zl.app.adapter.ActivityAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
@@ -113,10 +116,46 @@ public class HisActivitiesActivity extends BaseActivityWithToolBar implements Ac
 
     @Override
     protected void onBtnRight1Click() {
-        Intent intent = new Intent(HisActivitiesActivity.this, ChartActivity.class);
-        intent.putExtra("userId",userId);
-        intent.putExtra("userName",userName);
-        startActivity(intent);
+        if(isFrend){
+            Intent intent = new Intent(HisActivitiesActivity.this, ChartActivity.class);
+            intent.putExtra("userId",userId);
+            intent.putExtra("userName",userName);
+            startActivity(intent);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(HisActivitiesActivity.this)
+                    .setTitle("系统提示")
+                    .setMessage("是否添加对方为好友?")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            new UserServiceImpl().addFrend(uid,userId+"",2, new DefaultResponseListener<BaseResponse>() {
+                                @Override
+                                public void onSuccess(BaseResponse response) {
+                                    if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {
+                                        ToastUtil.show(HisActivitiesActivity.this, "已添加好友");
+                                        Intent intent = new Intent(HisActivitiesActivity.this,FrendsActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(VolleyError error) {
+
+                                }
+                            });
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                        }
+                    });
+            builder.create().show();
+        }
+
     }
 
     public void loadData() {
