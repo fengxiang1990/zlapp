@@ -6,10 +6,11 @@ import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.home.model.OrgType;
 import com.zl.app.data.home.model.YyMobileAdvt;
-import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.data.model.customer.YyMobileCompany;
+import com.zl.app.data.model.customer.YyMobileCompanyComment;
 import com.zl.app.data.model.customer.YyMobileCompanyGrade;
 import com.zl.app.data.model.user.YyMobileCity;
+import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
 import com.zl.app.util.RequestURL;
@@ -27,6 +28,41 @@ import java.util.Map;
  */
 public class HomeServiceImpl implements HomeService {
 
+    String API_MSG_LIST = RequestURL.SERVER + "mobileCompanyComment/list.html";
+
+    String API_SEND_MSG = RequestURL.SERVER + "mobileCompanyComment/insert.html";
+
+
+    @Override
+    public void sendOrgMessage(String uid, String companyId, String userId, String content, String picPath, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("company.companyId", companyId);
+        if(!TextUtils.isEmpty(userId)){
+            params.put("yyuser.userId", userId);
+        }
+        if(!TextUtils.isEmpty(picPath)){
+            params.put("picPath", picPath);
+        }
+        params.put("content", content);
+        GsonRequest request = new GsonRequest(Request.Method.POST, API_SEND_MSG, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    @Override
+    public void getOrgMessages(String uid, String companyId, DefaultResponseListener<BaseResponse<List<YyMobileCompanyComment>>> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        params.put("company.companyId", companyId);
+        GsonRequest request = new GsonRequest(Request.Method.POST, API_MSG_LIST, params, null,
+                new TypeToken<BaseResponse<List<YyMobileCompanyComment>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 
     @Override
     public void getOrgTypes(String uid, DefaultResponseListener<BaseResponse<List<OrgType>>> listener) {
@@ -45,7 +81,7 @@ public class HomeServiceImpl implements HomeService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
         params.put("company.companyId", companyId);
-        params.put("username",username);
+        params.put("username", username);
         params.put("mobile", tel);
         params.put("content", content);
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORG_SITE_YUYUE, params, null,
@@ -125,6 +161,8 @@ public class HomeServiceImpl implements HomeService {
             params.put("orderName", orderName);
             params.put("orderMethod", "desc");
         }
+        params.put("lat", AppConfig.latitude);
+        params.put("lng", AppConfig.longitude);
         GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_ORG_LIST, params, null,
                 new TypeToken<BaseResponse<List<YyMobileCompany>>>() {
                 },

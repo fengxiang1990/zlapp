@@ -2,10 +2,11 @@ package com.zl.app.data.home;
 
 import com.zl.app.data.home.model.OrgType;
 import com.zl.app.data.home.model.YyMobileAdvt;
-import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.data.model.customer.YyMobileCompany;
+import com.zl.app.data.model.customer.YyMobileCompanyComment;
 import com.zl.app.data.model.customer.YyMobileCompanyGrade;
 import com.zl.app.data.model.user.YyMobileCity;
+import com.zl.app.data.news.model.YyMobileNews;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
@@ -16,6 +17,25 @@ import java.util.List;
  */
 public interface HomeService {
 
+
+    /**
+     *
+     * @param uid
+     * @param companyId
+     * @param userId   回复人id
+     * @param content
+     * @param picPath
+     * @param listener
+     */
+    void sendOrgMessage(String uid,String companyId,String userId,String content,String picPath,DefaultResponseListener<BaseResponse> listener);
+
+    /**
+     * 机构留言列表
+     * @param uid
+     * @param companyId
+     * @param listener
+     */
+    void getOrgMessages(String uid,String companyId,DefaultResponseListener<BaseResponse<List<YyMobileCompanyComment>>> listener);
 
     /**
      * @param uid

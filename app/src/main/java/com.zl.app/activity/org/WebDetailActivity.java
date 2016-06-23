@@ -1,5 +1,6 @@
 package com.zl.app.activity.org;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,6 +17,7 @@ public class WebDetailActivity extends BaseActivityWithToolBar{
     WebView webView;
     String title;
     String url;
+    String cid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,10 @@ public class WebDetailActivity extends BaseActivityWithToolBar{
         webView = (WebView) findViewById(R.id.webView);
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
+        cid = getIntent().getStringExtra("cid");
         setTitle(title);
+        setTextRight1Enable(true);
+        setTextRight1Val("社圈");
         setBtnLeft1Enable(true);
 
         // 支持javascript
@@ -46,5 +51,13 @@ public class WebDetailActivity extends BaseActivityWithToolBar{
 
         });
         webView.loadUrl(url);
+    }
+
+    @Override
+    protected void onTextRight1Click() {
+        super.onTextRight1Click();
+        Intent intent= new Intent(WebDetailActivity.this,OrgShequanActivity.class);
+        intent.putExtra("cid",cid);
+        startActivity(intent);
     }
 }

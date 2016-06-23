@@ -95,6 +95,8 @@
         <activity
             android:name=".activity.org.OrgListActivity_"
             android:windowSoftInputMode="stateHidden|stateUnchanged"/>
+        <activity android:name=".activity.org.OrgSendMsgActivity"/>
+        <activity android:name=".activity.org.OrgShequanActivity"/>
         <activity android:name=".activity.org.OrgWeiSiteActivity"/>
         <activity android:name=".activity.org.OrgGradePostActivity"/>
         <activity android:name=".activity.org.OrgYuYueActivity"/>
