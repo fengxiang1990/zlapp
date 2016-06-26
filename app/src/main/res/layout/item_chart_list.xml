@@ -28,6 +28,8 @@
             android:layout_weight="1"
             android:gravity="bottom"
             android:text="发了一张图片"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/gray"
             android:textSize="15sp"/>
 

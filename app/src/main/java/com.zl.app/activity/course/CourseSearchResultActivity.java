@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
     String startDate;
     String endDate;
     int role= 3;
+    TextView textView;
     @AfterViews
     void afterViews() {
         role  = AppConfig.getLoginType(AppManager.getPreferences());
@@ -91,6 +93,10 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
         data = new ArrayList<YyMobilePeriod>();
         adapter = new MyAdapter(data);
         listView.setAdapter(adapter);
+        textView = new TextView(this);
+        textView.setGravity(Gravity.CENTER);
+        textView.setPadding(0,10,0,10);
+        listView.addHeaderView(textView);
         loadCourse();
     }
 
@@ -107,6 +113,7 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
                             data.clear();
                             data.addAll(response.getResult() == null ? new ArrayList<YyMobilePeriod>() : response.getResult());
                             adapter.notifyDataSetChanged();
+                            textView.setText("一共找到"+adapter.getCount()+"条数据");
                         } else {
                             ToastUtil.show(context, response.getMessage());
                         }
@@ -132,6 +139,7 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
                             data.clear();
                             data.addAll(response.getResult() == null ? new ArrayList<YyMobilePeriod>() : response.getResult());
                             adapter.notifyDataSetChanged();
+                            textView.setText("一共找到"+adapter.getCount()+"条数据");
                         } else {
                             ToastUtil.show(context, response.getMessage());
                         }

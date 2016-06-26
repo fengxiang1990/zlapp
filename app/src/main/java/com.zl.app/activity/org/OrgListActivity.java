@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.google.gson.reflect.TypeToken;
-import com.zl.app.BaseActivity;
 import com.zl.app.R;
 import com.zl.app.adapter.OrgAdapter;
 import com.zl.app.base.BaseActivityWithToolBar;
@@ -160,6 +159,7 @@ public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRef
             }
         });
 
+
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动，既是否向右滑动或向下滑动
             boolean isSlidingToLast = false;
@@ -230,6 +230,7 @@ public class OrgListActivity extends BaseActivityWithToolBar implements SwipeRef
         animation.setDuration(300);
         ll_selection.startAnimation(animation);
         isLoadMore = false;
+        companyname = searchTitleView.getText().toString();
         loadData();
     }
 

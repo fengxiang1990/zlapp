@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,13 @@ import com.zl.app.data.mine.MineService;
 import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.customer.YyMobileContract;
 import com.zl.app.util.AppConfig;
-import com.zl.app.util.RequestURL;
+import com.zl.app.util.CameraUtil;
+import com.zl.app.util.OpenFiles;
 import com.zl.app.util.ToastUtil;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,7 @@ import java.util.List;
  */
 public class OrderActivity extends BaseActivityWithToolBar {
 
+    String tag = "OrderActivity";
     ListView listView;
     DownloadManager manager;
     MineService mineService;
@@ -43,6 +47,7 @@ public class OrderActivity extends BaseActivityWithToolBar {
     MyAdapter adapter;
     List<YyMobileContract> data;
     DownloadCompleteReceiver receiver;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,12 +67,29 @@ public class OrderActivity extends BaseActivityWithToolBar {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 YyMobileContract yyMobileContract = data.get(position);
-                DownloadManager.Request down = new DownloadManager.Request(Uri.parse(RequestURL.SERVER + yyMobileContract.getFilePath()));
+                Log.e(tag, yyMobileContract.getFilePath());
+                if(TextUtils.isEmpty(yyMobileContract.getFilePath())){
+                    return;
+                }
+                DownloadManager.Request down = new DownloadManager.Request(Uri.parse(yyMobileContract.getFilePath()));
                 down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
                 down.setShowRunningNotification(true);
                 down.setVisibleInDownloadsUi(false);
-                down.setDestinationInExternalFilesDir(OrderActivity.this, null, yyMobileContract.getHeadline() + ".docx");
-                manager.enqueue(down);
+                //设置标题
+                down.setTitle(yyMobileContract.getHeadline());
+                //显示下载界面
+                down.setVisibleInDownloadsUi(true);
+                //设置下载路径  /mnt/sosspad/download
+                String filePath = yyMobileContract.getFilePath();
+                if (!TextUtils.isEmpty(filePath)) {
+                    String subfix = filePath.substring(filePath.lastIndexOf("."));
+                    Log.e(tag,subfix);
+                    down.setDestinationInExternalPublicDir("/download/", yyMobileContract.getHeadline() + subfix);
+                    //down.setDestinationInExternalFilesDir(OrderActivity.this, null,"ZLDownload");
+                    manager.enqueue(down);
+                    ToastUtil.show(OrderActivity.this, "开始下载文档");
+                }
+
             }
         });
         mineService.getOrders(uid, new DefaultResponseListener<BaseResponse<List<YyMobileContract>>>() {
@@ -95,7 +117,58 @@ public class OrderActivity extends BaseActivityWithToolBar {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
                 long downId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                Uri uri = manager.getUriForDownloadedFile(downId);
+                File currentPath = CameraUtil.getFileByUri(OrderActivity.this, uri);
                 ToastUtil.show(context, "下载完成");
+                if (currentPath != null && currentPath.isFile()) {
+                    String fileName = currentPath.toString();
+                    if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingImage))) {
+                        intent = OpenFiles.getImageFileIntent(currentPath);
+                        startActivity(intent);
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingWebText))) {
+                        intent = OpenFiles.getHtmlFileIntent(currentPath);
+                        startActivity(intent);
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingPackage))) {
+                        intent = OpenFiles.getApkFileIntent(currentPath);
+                        startActivity(intent);
+
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingAudio))) {
+                        intent = OpenFiles.getAudioFileIntent(currentPath);
+                        startActivity(intent);
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingVideo))) {
+                        intent = OpenFiles.getVideoFileIntent(currentPath);
+                        startActivity(intent);
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingText))) {
+                        intent = OpenFiles.getTextFileIntent(currentPath);
+                        startActivity(intent);
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingPdf))) {
+                        intent = OpenFiles.getPdfFileIntent(currentPath);
+                        startActivity(intent);
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingWord))) {
+                        intent = OpenFiles.getWordFileIntent(currentPath);
+                        startActivity(intent);
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingExcel))) {
+                        intent = OpenFiles.getExcelFileIntent(currentPath);
+                        startActivity(intent);
+                    } else if (OpenFiles.checkEndsWithInStringArray(fileName, getResources().
+                            getStringArray(R.array.fileEndingPPT))) {
+                        intent = OpenFiles.getPPTFileIntent(currentPath);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.show(OrderActivity.this, "无法打开，请安装相应的软件！");
+                    }
+                } else {
+                    ToastUtil.show(OrderActivity.this, "对不起，这不是文件！");
+                }
             }
         }
     }
@@ -152,7 +225,7 @@ public class OrderActivity extends BaseActivityWithToolBar {
             if (order != null) {
                 holder.text_class_name.setText(order.getHeadline());
                 holder.text_time.setText(order.getCreateDate());
-                holder.text_sum.setText(TextUtils.isEmpty(order.getCharge())?"0":order.getCharge());
+                holder.text_sum.setText(TextUtils.isEmpty(order.getCharge()) ? "0" : order.getCharge());
             }
             return convertView;
         }
