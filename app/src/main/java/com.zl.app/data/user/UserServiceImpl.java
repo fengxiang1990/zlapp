@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.RequestFuture;
-import com.baidu.mapapi.map.Text;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.user.model.YyMobileUser;
 import com.zl.app.util.AppConfig;
@@ -27,6 +26,17 @@ public class UserServiceImpl implements UserService {
 
     String TAG = "UserServiceImpl";
 
+
+    @Override
+    public void checkLogin(String uid, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uid", uid);
+        GsonRequest request = new GsonRequest(Request.Method.POST, RequestURL.API_CHECK_LOGIN, params, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
 
     @Override
     public void checkUpdate(DefaultResponseListener<BaseResponse> listener) {

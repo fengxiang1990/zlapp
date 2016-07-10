@@ -9,6 +9,8 @@ public class YyMobileSi {
 	private Integer status;//2 可操作    3 不可操作
 	private Integer mainId;//操作关联的主键
 
+	private String url;
+
 	public Integer getMainId() {
 		return mainId;
 	}
@@ -48,5 +50,12 @@ public class YyMobileSi {
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-	
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

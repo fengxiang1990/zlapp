@@ -12,6 +12,10 @@ public class RequestURL {
 
     public static String SERVER = STANDARD_DOMAIN;
 
+    //检查是否登录
+    public static String API_CHECK_LOGIN = SERVER + "mobileUser/checkLogin.html";
+
+
     //检查更新
     public static String API_CHECK_UPDATE = SERVER + "mobileBase/getVersion.html";
 

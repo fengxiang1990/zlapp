@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -33,15 +32,17 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.maxwin.view.XListView;
+
 /**
  * Created by fxa on 2016/6/6.
  */
-@EActivity(R.layout.fragment_course)
+@EActivity(R.layout.activity_course)
 public class CourseSearchResultActivity extends BaseActivityWithToolBar {
 
     String tag = "FragmentCourse";
     @ViewById(R.id.list_course)
-    ListView listView;
+    XListView listView;
 
     Context context;
 
@@ -57,35 +58,39 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
     Integer courseStatusT;
     String startDate;
     String endDate;
-    int role= 3;
+    int role = 3;
     TextView textView;
+    boolean isLoadMore = false;
+    int page = 1;
+    int pageSize = 20;
+
     @AfterViews
     void afterViews() {
-        role  = AppConfig.getLoginType(AppManager.getPreferences());
-        if(role== 3){
+        role = AppConfig.getLoginType(AppManager.getPreferences());
+        if (role == 3) {
             setTitle("搜索结果(家长)");
         }
-        if(role== 5){
+        if (role == 5) {
             setTitle("搜索结果(老师)");
         }
         setBtnLeft1Enable(true);
-        studentId = getIntent().getIntExtra("studentId",0);
-        companyId = getIntent().getIntExtra("companyId",0);
+        studentId = getIntent().getIntExtra("studentId", 0);
+        companyId = getIntent().getIntExtra("companyId", 0);
         startDate = getIntent().getStringExtra("startDate");
         endDate = getIntent().getStringExtra("endDate");
-        courseStatusP = getIntent().getIntExtra("statusP",0);
-        courseStatusT = getIntent().getIntExtra("statusT",0);
-        if(studentId == 0){
+        courseStatusP = getIntent().getIntExtra("statusP", 0);
+        courseStatusT = getIntent().getIntExtra("statusT", 0);
+        if (studentId == 0) {
             studentId = null;
         }
-        if(companyId == 0){
+        if (companyId == 0) {
             companyId = null;
         }
-        if(courseStatusP==0){
-            courseStatusP =null;
+        if (courseStatusP == 0) {
+            courseStatusP = null;
         }
-        if(courseStatusT==0){
-            courseStatusT =null;
+        if (courseStatusT == 0) {
+            courseStatusT = null;
         }
         context = CourseSearchResultActivity.this;
         courseService = new CourseService();
@@ -95,25 +100,50 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
         listView.setAdapter(adapter);
         textView = new TextView(this);
         textView.setGravity(Gravity.CENTER);
-        textView.setPadding(0,10,0,10);
+        textView.setPadding(0, 10, 0, 10);
         listView.addHeaderView(textView);
+        listView.setPullLoadEnable(true);
         loadCourse();
+
+        listView.setXListViewListener(new XListView.IXListViewListener() {
+            @Override
+            public void onRefresh() {
+                isLoadMore = false;
+                page = 1;
+                loadCourse();
+            }
+
+            @Override
+            public void onLoadMore() {
+                isLoadMore = true;
+                page += 1;
+                loadCourse();
+            }
+        });
+    }
+
+    void onLoad() {
+        listView.stopLoadMore();
+        listView.stopRefresh();
     }
 
     public void loadCourse() {
         //如果是家长登录
         if (role == 3) {
             Log.e(tag, "load parent data");
-            courseService.getCoursePList(uid, startDate, endDate, courseStatusP, studentId, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
+            courseService.getCoursePList(page + "", pageSize + "", uid, startDate, endDate, courseStatusP, studentId, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
                 @Override
                 public void onSuccess(BaseResponse<List<YyMobilePeriod>> response) {
                     Log.e("response", response.toString());
+                    onLoad();
                     if (response != null) {
                         if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                            data.clear();
+                            if (!isLoadMore) {
+                                data.clear();
+                            }
                             data.addAll(response.getResult() == null ? new ArrayList<YyMobilePeriod>() : response.getResult());
                             adapter.notifyDataSetChanged();
-                            textView.setText("一共找到"+adapter.getCount()+"条数据");
+                            textView.setText("一共找到" + response.getMessage() + "条数据");
                         } else {
                             ToastUtil.show(context, response.getMessage());
                         }
@@ -123,7 +153,7 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
 
                 @Override
                 public void onError(VolleyError error) {
-
+                    onLoad();
                 }
             });
 
@@ -131,15 +161,18 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
         //机构用户登录（教师）
         else if (role == 5) {
             Log.e(tag, "load teacher data");
-            courseService.getCourseTList(uid, startDate, endDate, courseStatusT, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
+            courseService.getCourseTList(page + "", pageSize + "",uid, startDate, endDate, courseStatusT, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
                 @Override
                 public void onSuccess(BaseResponse<List<YyMobilePeriod>> response) {
+                    onLoad();
                     if (response != null) {
                         if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                            data.clear();
+                            if (!isLoadMore) {
+                                data.clear();
+                            }
                             data.addAll(response.getResult() == null ? new ArrayList<YyMobilePeriod>() : response.getResult());
                             adapter.notifyDataSetChanged();
-                            textView.setText("一共找到"+adapter.getCount()+"条数据");
+                            textView.setText("一共找到" + response.getMessage() + "条数据");
                         } else {
                             ToastUtil.show(context, response.getMessage());
                         }
@@ -149,7 +182,7 @@ public class CourseSearchResultActivity extends BaseActivityWithToolBar {
 
                 @Override
                 public void onError(VolleyError error) {
-
+                    onLoad();
                 }
             });
 

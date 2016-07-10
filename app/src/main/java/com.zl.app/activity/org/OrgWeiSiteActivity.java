@@ -284,6 +284,7 @@ public class OrgWeiSiteActivity extends BaseActivityWithToolBar implements XList
                 intent = new Intent(OrgWeiSiteActivity.this, WebDetailActivity.class);
                 intent.putExtra("url", yyMobileCompany.getDetailUrl());
                 intent.putExtra("title", yyMobileCompany.getCompanyname());
+                intent.putExtra("showshequan",true);
                 intent.putExtra("cid", yyMobileCompany.getCompanyId()+"");
                 startActivity(intent);
                 break;

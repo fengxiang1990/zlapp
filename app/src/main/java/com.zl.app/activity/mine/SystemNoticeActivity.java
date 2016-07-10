@@ -2,7 +2,10 @@ package com.zl.app.activity.mine;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
+import com.zl.app.activity.org.WebDetailActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.mine.MineServiceImpl;
 import com.zl.app.data.model.customer.YyMobileSi;
@@ -54,7 +58,7 @@ public class SystemNoticeActivity extends BaseActivityWithToolBar {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                final  YyMobileSi yyMobileSi = data.get(position);
-                if(yyMobileSi.getType() == 1){
+                if(yyMobileSi.getType() == 1 && yyMobileSi.getStatus() ==2){
                     new AlertDialog.Builder(SystemNoticeActivity.this)
                             .setTitle("系统通知")
                             .setMessage("有机构邀请您成为老师")
@@ -96,6 +100,15 @@ public class SystemNoticeActivity extends BaseActivityWithToolBar {
                         }
                     })
                             .show();
+                }else if(yyMobileSi.getType() == 9){
+                  String url = yyMobileSi.getUrl();
+                    Log.e(tag,"url-->"+url);
+                    if(!TextUtils.isEmpty(url)){
+                        Intent intent = new Intent(SystemNoticeActivity.this, WebDetailActivity.class);
+                        intent.putExtra("url",url);
+                        intent.putExtra("showshequan",false);
+                        startActivity(intent);
+                    }
                 }
             }
         });

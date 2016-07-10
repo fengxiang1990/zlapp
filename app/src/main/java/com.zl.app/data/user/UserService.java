@@ -1,23 +1,23 @@
 package com.zl.app.data.user;
 
-import com.android.volley.Request;
-import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.user.model.YyMobileUser;
-import com.zl.app.util.AppManager;
-import com.zl.app.util.RequestURL;
 import com.zl.app.util.net.BaseResponse;
 import com.zl.app.util.net.DefaultResponseListener;
-import com.zl.app.util.net.GsonRequest;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Created by fengxiang on 2016/1/21.
  */
 public interface UserService {
+
+
+    /**
+     * 检查登录
+     * @param listener
+     */
+    void checkLogin(String uid,DefaultResponseListener<BaseResponse> listener);
 
     /**
      * 检查更新

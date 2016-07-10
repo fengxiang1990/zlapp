@@ -123,6 +123,26 @@ public class MainActivity extends BaseActivityWithToolBar {
         checkUpdate();
     }
 
+    void checkLogin(){
+        new UserServiceImpl().checkLogin(AppConfig.getUid(preference),new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                Log.e(TAG,"login status-->"+response.getStatus());
+                if(response.getStatus().equals(AppConfig.HTTP_ERROR)){
+                    Log.e(TAG,"未登录");
+                    Intent intent =new Intent(MainActivity.this, LoginActivity_.class);
+                    startActivity(intent);
+                }else if(response.getStatus().equals(AppConfig.HTTP_OK)){
+                    Log.e(TAG,"已登录");
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+    }
 
     void checkUpdate(){
          new UserServiceImpl().checkUpdate(new DefaultResponseListener<BaseResponse>() {
@@ -428,6 +448,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Override
     protected void onResume() {
         super.onResume();
+        checkLogin();
         if(!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")) {
             initChartMsgCount();
         }

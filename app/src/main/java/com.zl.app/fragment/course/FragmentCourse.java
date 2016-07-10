@@ -85,7 +85,7 @@ public class FragmentCourse extends BaseFragment {
             } else if (type == 2) {
 
             }
-            courseService.getCoursePList(uid, startDate, endDate, courseStatusP, studentId, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
+            courseService.getCoursePList(null,null,uid, startDate, endDate, courseStatusP, studentId, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
                 @Override
                 public void onSuccess(BaseResponse<List<YyMobilePeriod>> response) {
                     Log.e("response", response.toString());
@@ -125,7 +125,7 @@ public class FragmentCourse extends BaseFragment {
             } else if (type == 2) {
 
             }
-            courseService.getCourseTList(uid, startDate, endDate, courseStatusT, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
+            courseService.getCourseTList(null,null,uid, startDate, endDate, courseStatusT, companyId, new DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>>() {
                 @Override
                 public void onSuccess(BaseResponse<List<YyMobilePeriod>> response) {
                     if (response != null) {

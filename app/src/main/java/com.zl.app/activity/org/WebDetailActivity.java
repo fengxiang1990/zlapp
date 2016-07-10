@@ -18,6 +18,7 @@ public class WebDetailActivity extends BaseActivityWithToolBar{
     String title;
     String url;
     String cid;
+    boolean showshequan = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +27,12 @@ public class WebDetailActivity extends BaseActivityWithToolBar{
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
         cid = getIntent().getStringExtra("cid");
+        showshequan = getIntent().getBooleanExtra("showshequan",false);
         setTitle(title);
-        setTextRight1Enable(true);
-        setTextRight1Val("社圈");
+        if(showshequan){
+            setTextRight1Enable(true);
+            setTextRight1Val("社圈");
+        }
         setBtnLeft1Enable(true);
 
         // 支持javascript

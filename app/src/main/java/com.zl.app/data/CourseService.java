@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
-import com.baidu.mapapi.map.Text;
 import com.google.gson.reflect.TypeToken;
 import com.zl.app.data.model.customer.YyMobileCompany;
 import com.zl.app.data.model.customer.YyMobilePeriod;
@@ -210,10 +209,16 @@ public class CourseService {
     }
 
 
-    public void getCoursePList(String uid, String startDate, String endDate, Integer type, Integer studentId, Integer companyId
+    public void getCoursePList(String page,String pageSize,String uid, String startDate, String endDate, Integer type, Integer studentId, Integer companyId
             , DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
+        if(!TextUtils.isEmpty(page)){
+            params.put("pageNo", page);
+        }
+        if(!TextUtils.isEmpty(pageSize)){
+            params.put("pageSize", pageSize);
+        }
         params.put("startDate", startDate);
         params.put("endDate", endDate);
         params.put("type", type == null ? "" : type + "");
@@ -227,10 +232,16 @@ public class CourseService {
         AppManager.getRequestQueue().add(request);
     }
 
-    public void getCourseTList(String uid, String startDate, String endDate, Integer status, Integer companyId
+    public void getCourseTList(String page,String pageSize,String uid, String startDate, String endDate, Integer status, Integer companyId
             , DefaultResponseListener<BaseResponse<List<YyMobilePeriod>>> listener) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", uid);
+        if(!TextUtils.isEmpty(page)){
+            params.put("pageNo", page);
+        }
+        if(!TextUtils.isEmpty(pageSize)){
+            params.put("pageSize", pageSize);
+        }
         params.put("startDate", startDate);
         params.put("endDate", endDate);
         params.put("status", status == null ? "" : status + "");
