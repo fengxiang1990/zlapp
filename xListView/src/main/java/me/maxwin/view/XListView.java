@@ -8,7 +8,6 @@
  */
 package me.maxwin.view;
 
-import me.maxwin.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -22,6 +21,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
+
+import me.maxwin.R;
 
 public class XListView extends ListView implements OnScrollListener {
 
@@ -43,7 +44,7 @@ public class XListView extends ListView implements OnScrollListener {
 	private boolean mPullRefreshing = false; // is refreashing.
 
 	// -- footer view
-	private XListViewFooter mFooterView;
+	public XListViewFooter mFooterView;
 	private boolean mEnablePullLoad;
 	private boolean mPullLoading;
 	private boolean mIsFooterReady = false;
