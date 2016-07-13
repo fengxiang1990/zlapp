@@ -31,6 +31,7 @@ import com.zl.app.fragment.FragmentActivities_;
 import com.zl.app.fragment.FragmentClass;
 import com.zl.app.fragment.FragmentClass_;
 import com.zl.app.fragment.FragmentFind_;
+import com.zl.app.fragment.FragmentInitiation_;
 import com.zl.app.fragment.FragmentMine_;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
@@ -67,6 +68,9 @@ public class MainActivity extends BaseActivityWithToolBar {
     @ViewById
     RadioButton tab_mine;
 
+    @ViewById
+    RadioButton tab_qimeng;
+
     @ViewById(R.id.rg)
     RadioGroup radioGroup;
 
@@ -77,7 +81,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     public BaseFragment fragment_class;
     public BaseFragment fragment_activities;
     public BaseFragment fragment_mine;
-
+    public BaseFragment fragment_initiation;
     FragmentManager frgmentManager;
 
     List<BaseFragment> fragments;
@@ -98,6 +102,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragment_class = new FragmentClass_();
         fragment_activities = new FragmentActivities_();
         fragment_mine = new FragmentMine_();
+        fragment_initiation = new FragmentInitiation_();
         FragmentTransaction fragmentTransaction = frgmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragments, fragment_find);
         fragmentTransaction.commit();
@@ -107,6 +112,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragments.add(fragment_class);
         fragments.add(fragment_activities);
         fragments.add(fragment_mine);
+        fragments.add(fragment_initiation);
         tab_find.setChecked(true);
         initCourseLeftIcon();
         /**
@@ -123,17 +129,17 @@ public class MainActivity extends BaseActivityWithToolBar {
         checkUpdate();
     }
 
-    void checkLogin(){
-        new UserServiceImpl().checkLogin(AppConfig.getUid(preference),new DefaultResponseListener<BaseResponse>() {
+    void checkLogin() {
+        new UserServiceImpl().checkLogin(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse response) {
-                Log.e(TAG,"login status-->"+response.getStatus());
-                if(response.getStatus().equals(AppConfig.HTTP_ERROR)){
-                    Log.e(TAG,"未登录");
-                    Intent intent =new Intent(MainActivity.this, LoginActivity_.class);
+                Log.e(TAG, "login status-->" + response.getStatus());
+                if (response.getStatus().equals(AppConfig.HTTP_ERROR)) {
+                    Log.e(TAG, "未登录");
+                    Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
                     startActivity(intent);
-                }else if(response.getStatus().equals(AppConfig.HTTP_OK)){
-                    Log.e(TAG,"已登录");
+                } else if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                    Log.e(TAG, "已登录");
                 }
             }
 
@@ -144,46 +150,45 @@ public class MainActivity extends BaseActivityWithToolBar {
         });
     }
 
-    void checkUpdate(){
-         new UserServiceImpl().checkUpdate(new DefaultResponseListener<BaseResponse>() {
-             @Override
-             public void onSuccess(BaseResponse response) {
-                 int currentVersion = PackageUtil.getPackageInfo(MainActivity.this).versionCode;
-                 int remoteVersion = 0;
-                 if(response.getStatus().equals(AppConfig.HTTP_OK)){
-                     String targetVersionStr = response.getMessage();
-                     if(!TextUtils.isEmpty(targetVersionStr)){
-                         remoteVersion = Integer.parseInt(targetVersionStr);
-                     }
-                     if(remoteVersion > currentVersion){
-                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                         builder.setTitle("系统提示")
-                                 .setMessage("检测到有最新版本,是否更新?")
-                                 .setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
-                                     @Override
-                                     public void onClick(DialogInterface dialog, int which) {
-                                         Intent intent = new Intent(MainActivity.this,WebDetailActivity.class);
-                                         intent.putExtra("title","咨路教育");
-                                         intent.putExtra("url","http://ziluedu.net/app/download.html#download");
-                                         startActivity(intent);
-                                     }
-                                 }).setNegativeButton("稍后更新", new DialogInterface.OnClickListener() {
-                             @Override
-                             public void onClick(DialogInterface dialog, int which) {
-                                 dialog.dismiss();
-                             }
-                         }).create().show();
-                     }
-                 }
-             }
+    void checkUpdate() {
+        new UserServiceImpl().checkUpdate(new DefaultResponseListener<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                int currentVersion = PackageUtil.getPackageInfo(MainActivity.this).versionCode;
+                int remoteVersion = 0;
+                if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                    String targetVersionStr = response.getMessage();
+                    if (!TextUtils.isEmpty(targetVersionStr)) {
+                        remoteVersion = Integer.parseInt(targetVersionStr);
+                    }
+                    if (remoteVersion > currentVersion) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("系统提示")
+                                .setMessage("检测到有最新版本,是否更新?")
+                                .setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(MainActivity.this, WebDetailActivity.class);
+                                        intent.putExtra("title", "咨路教育");
+                                        intent.putExtra("url", "http://ziluedu.net/app/download.html#download");
+                                        startActivity(intent);
+                                    }
+                                }).setNegativeButton("稍后更新", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create().show();
+                    }
+                }
+            }
 
-             @Override
-             public void onError(VolleyError error) {
+            @Override
+            public void onError(VolleyError error) {
 
-             }
-         });
+            }
+        });
     }
-
 
 
     int newMsgCount = 0;
@@ -195,7 +200,7 @@ public class MainActivity extends BaseActivityWithToolBar {
                 if (response != null && response.getStatus().equals(AppConfig.HTTP_OK)) {
                     newMsgCount = Integer.parseInt(response.getMessage());
                     if (newMsgCount > 0) {
-                        if(!fragment_find.isHidden()){
+                        if (!fragment_find.isHidden()) {
                             setBtnRight2MsgCountEnable(true);
                             text_msg_count.setText(newMsgCount + "");
                         }
@@ -215,7 +220,7 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     void initCourseLeftIcon() {
         final int loginType = AppConfig.getLoginType(preference);
-        Log.e(TAG,"loginType-->"+loginType);
+        Log.e(TAG, "loginType-->" + loginType);
         switch (loginType) {
             case 3:
                 //当前是家长登录
@@ -226,8 +231,8 @@ public class MainActivity extends BaseActivityWithToolBar {
                 course_left_btn_resId = R.mipmap.change_p;
                 break;
         }
-        if(!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")){
-            Log.e(TAG,"判断是不是老师");
+        if (!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")) {
+            Log.e(TAG, "判断是不是老师");
             new UserServiceImpl().isTeacher(AppConfig.getUid(preference), new DefaultResponseListener<BaseResponse>() {
                 @Override
                 public void onSuccess(BaseResponse response) {
@@ -356,9 +361,9 @@ public class MainActivity extends BaseActivityWithToolBar {
         isCurrentTabIsActivity = false;
         if (AppConfig.getLoginType(preference) == 3) {
             setTitle("课程(家长)");
-            if(isTeacher){
+            if (isTeacher) {
                 setBtnLeft2Enable(true);
-            }else{
+            } else {
                 setBtnLeft2Enable(false);
             }
 
@@ -408,6 +413,16 @@ public class MainActivity extends BaseActivityWithToolBar {
         }
     }
 
+    @Click(R.id.tab_qimeng)
+    void radio5Click() {
+        setTitle("启蒙研究院");
+        setBtnLeft1Enable(false);
+        setBtnRight1Enable(false);
+        setBtnLeft2Enable(false);
+        setBtnRight2Enable(false);
+        switchFragment(frgmentManager.beginTransaction(), fragment_initiation);
+    }
+
     @Click(R.id.tab_mine)
     void radio4Click() {
         setTitle(" ");
@@ -449,7 +464,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     protected void onResume() {
         super.onResume();
         checkLogin();
-        if(!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")) {
+        if (!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")) {
             initChartMsgCount();
         }
         if (AppConfig.isLogin(preference)) {

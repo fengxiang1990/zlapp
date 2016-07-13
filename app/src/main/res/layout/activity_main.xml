@@ -57,6 +57,11 @@
                     style="@style/MainActivityBottomMenuItem"
                     android:drawableTop="@drawable/tab_class_selector"/>
 
+                <RadioButton
+                    android:id="@+id/tab_qimeng"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/tab_qimeng_selector"/>
+
 
                 <RadioButton
                     android:id="@+id/tab_mine"
