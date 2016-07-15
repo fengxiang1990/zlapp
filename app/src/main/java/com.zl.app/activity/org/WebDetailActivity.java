@@ -7,18 +7,21 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.zl.app.R;
+import com.zl.app.activity.initiation.QuestionAnswerActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 
 /**
  * Created by fengxiang on 2016/5/12.
  */
-public class WebDetailActivity extends BaseActivityWithToolBar{
+public class WebDetailActivity extends BaseActivityWithToolBar {
 
     WebView webView;
     String title;
     String url;
     String cid;
     boolean showshequan = false;
+    boolean showqa = false;//是否显示问答入口
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +30,23 @@ public class WebDetailActivity extends BaseActivityWithToolBar{
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
         cid = getIntent().getStringExtra("cid");
-        showshequan = getIntent().getBooleanExtra("showshequan",false);
+        showshequan = getIntent().getBooleanExtra("showshequan", false);
+        showqa = getIntent().getBooleanExtra("showqa", false);
         setTitle(title);
-        if(showshequan){
+        setBtnLeft1Enable(true);
+        if (showshequan) {
             setTextRight1Enable(true);
             setTextRight1Val("社圈");
         }
-        setBtnLeft1Enable(true);
+
+
+        if (showqa) {
+            setBtnRight1Enable(true);
+            setBtnRight1ImageResource(R.mipmap.ic_qa);
+        }
+
+        setBtnRight2Enable(true);
+        setBtnRight2ImageResource(R.mipmap.ic_share);
 
         // 支持javascript
         webView.getSettings().setJavaScriptEnabled(true);
@@ -60,8 +73,15 @@ public class WebDetailActivity extends BaseActivityWithToolBar{
     @Override
     protected void onTextRight1Click() {
         super.onTextRight1Click();
-        Intent intent= new Intent(WebDetailActivity.this,OrgShequanActivity.class);
-        intent.putExtra("cid",cid);
+        Intent intent = new Intent(WebDetailActivity.this, OrgShequanActivity.class);
+        intent.putExtra("cid", cid);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onBtnRight1Click() {
+        super.onBtnRight1Click();
+        Intent intent = new Intent(WebDetailActivity.this, QuestionAnswerActivity_.class);
         startActivity(intent);
     }
 }

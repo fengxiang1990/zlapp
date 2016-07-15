@@ -162,6 +162,12 @@
             android:name=".activity.course.CourseMessageActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
+        <!-- initiation -->
+        <activity
+            android:name=".activity.initiation.QuestionAnswerActivity_"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+
         <!-- Baidu Map -->
         <service
             android:name="com.baidu.location.f"
