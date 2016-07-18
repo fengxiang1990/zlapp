@@ -1,93 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/id_swipe_ly"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/whitesmoke">
+                                              android:id="@+id/id_swipe_ly"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent"
+                                              android:background="@color/whitesmoke">
 
-    <TableLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:background="@color/white">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="5dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/textView1"
-                style="@style/TextView_Type"
-                android:layout_column="1"
-                android:drawableTop="@mipmap/en_icon" />
-
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/TextView_Type"
-                android:layout_column="1"
-                android:drawableTop="@mipmap/chinese_icon" />
-
-            <TextView
-                android:id="@+id/textView3"
-                style="@style/TextView_Type"
-                android:layout_column="1"
-                android:drawableTop="@mipmap/math_icon" />
-
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/TextView_Type"
-                android:layout_column="1"
-                android:drawableTop="@mipmap/art_icon" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/textView5"
-                style="@style/TextView_Type"
-                android:layout_column="1"
-                android:drawableTop="@mipmap/music_icon"
-                />
-
-            <TextView
-                android:id="@+id/textView6"
-                style="@style/TextView_Type"
-                android:layout_column="1"
-                android:drawableTop="@mipmap/lego_icon" />
-
-            <TextView
-                android:id="@+id/textView7"
-                style="@style/TextView_Type"
-                android:layout_column="1"
-                android:drawableTop="@mipmap/dance_icon"/>
-
-            <TextView
-                android:id="@+id/textView8"
-                style="@style/TextView_Type"
-                android:layout_column="1"
-                android:drawableTop="@mipmap/more_icon" />
-
-        </TableRow>
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
-
-        </android.support.v7.widget.RecyclerView>
-
-
-    </TableLayout>
-
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.v4.widget.SwipeRefreshLayout>
 

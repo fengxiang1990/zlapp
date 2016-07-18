@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by fengxiang on 2016/2/17.
  */
-public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
+public class OrgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<YyMobileCompany> data;
     Context context;
@@ -30,36 +30,55 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
         this.data = data;
     }
 
+    public boolean isShowHeader = false;
     @Override
-    public OrgAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_org, parent, false);
-        ViewHolder vh = new ViewHolder(view);
-        return vh;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == 10) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_find_header, parent, false);
+            return new ViewHolderHeader(view);
+        } else if (viewType == 20) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_org, parent, false);
+            return new ViewHolder(view);
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(OrgAdapter.ViewHolder holder, int position) {
-        final YyMobileCompany org = data.get(position);
-        if(StringUtil.isEmpty(org.getPicPath())){
-            holder.img_org.setVisibility(View.GONE);
-        }else {
-            holder.img_org.setVisibility(View.VISIBLE);
-            Uri uri = Uri.parse(org.getPicPath());
-            holder.img_org.setImageURI(uri);
+    public int getItemViewType(int position) {
+        //return super.getItemViewType(position);
+        if (position == 0 && isShowHeader) {
+            return 10; //菜单
         }
-        holder.text_org_name.setText(org.getCompanyname());
-        holder.text_score.setText(org.getGrade()+"");
-        holder.text_type.setText(org.getTypeName());
-        holder.text_juli.setText(org.getDistance().contains("千米")?org.getDistance().replace("千米","km"):org.getDistance());
-        holder.text_area1.setText(org.getAddress());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, OrgWeiSiteActivity.class);
-                intent.putExtra("companyId", org.getCompanyId() + "");
-                context.startActivity(intent);
+        return 20; //机构
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder1, int position) {
+        if (holder1 instanceof ViewHolder) {
+            ViewHolder holder = (ViewHolder) holder1;
+            final YyMobileCompany org = data.get(position);
+            if (StringUtil.isEmpty(org.getPicPath())) {
+                holder.img_org.setVisibility(View.GONE);
+            } else {
+                holder.img_org.setVisibility(View.VISIBLE);
+                Uri uri = Uri.parse(org.getPicPath());
+                holder.img_org.setImageURI(uri);
             }
-        });
+            holder.text_org_name.setText(org.getCompanyname());
+            holder.text_score.setText(org.getGrade() + "");
+            holder.text_type.setText(org.getTypeName());
+            holder.text_juli.setText(org.getDistance().contains("千米") ? org.getDistance().replace("千米", "km") : org.getDistance());
+            holder.text_area1.setText(org.getAddress());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, OrgWeiSiteActivity.class);
+                    intent.putExtra("companyId", org.getCompanyId() + "");
+                    context.startActivity(intent);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -90,5 +109,59 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
             text_area1 = (TextView) view.findViewById(R.id.text_area1);
             text_area2 = (TextView) view.findViewById(R.id.text_area2);
         }
+    }
+
+
+    //自定义的ViewHolder，持有每个Item的的所有界面元素
+    class ViewHolderHeader extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public TextView textView1;
+        public TextView textView2;
+        public TextView textView3;
+        public TextView textView4;
+        public TextView textView5;
+        public TextView textView6;
+        public TextView textView7;
+        public TextView textView8;
+
+        public ViewHolderHeader(View view) {
+            super(view);
+            textView1 = (TextView) view.findViewById(R.id.textView1);
+            textView2 = (TextView) view.findViewById(R.id.textView2);
+            textView3 = (TextView) view.findViewById(R.id.textView3);
+            textView4 = (TextView) view.findViewById(R.id.textView4);
+            textView5 = (TextView) view.findViewById(R.id.textView5);
+            textView6 = (TextView) view.findViewById(R.id.textView6);
+            textView7 = (TextView) view.findViewById(R.id.textView7);
+            textView8 = (TextView) view.findViewById(R.id.textView8);
+            textView1.setOnClickListener(this);
+            textView2.setOnClickListener(this);
+            textView3.setOnClickListener(this);
+            textView4.setOnClickListener(this);
+            textView5.setOnClickListener(this);
+            textView6.setOnClickListener(this);
+            textView7.setOnClickListener(this);
+            textView8.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (listener != null) {
+                listener.onClick(v);
+            }
+        }
+    }
+
+    private OnHeaderMenuClickListener listener;
+
+    public interface OnHeaderMenuClickListener {
+        void onClick(View v);
+    }
+
+    public OnHeaderMenuClickListener getListener() {
+        return listener;
+    }
+
+    public void setListener(OnHeaderMenuClickListener listener) {
+        this.listener = listener;
     }
 }

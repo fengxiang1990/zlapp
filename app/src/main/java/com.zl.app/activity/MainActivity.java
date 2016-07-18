@@ -22,6 +22,7 @@ import com.zl.app.R;
 import com.zl.app.activity.activities.PublishActivity;
 import com.zl.app.activity.activities.SearchResultActivity;
 import com.zl.app.activity.chart.ChartListActivity;
+import com.zl.app.activity.initiation.QuestionAnswerActivity_;
 import com.zl.app.activity.org.WebDetailActivity;
 import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
@@ -136,8 +137,10 @@ public class MainActivity extends BaseActivityWithToolBar {
                 Log.e(TAG, "login status-->" + response.getStatus());
                 if (response.getStatus().equals(AppConfig.HTTP_ERROR)) {
                     Log.e(TAG, "未登录");
-                    Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
-                    startActivity(intent);
+                    if (!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")) {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+                        startActivity(intent);
+                    }
                 } else if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                     Log.e(TAG, "已登录");
                 }
@@ -280,6 +283,11 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Override
     protected void onBtnRight1Click() {
+        if (isqimeng) {
+            Intent intent = new Intent(this, QuestionAnswerActivity_.class);
+            startActivity(intent);
+            return;
+        }
         if (AppConfig.isLogin(preference)) {
             Intent intent = new Intent(this, SearchResultActivity.class);
             startActivity(intent);
@@ -358,6 +366,7 @@ public class MainActivity extends BaseActivityWithToolBar {
 
     @Click(R.id.tab_class)
     void radio1Click() {
+        isqimeng = false;
         isCurrentTabIsActivity = false;
         if (AppConfig.getLoginType(preference) == 3) {
             setTitle("课程(家长)");
@@ -392,6 +401,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Click(R.id.tab_activities)
     void radio2Click() {
         isCurrentTabIsActivity = true;
+        isqimeng = false;
         setBtnLeft1Enable(false);
         setBtnRight1Enable(true);
         setBtnLeft2Enable(true);
@@ -413,19 +423,24 @@ public class MainActivity extends BaseActivityWithToolBar {
         }
     }
 
+    boolean isqimeng = false;
+
     @Click(R.id.tab_qimeng)
     void radio5Click() {
         setTitle("启蒙研究院");
         setBtnLeft1Enable(false);
-        setBtnRight1Enable(false);
         setBtnLeft2Enable(false);
         setBtnRight2Enable(false);
+        setBtnRight1Enable(true);
+        isqimeng = true;
+        setBtnRight1ImageResource(R.mipmap.ic_qa);
         switchFragment(frgmentManager.beginTransaction(), fragment_initiation);
     }
 
     @Click(R.id.tab_mine)
     void radio4Click() {
         setTitle(" ");
+        isqimeng = false;
         setBtnLeft1Enable(false);
         setBtnRight1Enable(false);
         setBtnLeft2Enable(false);
@@ -463,7 +478,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     @Override
     protected void onResume() {
         super.onResume();
-        checkLogin();
+        // checkLogin();
         if (!AppConfig.getUid(preference).equals("g5601f7f-4b9c-40bf-937e-4740778da12g")) {
             initChartMsgCount();
         }
@@ -495,7 +510,7 @@ public class MainActivity extends BaseActivityWithToolBar {
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
-                finish();
+                throw  new NullPointerException("exit");
             }
             return true;
         }

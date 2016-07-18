@@ -35,12 +35,12 @@ public class LoadingDialog {
     }
 
     public static LoadingDialog getInstance(Context context) {
-        if(loadingDialog == null){
+        if (loadingDialog == null) {
             loadingDialog = new LoadingDialog(context);
         }
         //上下文发生改变 重新创建dialog
-        if(LoadingDialog.context!=null && LoadingDialog.context!=context){
-            Log.e("LoadingDialog","context had been changed");
+        if (LoadingDialog.context != null && LoadingDialog.context != context) {
+            Log.e("LoadingDialog", "context had been changed");
             loadingDialog = new LoadingDialog(context);
         }
         return loadingDialog;
@@ -63,6 +63,7 @@ public class LoadingDialog {
     }
 
     protected void build() {
+        Log.e(TAG, context == null ? "context is null" : "context not null");
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         dialog = builder.create();
         dialog.show();

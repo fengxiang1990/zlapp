@@ -25,6 +25,8 @@ public class InitiationService {
 
     String api_news_list = RequestURL.SERVER + "mobileZiluNews/list.html";
     String api_question_list = RequestURL.SERVER + "mobileQa/list.html";
+    String api_send_question = RequestURL.SERVER + "mobileQa/ask.html";
+    String api_send_answer = RequestURL.SERVER + "mobileQa/ans.html";
 
     public void getNewsList(int pageNo, int pageSize, String uid, DefaultResponseListener<BaseResponse<List<YyMobileZiluNews>>> listener) {
         Map<String, String> map = new HashMap<>();
@@ -47,6 +49,31 @@ public class InitiationService {
         Log.e("getQuestionList", GsonUtil.gson.toJson(map));
         GsonRequest request = new GsonRequest(Request.Method.POST, api_question_list, map, null,
                 new TypeToken<BaseResponse<List<YyMobileQuestion>>>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    public void ask(String content, String uid, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> map = new HashMap<>();
+        map.put("content", content);
+        map.put("uid", uid);
+        Log.e("ask", GsonUtil.gson.toJson(map));
+        GsonRequest request = new GsonRequest(Request.Method.POST, api_send_question, map, null,
+                new TypeToken<BaseResponse>() {
+                },
+                listener, listener);
+        AppManager.getRequestQueue().add(request);
+    }
+
+    public void answer(String content, String uid, int questionId, DefaultResponseListener<BaseResponse> listener) {
+        Map<String, String> map = new HashMap<>();
+        map.put("content", content);
+        map.put("uid", uid);
+        map.put("questionId", questionId + "");
+        Log.e("ask", GsonUtil.gson.toJson(map));
+        GsonRequest request = new GsonRequest(Request.Method.POST, api_send_answer, map, null,
+                new TypeToken<BaseResponse>() {
                 },
                 listener, listener);
         AppManager.getRequestQueue().add(request);

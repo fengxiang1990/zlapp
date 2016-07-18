@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/TextView_Type"
+            android:layout_column="1"
+            android:drawableTop="@mipmap/en_icon"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/TextView_Type"
+            android:layout_column="1"
+            android:drawableTop="@mipmap/chinese_icon"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextView_Type"
+            android:layout_column="1"
+            android:drawableTop="@mipmap/math_icon"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/TextView_Type"
+            android:layout_column="1"
+            android:drawableTop="@mipmap/art_icon"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/TextView_Type"
+            android:layout_column="1"
+            android:drawableTop="@mipmap/music_icon"
+            />
+
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/TextView_Type"
+            android:layout_column="1"
+            android:drawableTop="@mipmap/lego_icon"/>
+
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/TextView_Type"
+            android:layout_column="1"
+            android:drawableTop="@mipmap/dance_icon"/>
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/TextView_Type"
+            android:layout_column="1"
+            android:drawableTop="@mipmap/more_icon"/>
+    </TableRow>
+</TableLayout>

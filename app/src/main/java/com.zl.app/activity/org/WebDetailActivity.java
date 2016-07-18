@@ -7,8 +7,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.zl.app.R;
-import com.zl.app.activity.initiation.QuestionAnswerActivity_;
+import com.zl.app.activity.initiation.SendAnswerActivity_;
+import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
+import com.zl.app.util.AppConfig;
 
 /**
  * Created by fengxiang on 2016/5/12.
@@ -21,6 +23,9 @@ public class WebDetailActivity extends BaseActivityWithToolBar {
     String cid;
     boolean showshequan = false;
     boolean showqa = false;//是否显示问答入口
+    boolean showans = false;//是否显示回答按钮
+
+    int questionId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class WebDetailActivity extends BaseActivityWithToolBar {
         cid = getIntent().getStringExtra("cid");
         showshequan = getIntent().getBooleanExtra("showshequan", false);
         showqa = getIntent().getBooleanExtra("showqa", false);
+        showans = getIntent().getBooleanExtra("showans", false);
         setTitle(title);
         setBtnLeft1Enable(true);
         if (showshequan) {
@@ -41,12 +47,18 @@ public class WebDetailActivity extends BaseActivityWithToolBar {
 
 
         if (showqa) {
-            setBtnRight1Enable(true);
-            setBtnRight1ImageResource(R.mipmap.ic_qa);
+            // setBtnRight1Enable(true);
+            // setBtnRight1ImageResource(R.mipmap.ic_qa);
         }
 
-        setBtnRight2Enable(true);
-        setBtnRight2ImageResource(R.mipmap.ic_share);
+        if (showans) {
+            setTextRight2Enable(true);
+            setTextRight2Val("回答");
+            questionId = getIntent().getIntExtra("questionId", 0);
+        }
+
+        //setBtnRight2Enable(true);
+        // setBtnRight2ImageResource(R.mipmap.ic_share);
 
         // 支持javascript
         webView.getSettings().setJavaScriptEnabled(true);
@@ -73,15 +85,36 @@ public class WebDetailActivity extends BaseActivityWithToolBar {
     @Override
     protected void onTextRight1Click() {
         super.onTextRight1Click();
-        Intent intent = new Intent(WebDetailActivity.this, OrgShequanActivity.class);
-        intent.putExtra("cid", cid);
+        if (AppConfig.isLogin(preference)) {
+            Intent intent = new Intent(WebDetailActivity.this, OrgShequanActivity.class);
+            intent.putExtra("cid", cid);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(WebDetailActivity.this, LoginActivity_.class);
+            startActivity(intent);
+        }
+
+    }
+
+    @Override
+    protected void onTextRight2Click() {
+        super.onTextRight2Click();
+        Intent intent = new Intent(WebDetailActivity.this, SendAnswerActivity_.class);
+        intent.putExtra("title", title);
+        intent.putExtra("questionId", questionId);
         startActivity(intent);
     }
 
     @Override
     protected void onBtnRight1Click() {
         super.onBtnRight1Click();
-        Intent intent = new Intent(WebDetailActivity.this, QuestionAnswerActivity_.class);
-        startActivity(intent);
+//        if (AppConfig.isLogin(preference)) {
+//            Intent intent = new Intent(WebDetailActivity.this, QuestionAnswerActivity_.class);
+//            startActivity(intent);
+//        } else {
+//            Intent intent = new Intent(WebDetailActivity.this, LoginActivity_.class);
+//            startActivity(intent);
+//        }
+
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.zl.app.R;
 import com.zl.app.activity.org.WebDetailActivity;
+import com.zl.app.activity.user.LoginActivity_;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.InitiationService;
 import com.zl.app.data.model.initiation.YyMobileQuestion;
@@ -60,6 +61,8 @@ public class QuestionAnswerActivity extends BaseActivityWithToolBar implements S
     void afterViews() {
         setTitle("咨路问答");
         setBtnLeft1Enable(true);
+        setBtnRight1Enable(true);
+        setBtnRight1ImageResource(R.mipmap.ic_send_question);
         swipe.setOnRefreshListener(this);
         recyclerView.setOnLoadMoreListener(this);
         layoutManager = new LinearLayoutManager(this);
@@ -78,7 +81,8 @@ public class QuestionAnswerActivity extends BaseActivityWithToolBar implements S
                 Intent intent = new Intent(QuestionAnswerActivity.this, WebDetailActivity.class);
                 intent.putExtra("url", ziluNews.getUrl());
                 intent.putExtra("title", ziluNews.getHeadline());
-                //intent.putExtra("showqa", true);
+                intent.putExtra("questionId", ziluNews.getQuestionId());
+                intent.putExtra("showans", true);
                 startActivity(intent);
             }
         });
@@ -90,6 +94,19 @@ public class QuestionAnswerActivity extends BaseActivityWithToolBar implements S
     String uid;
     boolean isLoadMore = false;
     List<YyMobileQuestion> data = new ArrayList<>();
+
+    @Override
+    protected void onBtnRight1Click() {
+        super.onBtnRight1Click();
+        if (AppConfig.isLogin(preference)) {
+            Intent intent = new Intent(QuestionAnswerActivity.this, SendQuestionActivity_.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(QuestionAnswerActivity.this, LoginActivity_.class);
+            startActivity(intent);
+        }
+
+    }
 
     @Override
     public void onRefresh() {

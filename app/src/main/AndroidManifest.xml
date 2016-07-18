@@ -75,11 +75,11 @@
 
         <activity
             android:name=".activity.MainActivity_"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.user.LoginActivity_"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity android:name=".activity.user.RegistActivity_"/>
         <activity android:name=".activity.user.GetPasswordActivity_"/>
         <activity android:name=".activity.user.ModifyPasswordActivity_"/>
@@ -166,7 +166,12 @@
         <activity
             android:name=".activity.initiation.QuestionAnswerActivity_"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-
+        <activity
+            android:name=".activity.initiation.SendQuestionActivity_"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name=".activity.initiation.SendAnswerActivity_"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
         <!-- Baidu Map -->
         <service
