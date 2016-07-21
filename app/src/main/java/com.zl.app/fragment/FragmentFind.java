@@ -39,7 +39,7 @@ import java.util.List;
  * Created by fengxiang on 2016/3/28.
  */
 @EFragment(R.layout.fragment_find)
-public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, OrgAdapter.OnHeaderMenuClickListener {
+public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, OrgAdapter.OnHeaderMenuClickListener, BDLocationListener {
 
 
     String tag = FragmentFind.class.getName();
@@ -108,7 +108,11 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
                 isSlidingToLast = dy > 0;
             }
         });
+        mLocationClient = ((MyApplication) getActivity().getApplication()).mLocationClient;
+        mLocationClient.registerLocationListener(this);
         uid = AppConfig.getUid(AppManager.getPreferences());
+        id_swipe_ly.setRefreshing(true);
+        LoadingDialog.getInstance(getActivity()).show();
         loadData();
     }
 
@@ -118,49 +122,10 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
         super.onResume();
     }
 
-
     public LocationClient mLocationClient = null;
 
     public void loadData() {
-        //id_swipe_ly.setRefreshing(true);
-        LoadingDialog.getInstance(getActivity()).show();
-        mLocationClient = ((MyApplication) getActivity().getApplication()).mLocationClient;
-        mLocationClient.registerLocationListener(new BDLocationListener() {
-            @Override
-            public void onReceiveLocation(BDLocation bdLocation) {
-                mLocationClient.stop();
-                Log.i(tag, "addr:" + bdLocation.getAddrStr());
-                Log.i(tag, "longitude:" + bdLocation.getLongitude());
-                Log.i(tag, "latitude:" + bdLocation.getLatitude());
-                AppConfig.latitude = String.valueOf(bdLocation.getLatitude());
-                AppConfig.longitude = String.valueOf(bdLocation.getLongitude());
-                homeService.getHomeCompany(uid, pageNumber, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileCompany>>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<List<YyMobileCompany>> response) {
-                        LoadingDialog.getInstance(getActivity()).dismiss();
-                        id_swipe_ly.setRefreshing(false);
-                        if (response.getStatus().equals(AppConfig.HTTP_OK)) {
-                            List<YyMobileCompany> list = response.getResult();
-                            if (!isLoadMore) {
-                                data.clear();
-                            }
-                            data.addAll(list);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            ToastUtil.show(getActivity(), response.getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void onError(VolleyError error) {
-                        LoadingDialog.getInstance(getActivity()).dismiss();
-                        id_swipe_ly.setRefreshing(false);
-                    }
-                });
-            }
-        });
         mLocationClient.start();
-
     }
 
     @Override
@@ -215,5 +180,38 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void onReceiveLocation(BDLocation bdLocation) {
+        mLocationClient.stop();
+        Log.i(tag, "addr:" + bdLocation.getAddrStr());
+        Log.i(tag, "longitude:" + bdLocation.getLongitude());
+        Log.i(tag, "latitude:" + bdLocation.getLatitude());
+        AppConfig.latitude = String.valueOf(bdLocation.getLatitude());
+        AppConfig.longitude = String.valueOf(bdLocation.getLongitude());
+        homeService.getHomeCompany(AppConfig.getUid(AppManager.getPreferences()), pageNumber, pageSize, new DefaultResponseListener<BaseResponse<List<YyMobileCompany>>>() {
+            @Override
+            public void onSuccess(BaseResponse<List<YyMobileCompany>> response) {
+                LoadingDialog.getInstance(getActivity()).dismiss();
+                id_swipe_ly.setRefreshing(false);
+                if (response.getStatus().equals(AppConfig.HTTP_OK)) {
+                    List<YyMobileCompany> list = response.getResult();
+                    if (!isLoadMore) {
+                        data.clear();
+                    }
+                    data.addAll(list);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    ToastUtil.show(getActivity(), response.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+                LoadingDialog.getInstance(getActivity()).dismiss();
+                id_swipe_ly.setRefreshing(false);
+            }
+        });
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -115,7 +116,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         fragments.add(fragment_mine);
         fragments.add(fragment_initiation);
         tab_find.setChecked(true);
-        initCourseLeftIcon();
+
         /**
          new UserServiceImpl().updateJpushId(AppConfig.getUid(preference), AppConfig.JPUSH_ID, new DefaultResponseListener<BaseResponse>() {
         @Override public void onSuccess(BaseResponse response) {
@@ -127,6 +128,7 @@ public class MainActivity extends BaseActivityWithToolBar {
         @Override public void onError(VolleyError error) {
         }
         });**/
+        initCourseLeftIcon();
         checkUpdate();
     }
 
@@ -510,11 +512,26 @@ public class MainActivity extends BaseActivityWithToolBar {
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
-                throw  new NullPointerException("exit");
+                throw new NullPointerException("exit");
             }
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
+    //
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        if (savedInstanceState != null) {
+//            //  String FRAGMENTS_TAG = "android:support:fragments";
+//            //  savedInstanceState.remove(FRAGMENTS_TAG);
+//            Fragment.SavedState savedState = savedInstanceState.getParcelable("android:support:fragments");
+//        }
+//    }
+//
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        
+    }
 }

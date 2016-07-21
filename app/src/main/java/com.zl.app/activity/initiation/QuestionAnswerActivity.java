@@ -80,7 +80,8 @@ public class QuestionAnswerActivity extends BaseActivityWithToolBar implements S
                 YyMobileQuestion ziluNews = data.get(position);
                 Intent intent = new Intent(QuestionAnswerActivity.this, WebDetailActivity.class);
                 intent.putExtra("url", ziluNews.getUrl());
-                intent.putExtra("title", ziluNews.getHeadline());
+                intent.putExtra("title", "咨路问答");
+                intent.putExtra("news_title", ziluNews.getHeadline());
                 intent.putExtra("questionId", ziluNews.getQuestionId());
                 intent.putExtra("showans", true);
                 startActivity(intent);

@@ -35,11 +35,11 @@ public class LoadingDialog {
     }
 
     public static LoadingDialog getInstance(Context context) {
-        if (loadingDialog == null) {
+        if (loadingDialog == null && context != null) {
             loadingDialog = new LoadingDialog(context);
         }
         //上下文发生改变 重新创建dialog
-        if (LoadingDialog.context != null && LoadingDialog.context != context) {
+        if (context != null && LoadingDialog.context != null && LoadingDialog.context != context) {
             Log.e("LoadingDialog", "context had been changed");
             loadingDialog = new LoadingDialog(context);
         }

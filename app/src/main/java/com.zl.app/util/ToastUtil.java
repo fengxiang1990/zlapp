@@ -21,11 +21,14 @@ public class ToastUtil {
 
     public static void show(Context context, String text) {
         mhandler.removeCallbacks(r);
-        if (mToast == null) {
+        if (mToast == null && context != null) {
             mToast = Toast.makeText(context, text, Toast.LENGTH_LONG);
         }
         mhandler.postDelayed(r, 1000);
-        mToast.show();
+        if (mToast != null) {
+            mToast.show();
+        }
+
     }
 
     public static void showToast(Context context, int strId) {

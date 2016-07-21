@@ -17,7 +17,6 @@
 package com.zl.app.util.net;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -103,7 +102,9 @@ public class GsonRequest<T> extends Request<T> {
             e.printStackTrace();
             return Response.error(new VolleyError(e));
         } finally {
-            Log.e(TAG, "the response is:" + StringUtil.replaceAllInvalid(jsonString));
+//            Log.e(TAG, "uid:" + mParams.get("uid"));
+//            Log.e(TAG, "url:" + getUrl());
+//            Log.e(TAG, "the response is:" + StringUtil.replaceAllInvalid(jsonString));
             if (StringUtil.replaceAllInvalid(jsonString).contains("请先登录账号")) {
                 Intent intent = new Intent(AppManager.context, LoginActivity_.class);
                 AppManager.context.startActivity(intent);

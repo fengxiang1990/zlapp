@@ -133,4 +133,14 @@ public class LoginActivity extends BaseActivityWithToolBar {
     }
 
 
+
+
+
+
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            throw new NullPointerException("exit");
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 }
