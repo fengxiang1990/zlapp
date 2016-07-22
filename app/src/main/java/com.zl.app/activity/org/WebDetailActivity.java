@@ -115,10 +115,17 @@ public class WebDetailActivity extends BaseActivityWithToolBar {
     @Override
     protected void onTextRight2Click() {
         super.onTextRight2Click();
-        Intent intent = new Intent(WebDetailActivity.this, SendAnswerActivity_.class);
-        intent.putExtra("title", title);
-        intent.putExtra("questionId", questionId);
-        startActivity(intent);
+        if (AppConfig.isLogin(preference)) {
+            Intent intent = new Intent(WebDetailActivity.this, SendAnswerActivity_.class);
+            intent.putExtra("title", title);
+            intent.putExtra("questionId", questionId);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(WebDetailActivity.this, LoginActivity_.class);
+            startActivity(intent);
+        }
+
+
     }
 
 
