@@ -25,6 +25,8 @@ public class WebDetailActivity extends BaseActivityWithToolBar {
     String news_title;
     String url;
     String cid;
+    String img;
+    String zhaiyao;
     boolean showshequan = false;
     boolean showqa = false;//是否显示问答入口
     boolean showans = false;//是否显示回答按钮
@@ -40,6 +42,8 @@ public class WebDetailActivity extends BaseActivityWithToolBar {
         news_title = getIntent().getStringExtra("news_title");
         url = getIntent().getStringExtra("url");
         cid = getIntent().getStringExtra("cid");
+        img = getIntent().getStringExtra("img");
+        zhaiyao = getIntent().getStringExtra("zhaiyao");
         showshequan = getIntent().getBooleanExtra("showshequan", false);
         showqa = getIntent().getBooleanExtra("showqa", false);
         showans = getIntent().getBooleanExtra("showans", false);
@@ -150,12 +154,12 @@ public class WebDetailActivity extends BaseActivityWithToolBar {
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
         oks.setTitleUrl("http://sharesdk.cn");
         // text是分享文本，所有平台都需要这个字段
-        oks.setText(news_title == null ? title : news_title);
+        oks.setText(zhaiyao == null ? title : zhaiyao);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(url);
-        oks.setImageUrl("http://a.hiphotos.bdimg.com/wisegame/pic/item/df315c6034a85edfede6183141540923dd5475be.jpg");
+        oks.setImageUrl(img != null ? img : "http://a.hiphotos.bdimg.com/wisegame/pic/item/df315c6034a85edfede6183141540923dd5475be.jpg");
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
         //oks.setComment("我是测试评论文本");
         // site是分享此内容的网站名称，仅在QQ空间使用

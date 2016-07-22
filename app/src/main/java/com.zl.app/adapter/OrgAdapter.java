@@ -31,6 +31,7 @@ public class OrgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public boolean isShowHeader = false;
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 10) {
@@ -43,40 +44,46 @@ public class OrgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return null;
     }
 
+
     @Override
     public int getItemViewType(int position) {
         //return super.getItemViewType(position);
-        if (position == 0 && isShowHeader) {
-            return 10; //菜单
+        if (isShowHeader) {
+            if (position == 0) {
+                return 10; //菜单
+            }
+            return 20; //机构
         }
-        return 20; //机构
+        return 20;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder1, int position) {
         if (holder1 instanceof ViewHolder) {
-            ViewHolder holder = (ViewHolder) holder1;
             final YyMobileCompany org = data.get(position);
-            if (StringUtil.isEmpty(org.getPicPath())) {
-                holder.img_org.setVisibility(View.GONE);
-            } else {
-                holder.img_org.setVisibility(View.VISIBLE);
-                Uri uri = Uri.parse(org.getPicPath());
-                holder.img_org.setImageURI(uri);
-            }
-            holder.text_org_name.setText(org.getCompanyname());
-            holder.text_score.setText(org.getGrade() + "");
-            holder.text_type.setText(org.getTypeName());
-            holder.text_juli.setText(org.getDistance().contains("千米") ? org.getDistance().replace("千米", "km") : org.getDistance());
-            holder.text_area1.setText(org.getAddress());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, OrgWeiSiteActivity.class);
-                    intent.putExtra("companyId", org.getCompanyId() + "");
-                    context.startActivity(intent);
+            ViewHolder holder = (ViewHolder) holder1;
+            if (org != null) {
+                if (StringUtil.isEmpty(org.getPicPath())) {
+                    holder.img_org.setVisibility(View.GONE);
+                } else {
+                    holder.img_org.setVisibility(View.VISIBLE);
+                    Uri uri = Uri.parse(org.getPicPath());
+                    holder.img_org.setImageURI(uri);
                 }
-            });
+                holder.text_org_name.setText(org.getCompanyname());
+                holder.text_score.setText(org.getGrade() + "");
+                holder.text_type.setText(org.getTypeName());
+                holder.text_juli.setText(org.getDistance().contains("千米") ? org.getDistance().replace("千米", "km") : org.getDistance());
+                holder.text_area1.setText(org.getAddress());
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, OrgWeiSiteActivity.class);
+                        intent.putExtra("companyId", org.getCompanyId() + "");
+                        context.startActivity(intent);
+                    }
+                });
+            }
         }
 
     }

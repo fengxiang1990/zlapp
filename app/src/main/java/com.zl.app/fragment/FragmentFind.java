@@ -3,7 +3,6 @@ package com.zl.app.fragment;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,21 +33,25 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.finalteam.loadingviewfinal.OnLoadMoreListener;
+import cn.finalteam.loadingviewfinal.RecyclerViewFinal;
+import cn.finalteam.loadingviewfinal.SwipeRefreshLayoutFinal;
+
 /**
  * 发现
  * Created by fengxiang on 2016/3/28.
  */
-@EFragment(R.layout.fragment_find)
-public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, OrgAdapter.OnHeaderMenuClickListener, BDLocationListener {
+@EFragment(R.layout.fragment_initiation)
+public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, OrgAdapter.OnHeaderMenuClickListener, BDLocationListener {
 
 
     String tag = FragmentFind.class.getName();
 
-    @ViewById
-    SwipeRefreshLayout id_swipe_ly;
+    @ViewById(R.id.swipe)
+    SwipeRefreshLayoutFinal id_swipe_ly;
 
     @ViewById(R.id.recyclerView)
-    RecyclerView recyclerView;
+    RecyclerViewFinal recyclerView;
 
     LinearLayoutManager layoutManager;
     OrgAdapter adapter;
@@ -58,10 +61,12 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
     int pageSize = 20;
     int pageNumber = 1;
     String uid;
-    public boolean isLoadMore = true;
+    public boolean isLoadMore = false;
 
     @AfterViews
     void afterViews() {
+        recyclerView.setOnLoadMoreListener(this);
+        recyclerView.setHasLoadMore(true);
         id_swipe_ly.setOnRefreshListener(this);
         data = new ArrayList<YyMobileCompany>();
         adapter = new OrgAdapter(getActivity(), data);
@@ -72,42 +77,42 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         homeService = new HomeServiceImpl();
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            //用来标记是否正在向最后一个滑动，既是否向右滑动或向下滑动
-            boolean isSlidingToLast = false;
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                // 当不滚动时
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    //获取最后一个完全显示的ItemPosition
-                    int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
-                    int totalItemCount = manager.getItemCount();
-
-                    // 判断是否滚动到底部，并且是向右滚动
-                    if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
-                        //加载更多功能的代码
-                        isLoadMore = true;
-                        pageNumber += 1;
-                        loadData();
-                    }
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
-                id_swipe_ly.setEnabled(topRowVerticalPosition >= 0);
-                //dx用来判断横向滑动方向，dy用来判断纵向滑动方向
-                //大于0表示，正在向右滚动
-//小于等于0 表示停止或向左滚动
-                isSlidingToLast = dy > 0;
-            }
-        });
+//        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+//            //用来标记是否正在向最后一个滑动，既是否向右滑动或向下滑动
+//            boolean isSlidingToLast = false;
+//
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//                // 当不滚动时
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    //获取最后一个完全显示的ItemPosition
+//                    int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
+//                    int totalItemCount = manager.getItemCount();
+//
+//                    // 判断是否滚动到底部，并且是向右滚动
+//                    if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
+//                        //加载更多功能的代码
+//                        isLoadMore = true;
+//                        pageNumber += 1;
+//                        loadData();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                int topRowVerticalPosition =
+//                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+//                id_swipe_ly.setEnabled(topRowVerticalPosition >= 0);
+//                //dx用来判断横向滑动方向，dy用来判断纵向滑动方向
+//                //大于0表示，正在向右滚动
+////小于等于0 表示停止或向左滚动
+//                isSlidingToLast = dy > 0;
+//            }
+//        });
         mLocationClient = ((MyApplication) getActivity().getApplication()).mLocationClient;
         mLocationClient.registerLocationListener(this);
         uid = AppConfig.getUid(AppManager.getPreferences());
@@ -194,11 +199,13 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
             @Override
             public void onSuccess(BaseResponse<List<YyMobileCompany>> response) {
                 LoadingDialog.getInstance(getActivity()).dismiss();
-                id_swipe_ly.setRefreshing(false);
+                id_swipe_ly.onRefreshComplete();
+                recyclerView.onLoadMoreComplete();
                 if (response.getStatus().equals(AppConfig.HTTP_OK)) {
                     List<YyMobileCompany> list = response.getResult();
                     if (!isLoadMore) {
                         data.clear();
+                        data.add(0, null);
                     }
                     data.addAll(list);
                     adapter.notifyDataSetChanged();
@@ -210,8 +217,16 @@ public class FragmentFind extends BaseFragment implements SwipeRefreshLayout.OnR
             @Override
             public void onError(VolleyError error) {
                 LoadingDialog.getInstance(getActivity()).dismiss();
-                id_swipe_ly.setRefreshing(false);
+                id_swipe_ly.onRefreshComplete();
+                recyclerView.onLoadMoreComplete();
             }
         });
+    }
+
+    @Override
+    public void loadMore() {
+        isLoadMore = true;
+        pageNumber += 1;
+        loadData();
     }
 }

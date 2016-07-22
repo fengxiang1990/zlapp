@@ -512,7 +512,8 @@ public class MainActivity extends BaseActivityWithToolBar {
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
-                throw new NullPointerException("exit");
+                //throw new NullPointerException("exit");
+                finish();
             }
             return true;
         }

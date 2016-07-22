@@ -78,6 +78,8 @@ public class FragmentInitiation extends BaseFragment implements SwipeRefreshLayo
             public void onItemClick(RecyclerView.ViewHolder holder, int position) {
                 YyMobileZiluNews ziluNews = data.get(position);
                 Intent intent = new Intent(getActivity(), WebDetailActivity.class);
+                intent.putExtra("img", ziluNews.getPicPath());
+                intent.putExtra("zhaiyao", ziluNews.getZhaiyao());
                 intent.putExtra("url", ziluNews.getUrl());
                 intent.putExtra("title", ziluNews.getHeadline());
                 intent.putExtra("showqa", true);
