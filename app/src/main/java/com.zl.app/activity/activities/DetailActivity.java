@@ -22,12 +22,13 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zl.app.R;
+import com.zl.app.activity.org.WebDetailActivity;
 import com.zl.app.base.BaseActivityWithToolBar;
 import com.zl.app.data.ActivityService;
-import com.zl.app.data.user.UserService;
-import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.data.model.activity.YyMobileActivity;
 import com.zl.app.data.model.activity.YyMobileActivityComment;
+import com.zl.app.data.user.UserService;
+import com.zl.app.data.user.UserServiceImpl;
 import com.zl.app.popwindow.PopSelectPicture;
 import com.zl.app.util.AppConfig;
 import com.zl.app.util.AppManager;
@@ -75,6 +76,9 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
     PopSelectPicture popSelectPicture;
 
     View headerView;
+    LinearLayout ll_text_act_detal;
+    TextView text_act_detail;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +87,7 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
         setBtnRight1ImageResource(R.mipmap.ac_join_member);
         uid = AppConfig.getUid(preference);
         userService = new UserServiceImpl();
-        headerView = LayoutInflater.from(this).inflate(R.layout.activity_activity_detail_header,null);
+        headerView = LayoutInflater.from(this).inflate(R.layout.activity_activity_detail_header, null);
         data = new ArrayList<YyMobileActivityComment>();
         popSelectPicture = new PopSelectPicture(this);
         popSelectPicture.setOnPicturePopClickListener(this);
@@ -97,15 +101,17 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
         listView.addHeaderView(headerView);
         listView.setAdapter(adapter);
         simpleDraweeView = (SimpleDraweeView) headerView.findViewById(R.id.simpleDraweeView);
+        ll_text_act_detal = (LinearLayout) headerView.findViewById(R.id.ll_text_act_detail);
+        text_act_detail = (TextView) headerView.findViewById(R.id.text_act_detail);
         text_name = (TextView) headerView.findViewById(R.id.text_name);
-        text_join = (TextView)headerView. findViewById(R.id.text_join);
-        text_location = (TextView)headerView. findViewById(R.id.text_location);
+        text_join = (TextView) headerView.findViewById(R.id.text_join);
+        text_location = (TextView) headerView.findViewById(R.id.text_location);
         text_time = (TextView) headerView.findViewById(R.id.text_time);
         text_count = (TextView) headerView.findViewById(R.id.text_count);
-        text_content = (TextView)headerView. findViewById(R.id.text_content);
+        text_content = (TextView) headerView.findViewById(R.id.text_content);
         edit_content = (EditText) findViewById(R.id.edit_content);
         text_comment = (TextView) findViewById(R.id.text_comment);
-        text_comment_count = (TextView)headerView. findViewById(R.id.text_comment_count);
+        text_comment_count = (TextView) headerView.findViewById(R.id.text_comment_count);
         img_take_pic = (ImageView) findViewById(R.id.img_take_pic);
         ll_comment = (LinearLayout) findViewById(R.id.ll_comment);
         ll_imgs = (LinearLayout) findViewById(R.id.ll_imgs);
@@ -113,6 +119,15 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
         img_close = (ImageView) findViewById(R.id.img_close);
         loadData();
 
+        text_act_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, WebDetailActivity.class);
+                intent.putExtra("url", "http://ziluedu.net/companyActivity/view-" + activity.getActivityId() + ".html");
+                intent.putExtra("title", activity.getHeadline());
+                startActivity(intent);
+            }
+        });
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,8 +155,8 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
                     //File file = CameraUtil.saveBitmapFile(bitmap);
                     //上传原图(超过500kb 无法上传)
                     //File file = CameraUtil.getFileByUri(DetailActivity.this,resultUri);
-                   //上传指定大小的图片
-                    Bitmap bitmap = CameraUtil.getBitmapFromUri(DetailActivity.this, resultUri,DEFAULT_IMG_WH,DEFAULT_IMG_WH);
+                    //上传指定大小的图片
+                    Bitmap bitmap = CameraUtil.getBitmapFromUri(DetailActivity.this, resultUri, DEFAULT_IMG_WH, DEFAULT_IMG_WH);
                     File file = CameraUtil.saveBitmapFile(bitmap);
                     LoadingDialog.getInstance(DetailActivity.this).setTitle("发送中...").show();
                     userService.uploadUserHeadImg(uid, file, new DefaultResponseListener<String>() {
@@ -218,7 +233,7 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
     }
 
     @Override
-    protected void onBtnRight1Click(){
+    protected void onBtnRight1Click() {
         Intent intent = new Intent(DetailActivity.this, JoinMembersActivity.class);
         intent.putExtra("id", activityId + "");
         startActivity(intent);
@@ -280,6 +295,11 @@ public class DetailActivity extends BaseActivityWithToolBar implements PopSelect
                         text_join.setText("取消报名");
                     } else if (isjoin == 3) {
                         text_join.setText("报名参加");
+                    }
+                    if (!TextUtils.isEmpty(activity.getContent())) {
+                        ll_text_act_detal.setVisibility(View.VISIBLE);
+                    } else {
+                        ll_text_act_detal.setVisibility(View.GONE);
                     }
                     if (activity.getUserId() == AppConfig.getUserId(AppManager.getPreferences())) {
                         text_join.setVisibility(View.GONE);
